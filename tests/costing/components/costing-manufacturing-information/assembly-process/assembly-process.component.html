@@ -1,0 +1,125 @@
+<div [formGroup]="formGroup">
+  <div class="card">
+    <div class="card-header">Assembly Cost Details</div>
+    <div class="card-body">
+      <ng-container formArrayName="subProcessList">
+        <ng-container *ngFor="let subitem of subProcessFormArray?.controls; let index = index">
+          <div [formGroupName]="index">
+            <div class="row">
+              <div class="col-4">
+                <label class="form-label no-wrap">Sub Process Group:</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'subProcessTypeID'"></app-field-comment>
+                <select
+                  formControlName="subProcessTypeID"
+                  [ngClass]="{ 'input-mandatory': f.subProcessTypeID.errors, 'input-valid': f.subProcessTypeID.valid }"
+                  class="form-control"
+                  (change)="setFormBasedOnSubProcessType($event, index)">
+                  <option value="" selected>-------Select Sub Process Group---------</option>
+                  <option *ngFor="let item of subProcessNamesList" value="{{ item.id }}">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="col-6"></div>
+              <div class="col-2" style="justify-content: end" *ngIf="index > 0">
+                <a href="javascript:void(0)" (click)="onDeleteSubProcess(index)">
+                  <mat-icon>delete</mat-icon>
+                </a>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="subitem?.get('isPickAndPlaceParts')?.value">
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">No. of Manf. parts</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formLength'"></app-field-comment>
+                <input type="number" formControlName="formLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">No. of Purchased parts</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formHeight'"></app-field-comment>
+                <input type="number" formControlName="formHeight" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Assembly Type</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formPerimeter'"></app-field-comment>
+                <select formControlName="formPerimeter" class="form-control">
+                  <option value="" selected>-------Select Assembly Type---------</option>
+                  <option *ngFor="let com of complexityList" value="{{ com.id }}">
+                    {{ com.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="subitem?.get('isPickAndPlaceParts')?.value">
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Assembly Loading Time(Sec)</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'hlFactor'"></app-field-comment>
+                <input type="number" formControlName="hlFactor" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Assembly Unloading Time(Sec)</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'lengthOfCut'"></app-field-comment>
+                <input type="number" formControlName="lengthOfCut" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Pick & place cycle time(Sec)</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'bendingLineLength'"></app-field-comment>
+                <input type="number" formControlName="bendingLineLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+            </div>
+
+            <div class="row" *ngIf="!subitem?.get('isPickAndPlaceParts')?.value">
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Repeat Count</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formLength'"></app-field-comment>
+                <input type="number" formControlName="formLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Handling difficulties</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formHeight'"></app-field-comment>
+                <select formControlName="formHeight" class="form-control" (change)="calculateCost()">
+                  <option value="" selected>-------Select Handling difficulty---------</option>
+                  <option *ngFor="let item of handlingDifficultiesList" value="{{ item.id }}">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Insertion difficulties</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'formPerimeter'"></app-field-comment>
+                <select formControlName="formPerimeter" class="form-control" (change)="calculateCost()">
+                  <option value="" selected>-------Select Insertion difficulty---------</option>
+                  <option *ngFor="let item of insertionDifficultiesList" value="{{ item.id }}">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="!subitem?.get('isPickAndPlaceParts')?.value">
+              <div class="col-4 mt-3">
+                <label class="form-label no-wrap">Cycle time(Sec)</label>
+                <app-field-comment [formIdentifier]="assemblyVals.formIdentifier" [fieldIdentifier]="'bendingLineLength'"></app-field-comment>
+                <input type="number" formControlName="bendingLineLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+              </div>
+            </div>
+          </div>
+          <hr class="devider" />
+        </ng-container>
+      </ng-container>
+
+      <div class="col-12 links-block" style="justify-content: end">
+        <a class="link-info" (click)="addMore()">Add Process</a>
+      </div>
+    </div>
+
+    <ng-template #popContent>
+      <div [innerHTML]="popupName"></div>
+      <div class="div-img" *ngIf="popupUrl">
+        <img alt="" class="img-class" [src]="popupUrl" />
+      </div>
+    </ng-template>
+  </div>
+</div>

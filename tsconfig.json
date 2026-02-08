@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "@pages/*": [
+                "pageFactory/pageRepository/*"
+            ],
+            "@objects/*": [
+                "pageFactory/objectRepository/*"
+            ],
+            "@lib/*": [
+                "lib/*"
+            ],
+            "testConfig": [
+                "testConfig.ts"
+            ]
+        },
+        "outDir": "dist"
+    },
+    "include": [
+        "tests/**/*.ts",
+       
+       "~/.gemini/settings.json.ts",
+        "testConfig.ts"
+    ]
+}

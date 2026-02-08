@@ -1,0 +1,19 @@
+2026/02/08-01:32:14.304 1630 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-all-categories\Default\Session Storage/MANIFEST-000001
+2026/02/08-01:32:14.317 1630 Recovering log #3
+2026/02/08-01:32:14.323 1630 Level-0 table #3: started
+2026/02/08-01:32:14.350 1630 Level-0 table #3: 18446 bytes OK
+2026/02/08-01:32:14.352 1630 Recovering log #4
+2026/02/08-01:32:14.358 1630 Level-0 table #4: started
+2026/02/08-01:32:14.382 1630 Level-0 table #4: 17108 bytes OK
+2026/02/08-01:32:14.402 1630 Delete type=0 #3
+2026/02/08-01:32:14.403 1630 Delete type=0 #4
+2026/02/08-01:32:14.403 1630 Delete type=2 #5
+2026/02/08-01:33:42.698 1630 Level-0 table #7: started
+2026/02/08-01:33:42.716 1630 Level-0 table #7: 19063 bytes OK
+2026/02/08-01:33:42.723 1630 Delete type=0 #5
+2026/02/08-01:33:44.550 5828 Level-0 table #9: started
+2026/02/08-01:33:44.569 1630 Current memtable full; waiting...
+2026/02/08-01:33:44.590 5828 Level-0 table #9: 27902 bytes OK
+2026/02/08-01:33:44.595 5828 Delete type=0 #6
+2026/02/08-01:33:44.598 5828 Compacting 4@0 + 0@1 files
+2026/02/08-01:33:44.611 5828 compacted to: files[ 4 0 0 0 0 0 0 ]

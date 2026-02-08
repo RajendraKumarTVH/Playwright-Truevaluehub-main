@@ -1,0 +1,30 @@
+2025-11-23T17:39:06+05:30 [error]: Welding Material validatio failed:[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator('#_matmoredetailsCore > div > div.card-body > div:nth-child(2) > div.row.p-t-1 > div.col-4.icon-btn > h6')
+Expected: visible
+Timeout: 300ms
+Error: element(s) not found
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 300ms[22m
+[2m  - waiting for locator('#_matmoredetailsCore > div > div.card-body > div:nth-child(2) > div.row.p-t-1 > div.col-4.icon-btn > h6')[22m
+
+2025-11-23T17:39:06+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: getByText('Material Cost Details')
+Expected: visible
+Timeout: 300ms
+Error: element(s) not found
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 300ms[22m
+[2m  - waiting for getByText('Material Cost Details')[22m
+
+2025-11-23T19:27:28+05:30 [error]: ❗ Error in verifyMaterialSelection: Error: locator.selectOption: Target page, context or browser has been closed
+Call log:
+[2m  - waiting for locator('select[formcontrolname=\'matPrimaryProcessName\']')[22m
+
+2025-11-23T19:27:28+05:30 [error]: ❌ verifyPartDetails FAILED: locator._expect: Target page, context or browser has been closed
+2025-11-23T19:27:28+05:30 [error]: Welding details 1 validation failed: locator._expect: Target page, context or browser has been closed
+2025-11-23T19:27:29+05:30 [error]: Welding Material validatio failed:locator._expect: Target page, context or browser has been closed
+2025-11-23T19:27:29+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: locator._expect: Target page, context or browser has been closed

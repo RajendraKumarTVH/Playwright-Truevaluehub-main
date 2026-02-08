@@ -1,0 +1,5 @@
+2026/01/20-16:58:36.526 86e4 Creating DB C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-tooling\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/01/20-16:58:36.767 86e4 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-tooling\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/01/20-16:58:38.029 8da8 Level-0 table #5: started
+2026/01/20-16:58:38.033 8da8 Level-0 table #5: 681275 bytes OK
+2026/01/20-16:58:38.034 8da8 Delete type=0 #3

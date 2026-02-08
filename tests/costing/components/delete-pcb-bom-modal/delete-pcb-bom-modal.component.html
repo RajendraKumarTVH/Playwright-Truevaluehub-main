@@ -1,0 +1,134 @@
+<div class="modal-header !pb-2">
+  <h5 class="modal-title">Delete From BOM</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+<div class="modal-body !pt-2">
+  <div class="text-xs text-black mb-2">Select the components to delete from the BOM</div>
+  <div class="common-table-container">
+    <div class="common-table-inner-wrap">
+      <div class="table-container flex flex-col">
+        <p-table
+          [value]="boardComponents"
+          [tableStyle]="{ 'min-width': '75rem' }"
+          styleClass="p-datatable-striped"
+          [paginator]="false"
+          [scrollable]="true"
+          scrollHeight="flex"
+          class="custom-p-table bom-custom-table">
+          <ng-template pTemplate="header">
+            <tr>
+              <th id="number" class="text-right sticky-col sticky-left !pr-4">
+                <div class="flex items-start !pl-1">
+                  <p-checkbox binary="true" class="all-select w-[18px] h-[18px] flex items-start justify-center"></p-checkbox>
+                  <span class="ml-1">#</span>
+                </div>
+              </th>
+              <th id="mpn" class="min-w-44 sticky-col sticky-mpn">
+                <div class="flex flex-column">
+                  <div class="p-d-flex p-jc-between p-ai-center">
+                    <span>MPN</span>
+                    <p-columnFilter field="mpn" matchMode="contains" display="row" placeholder="Search MPN"></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+              <th id="partMatch" class="min-w-32">
+                <span>Part Match</span>
+                <p-columnFilter field="partMatch" matchMode="equals" display="row">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown [options]="bomStatus" optionLabel="name" optionValue="id" [ngModel]="value" placeholder="Select" (onChange)="filter($event.value)"></p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th id="partImage" class="min-w-20 text-center !px-4">Part Image</th>
+              <th id="qty">Qty</th>
+              <th id="uom">UOM</th>
+              <th id="family">
+                <span>Family</span>
+                <p-columnFilter field="Family" matchMode="equals" display="row">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown
+                      [options]="subCommodityList"
+                      optionLabel="subCategoryName"
+                      optionValue="subCategoryId"
+                      [ngModel]="value"
+                      placeholder="Select"
+                      (onChange)="filter($event.value)"></p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th id="type">
+                <span>Type</span>
+                <p-columnFilter field="standardCustom" matchMode="equals" display="row">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown [options]="standardCustomList" optionLabel="name" optionValue="name" [ngModel]="value" placeholder="Select" (onChange)="filter($event.value)"></p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th id="status">
+                <span>Status</span>
+                <p-columnFilter field="partStatus" matchMode="equals" display="row">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown [options]="partStatusList" optionLabel="name" optionValue="name" [ngModel]="value" placeholder="Select" (onChange)="filter($event.value)"></p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th id="preferredDistributor" class="min-w-36">
+                <span>Preferred Distributor</span>
+                <p-columnFilter field="preferredDistributor" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+              </th>
+              <th id="unitPrice" class="text-right min-w-16">Unit Price</th>
+              <th id="extendedPrice" class="text-right">Extended Price($)</th>
+              <th id="currentUnitPrice" class="text-right">Current Unit Price</th>
+              <th id="savingsOpp" class="text-right">Savings Opp./part</th>
+              <th id="annualSavingsOpp" class="text-right">Annual Savings Opp./part</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+              <td class="sticky-col sticky-left !pr-4">
+                <div class="flex align-items-center gap-2 !pl-1">
+                  <p-checkbox [(ngModel)]="item.selected" (change)="fieldsChange($event, item)" binary="true" class="edit-checkbox flex items-center justify-center"></p-checkbox>
+                  <span class="ml-1">{{ i + 1 }}</span>
+                </div>
+              </td>
+              <td class="min-w-44 sticky-col sticky-mpn">
+                {{ item.mpn }}
+              </td>
+              <td
+                class="min-w-24"
+                [ngClass]="{
+                  partial: item.partMatch === 2,
+                  'no-match': item.partMatch === 3,
+                }">
+                {{ item.partMatch === 1 ? 'Direct' : item.partMatch === 2 ? 'Partial' : 'No Match' }}
+              </td>
+              <td class="min-w-20 text-center !px-4">
+                <div class="img-div w-9 h-9">
+                  <img src="{{ item.image }}" alt="Part image" class="w-full h-full" (error)="item.image = 'assets/images/no-image-available.png'" />
+                </div>
+              </td>
+              <td>{{ item.partQty }}</td>
+              <td>
+                <span class="font-semibold">{{ item.unitOfMeasure }}</span>
+              </td>
+              <td></td>
+              <td>{{ item.standardOrCustom }}</td>
+              <td>{{ item.partStatus }}</td>
+              <td>{{ item.supplier }}</td>
+              <td>{{ _shareService.isValidNumber(item.currentCost) }}</td>
+              <td>{{ _shareService.isValidNumber(item.extendedCost) }}</td>
+              <td>{{ _shareService.isValidNumber(item.targetCost) }}</td>
+              <td>{{ _shareService.isValidNumber(item.savingOpp) }}</td>
+              <td>{{ _shareService.isValidNumber(item.annualSavingOpp || item.annualSavings) }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer flex items-center justify-end !pt-5">
+  <div class="font-semibold text-black text-sm mr-2">{{ selectedItems?.lenth }} selected</div>
+  <button type="button" class="btn btn-outline-primary min-w-36" (click)="onCancel()">Cancel</button>
+  <button type="button" class="btn btn-primary min-w-36" (click)="onDelete()">Delete Selected</button>
+</div>

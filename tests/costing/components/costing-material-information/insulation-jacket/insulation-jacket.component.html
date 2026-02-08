@@ -1,0 +1,51 @@
+<ng-container [formGroup]="formGroup">
+  <div class="card mt-3">
+    <div class="card-header">Part Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Envelope Length ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'length'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="length" [OnlyNumber]="true" placeholder="Envelope Length" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Envelope Width ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'width'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="width" [OnlyNumber]="true" placeholder="Width" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Envelope Height ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'height'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="height" [OnlyNumber]="true" placeholder="Height" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Perimeter of Part ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}) :</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'perimeter'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="perimeter" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4 mt-3 position-relative">
+          <label class="form-label no-wrap">Area of Cross-section of Part ({{ compVals.isEnableUnitConversion ? compVals.conversionValue + '^2' : 'mm^2' }}) :</label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+          <input type="number" class="form-control" placeholder="Enter Area" [OnlyNumber]="true" formControlName="partProjectArea" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Part Volume ({{ compVals.isEnableUnitConversion ? compVals.conversionValue + '^3' : 'mm^3' }}):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Material Cost/Part($):</label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="grossMaterialCost" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Scrap Recovery Cost/Part($):</label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="scrapRecCost" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Net Material Cost ($):</label>
+          <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

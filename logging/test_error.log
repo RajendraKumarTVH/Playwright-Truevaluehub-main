@@ -1,0 +1,69 @@
+2026-01-18T12:24:27+05:30 [error]: ❌ Login verification failed.
+2026-01-18T12:24:27+05:30 [error]: Current URL: https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.onmicrosoft.com%2F9ce2bc1c-e0bf-4275-9f88-dcce28502d59%2FFullAccess%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fqa.truevaluehub.com%2F&client-request-id=019bcfe1-aeb1-75e3-98b8-f3318a950032&response_mode=fragment&client_info=1&nonce=019bcfe1-aeb8-73b8-a636-919717048a87&state=eyJpZCI6IjAxOWJjZmUxLWFlYjMtNzAxMS1hNmQ5LWZkMjc4NzgxNWQ1ZSIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&x-client-SKU=msal.js.browser&x-client-VER=4.28.0&response_type=code&code_challenge=cXytgcX6ZVASTrTX1m7-kLw17A2aKLbfvJffJj8z5Fo&code_challenge_method=S256
+2026-01-18T12:26:50+05:30 [error]: ❌ Expected page title to match /Trues*ValueHub/i but got "Sign up or sign in"
+2026-01-18T12:28:38+05:30 [error]: ❌ Login verification failed.
+2026-01-18T12:28:38+05:30 [error]: Current URL: https://qa.truevaluehub.com/home/overview
+2026-01-18T12:41:10+05:30 [error]: ❌ Login verification failed.
+2026-01-18T12:41:10+05:30 [error]: Current URL: https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.onmicrosoft.com%2F9ce2bc1c-e0bf-4275-9f88-dcce28502d59%2FFullAccess%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fqa.truevaluehub.com%2F&client-request-id=019bcff0-fbb3-7053-b065-07e9375d313d&response_mode=fragment&client_info=1&nonce=019bcff0-fbb5-7fd1-9810-e4e7cfed4a4d&state=eyJpZCI6IjAxOWJjZmYwLWZiYjQtNzA3OC1hZTFhLTBhODYzNTQwOTgxMiIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&x-client-SKU=msal.js.browser&x-client-VER=4.28.0&response_type=code&code_challenge=LK8uE2-I1gs_IP2FNOATignEknmPNi9Q8-9fc5SnQPw&code_challenge_method=S256
+2026-01-18T13:43:26+05:30 [error]: ❌ Login verification failed.
+2026-01-18T13:43:26+05:30 [error]: Current URL: https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.onmicrosoft.com%2F9ce2bc1c-e0bf-4275-9f88-dcce28502d59%2FFullAccess%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fqa.truevaluehub.com%2F&client-request-id=019bd029-ff88-7f7b-bb75-ee9267c00153&response_mode=fragment&client_info=1&nonce=019bd029-ff8e-72cd-b52a-b011dfb31a4b&state=eyJpZCI6IjAxOWJkMDI5LWZmOGItNzMwMS05NmJmLTc3MjYwMGVlZDdhNSIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&x-client-SKU=msal.js.browser&x-client-VER=4.28.0&response_type=code&code_challenge=nZMK0CThqj1DejplnU3cyJPXod03eCnrIrozyaaJkW4&code_challenge_method=S256
+2026-01-18T13:44:34+05:30 [error]: ❌ Login verification failed.
+2026-01-18T13:44:34+05:30 [error]: Current URL: https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.onmicrosoft.com%2F9ce2bc1c-e0bf-4275-9f88-dcce28502d59%2FFullAccess%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fqa.truevaluehub.com%2F&client-request-id=019bd02b-0dc1-7c41-8d22-8e21de6542ea&response_mode=fragment&client_info=1&nonce=019bd02b-0dc3-7d67-8307-63c1b24f6162&state=eyJpZCI6IjAxOWJkMDJiLTBkYzItNzYwZS05YmViLWViMjRjMWRjMjVkOCIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&x-client-SKU=msal.js.browser&x-client-VER=4.28.0&response_type=code&code_challenge=n9UgsTPETVGHJ1mv-fX3TISaMHT8Kh2DMCbHE-yr5IA&code_challenge_method=S256
+2026-01-18T22:26:18+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+[2m    - waiting for" https://qa.truevaluehub.com/" navigation to finish...[22m
+[2m    - navigated to "https://qa.truevaluehub.com/#state=eyJpZCI6IjAxOWJkMjA5LTA2OTQtN2FjYy1iNDIxLTQxZWYwMzZkNjMyZiIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d&client_info=eyJ1aWQiOiJlN2U5MWEzZS1kY2ZmLTQ2YTctO…"[22m
+
+2026-01-18T23:23:18+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/B2C_1_B2C_SignUpSignIn/api/CombinedSigninAndSignup/unified?claimsexchange=TrueValueHubSSO&csrf_token=K3NsNmo0anBoRXJuSXBXbW5WTkx1W…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+
+2026-01-18T23:47:52+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/B2C_1_B2C_SignUpSignIn/api/CombinedSigninAndSignup/unified?claimsexchange=TrueValueHubSSO&csrf_token=ME5nK0xwU1FqWjduWUZXYVFqdTRNc…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+[2m    - waiting for" https://qa.truevaluehub.com/" navigation to finish...[22m
+[2m    - navigated to "https://qa.truevaluehub.com/#state=eyJpZCI6IjAxOWJkMjUzLWIzNzUtNzJhMi04OTkxLTJiYTU2ZjE3NjRhZSIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d&client_info=eyJ1aWQiOiJlN2U5MWEzZS1kY2ZmLTQ2YTctO…"[22m
+
+2026-01-19T01:22:58+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+
+2026-01-19T18:30:14+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+[2m    - waiting for" https://qa.truevaluehub.com/login-failed" navigation to finish...[22m
+[2m    - navigated to "https://qa.truevaluehub.com/login-failed"[22m
+
+2026-01-19T19:34:31+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+
+2026-01-19T19:39:55+05:30 [error]: ❌ Failed during SSO login: locator.scrollIntoViewIfNeeded: Element is not attached to the DOM
+Call log:
+[2m  - attempting scroll into view action[22m
+[2m    - waiting for element to be stable[22m
+
+2026-01-24T00:14:41+05:30 [error]: ❌ Login verification failed
+2026-01-24T00:14:41+05:30 [error]: 🌐 Current URL: https://qa.truevaluehub.com/login-failed
+2026-01-24T00:15:07+05:30 [error]: ❌ Failed during SSO login: locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[name="Username"]') to be visible[22m
+[2m    - waiting for" https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+[2m    - waiting for" https://qa.truevaluehub.com/login-failed" navigation to finish...[22m
+
+2026-02-03T12:53:31+05:30 [error]: ❌ Login verification failed
+2026-02-03T12:53:31+05:30 [error]: 🌐 Current URL: https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.onmicrosoft.com%2F9ce2bc1c-e0bf-4275-9f88-dcce28502d59%2FFullAccess%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Fqa.truevaluehub.com%2F&client-request-id=019c2262-5e92-756d-acfc-9f22488f26a2&response_mode=fragment&client_info=1&nonce=019c2262-5e95-7506-a65d-b234b8c623d6&state=eyJpZCI6IjAxOWMyMjYyLTVlOTQtNzhhNC1hOWYxLTFhZTcwMDQyNzUxNCIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&x-client-SKU=msal.js.browser&x-client-VER=4.28.0&response_type=code&code_challenge=2r75q4BvGc-U9ZVIKIbTwNMI2bP53M2C4C6kDUTfBcQ&code_challenge_method=S256

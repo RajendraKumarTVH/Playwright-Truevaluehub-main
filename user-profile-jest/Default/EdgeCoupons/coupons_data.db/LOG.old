@@ -1,0 +1,15 @@
+2026/01/18-08:00:48.066 75c Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/01/18-08:00:48.069 75c Recovering log #68
+2026/01/18-08:00:48.069 75c Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\EdgeCoupons/coupons_data.db/000068.log 
+2026/01/18-08:00:49.361 4b38 Level-0 table #72: started
+2026/01/18-08:00:49.366 4b38 Level-0 table #72: 681372 bytes OK
+2026/01/18-08:00:49.368 4b38 Delete type=0 #68
+2026/01/18-08:00:49.369 4b38 Compacting 4@0 + 1@1 files
+2026/01/18-08:00:49.381 4b38 Generated table #73@0: 3 keys, 681372 bytes
+2026/01/18-08:00:49.382 4b38 Compacted 4@0 + 1@1 files => 681372 bytes
+2026/01/18-08:00:49.382 4b38 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/01/18-08:00:49.384 4b38 Delete type=2 #60
+2026/01/18-08:00:49.384 4b38 Delete type=2 #63
+2026/01/18-08:00:49.384 4b38 Delete type=2 #66
+2026/01/18-08:00:49.384 4b38 Delete type=2 #69
+2026/01/18-08:00:49.385 4b38 Delete type=2 #72

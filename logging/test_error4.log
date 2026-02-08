@@ -1,0 +1,133 @@
+2025-11-15T14:31:54+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: locator.click: Error: strict mode violation: locator('select[formcontrolname="matPrimaryProcessName"] option') resolved to 31 elements:
+    1) <option value="" selected _ngcontent-ng-c1935132339="">Select Process Group</option> aka getByRole('combobox').nth(4)
+    2) <option value="10" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Laser  </option> aka getByRole('combobox').nth(4)
+    3) <option value="11" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Oxy  </option> aka getByRole('combobox').nth(4)
+    4) <option value="12" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Plasma  </option> aka getByRole('combobox').nth(4)
+    5) <option value="13" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Water Jet </option> aka getByRole('combobox').nth(4)
+    6) <option value="14" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Progressive </option> aka getByRole('combobox').nth(4)
+    7) <option value="15" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Stage </option> aka getByRole('combobox').nth(4)
+    8) <option value="16" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Turret Punch (TPP) </option> aka getByRole('combobox').nth(4)
+    9) <option value="50" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Blank Sheet </option> aka getByRole('combobox').nth(4)
+    10) <option value="102" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Transfer - Press </option> aka getByRole('combobox').nth(4)
+    ...
+
+Call log:
+[2m  - waiting for locator('select[formcontrolname="matPrimaryProcessName"] option')[22m
+
+2025-11-15T14:56:12+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T14:56:33+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+
+2025-11-15T14:56:45+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: locator.click: Error: strict mode violation: locator('select[formcontrolname="matPrimaryProcessName"] option') resolved to 31 elements:
+    1) <option value="" selected _ngcontent-ng-c1935132339="">Select Process Group</option> aka getByRole('combobox').nth(4)
+    2) <option value="10" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Laser  </option> aka getByRole('combobox').nth(4)
+    3) <option value="11" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Oxy  </option> aka getByRole('combobox').nth(4)
+    4) <option value="12" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Plasma  </option> aka getByRole('combobox').nth(4)
+    5) <option value="13" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Water Jet </option> aka getByRole('combobox').nth(4)
+    6) <option value="14" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Progressive </option> aka getByRole('combobox').nth(4)
+    7) <option value="15" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Stage </option> aka getByRole('combobox').nth(4)
+    8) <option value="16" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Turret Punch (TPP) </option> aka getByRole('combobox').nth(4)
+    9) <option value="50" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Blank Sheet </option> aka getByRole('combobox').nth(4)
+    10) <option value="102" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Transfer - Press </option> aka getByRole('combobox').nth(4)
+    ...
+
+Call log:
+[2m  - waiting for locator('select[formcontrolname="matPrimaryProcessName"] option')[22m
+
+2025-11-15T16:48:53+05:30 [error]: ❌ Login failed: Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://qa.truevaluehub.com/
+Call log:
+[2m  - navigating to "https://qa.truevaluehub.com/", waiting until "load"[22m
+
+2025-11-15T16:49:02+05:30 [error]: ❌ Login failed: Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://qa.truevaluehub.com/
+Call log:
+[2m  - navigating to "https://qa.truevaluehub.com/", waiting until "load"[22m
+
+2025-11-15T16:49:09+05:30 [error]: ❌ Login failed: Error: page.goto: net::ERR_INTERNET_DISCONNECTED at https://qa.truevaluehub.com/
+Call log:
+[2m  - navigating to "https://qa.truevaluehub.com/", waiting until "load"[22m
+
+2025-11-15T16:53:25+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T16:53:46+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+
+2025-11-15T16:53:57+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: locator.click: Error: strict mode violation: locator('select[formcontrolname="matPrimaryProcessName"] option') resolved to 31 elements:
+    1) <option value="" selected _ngcontent-ng-c1935132339="">Select Process Group</option> aka getByRole('combobox').nth(4)
+    2) <option value="10" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Laser  </option> aka getByRole('combobox').nth(4)
+    3) <option value="11" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Oxy  </option> aka getByRole('combobox').nth(4)
+    4) <option value="12" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Plasma  </option> aka getByRole('combobox').nth(4)
+    5) <option value="13" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Water Jet </option> aka getByRole('combobox').nth(4)
+    6) <option value="14" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Progressive </option> aka getByRole('combobox').nth(4)
+    7) <option value="15" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Stage </option> aka getByRole('combobox').nth(4)
+    8) <option value="16" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Turret Punch (TPP) </option> aka getByRole('combobox').nth(4)
+    9) <option value="50" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Blank Sheet </option> aka getByRole('combobox').nth(4)
+    10) <option value="102" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Transfer - Press </option> aka getByRole('combobox').nth(4)
+    ...
+
+Call log:
+[2m  - waiting for locator('select[formcontrolname="matPrimaryProcessName"] option')[22m
+
+2025-11-15T16:58:18+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T16:58:39+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+
+2025-11-15T16:58:52+05:30 [error]: ❗ Error in verifyMaterialInformation: Error: locator.click: Error: strict mode violation: locator('select[formcontrolname="matPrimaryProcessName"] option') resolved to 31 elements:
+    1) <option value="" selected _ngcontent-ng-c1935132339="">Select Process Group</option> aka getByRole('combobox').nth(4)
+    2) <option value="10" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Laser  </option> aka getByRole('combobox').nth(4)
+    3) <option value="11" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Oxy  </option> aka getByRole('combobox').nth(4)
+    4) <option value="12" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Plasma  </option> aka getByRole('combobox').nth(4)
+    5) <option value="13" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Cutting - Water Jet </option> aka getByRole('combobox').nth(4)
+    6) <option value="14" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Progressive </option> aka getByRole('combobox').nth(4)
+    7) <option value="15" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Stamping - Stage </option> aka getByRole('combobox').nth(4)
+    8) <option value="16" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Turret Punch (TPP) </option> aka getByRole('combobox').nth(4)
+    9) <option value="50" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Blank Sheet </option> aka getByRole('combobox').nth(4)
+    10) <option value="102" class="ng-star-inserted" _ngcontent-ng-c1935132339=""> Transfer - Press </option> aka getByRole('combobox').nth(4)
+    ...
+
+Call log:
+[2m  - waiting for locator('select[formcontrolname="matPrimaryProcessName"] option')[22m
+
+2025-11-15T17:07:31+05:30 [error]: ❌ Delivery Category validation failed: Suggested Category is missing in Costing Notes.
+2025-11-15T17:07:31+05:30 [error]: ❌ Validation failed: ❌ Part Number "1023729" not found in Costing Notes.
+2025-11-15T17:08:15+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m

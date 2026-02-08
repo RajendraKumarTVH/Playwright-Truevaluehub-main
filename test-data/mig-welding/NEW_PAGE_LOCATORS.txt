@@ -1,0 +1,33 @@
+// ADD THESE LOCATORS TO mig-welding.page.ts
+
+// ==================== COST SECTION LOCATORS ====================
+readonly Cost = this.page.locator('//a[contains(@class, "nav-link") and contains(text(), "Cost")]')
+
+// Cost Breakdown Fields
+readonly MaterialCost = this.page.locator('input[formcontrolname="materialCost"]')
+readonly ManufacturingCost = this.page.locator('input[formcontrolname="manufacturingCost"]')
+readonly ToolingCost = this.page.locator('input[formcontrolname="toolingCost"]')
+readonly OverheadProfit = this.page.locator('input[formcontrolname="overheadProfit"]')
+readonly PackingCost = this.page.locator('input[formcontrolname="packingCost"]')
+readonly ExwPartCost = this.page.locator('input[formcontrolname="exwPartCost"]')
+readonly FreightCost = this.page.locator('input[formcontrolname="freightCost"]')
+readonly DutiesTariff = this.page.locator('input[formcontrolname="dutiesTariff"]')
+readonly PartShouldCost = this.page.locator('input[formcontrolname="partShouldCost"]')
+
+// Cost Percentages (if needed)
+readonly MaterialCostPercent = this.page.locator('input[formcontrolname="materialCostPercent"]')
+readonly ManufacturingCostPercent = this.page.locator('input[formcontrolname="manufacturingCostPercent"]')
+
+// ==================== ESG SECTION LOCATORS ====================
+readonly ESG = this.page.locator('//a[contains(@class, "nav-link") and contains(text(), "ESG")]')
+
+readonly TotalPartESG = this.page.locator('input[formcontrolname="totalPartESG"], input[formcontrolname="partESG"]')
+readonly AnnualESG = this.page.locator('input[formcontrolname="annualESG"]')
+readonly LifetimeESG = this.page.locator('input[formcontrolname="lifetimeESG"]')
+
+// ==================== OPPORTUNITY SECTION LOCATORS ====================
+readonly ShouldCostOpportunity = this.page.locator('input[formcontrolname="shouldCost"]')
+readonly CurrentCost = this.page.locator('input[formcontrolname="currentCost"]')
+readonly UnitOpportunity = this.page.locator('input[formcontrolname="unitOpportunity"]')
+readonly AnnualOpportunity = this.page.locator('input[formcontrolname="annualOpportunity"]')
+readonly LifetimeOpportunity = this.page.locator('input[formcontrolname="lifetimeOpportunity"]')

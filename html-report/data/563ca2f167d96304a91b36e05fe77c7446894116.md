@@ -1,0 +1,1864 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - banner [ref=e6]:
+        - generic [ref=e7]: True ValueHub
+        - generic [ref=e8]:
+          - img [ref=e9] [cursor=pointer]:
+            - img [ref=e10]
+          - textbox "Search" [ref=e14]:
+            - /placeholder: Search...
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - img [ref=e18]:
+              - img [ref=e19]
+            - img [ref=e25]:
+              - img [ref=e26]
+          - generic [ref=e32]:
+            - generic [ref=e33]: Rajendra
+            - button [ref=e34] [cursor=pointer]:
+              - img [ref=e35]: keyboard_arrow_down
+      - text: 
+    - generic [ref=e37]:
+      - navigation [ref=e39]:
+        - list [ref=e40]:
+          - listitem [ref=e41]:
+            - link "Home" [ref=e42] [cursor=pointer]:
+              - /url: /home
+              - img [ref=e43]:
+                - img [ref=e44]
+              - generic:
+                - generic: Home
+          - listitem [ref=e48]:
+            - link "Overview" [ref=e49] [cursor=pointer]:
+              - /url: /home/overview
+              - img [ref=e50]:
+                - img [ref=e51]
+              - generic:
+                - generic: Overview
+          - listitem [ref=e57]:
+            - link "Projects" [ref=e58] [cursor=pointer]:
+              - /url: /home/projects/active
+              - img [ref=e59]:
+                - img [ref=e60]
+              - generic:
+                - generic: Projects
+          - listitem [ref=e65]:
+            - link "Create" [ref=e66] [cursor=pointer]:
+              - /url: /home/project/create
+              - img [ref=e67]:
+                - img [ref=e68]
+              - generic:
+                - generic: Create
+          - listitem [ref=e72]:
+            - link "Costing" [ref=e73] [cursor=pointer]:
+              - /url: /costing
+              - img [ref=e74]:
+                - img [ref=e75]
+              - generic:
+                - generic: Costing
+          - listitem [ref=e80]:
+            - link "AI Search" [ref=e81] [cursor=pointer]:
+              - /url: /ai-search
+              - img [ref=e82]:
+                - img [ref=e83]
+              - generic:
+                - generic: AI Search
+          - listitem [ref=e88]:
+            - link "Analytics" [ref=e89] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e90]:
+                - img [ref=e91]
+              - generic:
+                - generic: Analytics
+          - listitem [ref=e96]:
+            - link "Report" [ref=e97] [cursor=pointer]:
+              - /url: /reports
+              - img [ref=e98]:
+                - img [ref=e99]
+              - generic:
+                - generic: Report
+          - listitem [ref=e104]:
+            - link "Collaborate" [ref=e105] [cursor=pointer]:
+              - /url: /create-account
+              - img [ref=e106]:
+                - img [ref=e107]
+              - generic:
+                - generic: Collaborate
+          - listitem [ref=e114]:
+            - link "Digital factory" [ref=e115] [cursor=pointer]:
+              - /url: /digitalFactory
+              - img [ref=e116]:
+                - img [ref=e117]
+              - generic:
+                - generic: Digital factory
+          - listitem [ref=e122]:
+            - link "Database" [ref=e123] [cursor=pointer]:
+              - /url: /data
+              - img [ref=e124]:
+                - img [ref=e125]
+              - generic:
+                - generic: Database
+          - listitem [ref=e132]:
+            - link "Archive" [ref=e133] [cursor=pointer]:
+              - /url: /create-account
+              - img [ref=e134]:
+                - img [ref=e135]
+              - generic:
+                - generic: Archive
+        - list [ref=e140]:
+          - listitem [ref=e141]:
+            - link "Settings" [ref=e142] [cursor=pointer]:
+              - /url: /settings
+              - img [ref=e143]:
+                - img [ref=e144]
+              - generic:
+                - generic: Settings
+          - listitem [ref=e149]:
+            - generic [ref=e150]:
+              - img [ref=e151]:
+                - img [ref=e152]
+              - generic:
+                - generic: Collapse
+      - generic [ref=e160]:
+        - generic [ref=e162]:
+          - button [ref=e163] [cursor=pointer]:
+            - img [ref=e164]:
+              - img [ref=e165]
+          - generic [ref=e169]:
+            - generic [ref=e172]:
+              - generic [ref=e174]:
+                - link "Projects" [ref=e175] [cursor=pointer]:
+                  - /url: home/projects/active
+                - img [ref=e176]:
+                  - img [ref=e177]
+                - generic [ref=e180] [cursor=pointer]:
+                  - combobox "[object Object]" [ref=e181]:
+                    - generic [ref=e183]: TVH_WeldCleaning - 15298
+                  - button "dropdown trigger" [ref=e184]:
+                    - img [ref=e186]
+              - generic [ref=e188]:
+                - heading "TVH_WeldCleaning 15298" [level=2] [ref=e189]
+                - heading "Project Details" [level=3] [ref=e190]
+                - generic [ref=e191]:
+                  - generic [ref=e192]: Costing Target Month
+                  - paragraph [ref=e193]: January 2026
+                - generic [ref=e194]:
+                  - generic [ref=e195]: Created By
+                  - paragraph [ref=e196]: Rajendra Kumar
+                - generic [ref=e197]:
+                  - generic [ref=e198]:
+                    - generic [ref=e199]: Status
+                    - link "View Full Workflow" [ref=e200] [cursor=pointer]:
+                      - /url: javascript:void(0)
+                  - generic [ref=e201]:
+                    - img [ref=e202]:
+                      - img [ref=e203]
+                    - generic [ref=e205]: Costing
+            - generic [ref=e210]:
+              - generic [ref=e211]:
+                - heading "Scenarios" [level=2] [ref=e212]
+                - generic [ref=e213]:
+                  - button [ref=e214] [cursor=pointer]:
+                    - img [ref=e215]:
+                      - img [ref=e216]
+                  - button [ref=e219] [cursor=pointer]:
+                    - img [ref=e220]:
+                      - img [ref=e221]
+              - list [ref=e226]:
+                - listitem [ref=e227]:
+                  - generic [ref=e228]:
+                    - radio "Base Scenario" [checked] [ref=e229] [cursor=pointer]
+                    - generic [ref=e230] [cursor=pointer]: Base Scenario
+                  - button [ref=e232] [cursor=pointer]:
+                    - img [ref=e233]:
+                      - img [ref=e234]
+                - listitem [ref=e236]:
+                  - generic [ref=e237]:
+                    - radio "1" [ref=e238] [cursor=pointer]
+                    - generic [ref=e239] [cursor=pointer]: "1"
+                  - generic [ref=e240]:
+                    - button [ref=e241] [cursor=pointer]:
+                      - img [ref=e242]:
+                        - img [ref=e243]
+                    - button [ref=e245] [cursor=pointer]:
+                      - img [ref=e246]:
+                        - img [ref=e247]
+            - generic [ref=e254]:
+              - generic [ref=e255]:
+                - generic [ref=e256]:
+                  - heading "Items" [level=2] [ref=e257]
+                  - generic [ref=e258]:
+                    - button [ref=e259] [cursor=pointer]:
+                      - img [ref=e260]:
+                        - img [ref=e261]
+                    - button [ref=e264] [cursor=pointer]:
+                      - img [ref=e265]:
+                        - img [ref=e266]
+                    - button [ref=e268] [cursor=pointer]:
+                      - img [ref=e269]:
+                        - img [ref=e270]
+                - generic [ref=e275]:
+                  - img [ref=e277] [cursor=pointer]:
+                    - img [ref=e278]
+                  - textbox "Search" [ref=e282]
+                - tree [ref=e284]:
+                  - treeitem "1023729-C-110-01 4.PDF⋮" [level=1] [selected] [ref=e285] [cursor=pointer]
+                  - img [ref=e290]
+              - heading "Model" [level=2] [ref=e297]
+        - generic [ref=e300]:
+          - generic [ref=e301]:
+            - heading "1023729-C-110-01 4.PDF" [level=5] [ref=e302]
+            - generic [ref=e304]: Base Scenario
+          - generic [ref=e305]:
+            - textbox [ref=e306]: January 2026
+            - button "Open calendar" [ref=e308] [cursor=pointer]:
+              - img [ref=e309]:
+                - img [ref=e310]
+          - generic [ref=e314]:
+            - button "Collapse All" [ref=e315] [cursor=pointer]:
+              - img [ref=e316]:
+                - img [ref=e317]
+              - text: Collapse All
+            - button "Expand All" [ref=e320] [cursor=pointer]:
+              - img [ref=e321]:
+                - img [ref=e322]
+              - text: Expand All
+          - generic [ref=e325]:
+            - generic [ref=e326]:
+              - button "Part Information 100%" [expanded] [ref=e327] [cursor=pointer]:
+                - generic [ref=e328]:
+                  - generic [ref=e329]:
+                    - generic [ref=e330]:
+                      - img [ref=e331]:
+                        - img [ref=e332]
+                      - heading "Part Information" [level=6] [ref=e335]
+                    - generic [ref=e338]:
+                      - img [ref=e340]
+                      - generic [ref=e344]: 100%
+                  - img [ref=e346]:
+                    - img [ref=e347]
+              - region "Part Information 100%" [ref=e351]:
+                - generic [ref=e355]:
+                  - tablist [ref=e358]:
+                    - generic [ref=e359]:
+                      - tab "Part Details" [active] [selected] [ref=e360] [cursor=pointer]:
+                        - generic [ref=e362]: Part Details
+                      - tab "Supply Terms" [ref=e363] [cursor=pointer]:
+                        - generic [ref=e365]: Supply Terms
+                      - tab "Additional Details" [ref=e366] [cursor=pointer]:
+                        - generic [ref=e368]: Additional Details
+                      - tab "Supplier Profile" [ref=e369] [cursor=pointer]:
+                        - generic [ref=e371]: Supplier Profile
+                  - generic [ref=e372]:
+                    - tabpanel "Part Details" [ref=e373]:
+                      - generic [ref=e374]:
+                        - generic [ref=e375]:
+                          - generic [ref=e376]:
+                            - generic [ref=e377]:
+                              - generic [ref=e378]: Internal Part Number
+                              - img [ref=e380] [cursor=pointer]:
+                                - img [ref=e381]
+                            - textbox "Enter Part Number" [ref=e385]: 1023729-C-110-01 4.PDF
+                          - generic [ref=e386]:
+                            - generic [ref=e387]:
+                              - generic [ref=e388]: Drawing Number
+                              - img [ref=e390] [cursor=pointer]:
+                                - img [ref=e391]
+                            - img [ref=e397] [cursor=pointer]:
+                              - img [ref=e398]
+                            - textbox "Enter Drawing value" [ref=e400]
+                          - generic [ref=e401]:
+                            - generic [ref=e402]:
+                              - generic [ref=e403]: Revision Number
+                              - img [ref=e405] [cursor=pointer]:
+                                - img [ref=e406]
+                            - img [ref=e412] [cursor=pointer]:
+                              - img [ref=e413]
+                            - textbox "Enter Revision value" [ref=e415]
+                          - generic [ref=e416]:
+                            - generic [ref=e417]:
+                              - generic [ref=e418]: Part Description
+                              - img [ref=e420] [cursor=pointer]:
+                                - img [ref=e421]
+                            - img [ref=e427] [cursor=pointer]:
+                              - img [ref=e428]
+                            - textbox "Enter Part Description" [ref=e430]
+                          - generic [ref=e431]:
+                            - generic [ref=e432]:
+                              - generic [ref=e433]: Manufacturing Category
+                              - img [ref=e435] [cursor=pointer]:
+                                - img [ref=e436]
+                            - img [ref=e442] [cursor=pointer]:
+                              - img [ref=e443]
+                            - generic [ref=e445]:
+                              - combobox [ref=e446]:
+                                - option "-------Select Commodity---------"
+                                - option "Plastic & Rubber"
+                                - option "Sheet Metal and Fabrication" [selected]
+                                - option "Casting"
+                                - option "Stock Machining"
+                                - option "Metal Forming"
+                                - option "Extrusion"
+                                - option "Additive Manufacturing"
+                                - option "PCBA Quick Costing"
+                                - option "Electricals"
+                                - option "Others"
+                                - option "Testing"
+                                - option "Assembly"
+                                - option "Wiring Harness"
+                                - option "Electronics"
+                                - option "Printed Circuit Board"
+                                - option "----------------------------" [disabled]
+                              - img:
+                                - img
+                        - generic [ref=e447]:
+                          - generic [ref=e448]:
+                            - generic [ref=e449]:
+                              - generic [ref=e450]: BOM Qty (Nos.)
+                              - img [ref=e452] [cursor=pointer]:
+                                - img [ref=e453]
+                            - img [ref=e459] [cursor=pointer]:
+                              - img [ref=e460]
+                            - spinbutton [ref=e462]: "1"
+                          - generic [ref=e463]:
+                            - generic [ref=e464]:
+                              - generic [ref=e465]: Annual Volume Qty (Nos.)
+                              - img [ref=e467] [cursor=pointer]:
+                                - img [ref=e468]
+                            - img [ref=e474] [cursor=pointer]:
+                              - img [ref=e475]
+                            - spinbutton [ref=e477]: "12000"
+                          - generic [ref=e478]:
+                            - generic [ref=e479]:
+                              - generic [ref=e480]: Lot size (Nos.)
+                              - img [ref=e482] [cursor=pointer]:
+                                - img [ref=e483]
+                            - img [ref=e489] [cursor=pointer]:
+                              - img [ref=e490]
+                            - spinbutton [ref=e492]: "1000"
+                          - generic [ref=e493]:
+                            - generic [ref=e494]:
+                              - generic [ref=e495]: Product Life Remaining (Yrs)
+                              - img [ref=e497] [cursor=pointer]:
+                                - img [ref=e498]
+                            - img [ref=e504] [cursor=pointer]:
+                              - img [ref=e505]
+                            - spinbutton [ref=e507]: "6"
+                          - generic [ref=e508]:
+                            - generic [ref=e509]:
+                              - generic [ref=e510]: Life Time Qty Remaining (Nos.)
+                              - img [ref=e512] [cursor=pointer]:
+                                - img [ref=e513]
+                            - img [ref=e519] [cursor=pointer]:
+                              - img [ref=e520]
+                            - spinbutton [ref=e522]: "72000"
+                        - generic [ref=e523]:
+                          - generic [ref=e524]:
+                            - generic [ref=e525]:
+                              - generic [ref=e526]: Supplier Name
+                              - img [ref=e528] [cursor=pointer]:
+                                - img [ref=e529]
+                            - img [ref=e535] [cursor=pointer]:
+                              - img [ref=e536]
+                            - generic [ref=e538]:
+                              - combobox "Select Supplier Name" [ref=e539]: Target Vendor - India
+                              - img:
+                                - img
+                          - generic [ref=e540]:
+                            - generic [ref=e541]:
+                              - generic [ref=e542]: Manufacturing City
+                              - img [ref=e544] [cursor=pointer]:
+                                - img [ref=e545]
+                            - textbox "Enter City" [disabled] [ref=e549]: Mumbai
+                          - generic [ref=e550]:
+                            - generic [ref=e551]:
+                              - generic [ref=e552]: Manufacturing Country
+                              - img [ref=e554] [cursor=pointer]:
+                                - img [ref=e555]
+                            - combobox "Number" [disabled] [ref=e559]: India
+                        - generic [ref=e560]:
+                          - generic [ref=e561]:
+                            - generic [ref=e562]:
+                              - generic [ref=e563]: Delivery Site Name
+                              - img [ref=e565] [cursor=pointer]:
+                                - img [ref=e566]
+                            - img [ref=e572] [cursor=pointer]:
+                              - img [ref=e573]
+                            - generic [ref=e575]:
+                              - combobox "Delivery Site" [ref=e576]: Santino Steel - India - Bengaluru
+                              - img:
+                                - img
+                          - generic [ref=e577]:
+                            - generic [ref=e578]:
+                              - generic [ref=e579]: Delivery City
+                              - img [ref=e581] [cursor=pointer]:
+                                - img [ref=e582]
+                            - textbox "Enter city" [disabled] [ref=e586]: Bengaluru
+                          - generic [ref=e587]:
+                            - generic [ref=e588]:
+                              - generic [ref=e589]: Delivery Country
+                              - img [ref=e591] [cursor=pointer]:
+                                - img [ref=e592]
+                            - combobox "Number" [disabled] [ref=e596]: India
+                    - tabpanel [ref=e597]
+                    - tabpanel [ref=e598]
+                    - tabpanel [ref=e599]
+            - button "Supporting Documents" [ref=e601] [cursor=pointer]:
+              - generic [ref=e602]:
+                - generic [ref=e603]:
+                  - img [ref=e604]:
+                    - img [ref=e605]
+                  - heading "Supporting Documents" [level=6] [ref=e609]
+                - img [ref=e611]:
+                  - img [ref=e612]
+            - generic [ref=e615]:
+              - button "Material Information 100%" [expanded] [ref=e616] [cursor=pointer]:
+                - generic [ref=e617]:
+                  - generic [ref=e618]:
+                    - generic [ref=e619]:
+                      - img [ref=e620]:
+                        - img [ref=e621]
+                      - heading "Material Information" [level=6] [ref=e623]
+                    - generic [ref=e626]:
+                      - img [ref=e628]
+                      - generic [ref=e632]: 100%
+                  - img [ref=e634]:
+                    - img [ref=e635]
+              - region "Material Information 100%" [ref=e639]:
+                - generic [ref=e642]:
+                  - generic [ref=e644]:
+                    - table [ref=e649]:
+                      - rowgroup [ref=e650]:
+                        - row "Sl Material Description CO2 (kg) Cost ($) Action" [ref=e651]:
+                          - columnheader [ref=e652]
+                          - columnheader "Sl" [ref=e653]
+                          - columnheader "Material Description" [ref=e654]
+                          - columnheader "CO2 (kg)" [ref=e655]
+                          - columnheader "Cost ($)" [ref=e656]
+                          - columnheader "Action" [ref=e657]
+                      - rowgroup [ref=e658]:
+                        - row "1 AISI 1050 | DIN CF53 | EN43C | SWRH52B/S50C 0.9902 0.1676" [ref=e659]:
+                          - cell [ref=e660]:
+                            - radio [checked] [ref=e662] [cursor=pointer]
+                          - cell "1" [ref=e663]
+                          - cell "AISI 1050 | DIN CF53 | EN43C | SWRH52B/S50C" [ref=e664]
+                          - cell "0.9902" [ref=e665]
+                          - cell "0.1676" [ref=e666]
+                          - cell [ref=e667]:
+                            - link [ref=e668] [cursor=pointer]:
+                              - /url: javascript:void(0)
+                              - img [ref=e669]:
+                                - img [ref=e670]
+                      - rowgroup [ref=e673]:
+                        - row "Sub Total 0.9902 0.1676" [ref=e674]:
+                          - cell [ref=e675]
+                          - cell [ref=e676]
+                          - cell "Sub Total" [ref=e677]
+                          - cell "0.9902" [ref=e678]
+                          - cell "0.1676" [ref=e679]
+                          - cell [ref=e680]
+                    - button "Add Material" [ref=e682] [cursor=pointer]:
+                      - img [ref=e683]:
+                        - img [ref=e684]
+                      - generic [ref=e685]: Add Material
+                  - generic [ref=e686]:
+                    - tablist [ref=e689]:
+                      - generic [ref=e690]:
+                        - tab "Material Info" [selected] [ref=e691] [cursor=pointer]:
+                          - generic [ref=e693]: Material Info
+                        - tab "Material Details" [ref=e694] [cursor=pointer]:
+                          - generic [ref=e696]: Material Details
+                    - generic [ref=e697]:
+                      - tabpanel "Material Info" [ref=e698]:
+                        - generic [ref=e699]:
+                          - generic [ref=e701]:
+                            - generic [ref=e702]:
+                              - generic "Process Group *" [ref=e703]
+                              - img [ref=e705] [cursor=pointer]:
+                                - img [ref=e706]
+                            - img [ref=e712] [cursor=pointer]:
+                              - img [ref=e713]
+                            - combobox [ref=e715]:
+                              - option "Select Process Group"
+                              - option "Cutting - Laser"
+                              - option "Transfer - Press"
+                              - option "Cutting - Oxy"
+                              - option "Band Saw"
+                              - option "Tube Laser Cutting"
+                              - option "Cutting - Plasma"
+                              - option "Cutting - Water Jet"
+                              - option "Stamping - Progressive"
+                              - option "Stamping - Stage"
+                              - option "Turret Punch (TPP)"
+                              - option "Round Tube"
+                              - option "Blank Sheet"
+                              - option "HSS"
+                              - option "Copper Plating"
+                              - option "Painting"
+                              - option "Plating"
+                              - option "Powder Coating"
+                              - option "Printing"
+                              - option "Mig Welding" [selected]
+                              - option "Tig Welding"
+                              - option "Wet Paint"
+                              - option "Zinc Plating"
+                              - option "Chrome Plating"
+                              - option "Nickel Plating"
+                              - option "Tin Plating"
+                              - option "Gold Plating"
+                              - option "Silver Plating"
+                              - option "Silicon Coating - Auto"
+                              - option "Silicon Coating - Semi"
+                              - option "Galvanization"
+                              - option "Passivation"
+                              - option "Seam Welding"
+                              - option "Brazing"
+                              - option "Reel to Reel Plating"
+                          - generic [ref=e716]:
+                            - generic [ref=e718]:
+                              - generic [ref=e719]: Material Selection
+                              - generic [ref=e720]:
+                                - generic [ref=e723] [cursor=pointer]:
+                                  - img [ref=e724]:
+                                    - img [ref=e725]
+                                  - text: Search Materials
+                                - generic [ref=e729]:
+                                  - generic [ref=e730]:
+                                    - generic [ref=e731]:
+                                      - generic "Category" [ref=e732]
+                                      - img [ref=e734] [cursor=pointer]:
+                                        - img [ref=e735]
+                                    - img [ref=e741] [cursor=pointer]:
+                                      - img [ref=e742]
+                                    - generic [ref=e744]:
+                                      - combobox [ref=e745]:
+                                        - option "Select Material Category"
+                                        - option "Ferrous" [selected]
+                                        - option "Non Ferrous"
+                                        - option "Packaging"
+                                        - option "Paint/Powder/Gas/Sand"
+                                        - option "Plastics"
+                                        - option "Rubber"
+                                        - option "Other"
+                                      - img:
+                                        - img
+                                  - generic [ref=e747]:
+                                    - generic [ref=e748]:
+                                      - generic "Family" [ref=e749]
+                                      - img [ref=e751] [cursor=pointer]:
+                                        - img [ref=e752]
+                                    - img [ref=e758] [cursor=pointer]:
+                                      - img [ref=e759]
+                                    - generic [ref=e761]:
+                                      - combobox [ref=e762]:
+                                        - option "Select Material Family"
+                                        - option "Alloy Steel"
+                                        - option "Carbon Steel" [selected]
+                                        - option "Cast Iron"
+                                        - option "Cast Steel"
+                                        - option "Cold heading steel"
+                                        - option "Cold Rolled Steel"
+                                        - option "Ductile Iron"
+                                        - option "Galvanized Steel"
+                                        - option "Hot Rolled Steel"
+                                        - option "Nickel Iron"
+                                        - option "Silicon Steel"
+                                        - option "Spring Steel"
+                                        - option "Stainless Steel"
+                                        - option "Tool Steel"
+                                      - img:
+                                        - img
+                                  - generic [ref=e764]:
+                                    - generic [ref=e765]:
+                                      - generic "Description/Grade" [ref=e766]
+                                      - img [ref=e768] [cursor=pointer]:
+                                        - img [ref=e769]
+                                    - img [ref=e775] [cursor=pointer]:
+                                      - img [ref=e776]
+                                    - generic [ref=e778]:
+                                      - combobox [ref=e779]:
+                                        - option "Select Description"
+                                        - option "AISI 1006 | DIN 1.0313 | C7D | JIS SWRM6"
+                                        - option "AISI 1008 | C10 | 2A,2A/1,2B S | SWRCH8A"
+                                        - option "AISI 1008 | C10 | 2A,2A/1,2B S | SWRCH8A"
+                                        - option "AISI 1010 | CK10 | C10E/C10R | S10C/S09CK"
+                                        - option "AISI 1012 | CK10 | C12D/C12D2 | S12C"
+                                        - option "AISI 1015 | DIN C15 | C15D | JIS S15C"
+                                        - option "AISI 1016 | DIN 1.0419 | C15D2 | JIS S15CK"
+                                        - option "AISI 1018 | H111 | EN32B | S17C"
+                                        - option "AISI 1020 | DIN C22 | EN 2C | S20C"
+                                        - option "AISI 1022 | DIN 1.1133 | JIS SMnC 21"
+                                        - option "AISI 1030 | DIN 1.1172 | SWRH32B"
+                                        - option "AISI 1045 | DIN C45 | EN43B | SWRH47B"
+                                        - option "AISI 1050 | DIN CF53 | EN43C | SWRH52B/S50C" [selected]
+                                        - option "AISI 1095 | DIN CK101"
+                                        - option "ASTM A216 WCB | EN 10213-2 | GB/T 11352 | JIS G5151"
+                                        - option "ASTM A350 | DIN 1.5637"
+                                        - option "ASTM A572 | DIN 17100 | JIS G3135"
+                                        - option "ASTM A36 | Ust37-2/RSt37-2"
+                                        - option "ASTM A29 | DIN 1.1191 | JIS S45C"
+                                        - option "11SMn30 | DIN 1.0715"
+                                        - option "Q235B | ASTM A36 | EN S235JR | JIS SS400"
+                                        - option "ASTM A615 | BS 4449 | EN 10080 | DIN 488"
+                                        - option "ASTM A295 | DIN 1.3505 | 102Cr6 | SUJ2"
+                                        - option "GCr15 | EN 10083/3 | JIS G4053"
+                                        - option "AISI 1011 | CK10 | C10E/C10R | S10C/S09CK"
+                                        - option "ER70S-2 (0.76 mm)"
+                                        - option "ER70S-2 (1.14 mm)"
+                                        - option "ER70S-6 (0.76 mm)"
+                                        - option "ER70S-6 (1.14 mm)"
+                                        - option "E-6010 | AWS A5.1 | JIS Z3211"
+                                        - option "E-7018 | AWS A5.1 | JIS Z3211"
+                                        - option "ASTM A 1011 HRPO HSLAS-F GR 80 | EN 10149-2 | JIS G3134"
+                                        - option "Steel 50 KSI | ASTM A572"
+                                        - option "Steel 100 KSI | ASTM A992"
+                                        - option "AISI 1522 Gr50 | ASTM A992 | EN 10025-2"
+                                        - option "ASTM A1008 HSLAS-F Grade 50|SAE J2340 340XF|EN 10149-2|JIS G3135 SPFC590"
+                                        - option "AISI 1025 | C25 | S25C | 1.0406 | XC25"
+                                        - option "AISI 1060 | C60 | S58C | 1.0601 | XC60"
+                                        - option "AISI 1080 | C80 | S80C | 1.0660 | XC75"
+                                        - option "Steel 80 KSI | ASTM A656 Grade 80 | 1.6523 | SNCM220 | 21NiCrMo2"
+                                        - option "ASTM A572 GRADE 50|S355JR|Q345B|SM490A"
+                                        - option "ASTM A572 GRADE 60|S355NL|Q460C|SM490YB"
+                                        - option "ASTM A656 GRADE 80|S460N|Q460E|SM570"
+                                        - option "ANSI/AISC 360 | EN 1993 (Eurocode 3) | JIS 350 | GB 50017"
+                                        - option "AISI 1040 | DIN 1.1186 | EN 8 | SWRH32B"
+                                        - option "ASTM A510 1018 | S20C | C22E | 070M20"
+                                        - option "ASTM A27 Grade 70-40 | JIS G5101 SC480 | EN 10293 G20Mn5 | BS 3100 Grade A2"
+                                        - option "TIG ER70S-6"
+                                        - option "TIG ER70S-2"
+                                        - option "STICK E6010"
+                                        - option "STICK E6011"
+                                        - option "STICK E7018"
+                                        - option "A514"
+                                        - option "ASTM A500 GRADE A"
+                                        - option "ASTM A500 GRADE B"
+                                        - option "ASTM A500 GRADE C"
+                                        - option "ASTM A500 GRADE D"
+                                        - option "ASTM A513 GRADE A"
+                                        - option "ASTM A513 GRADE B"
+                                        - option "ASTM A513 GRADE C"
+                                        - option "ASTM A513 GRADE D"
+                                      - img:
+                                        - img
+                                - generic [ref=e780]:
+                                  - generic [ref=e781]:
+                                    - generic [ref=e782]:
+                                      - generic "Stock Form" [ref=e783]
+                                      - img [ref=e785] [cursor=pointer]:
+                                        - img [ref=e786]
+                                    - img [ref=e792] [cursor=pointer]:
+                                      - img [ref=e793]
+                                    - generic [ref=e795]:
+                                      - combobox [ref=e796]:
+                                        - option "Select Stock Form"
+                                        - option "Plate" [selected]
+                                        - option "Rectangular Bar"
+                                        - option "Round Bar"
+                                        - option "Sheet"
+                                        - option "Coil"
+                                        - option "Hex Bar"
+                                        - option "Ingot"
+                                        - option "Round Tube"
+                                        - option "Square Bar"
+                                        - option "Square Tube"
+                                        - option "Wire"
+                                        - option "Billet"
+                                        - option "C-Channel"
+                                        - option "L Angle"
+                                        - option "Pipe"
+                                        - option "HSS"
+                                        - option "I-Beam"
+                                        - option "Rod"
+                                      - img:
+                                        - img
+                                  - generic [ref=e797]:
+                                    - generic [ref=e798]:
+                                      - generic "Scrap Price ($/Kg)" [ref=e799]
+                                      - img [ref=e801] [cursor=pointer]:
+                                        - img [ref=e802]
+                                    - img [ref=e808] [cursor=pointer]:
+                                      - img [ref=e809]
+                                    - spinbutton [ref=e811]: "0.2119"
+                                  - generic [ref=e812]:
+                                    - generic [ref=e813]:
+                                      - generic "Material Price ($/Kg)" [ref=e814]
+                                      - img [ref=e816] [cursor=pointer]:
+                                        - img [ref=e817]
+                                    - img [ref=e823] [cursor=pointer]:
+                                      - img [ref=e824]
+                                    - spinbutton [ref=e826]: "1.738"
+                                  - generic [ref=e827]:
+                                    - generic [ref=e828]:
+                                      - generic "Volume Purchased (Ton/Contract)" [ref=e829]
+                                      - img [ref=e831] [cursor=pointer]:
+                                        - img [ref=e832]
+                                    - img [ref=e838] [cursor=pointer]:
+                                      - img [ref=e839]
+                                    - spinbutton [ref=e841]: "0"
+                                  - generic [ref=e842]:
+                                    - generic [ref=e843]:
+                                      - generic "Volume Discount (%)" [ref=e844]
+                                      - img [ref=e846] [cursor=pointer]:
+                                        - img [ref=e847]
+                                    - img [ref=e853] [cursor=pointer]:
+                                      - img [ref=e854]
+                                    - spinbutton [ref=e856]: "0"
+                                  - generic [ref=e857]:
+                                    - generic [ref=e858]:
+                                      - generic "Discounted Material Price ($/Kg)" [ref=e859]
+                                      - img [ref=e861] [cursor=pointer]:
+                                        - img [ref=e862]
+                                    - img [ref=e868] [cursor=pointer]:
+                                      - img [ref=e869]
+                                    - spinbutton [ref=e871]: "1.738"
+                            - generic [ref=e873]:
+                              - generic [ref=e874]:
+                                - generic [ref=e875]: Part Details
+                                - generic [ref=e877]:
+                                  - generic [ref=e878]:
+                                    - generic [ref=e879]:
+                                      - generic "Part Envelope Length (mm)" [ref=e880]
+                                      - img [ref=e883] [cursor=pointer]:
+                                        - img [ref=e884]
+                                    - img [ref=e890] [cursor=pointer]:
+                                      - img [ref=e891]
+                                    - spinbutton [ref=e893]: "27"
+                                  - generic [ref=e894]:
+                                    - generic [ref=e895]:
+                                      - generic "Part Envelope Width (mm)" [ref=e896]
+                                      - img [ref=e899] [cursor=pointer]:
+                                        - img [ref=e900]
+                                    - img [ref=e906] [cursor=pointer]:
+                                      - img [ref=e907]
+                                    - spinbutton [ref=e909]: "20"
+                                  - generic [ref=e910]:
+                                    - generic [ref=e911]:
+                                      - generic "Part Envelope Height (mm)" [ref=e912]
+                                      - img [ref=e915] [cursor=pointer]:
+                                        - img [ref=e916]
+                                    - img [ref=e922] [cursor=pointer]:
+                                      - img [ref=e923]
+                                    - spinbutton [ref=e925]: "5"
+                                  - generic [ref=e926]:
+                                    - generic [ref=e927]:
+                                      - generic "Net Weight (g)" [ref=e928]
+                                      - img [ref=e930] [cursor=pointer]:
+                                        - img [ref=e931]
+                                    - img [ref=e937] [cursor=pointer]:
+                                      - img [ref=e938]
+                                    - spinbutton [ref=e940]: "5642.4"
+                                  - generic [ref=e941]:
+                                    - generic [ref=e942]:
+                                      - generic "Part Surface Area (mm^2)" [ref=e943]
+                                      - img [ref=e946] [cursor=pointer]:
+                                        - img [ref=e947]
+                                    - img [ref=e953] [cursor=pointer]:
+                                      - img [ref=e954]
+                                    - spinbutton [ref=e956]: "1166.6708"
+                                  - generic [ref=e957]:
+                                    - generic [ref=e958]:
+                                      - generic "Part Volume (mm^3)" [ref=e959]
+                                      - img [ref=e962] [cursor=pointer]:
+                                        - img [ref=e963]
+                                    - img [ref=e969] [cursor=pointer]:
+                                      - img [ref=e970]
+                                    - spinbutton [ref=e972]: "720.6173"
+                              - generic [ref=e974]:
+                                - generic [ref=e975]: Welding Details
+                                - generic [ref=e976]:
+                                  - generic [ref=e977]:
+                                    - generic [ref=e978]:
+                                      - generic [ref=e979]:
+                                        - generic [ref=e980]:
+                                          - generic "Weld Type" [ref=e981]
+                                          - img [ref=e984] [cursor=pointer]:
+                                            - img [ref=e985]
+                                        - img [ref=e991] [cursor=pointer]:
+                                          - img [ref=e992]
+                                        - combobox [ref=e994]:
+                                          - option "-------Select Type Of Weld--------"
+                                          - option "Fillet" [selected]
+                                          - option "Square"
+                                          - option "Plug"
+                                          - option "Bevel/Flare/ V Groove"
+                                          - option "U/J Groove"
+                                      - generic [ref=e995]:
+                                        - generic [ref=e996]:
+                                          - generic "Weld Size (mm)" [ref=e997]
+                                          - img [ref=e1000] [cursor=pointer]:
+                                            - img [ref=e1001]
+                                        - img [ref=e1007] [cursor=pointer]:
+                                          - img [ref=e1008]
+                                        - spinbutton [ref=e1010]: "6"
+                                      - generic [ref=e1011]:
+                                        - heading "Weld 1" [level=6] [ref=e1012] [cursor=pointer]:
+                                          - text: Weld 1
+                                          - img [ref=e1013]: keyboard_arrow_up
+                                        - img [ref=e1015]:
+                                          - img [ref=e1016]
+                                    - generic [ref=e1019]:
+                                      - generic [ref=e1020]:
+                                        - generic [ref=e1021]:
+                                          - generic [ref=e1022]:
+                                            - generic "Wire Dia (mm)" [ref=e1023]
+                                            - img [ref=e1026] [cursor=pointer]:
+                                              - img [ref=e1027]
+                                          - img [ref=e1033] [cursor=pointer]:
+                                            - img [ref=e1034]
+                                          - spinbutton [ref=e1036]: "1.2"
+                                        - generic [ref=e1037]:
+                                          - generic [ref=e1038]:
+                                            - generic "Weld Element Size (mm)" [ref=e1039]
+                                            - img [ref=e1042] [cursor=pointer]:
+                                              - img [ref=e1043]
+                                          - img [ref=e1049] [cursor=pointer]:
+                                            - img [ref=e1050]
+                                          - spinbutton [ref=e1052]: "6"
+                                        - generic [ref=e1053]:
+                                          - generic [ref=e1054]:
+                                            - generic "No. of Weld Passes (Qty)" [ref=e1055]
+                                            - img [ref=e1058] [cursor=pointer]:
+                                              - img [ref=e1059]
+                                          - img [ref=e1065] [cursor=pointer]:
+                                            - img [ref=e1066]
+                                          - spinbutton [ref=e1068]: "1"
+                                      - generic [ref=e1069]:
+                                        - generic [ref=e1070]:
+                                          - generic [ref=e1071]:
+                                            - generic "Weld Length (mm)" [ref=e1072]
+                                            - img [ref=e1075] [cursor=pointer]:
+                                              - img [ref=e1076]
+                                          - img [ref=e1082] [cursor=pointer]:
+                                            - img [ref=e1083]
+                                          - spinbutton [ref=e1085]: "200"
+                                        - generic [ref=e1086]:
+                                          - generic [ref=e1087]:
+                                            - generic "Weld Side" [ref=e1088]
+                                            - img [ref=e1091] [cursor=pointer]:
+                                              - img [ref=e1092]
+                                          - img [ref=e1098] [cursor=pointer]:
+                                            - img [ref=e1099]
+                                          - combobox [ref=e1101]:
+                                            - option "Single"
+                                            - option "Both" [selected]
+                                        - generic [ref=e1102]:
+                                          - generic [ref=e1103]:
+                                            - generic "Weld Places (Qty)" [ref=e1104]
+                                            - img [ref=e1107] [cursor=pointer]:
+                                              - img [ref=e1108]
+                                          - img [ref=e1114] [cursor=pointer]:
+                                            - img [ref=e1115]
+                                          - spinbutton [ref=e1117]: "1"
+                                      - generic [ref=e1118]:
+                                        - generic [ref=e1119]:
+                                          - generic "Grind Flush" [ref=e1121]
+                                          - img [ref=e1124] [cursor=pointer]:
+                                            - img [ref=e1125]
+                                          - combobox [ref=e1127]:
+                                            - option "No" [selected]
+                                            - option "Yes"
+                                        - generic [ref=e1128]:
+                                          - generic [ref=e1129]:
+                                            - generic "Total Weld Length/Weld (mm)" [ref=e1130]
+                                            - img [ref=e1133] [cursor=pointer]:
+                                              - img [ref=e1134]
+                                          - img [ref=e1140] [cursor=pointer]:
+                                            - img [ref=e1141]
+                                          - spinbutton [ref=e1143]: "400"
+                                        - generic [ref=e1144]:
+                                          - generic [ref=e1145]:
+                                            - generic "Weld Volume (mm)^3" [ref=e1146]
+                                            - img [ref=e1149] [cursor=pointer]:
+                                              - img [ref=e1150]
+                                          - img [ref=e1156] [cursor=pointer]:
+                                            - img [ref=e1157]
+                                          - spinbutton [ref=e1159]: "7200"
+                                  - generic [ref=e1160]:
+                                    - generic [ref=e1161]:
+                                      - generic [ref=e1162]:
+                                        - generic [ref=e1163]:
+                                          - generic "Weld Type" [ref=e1164]
+                                          - img [ref=e1167] [cursor=pointer]:
+                                            - img [ref=e1168]
+                                        - img [ref=e1174] [cursor=pointer]:
+                                          - img [ref=e1175]
+                                        - combobox [ref=e1177]:
+                                          - option "-------Select Type Of Weld--------"
+                                          - option "Fillet" [selected]
+                                          - option "Square"
+                                          - option "Plug"
+                                          - option "Bevel/Flare/ V Groove"
+                                          - option "U/J Groove"
+                                      - generic [ref=e1178]:
+                                        - generic [ref=e1179]:
+                                          - generic "Weld Size (mm)" [ref=e1180]
+                                          - img [ref=e1183] [cursor=pointer]:
+                                            - img [ref=e1184]
+                                        - img [ref=e1190] [cursor=pointer]:
+                                          - img [ref=e1191]
+                                        - spinbutton [ref=e1193]: "8"
+                                      - generic [ref=e1194]:
+                                        - heading "Weld 2" [level=6] [ref=e1195] [cursor=pointer]:
+                                          - text: Weld 2
+                                          - img [ref=e1196]: keyboard_arrow_up
+                                        - img [ref=e1198]:
+                                          - img [ref=e1199]
+                                    - generic [ref=e1202]:
+                                      - generic [ref=e1203]:
+                                        - generic [ref=e1204]:
+                                          - generic [ref=e1205]:
+                                            - generic "Wire Dia (mm)" [ref=e1206]
+                                            - img [ref=e1209] [cursor=pointer]:
+                                              - img [ref=e1210]
+                                          - img [ref=e1216] [cursor=pointer]:
+                                            - img [ref=e1217]
+                                          - spinbutton [ref=e1219]: "1.2"
+                                        - generic [ref=e1220]:
+                                          - generic [ref=e1221]:
+                                            - generic "Weld Element Size (mm)" [ref=e1222]
+                                            - img [ref=e1225] [cursor=pointer]:
+                                              - img [ref=e1226]
+                                          - img [ref=e1232] [cursor=pointer]:
+                                            - img [ref=e1233]
+                                          - spinbutton [ref=e1235]: "8"
+                                        - generic [ref=e1236]:
+                                          - generic [ref=e1237]:
+                                            - generic "No. of Weld Passes (Qty)" [ref=e1238]
+                                            - img [ref=e1241] [cursor=pointer]:
+                                              - img [ref=e1242]
+                                          - img [ref=e1248] [cursor=pointer]:
+                                            - img [ref=e1249]
+                                          - spinbutton [ref=e1251]: "1"
+                                      - generic [ref=e1252]:
+                                        - generic [ref=e1253]:
+                                          - generic [ref=e1254]:
+                                            - generic "Weld Length (mm)" [ref=e1255]
+                                            - img [ref=e1258] [cursor=pointer]:
+                                              - img [ref=e1259]
+                                          - img [ref=e1265] [cursor=pointer]:
+                                            - img [ref=e1266]
+                                          - spinbutton [ref=e1268]: "60"
+                                        - generic [ref=e1269]:
+                                          - generic [ref=e1270]:
+                                            - generic "Weld Side" [ref=e1271]
+                                            - img [ref=e1274] [cursor=pointer]:
+                                              - img [ref=e1275]
+                                          - img [ref=e1281] [cursor=pointer]:
+                                            - img [ref=e1282]
+                                          - combobox [ref=e1284]:
+                                            - option "Single" [selected]
+                                            - option "Both"
+                                        - generic [ref=e1285]:
+                                          - generic [ref=e1286]:
+                                            - generic "Weld Places (Qty)" [ref=e1287]
+                                            - img [ref=e1290] [cursor=pointer]:
+                                              - img [ref=e1291]
+                                          - img [ref=e1297] [cursor=pointer]:
+                                            - img [ref=e1298]
+                                          - spinbutton [ref=e1300]: "1"
+                                      - generic [ref=e1301]:
+                                        - generic [ref=e1302]:
+                                          - generic "Grind Flush" [ref=e1304]
+                                          - img [ref=e1307] [cursor=pointer]:
+                                            - img [ref=e1308]
+                                          - combobox [ref=e1310]:
+                                            - option "No" [selected]
+                                            - option "Yes"
+                                        - generic [ref=e1311]:
+                                          - generic [ref=e1312]:
+                                            - generic "Total Weld Length/Weld (mm)" [ref=e1313]
+                                            - img [ref=e1316] [cursor=pointer]:
+                                              - img [ref=e1317]
+                                          - img [ref=e1323] [cursor=pointer]:
+                                            - img [ref=e1324]
+                                          - spinbutton [ref=e1326]: "60"
+                                        - generic [ref=e1327]:
+                                          - generic [ref=e1328]:
+                                            - generic "Weld Volume (mm)^3" [ref=e1329]
+                                            - img [ref=e1332] [cursor=pointer]:
+                                              - img [ref=e1333]
+                                          - img [ref=e1339] [cursor=pointer]:
+                                            - img [ref=e1340]
+                                          - spinbutton [ref=e1342]: "1920"
+                                  - link "Add Weld" [ref=e1344] [cursor=pointer]:
+                                    - /url: javascript:void(0)
+                              - generic [ref=e1347]:
+                                - generic [ref=e1348]:
+                                  - generic "Net Material cost($)" [ref=e1349]
+                                  - img [ref=e1352] [cursor=pointer]:
+                                    - img [ref=e1353]
+                                - spinbutton [ref=e1357]: "0.1676"
+                              - generic [ref=e1358]:
+                                - generic [ref=e1359]: Material Cost Details
+                                - generic [ref=e1362]:
+                                  - generic [ref=e1363]:
+                                    - generic [ref=e1364]:
+                                      - generic "Total Weld Length (mm)" [ref=e1365]
+                                      - img [ref=e1368] [cursor=pointer]:
+                                        - img [ref=e1369]
+                                    - spinbutton [ref=e1373]: "460"
+                                  - generic [ref=e1374]:
+                                    - generic [ref=e1375]:
+                                      - generic "Total Weld Material Weight (g)" [ref=e1376]
+                                      - img [ref=e1379] [cursor=pointer]:
+                                        - img [ref=e1380]
+                                    - spinbutton [ref=e1384]: "71.7744"
+                                  - generic [ref=e1385]:
+                                    - generic [ref=e1386]:
+                                      - generic "Efficiency%:" [ref=e1387]
+                                      - img [ref=e1390] [cursor=pointer]:
+                                        - img [ref=e1391]
+                                    - img [ref=e1397] [cursor=pointer]:
+                                      - img [ref=e1398]
+                                    - spinbutton [ref=e1400]: "75"
+                                  - generic [ref=e1401]:
+                                    - generic [ref=e1402]:
+                                      - generic "Weld Bead Weight With Wastage (g)" [ref=e1403]
+                                      - img [ref=e1406] [cursor=pointer]:
+                                        - img [ref=e1407]
+                                    - img [ref=e1413] [cursor=pointer]:
+                                      - img [ref=e1414]
+                                    - spinbutton [ref=e1416]: "96.4092"
+                          - generic [ref=e1421]:
+                            - generic [ref=e1422]:
+                              - generic [ref=e1423]: Sustainability
+                              - img [ref=e1426]:
+                                - img [ref=e1427]
+                            - generic [ref=e1432]:
+                              - generic [ref=e1433]:
+                                - generic [ref=e1434]:
+                                  - generic "CO2(kg)/kg -Material" [ref=e1435]
+                                  - img [ref=e1438] [cursor=pointer]:
+                                    - img [ref=e1439]
+                                - spinbutton [ref=e1443]: "13.7958"
+                              - generic [ref=e1444]:
+                                - generic [ref=e1445]:
+                                  - generic "CO2(kg)/Scrap" [ref=e1446]
+                                  - img [ref=e1449] [cursor=pointer]:
+                                    - img [ref=e1450]
+                                - spinbutton [ref=e1454]: "13.7958"
+                              - generic [ref=e1455]:
+                                - generic [ref=e1456]:
+                                  - generic "CO2(kg)/part:" [ref=e1457]
+                                  - img [ref=e1460] [cursor=pointer]:
+                                    - img [ref=e1461]
+                                - spinbutton [disabled] [ref=e1465]: "0.9902"
+                      - tabpanel [ref=e1466]
+            - generic [ref=e1467]:
+              - button "Manufacturing Information 100%" [expanded] [ref=e1468] [cursor=pointer]:
+                - generic [ref=e1469]:
+                  - generic [ref=e1470]:
+                    - generic [ref=e1471]:
+                      - img [ref=e1472]:
+                        - img [ref=e1473]
+                      - heading "Manufacturing Information" [level=6] [ref=e1481]
+                    - generic [ref=e1484]:
+                      - img [ref=e1486]
+                      - generic [ref=e1490]: 100%
+                  - img [ref=e1492]:
+                    - img [ref=e1493]
+              - region "Manufacturing Information 100%" [ref=e1497]:
+                - generic [ref=e1501]:
+                  - generic [ref=e1502]:
+                    - table [ref=e1508]:
+                      - rowgroup [ref=e1509]:
+                        - row "# Process Type Sub-process Type Machine Details Machine Description CO2 (kg) Cost ($) Action" [ref=e1510]:
+                          - columnheader "#" [ref=e1511]
+                          - columnheader "Process Type" [ref=e1512]
+                          - columnheader "Sub-process Type" [ref=e1513]
+                          - columnheader "Machine Details" [ref=e1514]
+                          - columnheader "Machine Description" [ref=e1515]
+                          - columnheader "CO2 (kg)" [ref=e1516]
+                          - columnheader "Cost ($)" [ref=e1517]
+                          - columnheader "Action" [ref=e1518]
+                      - rowgroup [ref=e1519]:
+                        - row "1 Weld Cleaning N/A Manual Default 0.0168 0.0702" [ref=e1520]:
+                          - cell "1" [ref=e1521]:
+                            - generic [ref=e1522]:
+                              - img [ref=e1523]:
+                                - img [ref=e1524]
+                              - radio [checked] [ref=e1527]
+                              - generic [ref=e1528]: "1"
+                          - cell "Weld Cleaning" [ref=e1529]
+                          - cell "N/A" [ref=e1530]
+                          - cell "Manual" [ref=e1531]
+                          - cell "Default" [ref=e1532]
+                          - cell "0.0168" [ref=e1533]
+                          - cell "0.0702" [ref=e1534]
+                          - cell [ref=e1535]:
+                            - link [ref=e1536] [cursor=pointer]:
+                              - /url: javascript:void(0)
+                              - img [ref=e1537]:
+                                - img [ref=e1538]
+                        - row "2 Mig Welding N/A Manual MILLER_XMT 350 CC/CV (5A-425A) 0.0313 0.6266" [ref=e1541]:
+                          - cell "2" [ref=e1542]:
+                            - generic [ref=e1543]:
+                              - img [ref=e1544]:
+                                - img [ref=e1545]
+                              - radio [ref=e1548]
+                              - generic [ref=e1549]: "2"
+                          - cell "Mig Welding" [ref=e1550]
+                          - cell "N/A" [ref=e1551]
+                          - cell "Manual" [ref=e1552]
+                          - cell "MILLER_XMT 350 CC/CV (5A-425A)" [ref=e1553]
+                          - cell "0.0313" [ref=e1554]
+                          - cell "0.6266" [ref=e1555]
+                          - cell [ref=e1556]:
+                            - link [ref=e1557] [cursor=pointer]:
+                              - /url: javascript:void(0)
+                              - img [ref=e1558]:
+                                - img [ref=e1559]
+                      - rowgroup [ref=e1562]:
+                        - row "Sub Total 0.0481 0.6968" [ref=e1563]:
+                          - cell [ref=e1564]
+                          - cell "Sub Total" [ref=e1565]
+                          - cell [ref=e1566]
+                          - cell [ref=e1567]
+                          - cell [ref=e1568]
+                          - cell "0.0481" [ref=e1569]
+                          - cell "0.6968" [ref=e1570]
+                          - cell [ref=e1571]
+                    - generic [ref=e1572]:
+                      - button "Add Process" [ref=e1573] [cursor=pointer]:
+                        - img [ref=e1574]:
+                          - img [ref=e1575]
+                        - generic [ref=e1576]: Add Process
+                      - button "Remove all Processes" [ref=e1577] [cursor=pointer]:
+                        - img [ref=e1578]:
+                          - img [ref=e1579]
+                        - generic [ref=e1582]: Remove all Processes
+                  - generic [ref=e1583]:
+                    - tablist [ref=e1586]:
+                      - generic [ref=e1587]:
+                        - tab "Manufacturing Details" [selected] [ref=e1588] [cursor=pointer]:
+                          - generic [ref=e1590]: Manufacturing Details
+                        - tab "Machine Details" [ref=e1591] [cursor=pointer]:
+                          - generic [ref=e1593]: Machine Details
+                    - generic [ref=e1594]:
+                      - tabpanel "Manufacturing Details" [ref=e1595]:
+                        - generic [ref=e1596]:
+                          - generic [ref=e1597]:
+                            - generic [ref=e1598]: Process Details
+                            - generic [ref=e1599]:
+                              - generic [ref=e1600]:
+                                - generic [ref=e1601]:
+                                  - generic [ref=e1602]:
+                                    - generic "Process Group" [ref=e1603]
+                                    - img [ref=e1606] [cursor=pointer]:
+                                      - img [ref=e1607]
+                                  - img [ref=e1613] [cursor=pointer]:
+                                    - img [ref=e1614]
+                                  - generic [ref=e1616]:
+                                    - combobox [ref=e1617]:
+                                      - option "-------Select Process Group---------"
+                                      - option "Cleaning (Forging)"
+                                      - option "Manual Inspection"
+                                      - option "Visual Inspection"
+                                      - option "CMM Inspection"
+                                      - option "Turning Centre"
+                                      - option "Drilling Centre"
+                                      - option "Milling Centre"
+                                      - option "Grinding/Finishing Centre"
+                                      - option "Painting"
+                                      - option "Powder Coating"
+                                      - option "Cleaning"
+                                      - option "Deburring"
+                                      - option "Mig Welding"
+                                      - option "Sonic welding"
+                                      - option "Spot Welding"
+                                      - option "Sub Merged Arc Welding"
+                                      - option "Tig Welding"
+                                      - option "Weld Preparation"
+                                      - option "Weld Cleaning" [selected]
+                                    - img:
+                                      - img
+                                - generic [ref=e1618]:
+                                  - generic "Finish Type" [ref=e1619]
+                                  - img [ref=e1622] [cursor=pointer]:
+                                    - img [ref=e1623]
+                                  - combobox [ref=e1626]:
+                                    - option "Weld Cleaning" [selected]
+                                    - option "Grind/Polish"
+                              - generic [ref=e1627]:
+                                - generic [ref=e1628]:
+                                  - generic [ref=e1629]:
+                                    - generic "Machine Name" [ref=e1630]
+                                    - img [ref=e1633] [cursor=pointer]:
+                                      - img [ref=e1634]
+                                  - img [ref=e1640] [cursor=pointer]:
+                                    - img [ref=e1641]
+                                  - generic [ref=e1643]:
+                                    - combobox [ref=e1644]:
+                                      - option "Select Machine Name"
+                                      - option "Welding Cleanup" [selected]
+                                    - img:
+                                      - img
+                                - generic [ref=e1645]:
+                                  - generic [ref=e1646]:
+                                    - generic "Machine Description" [ref=e1647]
+                                    - img [ref=e1650] [cursor=pointer]:
+                                      - img [ref=e1651]
+                                  - textbox [ref=e1655]: Default
+                                - generic [ref=e1656]:
+                                  - generic [ref=e1657]:
+                                    - generic "M/c Automation" [ref=e1658]
+                                    - img [ref=e1661] [cursor=pointer]:
+                                      - img [ref=e1662]
+                                  - generic [ref=e1666]:
+                                    - combobox [ref=e1667]:
+                                      - option "Automatic"
+                                      - option "Semi-Automatic"
+                                      - option "Manual" [selected]
+                                    - img:
+                                      - img
+                              - generic [ref=e1668]:
+                                - generic [ref=e1669]:
+                                  - generic [ref=e1670]:
+                                    - generic "Criticality Level" [ref=e1671]
+                                    - img [ref=e1674] [cursor=pointer]:
+                                      - img [ref=e1675]
+                                  - img [ref=e1681] [cursor=pointer]:
+                                    - img [ref=e1682]
+                                  - generic [ref=e1684]:
+                                    - combobox [ref=e1685]:
+                                      - option "None"
+                                      - option "Level1" [selected]
+                                      - option "Level2"
+                                      - option "Level3"
+                                    - img:
+                                      - img
+                                - generic [ref=e1686]:
+                                  - generic [ref=e1687]:
+                                    - generic "Efficiency(%)" [ref=e1688]
+                                    - img [ref=e1690] [cursor=pointer]:
+                                      - img [ref=e1691]
+                                  - img [ref=e1697] [cursor=pointer]:
+                                    - img [ref=e1698]
+                                  - spinbutton [ref=e1700]: "70"
+                                - generic [ref=e1702]:
+                                  - generic [ref=e1703]:
+                                    - generic "Net Process Cost($)" [ref=e1704]
+                                    - img [ref=e1706] [cursor=pointer]:
+                                      - img [ref=e1707]
+                                  - spinbutton [ref=e1711]: "0.2897"
+                          - generic [ref=e1712]:
+                            - generic [ref=e1714]:
+                              - generic [ref=e1715]: Cycle Time Details
+                              - generic [ref=e1717]:
+                                - generic [ref=e1718]:
+                                  - generic "Total Weld Length(mm):" [ref=e1720]
+                                  - spinbutton [ref=e1721]: "460"
+                                - generic [ref=e1722]:
+                                  - generic "Intermediate start/stops (no's)" [ref=e1724]
+                                  - img [ref=e1727] [cursor=pointer]:
+                                    - img [ref=e1728]
+                                  - spinbutton [ref=e1730]: "3"
+                            - generic [ref=e1731]:
+                              - generic [ref=e1732]: Manufacturing Details
+                              - generic [ref=e1733]:
+                                - generic [ref=e1734]:
+                                  - generic [ref=e1735]:
+                                    - generic [ref=e1736]:
+                                      - generic "Sampling Rate (%)" [ref=e1737]
+                                      - img [ref=e1739] [cursor=pointer]:
+                                        - img [ref=e1740]
+                                    - img [ref=e1746] [cursor=pointer]:
+                                      - img [ref=e1747]
+                                    - spinbutton [ref=e1749]: "3.2"
+                                  - generic [ref=e1750]:
+                                    - generic [ref=e1751]:
+                                      - generic "Yield (%)" [ref=e1752]
+                                      - img [ref=e1754] [cursor=pointer]:
+                                        - img [ref=e1755]
+                                    - img [ref=e1761] [cursor=pointer]:
+                                      - img [ref=e1762]
+                                    - spinbutton [ref=e1764]: "98.5"
+                                  - generic [ref=e1765]:
+                                    - generic [ref=e1766]:
+                                      - generic "Yield Cost/Part ($)" [ref=e1767]
+                                      - img [ref=e1769] [cursor=pointer]:
+                                        - img [ref=e1770]
+                                    - img [ref=e1776] [cursor=pointer]:
+                                      - img [ref=e1777]
+                                    - spinbutton [ref=e1779]: "0.0068"
+                                - generic [ref=e1780]:
+                                  - generic [ref=e1781]:
+                                    - generic [ref=e1782]:
+                                      - generic "Direct Labor Rate ($/hr)" [ref=e1783]
+                                      - img [ref=e1785] [cursor=pointer]:
+                                        - img [ref=e1786]
+                                    - img [ref=e1792] [cursor=pointer]:
+                                      - img [ref=e1793]
+                                    - spinbutton [ref=e1795]: "1.1051"
+                                  - generic [ref=e1796]:
+                                    - generic [ref=e1797]:
+                                      - generic "# of Direct Labors" [ref=e1798]
+                                      - img [ref=e1800] [cursor=pointer]:
+                                        - img [ref=e1801]
+                                    - img [ref=e1807] [cursor=pointer]:
+                                      - img [ref=e1808]
+                                    - spinbutton [ref=e1810]: "1"
+                                  - generic [ref=e1811]:
+                                    - generic [ref=e1812]:
+                                      - generic "Labor Cost/Part ($)" [ref=e1813]
+                                      - img [ref=e1815] [cursor=pointer]:
+                                        - img [ref=e1816]
+                                    - img [ref=e1822] [cursor=pointer]:
+                                      - img [ref=e1823]
+                                    - spinbutton [ref=e1825]: "0.0343"
+                                - generic [ref=e1826]:
+                                  - generic [ref=e1827]:
+                                    - generic [ref=e1828]:
+                                      - generic "Skilled Labor Rate ($/hr)" [ref=e1829]
+                                      - img [ref=e1831] [cursor=pointer]:
+                                        - img [ref=e1832]
+                                    - img [ref=e1838] [cursor=pointer]:
+                                      - img [ref=e1839]
+                                    - spinbutton [ref=e1841]: "1.8627"
+                                  - generic [ref=e1842]:
+                                    - generic [ref=e1843]:
+                                      - generic "Machine Setup Time/batch (min)" [ref=e1844]
+                                      - img [ref=e1846] [cursor=pointer]:
+                                        - img [ref=e1847]
+                                    - img [ref=e1853] [cursor=pointer]:
+                                      - img [ref=e1854]
+                                    - spinbutton [ref=e1856]: "30"
+                                  - generic [ref=e1857]:
+                                    - generic [ref=e1858]:
+                                      - generic "Setup Cost/Part ($)" [ref=e1859]
+                                      - img [ref=e1861] [cursor=pointer]:
+                                        - img [ref=e1862]
+                                    - img [ref=e1868] [cursor=pointer]:
+                                      - img [ref=e1869]
+                                    - spinbutton [ref=e1871]: "0.0048"
+                                - generic [ref=e1872]:
+                                  - generic [ref=e1873]:
+                                    - generic [ref=e1874]:
+                                      - generic "QA Inspector Rate ($/hr)" [ref=e1875]
+                                      - img [ref=e1877] [cursor=pointer]:
+                                        - img [ref=e1878]
+                                    - img [ref=e1884] [cursor=pointer]:
+                                      - img [ref=e1885]
+                                    - spinbutton [ref=e1887]: "1.5845"
+                                  - generic [ref=e1888]:
+                                    - generic [ref=e1889]:
+                                      - generic "QA Inspection Time/Part (Min)" [ref=e1890]
+                                      - img [ref=e1892] [cursor=pointer]:
+                                        - img [ref=e1893]
+                                    - img [ref=e1899] [cursor=pointer]:
+                                      - img [ref=e1900]
+                                    - spinbutton [ref=e1902]: "0.5"
+                                  - generic [ref=e1903]:
+                                    - generic [ref=e1904]:
+                                      - generic "QA Inspection Cost/Part ($)" [ref=e1905]
+                                      - img [ref=e1907] [cursor=pointer]:
+                                        - img [ref=e1908]
+                                    - img [ref=e1914] [cursor=pointer]:
+                                      - img [ref=e1915]
+                                    - spinbutton [ref=e1917]: "0.0004"
+                                - generic [ref=e1918]:
+                                  - generic [ref=e1919]:
+                                    - generic [ref=e1920]:
+                                      - generic "Machine Hour Rate ($/hr)" [ref=e1921]
+                                      - img [ref=e1923] [cursor=pointer]:
+                                        - img [ref=e1924]
+                                    - img [ref=e1930] [cursor=pointer]:
+                                      - img [ref=e1931]
+                                    - spinbutton [ref=e1933]: "7.8341"
+                                  - generic [ref=e1934]:
+                                    - generic [ref=e1935]:
+                                      - generic "Cycle Time/Part(Sec)" [ref=e1936]
+                                      - img [ref=e1938] [cursor=pointer]:
+                                        - img [ref=e1939]
+                                    - img [ref=e1945] [cursor=pointer]:
+                                      - img [ref=e1946]
+                                    - spinbutton [ref=e1948]: "111.8319"
+                                  - generic [ref=e1949]:
+                                    - generic [ref=e1950]:
+                                      - generic "Machine Cost/Part ($)" [ref=e1951]
+                                      - img [ref=e1953] [cursor=pointer]:
+                                        - img [ref=e1954]
+                                    - img [ref=e1960] [cursor=pointer]:
+                                      - img [ref=e1961]
+                                    - spinbutton [ref=e1963]: "0.2434"
+                          - generic [ref=e1967]:
+                            - generic [ref=e1968]: Sustainability
+                            - generic [ref=e1970]:
+                              - generic [ref=e1971]:
+                                - generic [ref=e1972]:
+                                  - generic "CO2(kg)/kw-Hr" [ref=e1973]
+                                  - img [ref=e1976] [cursor=pointer]:
+                                    - img [ref=e1977]
+                                - spinbutton [ref=e1981]: "28.5734"
+                              - generic [ref=e1982]:
+                                - generic [ref=e1983]:
+                                  - generic "CO2(kg)/part" [ref=e1984]
+                                  - img [ref=e1987] [cursor=pointer]:
+                                    - img [ref=e1988]
+                                - spinbutton [ref=e1992]: "0.027"
+                      - tabpanel [ref=e1993]
+            - generic [ref=e1994]:
+              - button "Tooling" [ref=e1995] [cursor=pointer]:
+                - generic [ref=e1996]:
+                  - generic [ref=e1997]:
+                    - img [ref=e1998]:
+                      - img [ref=e1999]
+                    - heading "Tooling" [level=6] [ref=e2007]
+                  - img [ref=e2009]:
+                    - img [ref=e2010]
+              - generic:
+                - option "-------Select Tooling Name---------" [selected]
+                - option "-------Select Tooling No Of Shot---------" [selected]
+                - option "upto 250,000"
+                - option "250,000 to 500,000"
+                - option "500,000 +"
+                - option "Special cases - SS Mold and Cavity"
+                - option "-------Select Mould Criticality---------"
+                - option "Low"
+                - option "Medium"
+                - option "High"
+            - button "DFM" [ref=e2015] [cursor=pointer]:
+              - generic [ref=e2016]:
+                - heading "DFM" [level=6] [ref=e2018]
+                - img [ref=e2020]:
+                  - img [ref=e2021]
+            - button "Purchased (Catalogue) Parts Information test" [ref=e2025] [cursor=pointer]:
+              - generic [ref=e2026]:
+                - generic [ref=e2028]:
+                  - img [ref=e2029]:
+                    - img [ref=e2030]
+                  - heading "Purchased (Catalogue) Parts Information test" [level=6] [ref=e2033]
+                - img [ref=e2035]:
+                  - img [ref=e2036]
+            - button "Overhead & Profit 100%" [ref=e2040] [cursor=pointer]:
+              - generic [ref=e2041]:
+                - generic [ref=e2042]:
+                  - generic [ref=e2043]:
+                    - img [ref=e2044]:
+                      - img [ref=e2045]
+                    - heading "Overhead & Profit" [level=6] [ref=e2052]
+                  - generic [ref=e2055]:
+                    - img [ref=e2057]
+                    - generic [ref=e2061]: 100%
+                - img [ref=e2063]:
+                  - img [ref=e2064]
+            - generic [ref=e2067]:
+              - button "Packaging 100%" [ref=e2068] [cursor=pointer]:
+                - generic [ref=e2069]:
+                  - generic [ref=e2070]:
+                    - generic [ref=e2071]:
+                      - img [ref=e2072]:
+                        - img [ref=e2073]
+                      - heading "Packaging" [level=6] [ref=e2078]
+                    - generic [ref=e2081]:
+                      - img [ref=e2083]
+                      - generic [ref=e2087]: 100%
+                  - img [ref=e2089]:
+                    - img [ref=e2090]
+              - generic:
+                - option "------- Select Material Finish-------"
+                - option "Plain" [selected]
+                - option "Wet"
+                - option "High Polish"
+                - option "------- Select Fragile-------"
+                - option "Fragile"
+                - option "Standard" [selected]
+                - option "------- Select Freight-------"
+                - option "Land / Air" [selected]
+                - option "Sea"
+                - option "------- Select Packaging Type-------"
+                - option "Primary" [selected]
+                - option "Secondary"
+                - option "Tertiary"
+                - option "------- Select Packaging Material-------"
+                - option "2 MIL BAGS ON A ROLL"
+                - option "2 MIL POLY BAGS ON A ROLL"
+                - option "2 MIL RECLOSABLE BAGS"
+                - option "2 MIL WHITE BACK BAGS ON A ROLL"
+                - option "3 MIL CLEAR VIEW POLY MAILERS"
+                - option "3 MIL TEAR-PROOF POLYETHYLENE MAILERS"
+                - option "4 MIL BAGS ON A ROLL"
+                - option "6 MIL RECLOSABLE BAGS"
+                - option "6 MIL VCI SHRINK FILM"
+                - option "AMBER UV BAGS"
+                - option "BIODEGRADABLE PEANUTS"
+                - option "BITRAN® LEAKPROOF BAGS"
+                - option "Bubble Wrap"
+                - option "BULK PACKS"
+                - option "CONVOLUTED FOAM SETS"
+                - option "DESSICANT"
+                - option "DOUBLE ZIPPER BAGS"
+                - option "DRI-SHIELD® BAGS"
+                - option "DRI-SHIELD® HEAVY DUTY BAGS"
+                - option "FOAM"
+                - option "FOAM POUCHES"
+                - option "FOAM SHEETS"
+                - option "INDUSTRIAL PEANUTS"
+                - option "INSTAPAK® QUICK BULK PACKS"
+                - option "INSTAPAK® QUICK EXPANDED FOAM BAGS"
+                - option "INSTAPAK® QUICK HEAVY DUTY BULK PACKS"
+                - option "MOLDED PULP"
+                - option "NON-PERFED PLANK FOAM, NO ADHESIVE – CHARCOAL"
+                - option "NON-PERFED PLANK FOAM, NO ADHESIVE – WHITE"
+                - option "NON-PERFORATED FOAM ROLLS" [selected]
+                - option "PERFED PLANK FOAM WITH ADHESIVE – WHITE"
+                - option "PERFORATED FOAM ROLLS"
+                - option "PICK AND PACK FOAM"
+                - option "PLANK FOAM CORNER GUARDS"
+                - option "RECLOSABLE VENT HOLE BAGS"
+                - option "SILICA GEL DESICCANTS - 5 GALLON PAILS"
+                - option "TYVEK® BAG CLAY DESICCANTS - 34 GALLON DRUMS"
+                - option "UPSABLE FOAM ROLLS - NON-PERFORATED"
+                - option "UPSABLE FOAM ROLLS - PERFORATED"
+                - option "UPSABLE PEANUTS"
+                - option "VCI HEAVY DUTY PAPER ROLLS"
+                - option "VCI INDUSTRIAL PAPER ROLLS"
+                - option "VCI INDUSTRIAL PAPER SHEETS"
+                - option "------- Select Package Description-------"
+                - option "12\" x 1,250'"
+                - option "12\" x 2,000'"
+                - option "18\" x 1,250'"
+                - option "18\" x 2,000'"
+                - option "24\" x 1,250'"
+                - option "24\" x 2,000'"
+                - option "36\" x 1,250'"
+                - option "36\" x 2,000'"
+                - option "48\" x 1,250'"
+                - option "48\" x 2,000'"
+                - option "72\" x 1,250'"
+                - option "72\" x 2,000'" [selected]
+                - option "12\" x 125'"
+                - option "12\" x 250'"
+                - option "12\" x 550'"
+                - option "12\" x 750'"
+                - option "18\" x 250'"
+                - option "18\" x 550'"
+                - option "18\" x 750'"
+                - option "24\" x 125'"
+                - option "24\" x 250'"
+                - option "24\" x 550'"
+                - option "24\" x 750'"
+                - option "36\" x 250'"
+                - option "36\" x 550'"
+                - option "36\" x 750'"
+                - option "48\" x 125'"
+                - option "48\" x 250'"
+                - option "48\" x 550'"
+                - option "48\" x 750'"
+                - option "6\" x 1,250'"
+                - option "6\" x 2,000'"
+                - option "6\" x 250'"
+                - option "6\" x 550'"
+                - option "6\" x 750'"
+                - option "72\" x 250'"
+                - option "72\" x 550'"
+                - option "72\" x 750'"
+                - option "8\" x 550'"
+            - generic [ref=e2093]:
+              - button "Logistics Cost 100%" [ref=e2094] [cursor=pointer]:
+                - generic [ref=e2095]:
+                  - generic [ref=e2096]:
+                    - generic [ref=e2097]:
+                      - img [ref=e2098]:
+                        - img [ref=e2099]
+                      - heading "Logistics Cost" [level=6] [ref=e2106]
+                    - generic [ref=e2109]:
+                      - img [ref=e2111]
+                      - generic [ref=e2115]: 100%
+                  - img [ref=e2117]:
+                    - img [ref=e2118]
+              - generic [ref=e2124]:
+                - generic [ref=e2125]:
+                  - generic [ref=e2127]:
+                    - generic [ref=e2128]:
+                      - generic [ref=e2129]: Mode of Transport
+                      - img [ref=e2132] [cursor=pointer]:
+                        - img [ref=e2133]
+                    - combobox [ref=e2137]:
+                      - option "Select Mode of Transport"
+                      - option "Sea"
+                      - option "Surface" [selected]
+                      - option "Air"
+                  - generic [ref=e2139]:
+                    - generic [ref=e2140]:
+                      - generic [ref=e2141]: Shipment Type
+                      - img [ref=e2144] [cursor=pointer]:
+                        - img [ref=e2145]
+                    - combobox [ref=e2149]:
+                      - option "Select Shipment Type"
+                      - option "FTL" [selected]
+                      - option "LTL"
+                  - generic [ref=e2151]:
+                    - generic [ref=e2152]:
+                      - generic [ref=e2153]: Container Type
+                      - img [ref=e2156] [cursor=pointer]:
+                        - img [ref=e2157]
+                    - combobox [ref=e2161]:
+                      - option "Select Container Type"
+                      - option "20 Feet Container" [selected]
+                      - option "40 Feet Container"
+                - generic [ref=e2162]:
+                  - generic [ref=e2163]:
+                    - generic [ref=e2164]:
+                      - generic [ref=e2165]: Full Container Cost ($)
+                      - img [ref=e2168] [cursor=pointer]:
+                        - img [ref=e2169]
+                    - spinbutton [ref=e2173]: "805.51"
+                  - generic [ref=e2174]:
+                    - generic [ref=e2175]:
+                      - generic [ref=e2176]: "% Of Container Needed"
+                      - img [ref=e2179] [cursor=pointer]:
+                        - img [ref=e2180]
+                    - spinbutton [ref=e2184]: "27.9038"
+                  - generic [ref=e2185]:
+                    - generic [ref=e2186]:
+                      - generic [ref=e2187]: Freight Cost per Shipment ($)
+                      - img [ref=e2190] [cursor=pointer]:
+                        - img [ref=e2191]
+                    - spinbutton [ref=e2195]: "224.7679"
+                - generic [ref=e2197]:
+                  - generic [ref=e2198]:
+                    - generic [ref=e2199]: Freight Cost per Unit ($)
+                    - img [ref=e2202] [cursor=pointer]:
+                      - img [ref=e2203]
+                  - spinbutton [ref=e2207]: "0.2277"
+            - button "Spend Classification" [ref=e2209] [cursor=pointer]:
+              - generic [ref=e2210]:
+                - generic [ref=e2212]:
+                  - img [ref=e2213]:
+                    - img [ref=e2214]
+                  - heading "Spend Classification" [level=6] [ref=e2216]
+                - img [ref=e2218]:
+                  - img [ref=e2219]
+            - button "Tariff" [ref=e2223] [cursor=pointer]:
+              - generic [ref=e2224]:
+                - generic [ref=e2226]:
+                  - img [ref=e2227]:
+                    - img [ref=e2228]
+                  - heading "Tariff" [level=6] [ref=e2233]
+                - img [ref=e2235]:
+                  - img [ref=e2236]
+            - button "Sustainability" [ref=e2240] [cursor=pointer]:
+              - generic [ref=e2241]:
+                - generic [ref=e2243]:
+                  - img [ref=e2244]:
+                    - img [ref=e2245]
+                  - heading "Sustainability" [level=6] [ref=e2249]
+                - img [ref=e2251]:
+                  - img [ref=e2252]
+            - generic [ref=e2255]:
+              - generic [ref=e2256]:
+                - button "Undo" [disabled] [ref=e2257]:
+                  - img [ref=e2258]:
+                    - img [ref=e2259]
+                - button "Redo" [disabled] [ref=e2263]:
+                  - img [ref=e2264]:
+                    - img [ref=e2265]
+              - generic [ref=e2270]:
+                - button "Update & Save" [ref=e2271] [cursor=pointer]
+                - button "Recalculate Cost" [ref=e2272] [cursor=pointer]
+        - generic [ref=e2276]:
+          - generic [ref=e2277]:
+            - generic [ref=e2278]:
+              - heading "Cost Summary" [level=2] [ref=e2279]
+              - generic [ref=e2280]:
+                - button [ref=e2281] [cursor=pointer]:
+                  - img [ref=e2282]:
+                    - img [ref=e2283]
+                - button [ref=e2285] [cursor=pointer]:
+                  - img [ref=e2286]:
+                    - img [ref=e2287]
+            - generic [ref=e2292]:
+              - tablist [ref=e2295]:
+                - generic [ref=e2296]:
+                  - tab "Cost" [selected] [ref=e2297] [cursor=pointer]:
+                    - generic [ref=e2299]: Cost
+                  - tab "ESG" [ref=e2300] [cursor=pointer]:
+                    - generic [ref=e2302]: ESG
+              - generic [ref=e2303]:
+                - tabpanel "Cost" [ref=e2304]:
+                  - generic [ref=e2307]:
+                    - generic [ref=e2308]: "% Should cost"
+                    - generic [ref=e2309]:
+                      - generic [ref=e2311]: Material Cost
+                      - generic [ref=e2314]: 12.85 %
+                    - generic [ref=e2315]:
+                      - generic [ref=e2317]: Manufact. Cost
+                      - generic [ref=e2320]: 53.41 %
+                    - generic [ref=e2321]:
+                      - generic [ref=e2323]: Tooling Cost
+                      - generic [ref=e2325]: 0.00 %
+                    - generic [ref=e2326]:
+                      - generic [ref=e2328]: Overhead & Profit
+                      - generic [ref=e2331]: 13.17 %
+                    - generic [ref=e2332]:
+                      - generic [ref=e2334]: Packing Cost
+                      - generic [ref=e2337]: 3.12 %
+                    - generic [ref=e2339]:
+                      - generic [ref=e2340]:
+                        - generic [ref=e2341]: EX-W Part Cost
+                        - img [ref=e2343]:
+                          - img [ref=e2344]
+                      - generic [ref=e2357]: 82.55 %
+                    - generic [ref=e2358]:
+                      - generic [ref=e2360]: Freight Cost
+                      - generic [ref=e2363]: 17.45 %
+                    - generic [ref=e2364]:
+                      - generic [ref=e2366]: Duties & Tariff
+                      - generic [ref=e2368]: 0.00 %
+                    - generic [ref=e2370]:
+                      - generic [ref=e2371]:
+                        - generic [ref=e2372]: Part Should Cost
+                        - img [ref=e2374]:
+                          - img [ref=e2375]
+                      - generic [ref=e2385]: 100 %
+                - tabpanel [ref=e2386]
+          - generic [ref=e2387]:
+            - heading "Opportunity" [level=2] [ref=e2389]
+            - generic [ref=e2392]:
+              - generic [ref=e2393]:
+                - generic [ref=e2394]: Part Cost
+                - generic [ref=e2395]:
+                  - generic [ref=e2396]: Should Cost
+                  - generic [ref=e2397]:
+                    - textbox [ref=e2398]: "1.3046"
+                    - generic: $
+                - generic [ref=e2399]:
+                  - generic [ref=e2400]: Current Cost
+                  - img [ref=e2403] [cursor=pointer]:
+                    - img [ref=e2404]
+                  - generic [ref=e2406]:
+                    - spinbutton "Internal Part Number Part Name Reference Part No. Part Description Part Unit Cost($) Qty Extended Cost($) Overhead Material overhead Factory overhead SG & A Profit Material Manufacturing Cost of capital Inventory carrying Raw materials Finish goods Payment Terms Should Cost Current Cost" [ref=e2407]: "0"
+                    - generic: $
+              - generic [ref=e2408]:
+                - generic [ref=e2409]: Annual Spend
+                - generic [ref=e2411]:
+                  - textbox [ref=e2412]: "0"
+                  - generic: $
+                - generic [ref=e2414]:
+                  - textbox [ref=e2415]: "0"
+                  - generic: $
+              - generic [ref=e2417]:
+                - generic [ref=e2418]: Unit Opportunity
+                - generic [ref=e2420]:
+                  - textbox [ref=e2421]: "0"
+                  - generic: $
+                - generic [ref=e2423]:
+                  - textbox [ref=e2424]: "0"
+                  - generic: "%"
+              - generic [ref=e2425]:
+                - generic [ref=e2426]: Annual Opportunity
+                - generic [ref=e2428]:
+                  - textbox [ref=e2429]: "0"
+                  - generic: $
+              - generic [ref=e2430]:
+                - generic [ref=e2431]: Lifetime Opportunity
+                - generic [ref=e2433]:
+                  - textbox [ref=e2434]: "0"
+                  - generic: $
+          - generic [ref=e2435]:
+            - heading "ESG" [level=2] [ref=e2437]
+            - generic [ref=e2440]:
+              - generic [ref=e2441]:
+                - generic [ref=e2442]: Total Part ESG
+                - generic [ref=e2444]:
+                  - textbox [ref=e2445]: "212"
+                  - paragraph [ref=e2446]: kgCO2
+              - generic [ref=e2447]:
+                - generic [ref=e2448]: Annual ESG
+                - generic [ref=e2450]:
+                  - textbox [ref=e2451]: 2,542,751
+                  - paragraph [ref=e2452]: kgCO2
+              - generic [ref=e2453]:
+                - generic [ref=e2454]: Lifetime ESG
+                - generic [ref=e2456]:
+                  - textbox [ref=e2457]: 15,256,506
+                  - paragraph [ref=e2458]: kgCO2
+          - generic [ref=e2461]:
+            - generic [ref=e2462]:
+              - generic [ref=e2464]:
+                - generic [ref=e2465]: Costing Notes
+                - img [ref=e2467] [cursor=pointer]:
+                  - img [ref=e2468]
+                - generic [ref=e2470]:
+                  - text: "Suggested Category : Sheet Metal and Fabrication"
+                  - text: "Suggested Category from PDF: Sheet Metal & Fabrication"
+                  - text: "material:"
+                  - text: "Accuracy : 100"
+                  - text: "Data from PDF : Production 17 240 (DIN 1.4301 / AISI 304)"
+                  - text: "Similar Match from DB : AISI 304 | DIN 1.4301 | EN 58E | JIS SUS 304"
+                  - text: "Secondary Processes Steps:"
+                  - text: "Deburring: Vibratory and Tumble Deburring, REMOVE ALL BURRS"
+                  - text: "Part Cleaning: General cleaning implied by deburring and finishing"
+                  - text: "secondary_process_confidence: 1"
+                  - text: "steps: Deburring (vibratory and tumble),Part Cleaning"
+                  - text: "Process Group:"
+                  - text: "Group name: Turret punch"
+                  - text: "Confidence: 0.8"
+                  - text: "Reason: The part is a washer made from sheet metal, with features such as holes and chamfers, and the text mentions 'THICKNESS OF SHEET METAL'. Turret punching is commonly used for such parts, and no evidence of laser, water-jet, or other cutting methods is present."
+              - button "View Gdnt Modal" [ref=e2471] [cursor=pointer]
+              - button "View AI Costing Suggestions" [ref=e2472] [cursor=pointer]
+            - generic [ref=e2473]:
+              - generic [ref=e2474]: Cost Summary Notes
+              - img [ref=e2476] [cursor=pointer]:
+                - img [ref=e2477]
+              - textbox [ref=e2479]
+  - complementary:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic: Welcome to Non Production Widget
+              - generic:
+                - generic:
+                  - generic:
+                    - img "Company logo":
+                      - img "logo"
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "Modules Menu":
+                        - generic:
+                          - img
+              - generic:
+                - generic:
+                  - heading "Hi there!" [level=1]
+                  - generic:
+                    - paragraph: How can we help? We're here for you!
+            - generic:
+              - generic:
+                - generic:
+                  - list:
+                    - listitem:
+                      - link "Knowledge Base Browse through our collection of articles, user guides and FAQs.":
+                        - generic:
+                          - generic:
+                            - img:
+                              - img
+                          - heading "Knowledge Base" [level=4]
+                        - generic:
+                          - paragraph: Browse through our collection of articles, user guides and FAQs.
+                    - listitem:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - heading "Still can't find an answer?" [level=4]
+                          - paragraph: Send us a ticket, we will get back to you at the earliest.
+                        - button "Submit a Ticket"
+                    - listitem:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - heading "True ValueHub Bot" [level=4]
+                          - paragraph: Ask our answer bot to find a solution from the knowledge base
+                        - button "Chat with bot"
+    - button "Open asap" [ref=e2481] [cursor=pointer]
+```

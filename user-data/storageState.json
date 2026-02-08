@@ -1,0 +1,320 @@
+{
+  "cookies": [
+    {
+      "name": "AEC",
+      "value": "AaJma5sInpAnfp5MVpUn-puOshnsxM59yzS8FeEmcN7msXWLLysTTj7wkw",
+      "domain": ".google.com",
+      "path": "/",
+      "expires": 1776922403.263961,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "NID",
+      "value": "526=ebmcrXALz2cD9rCHU5EFTyapl3FCerGYYVl1Eh0CKFHn0wImMkR0kz3wRsxaVVVhxYGZK17Ua4mDGeip3PKvOvvH0B-JgW-6Pcwd0ht39IFYsYTyOoki4nY1Z_NSbNfwLOVHOGm28KvrrplTq-CC6JPihttPjcGdwZ1_4KWet4Pads5dHd7QOqwvSjAyQgOk_mSUdx2Ku1BZ3gVePoRTt1pKfzWb",
+      "domain": ".google.com",
+      "path": "/",
+      "expires": 1777181603.579866,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "msal.cache.encryption",
+      "value": "%7B%22id%22%3A%22019a19dc-51ab-7865-9db9-acf7c4de745b%22%2C%22key%22%3A%227e7T-xLRJw9VMhZ24mEHkVde9mi8W_O_f6kvjf2C9Zc%22%7D",
+      "domain": "qa.truevaluehub.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "crmcsr",
+      "value": "093d2521-1d8a-40c9-80c5-89ca4871b96b",
+      "domain": "desk.zoho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-geo",
+      "value": "NA",
+      "domain": "truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": 1761550692.12539,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-rc:52ce9d07-2137-4ddc-bcbe-f84be04cae6e",
+      "value": "S0E3NFEzbk5DRkFONGNNYkF6c1M0VE9ENDB4S1dlNGRyQ1JIYUJzTlV6TU5ac3dQS2dsSlY0bFh0V093MnRaUUU5NTYxQnpZbDV1andpT1VldkVLblE9PTsyMDI1LTEwLTI3VDA2OjM4OjEzLjM0NzgyNzJaOys5dDRYZ3pIWE1RTytYTUJDVEpxY2c9PTt7IlRhcmdldEVudGl0eSI6IlRydWVWYWx1ZUh1YlNTTyIsIk9yY2hlc3RyYXRpb25TdGVwIjoyfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-vgKUbv94bH0",
+      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKyctLXYQ5aKF71KsYyjeuAC1OLkYUGSI5FeK-Od0f5ZfZ687RvekW12sWPzxpBS1cMkI59SFYtKcD2PlG-ukp0kKZChd5dbZtnOuCN9uwLn3bk_i8FFQRTuTzXtRp-XlkDj6BDvNLD7j8pL8FbePXbiAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-gateway-slice",
+      "value": "estsfd",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "stsservicecookie",
+      "value": "estsfd",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MicrosoftApplicationsTelemetryDeviceId",
+      "value": "6422536a-95bd-4905-8799-6d541620a0b6",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": 1793084417.780204,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "brcap",
+      "value": "0",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": 1795244417,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-rc:6f81dcc8-f0be-46b6-bc2c-62e63ca41830",
+      "value": "aHdBV0ZCdFgyMjhXMlVwZVp0WWRBZHVrRVpLRHdtMVZXUUJxSGYvNHVyS0NBQlpYRmNaUkZMRC9SU2dycFRiejdoVmJ5M3cyem9qM0Y5ZS94VG9Qd2c9PTsyMDI1LTEwLTI3VDA2OjQxOjUwLjkyMzE0ODRaO253blVSU3pKTEUvKzBHeEVwZ28ya3c9PTt7IlRhcmdldEVudGl0eSI6IlRydWVWYWx1ZUh1YlNTTyIsIk9yY2hlc3RyYXRpb25TdGVwIjoyfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-wV9SQCu6Es",
+      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKqV_j10AjW7UorF6Y0FfcHekDX2QU1vlzIZ9uW4QYGth23PWR7IXDdI66Q7Em8MG0-015tAHS-nccLVilp_VfPP9UvpxV8Yg6CDHQDFExsPwPCn-ANMGWBiuC5tR7ZkdCchuaTVhVRFCAin1lqTBFriAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-rc:cd2ba48d-d65e-49ae-bf2a-0fc5fac969e6",
+      "value": "dHNodE9abVpXNmZnN2NMTEFqN2pQK0xuMEdhRVU1amtQZTlTRUVRQnZUYVdUK2hXeVRzWk9LcUNMMWVDSHM2VmhhNGFUdTd1VnM0UFhGMUhnVStud2c9PTsyMDI1LTEwLTI3VDA2OjQzOjQ0Ljg2MTYzNTJaO3YzQ3FZRWxrb2hiOTVxM0xmVTlRRFE9PTt7IlRhcmdldEVudGl0eSI6IlRydWVWYWx1ZUh1YlNTTyIsIk9yY2hlc3RyYXRpb25TdGVwIjoyfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-4EK4xLVwL5k",
+      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKoIi7XUHVKCYMphgd6c2gxwEChpCajetxc8LxQ_u3tGBh6eUbXu_YScPE3TkUYr8Ty6BM2BR3QNflPcWEvRmwQtW1VEwqyfr26eB2-7fvRtAW462JaXVvfzJdBgdjD6TjwGCGZHyoKHtV7XG-ADiWYyAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-rc:658dfc54-b5c5-4831-9f78-4b160b4d4c4b",
+      "value": "Q3JOcEoxR3M5QU5uUmY3aEZwNk9mY2dWTEtTMzcrQzV6WktjVzRrOEVuN281STAvVkZBL2huTjdCbUlBT2RwS3lFY1BlOEg3TmNJWno0K0t6YlRHc2c9PTsyMDI1LTEwLTI3VDA2OjU0OjM5LjMxOTA4ODNaO284VVU1MTRwbFgwSzJHK013TGRuN3c9PTt7IlRhcmdldEVudGl0eSI6IlRydWVWYWx1ZUh1YlNTTyIsIk9yY2hlc3RyYXRpb25TdGVwIjoyfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-4M4m71OvknE",
+      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtK2OXyhkX80kQccLNZubaZM9yYVa4bSP35jFLnFTkXEe-YDBbWwUZbYbHRe_dtr9nLuBNoVFcULt3US7JMNtWsTEyjMWtkXxMBnt33Grl2rX9kUaNNpqiSf7IJtfRyJ4MRWEjcxM_W6_EEpPnKRxZfHCAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-csrf",
+      "value": "TCtERlJTYzRaWlY1K21iUWdOUFZjOUVqaHJrbXhxeGdQTGdOZjNXb09IVUZLeStzSkticlM5MWQremxvTnlaNzhMOG1NVXY4a1NLaHA5L3kvVkhad0E9PTsyMDI1LTEwLTI3VDA3OjAwOjEwLjQwNTQ0MDRaOzkrc1VKVUJieUljYzN1TDA4MXJMS3c9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-sso:truevaluehubapp.onmicrosoft.com_0",
+      "value": "m1.S6n+ZdDQzA3dl6sq.4VqHHAgE/zLGFaIX0jQ95w==.0.ND9MGgHHnzgYo79E1UvB6jv+UBD5czlj2mPzBp56M+8MNIpj0fcFa7L2V0w6L9jDhopikqIvseo5QQQyDJeVyrOvZ31yQlc2lFlhRydZeMA4923IBGWMyF4i39fImcVypVW5A3DXoDz3+jrQvnOpGxuY6lu6ehKSS+owZW7HWLwco3wEoubFGZOKwIzayA22oh6/Z6TKlqJfTii8+n5ZkeSFTyQDpoIEgoULVa15m97qBMQwSqQz2O400Aeu/JLre0nWAuy2IV7eFN8xsCfVK8CZzls4bnc7O2szwJXRSZ0mSUz8P/ySJ9r0SO+9bipBWsRnUnRBZQAsXsvEgJ48c9sOQjszPhsjZlKPFtQJfMMNRsUuL0rUX3Xgc1nYxwgXSHA6Ou6tR4Kppc7MlcbGF7X19VTar+T3ro1OvRWujC/gYJqI74RKzk63b7TDvFbgjgCIOK5Qz674zL1A/5OUdSN+HwS+fmMttwcDtv6eMcyPogl+HK6J2US9NH9CYAuqv/pwpDyzU7g7gsvrYcUTQa6P1Gwq2iaYesLNy8VnGFDUAw==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-rc:381658bf-1aa6-4d5e-a874-b11c21ac26b9",
+      "value": "ZCt0em4yRW9MdFgySU1nZnlJVXRnQlZiUWhhaGZyTE4xM3hHYXhWcUhLaSs4U0h2M1gxcmdCYURPa250OE1hdGNzMWcxVXd3UFFoOFlyS0JwQW9oTWc9PTsyMDI1LTEwLTI3VDA3OjAwOjE1LjgxMzkwODFaOzI5bU1FZE1YYmpPN1BYek9TaGp5eFE9PTt7IlRhcmdldEVudGl0eSI6IlRydWVWYWx1ZUh1YlNTTyIsIk9yY2hlc3RyYXRpb25TdGVwIjoyfQ==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-cache|6uerr7qatu-n7s005lextq_0",
+      "value": "m1.ItD5YU50ydIAHwmG.ukOrpPfqilYoe1LMhcMCTg==.0.GdNDE3BB4BdN2pUIyG//LgC5Xm0xN/vXOokFobvbu+PshKvnG6ZADIWePCmSryeHYvnM51BX4TL8nXaCOgvDfWWy75F9rPhn5zJyNRe3MxD5rxzxAfWX20yH4e5GMJUllTKZWeAjHe8DYfmRx99CGhn9C5ZRhkBwUtvb5SBEywlpugqNcFCvKp63VcG1hYB+a58jeDVpQseGjq8X4z2ziuvoCNtJ3WjYgGj/mxyi2k68lEFQr+GFSE190OGICCc0Ste5AfHg5SXCxsRX4Rd1L9Qr53/lAvtCcIBSgmeoc0x5W/WGvRpY6MfvnZoa5gmppsyvKQyAOruv3YNIEiWSFRelDfLKa4O3eAQy0TrEH5qBySGUlk5JuVKYu1YTtwpm046IG97sAIpYVrtzBNy6KMS2EXJbU6o52uPTyrhzzvI7PnBDMl2grQvI0wD9dB72As+B85KUabBu4k9bedjaURD9kd7oaq2wfxuZPlAEt9xWEimal7bnRnUxHO494y8wpnTzRl7znGNm+MTh1Fg9qfv2q97Y/9UPkx1o7ijThWmUalNeuYbV7zPIoE2NDwHOdgTGpV2SI+bYhQeELMKN8Yz3oE+SHkLWzckn/Hp+ZLNMd1olBqWn0fSfcIU3UA1OSiPECwkGYT7Vxvbqi1d4L7wk2scdBLJXSxeoJSIsau1Lr1Sow//JIQNZrr83oO4Flv2YZPJKWTXN0Fa0+eYRcePsOHGHr2kZqARvqSaoqYle7glfZb3yLYom3UXZylK6Edb2qCKA77jxw0+FsRBDEyZQ3pVrgKqu2rnHJ9nSa5FPKA2xR4viLInCZ8MTnnNhysMvEsaVMAzDOL3HWrlvz72OV6ynaMrdkpBiT/hltweMAA3cPtIQ4G1aQqtB7q1dqAz6juxXJbzXH1PE0qTvF5rU/1NpQxHqB3ZgJ13pCWxvROiSGgL+GnfMQ53ly9CcoQYmesD/QIZ30pYq9zU/q6LDkAKAGl40hg0BnvnT6b3nP6Y5ogSA8GDcINtdW6hCYjhDloCWhzBx+L6mxdcBX2tyYkjMpA+7g/3zcqSnbOLLoCa2nFu4uRwy3J/R2T4SaJ7by/08xV6J32HvQjqCqzHM0O83YXn+zY4YN2Wh9sDd3HoYe5pg5Yq8VTJr4hebccPUACZ2iE9r6Yzb5wbUEVPudgPOcLvILIpqUlDEsyVB/6esUeKnvRxkKcJ2+9YSBeylmQpkjeltNieqSQJ/jBbVDTpQgT5o4b3Gc5/Xh6jAggovwOAegFTfeLKrIsGbg1CdM0NlCSM8dBAKgZ6Zy4xZqZu3q8Imh8dbP1g2rRnilTxJGb/P5TM0kusaBd1Nmdh4MhXvreflI+Km9z8cAfuGc0xoGmuGMLV0NpWKHdEciAFEFJKjPPLMQL27D+fQU/+PWAsK+nIt16fU+N6FYYCWOkm/F7tPtozLcL5EvHRdpafz7xa0um7aiwzrMvHuWulkZWFegI2SqJp+YaX0jG2SSPzuyGhRIH+XUAp2ZYhdJQNZGoKD9qgFK2zG+i9daR8IZZICVwxBxjbMJC2vzoifwvKGME9eOSdT96py/gdD24cv8f/Hcg==",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "x-ms-cpim-trans",
+      "value": "eyJUX0RJQyI6W3siSSI6IjQ3MTE0MWU5LTAwYjQtNGZiNS04ZGVlLWNkMzRlNjUxMTc0ZCIsIlQiOiJ0cnVldmFsdWVodWJhcHAub25taWNyb3NvZnQuY29tIiwiUCI6ImIyY18xX2IyY19zaWdudXBzaWduaW4iLCJDIjoiYmMwYjU3NDMtNjJkMS00NTc5LTk0ZjUtYmI5NzVjMmZjMjYyIiwiUyI6MTIsIk0iOnt9LCJEIjowLCJFIjoiIn1dLCJDX0lEIjoiNDcxMTQxZTktMDBiNC00ZmI1LThkZWUtY2QzNGU2NTExNzRkIn0=",
+      "domain": ".truevaluehubapp.b2clogin.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "buid",
+      "value": "1.ARUA-Ot4ELej20uIxDw5QTbf2UNXC7zRYnlFlPW7l1wvwmKbAAAVAA.AQABGgEAAABlMNzVhAPUTrARzfQjWPtKF2kK45VEu0jenxv4nxMSfmlUH9uSElq62b8w71h1OQCgSRQEgWrWekQ_y-OA9U0a0QxtZeB5oy2xc5YjL_6LI87GspWeFp-BbYx-paLYT30gAA",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": 1764140417.015842,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx",
+      "value": "PAQABBwEAAABlMNzVhAPUTrARzfQjWPtKTzuUkDfj3JXiePOXdaFW67t4OBGgaSD4GS1RQ3oLS5IFtHJohmIfQyf9rNW8QQnSSvLHINrv-rukTay4cIrKLgEfFv9zF5rryI7w28pDGBtTGy2RFFC7RjjUxujfkH0Zm6yiP1I-1tqHr-YYQK7VFVQXzQVQVQyTMidzmeuzap0gAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "esctx-6aP3xXxHGeE",
+      "value": "AQABCQEAAABlMNzVhAPUTrARzfQjWPtKueYtWQeYtLysQm6p6kS9hDkSg-yy1eGizS1DWxH5bQjDVMoBrBed9ScG23t3fMD0Jl-ADHYy4hsVhA6wLH3QJbgzUZBgbQYYZiuDahJd2OH48IndOJATIICMiJ79kBDvzMltZiGq89heO4H9-EBedCAA",
+      "domain": ".login.microsoftonline.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "fpc",
+      "value": "AuWIgGtkSuRKjg-jUYTjcI8SAdLRAQAAAAUPkeAOAAAA",
+      "domain": "login.microsoftonline.com",
+      "path": "/",
+      "expires": 1764140417.016672,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "uaid",
+      "value": "0df0a710a4e34f8598e8d2737350abaf",
+      "domain": ".login.live.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MSPRequ",
+      "value": "id=N&lt=1761548417&co=0",
+      "domain": ".login.live.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.google.com",
+      "localStorage": [
+        {
+          "name": "sb_wiz.zpc.gws-wiz.",
+          "value": "{\"0\":[[\"school holidays\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"dac approval defence stocks\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"dude movie box office collection\",0,[3,362,10,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"nothing phone 3a android 16 beta\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"kolkata knight riders ipl 2026 auction\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"interstellar comet 3i atlas\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"bengaluru airport expansion report\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"global capability centres india\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"joint csir ugc net\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}],[\"orkla india ipo gmp\",0,[3,362,143],{\"zf\":33,\"zl\":8,\"zp\":{\"gs_ss\":\"1\"}}]],\"1\":{\"ag\":{\"a\":{\"8\":[\"Trending searches\"]}},\"av\":\"8896823667661852808\",\"q\":\"pEGJSVSmWbl6XYL3rrKe1YUG8CU\"}}"
+        }
+      ]
+    },
+    {
+      "origin": "https://qa.truevaluehub.com",
+      "localStorage": [
+        {
+          "name": "noOfTabs",
+          "value": "0"
+        },
+        {
+          "name": "onlyOne",
+          "value": "true"
+        },
+        {
+          "name": "currentTabId",
+          "value": "82e58bef-5e5b-489e-af3b-f62ab7c2dae9"
+        },
+        {
+          "name": "msal.token.keys.bc0b5743-62d1-4579-94f5-bb975c2fc262",
+          "value": "{\"idToken\":[],\"accessToken\":[],\"refreshToken\":[]}"
+        },
+        {
+          "name": "msal.account.keys",
+          "value": "[]"
+        }
+      ]
+    }
+  ]
+}

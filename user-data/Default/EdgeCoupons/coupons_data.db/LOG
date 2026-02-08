@@ -1,0 +1,15 @@
+2025/10/30-18:57:48.569 5c60 Reusing MANIFEST C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\user-data\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2025/10/30-18:57:48.572 5c60 Recovering log #16
+2025/10/30-18:57:48.574 5c60 Reusing old log C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\user-data\Default\EdgeCoupons/coupons_data.db/000016.log 
+2025/10/30-18:57:48.847 5ea4 Level-0 table #20: started
+2025/10/30-18:57:48.858 5ea4 Level-0 table #20: 672416 bytes OK
+2025/10/30-18:57:48.862 5ea4 Delete type=0 #16
+2025/10/30-18:57:48.863 5ea4 Compacting 4@0 + 1@1 files
+2025/10/30-18:57:48.883 5ea4 Generated table #21@0: 3 keys, 672416 bytes
+2025/10/30-18:57:48.883 5ea4 Compacted 4@0 + 1@1 files => 672416 bytes
+2025/10/30-18:57:48.886 5ea4 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/30-18:57:48.888 5ea4 Delete type=2 #8
+2025/10/30-18:57:48.888 5ea4 Delete type=2 #11
+2025/10/30-18:57:48.888 5ea4 Delete type=2 #14
+2025/10/30-18:57:48.888 5ea4 Delete type=2 #17
+2025/10/30-18:57:48.888 5ea4 Delete type=2 #20

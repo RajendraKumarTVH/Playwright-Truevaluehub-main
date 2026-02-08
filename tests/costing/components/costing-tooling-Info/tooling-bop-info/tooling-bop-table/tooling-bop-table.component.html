@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">BOP Summary</div>
+  <div class="card-body">
+    <table aria-describedby="BOP" class="table m-0">
+      <thead>
+        <tr>
+          <th scope="col">Sl #</th>
+          <th scope="col">Description</th>
+          <th scope="col" *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">Quantity</th>
+          <th scope="col" *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">Cost($)</th>
+          <th scope="col">Total BOP Cost($)</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let bop of compVals.toolingBOPInfoList; let i = index" [ngClass]="{ 'selected-item-color': bop.bopCostId === compVals.selectedToolBopId }">
+          <td>{{ i + 1 }}</td>
+          <td>{{ bop.descriptionName }}</td>
+          <td *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">
+            {{ bop.quantity }}
+          </td>
+          <td *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">
+            {{ bop.validatedTotalCost }}
+          </td>
+          <td>{{ bop.validatedTotalProcessCost }}</td>
+          <td style="text-align: center">
+            <a href="javascript:void(0)" (click)="onEditBOPInfo(bop)"><mat-icon>edit</mat-icon></a>
+            <a *ngIf="canUpdate" href="javascript:void(0)" (click)="onDeleteBOPClick(bop.bopCostId)"><mat-icon>delete</mat-icon></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="border: none"></td>
+          <td><strong>Total</strong></td>
+          <td *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">
+            <strong>{{ bopInfoDefaultValues.totQty }}</strong>
+          </td>
+          <td *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isCasting">
+            <strong>{{ bopInfoDefaultValues.totCost }}</strong>
+          </td>
+          <td>
+            <strong>{{ bopInfoDefaultValues.totProcessCost }}</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="links-block d-flex">
+      <a *ngIf="canUpdate" class="link-info ml-auto" title="Add BOP" (click)="addBOPSection()">Add BOP</a>
+    </div>
+  </div>
+</div>

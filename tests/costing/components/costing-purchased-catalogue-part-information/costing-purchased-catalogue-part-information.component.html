@@ -1,0 +1,201 @@
+<form [formGroup]="costingCOTsInfoform" (ngSubmit)="onFormSubmit()" autocomplete="off" (change)="onFormValueChange()" class="purchased-catalogue-form">
+  <ng-template #popContent>
+    <div [innerHTML]="name"></div>
+    <div class="div-img" *ngIf="url">
+      <img alt="" class="img-class" [src]="url" />
+    </div>
+  </ng-template>
+  <div class="row row-cols-2 app-purchased-part-information">
+    <div class="col-12">
+      <div class="table-container">
+        <div class="card">
+          <div class="col-12">
+            <table class="" aria-describedby="Purchased Parts">
+              <thead>
+                <tr>
+                  <th scope="col" class="table-head text-right"><span>Sl</span></th>
+                  <th scope="col" class="table-head"><span>Part Name</span></th>
+                  <th scope="col" class="table-head"><span>Description</span></th>
+                  <th scope="col" class="table-head"><span>Image</span></th>
+                  <th scope="col" class="table-head text-right"><span>Unit Cost($)</span></th>
+                  <th scope="col" class="table-head text-right"><span>Qty</span></th>
+                  <th scope="col" class="table-head text-right"><span>Extended Cost</span></th>
+                  <th scope="col" class="table-head text-center"><span>Action</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row" *ngFor="let d of costInfoList; let i = index" [ngClass]="{ class_name: d.cotsInfoId === selectedCotsInfoId }">
+                  <td class="text-right">
+                    <span class="column-edit justify-end">
+                      <label>
+                        <input type="radio" name="materialEditRadio" (click)="onEditClick(d)" [checked]="d.cotsInfoId === selectedCotsInfoId" />
+                      </label>
+                      <span class="inline-block ml-3">
+                        {{ i + 1 }}
+                      </span>
+                    </span>
+                  </td>
+                  <td>{{ d.partName }}</td>
+                  <td id="{{ 'row' + i }}">
+                    <p id="{{ 'row' + i }}-content" class="read-more-content mb-0" [innerHTML]="d.description | commaNewlineBr"></p>
+                    <!-- <ng-container *ngIf="d.description?.trim().length > 0">
+                      <a href="javascript:void(0);" id="{{ 'row' + i }}-more" (click)="toggleReadMore('row' + i)">Read more</a>
+                      <a href="javascript:void(0);" id="{{ 'row' + i }}-less" style="display: none" (click)="toggleReadMore('row' + i)">Read less</a>
+                    </ng-container> -->
+                  </td>
+                  <td>
+                    <!-- {{ d.partNo }} -->
+                    <div class="thumbnail-div">
+                      <img [src]="sharedSignalService.getThumbnailByPartInfoId(d.sourcePartInfoId)" alt="Part Image" class="w-full h-full block object-cover" />
+                    </div>
+                  </td>
+                  <td class="text-right">{{ d.partCost | number: '.2-2' }}</td>
+                  <td class="text-right">{{ d.qty }}</td>
+                  <td class="text-right">{{ d.extCost | number: '.2-2' }}</td>
+                  <td class="text-center">
+                    <a *ngIf="canUpdate" href="javascript:void(0)" name="{{ d.cotsInfoId }}" (click)="onDeleteClick(d)" class="icon-delete">
+                      <mat-icon svgIcon="delete_icon"></mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mt-3">
+    <div class="card with-bg">
+      <div class="col"></div>
+      <!-- <div class="col text-end">
+        <a class="link-info" (click)="addCatalogInfo()" href="javascript:void(0)" id="aBCmat">Add Part</a>
+      </div> -->
+      <div class="row mb-6">
+        <div class="col-6">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Part Name</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Part_Name')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="text"
+            (blur)="calculate()"
+            [ngClass]="{
+              'input-failure': f.PartDescription.errors,
+              'input-success': !f.PartDescription.errors,
+            }"
+            class="form-control"
+            [maxlength]="100"
+            formControlName="PartDescription"
+            id="PartDescription" />
+        </div>
+        <div class="col-6">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Reference Part No.</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Reference_Part_No')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="text"
+            [ngClass]="{
+              'input-failure': f.PartNo.errors,
+              'input-success': !f.PartNo.errors,
+            }"
+            (blur)="calculate()"
+            class="form-control"
+            formControlName="PartNo"
+            id="PartNo" />
+        </div>
+      </div>
+      <div class="row mb-6">
+        <div class="col-12">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Part Description</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Part_Description')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <textarea
+            (blur)="calculate()"
+            [ngClass]="{
+              'input-failure': f.Description.errors,
+              'input-success': !f.Description.errors,
+            }"
+            class="form-control"
+            [maxlength]="400"
+            formControlName="Description"
+            id="Description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Part Unit Cost($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Part_Unit_Cost')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            appFourDigitDecimaNumber
+            min="0"
+            (blur)="calculate()"
+            [ngClass]="{
+              'input-failure': f.PartCost.errors,
+              'input-success': !f.PartCost.errors,
+            }"
+            formControlName="PartCost"
+            id="PartCost" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Qty</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Qty')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-failure': f.Qty.errors,
+              'input-success': !f.Qty.errors,
+            }"
+            (blur)="calculate()"
+            min="0"
+            class="form-control"
+            formControlName="Qty"
+            id="Qty" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon" for="inputDefault">
+            <span class="label-text">Extended Cost($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Purchase_Extended_Cost')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            appFourDigitDecimaNumber
+            min="0"
+            (blur)="calculate()"
+            [ngClass]="{
+              'input-failure': f.ExtCost.errors,
+              'input-success': !f.ExtCost.errors,
+            }"
+            formControlName="ExtCost"
+            id="ExtCost" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <!-- <button class="btn btn-primary" type="submit" [ngClass]="(costingCOTsInfoform.dirty) ? 'dirty-button' : ''">
+                Update & Save
+            </button> -->
+    </div>
+  </div>
+</form>

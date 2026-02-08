@@ -1,0 +1,8 @@
+2026/01/10-17:24:45.121 2dc8 Creating DB C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-latest\Default\Local Storage\leveldb since it was missing.
+2026/01/10-17:24:45.166 2dc8 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-latest\Default\Local Storage\leveldb/MANIFEST-000001
+2026/01/10-17:26:53.037 3338 Level-0 table #5: started
+2026/01/10-17:26:53.049 3338 Level-0 table #5: 430200 bytes OK
+2026/01/10-17:26:53.052 3338 Delete type=0 #3
+2026/01/10-17:31:07.744 3338 Level-0 table #7: started
+2026/01/10-17:31:07.766 3338 Level-0 table #7: 322371 bytes OK
+2026/01/10-17:31:07.770 3338 Delete type=0 #4

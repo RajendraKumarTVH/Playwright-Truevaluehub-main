@@ -1,0 +1,10 @@
+2025/11/05-22:13:40.071 3af0 Reusing MANIFEST C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\userData\Default\Local Storage\leveldb/MANIFEST-000001
+2025/11/05-22:13:40.084 3af0 Recovering log #4
+2025/11/05-22:13:40.087 3af0 Level-0 table #7: started
+2025/11/05-22:13:40.098 3af0 Level-0 table #7: 61358 bytes OK
+2025/11/05-22:13:40.099 3af0 Recovering log #7
+2025/11/05-22:13:40.105 3af0 Reusing old log C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\userData\Default\Local Storage\leveldb/000007.log 
+2025/11/05-22:13:40.110 3af0 Delete type=0 #4
+2025/11/05-22:13:40.110 3af0 Delete type=2 #8
+2025/11/05-22:14:26.717 3af0 Level-0 table #9: started
+2025/11/05-22:14:26.728 3af0 Level-0 table #9: 82788 bytes OK

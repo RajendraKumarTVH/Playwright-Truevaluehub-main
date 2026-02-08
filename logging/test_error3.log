@@ -1,0 +1,127 @@
+2025-11-15T12:47:20+05:30 [error]: ❌ Unexpected error in verifyCostingPartInfo1: page.waitForSelector: Target page, context or browser has been closed
+2025-11-15T12:48:15+05:30 [error]: ❌ Unexpected error in verifyCostingPartInfo1: page.waitForSelector: Target page, context or browser has been closed
+2025-11-15T12:49:03+05:30 [error]: ❌ Title or logo validation failed.
+2025-11-15T12:49:03+05:30 [error]: Current URL: https://qa.truevaluehub.com/#state=eyJpZCI6IjAxOWE4NjYxLTk5YmItN2U1My1iMTllLWU3OTY0ZjNjMmY0MiIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d&client_info=eyJ1aWQiOiJlN2U5MWEzZS1kY2ZmLTQ2YTctODc2Ni02MmE3MDY5MmY3MWItYjJjXzFfYjJjX3NpZ251cHNpZ25pbiIsInV0aWQiOiIxMDc4ZWJmOC1hM2I3LTRiZGItODhjNC0zYzM5NDEzNmRmZDkifQ&code=eyJraWQiOiJjcGltY29yZV8wOTI1MjAxNSIsInZlciI6IjEuMCIsInppcCI6IkRlZmxhdGUiLCJzZXIiOiIxLjAifQ..WAMTJN9ZnsTb6RqH.8FLdqeNTlFhZKaGmGFeSZMowbHxY5-W8p-llVvmP5HahzTgNeHAqcwKDEzq2D218WNNzeV42pI-yB3a9gjX0OcOGhf1murSnX0hB7D9f9afkbuFI9yQ0926h34rD6kq5qzpwqnAnym741a6a2ptEDi--empHxtAhF_50cEdI7-zDqPpMjfDTAh5e3IxmG6hiuYUhU95gHOdoaSysoERRWxHIeRxin_x_9FrCiVEzoAUwUZ5hWAqBw2Zdp-kPPUcoKRaeLNDSHZWHx65ntjEKXU7LV5ycZ8S6cY0Bflyf0UJx4fvfGICmmOJ_E3zWxiRVnFM3GtgasX9Lzq0RVyAlCVAt7WRZ7_q7MclYOvuuIUDG1Eb9-Q1hb4ORGqnKPo_TvOQShZas600SuI6C0ADyCeFdRbzeWVt9wVjIAQ4y-XoYbxiy5at3Qr-_QrfEUZ1Fz16qqs2PsM5NL8c0NWO292Nw39YGG2kNypjCqNexYDOpeXMX7nAcXUrqV0vKDZtCBS10d9U8tDwhiCud5bI9NOksXLwuY5Ads__PBUG0BvrUtW5bNmhH-n7-3VGC4pAqThwzEdsP4kn8nmpINVRpb4Bz0UiHFGdhAvjbv-FmSuoXNOJ8hE5QuCXvq7g6J_N7lkR3e5cvLRVVoKYJlUvBnZy9QakaCcd0De9I18K596Z0iDxvegl2G-K8IPKdeU_kYHZ-WQE1lti98hhmgYyX-W1vdoqt5XwHEtM0QbctdkdUsOMzuNfEKDgor6vEmBD9hmMPCJp5DtGu0BTLVFeY_upWke2PhEE8Uj0a3HsO_gBqcL06PMBkiSzRqRrcFoLAqRe97Mj9ra0IKlHA8S0wpOYqn8o2ENrSuGNgeA3b3gspB4j3WDSTngw9pQ-O.tW09wh5FaIcl1hW14xMpvQ
+2025-11-15T12:49:03+05:30 [error]: ❌ Login failed: Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator('.logo-title')
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 10000ms[22m
+[2m  - waiting for locator('.logo-title')[22m
+[2m    - waiting for" https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.on…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+
+2025-11-15T12:50:29+05:30 [error]: ❌ Title or logo validation failed.
+2025-11-15T12:50:29+05:30 [error]: Current URL: https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ftruevaluehubapp.onmicrosoft.com%2foauth2%2fauthresp&response_type=code&scope=openid+profile+email&response_mode=form_post&nonce=bKGupolhYDpzi9Fhcoh%2fAw%3d%3d&ui_locales=en&state=StateProperties%3deyJTSUQiOiJ4LW1zLWNwaW0tcmM6ZGJlY2VmYjEtYjllMC00ZGRkLTkzZDctZWZiYzA3MWIzZWZlIiwiVElEIjoiMjFiNTU5ODYtOTQ0MS00M2VkLWE5ZDMtZTBjNDNhNDFmMGVhIiwiVE9JRCI6IjEwNzhlYmY4LWEzYjctNGJkYi04OGM0LTNjMzk0MTM2ZGZkOSJ9
+2025-11-15T12:50:29+05:30 [error]: ❌ Login failed: Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+Expected pattern: [32m/True\s*ValueHub/i[39m
+Received string:  [31m"Sign in to your account"[39m
+Timeout: 5000ms
+
+Call log:
+[2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+[2m    9 × unexpected value "Sign in to your account"[22m
+
+2025-11-15T12:50:51+05:30 [error]: ❌ Title or logo validation failed.
+2025-11-15T12:50:51+05:30 [error]: Current URL: https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ftruevaluehubapp.onmicrosoft.com%2foauth2%2fauthresp&response_type=code&scope=openid+profile+email&response_mode=form_post&nonce=XUghsVgnRTkSjqtVnyaW7w%3d%3d&ui_locales=en&state=StateProperties%3deyJTSUQiOiJ4LW1zLWNwaW0tcmM6ZjA4ZDkyNmMtYWI5OS00N2VjLWE5ODktMjY0M2YyYjAyY2E1IiwiVElEIjoiOTBhZDUwYmUtMGQ5Mi00NTk4LWI2NzQtNGRiZjJmMzliMzU4IiwiVE9JRCI6IjEwNzhlYmY4LWEzYjctNGJkYi04OGM0LTNjMzk0MTM2ZGZkOSJ9
+2025-11-15T12:50:51+05:30 [error]: ❌ Login failed: Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+Expected pattern: [32m/True\s*ValueHub/i[39m
+Received string:  [31m"Sign in to your account"[39m
+Timeout: 5000ms
+
+Call log:
+[2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+[2m    8 × unexpected value "Sign in to your account"[22m
+
+2025-11-15T12:51:14+05:30 [error]: ❌ Title or logo validation failed.
+2025-11-15T12:51:14+05:30 [error]: Current URL: https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ftruevaluehubapp.onmicrosoft.com%2foauth2%2fauthresp&response_type=code&scope=openid+profile+email&response_mode=form_post&nonce=3lRGdDuA683rfpcz%2bzpeHQ%3d%3d&ui_locales=en&state=StateProperties%3deyJTSUQiOiJ4LW1zLWNwaW0tcmM6MTk1Zjc0MjAtMTkxZS00NjgxLTk0NTktZDM2YjFiOTU1ZWU4IiwiVElEIjoiNzY1NzU4N2EtZWFhNi00ZTYxLWE0NDktYjQ1ZTllMTM2MGFjIiwiVE9JRCI6IjEwNzhlYmY4LWEzYjctNGJkYi04OGM0LTNjMzk0MTM2ZGZkOSJ9
+2025-11-15T12:51:14+05:30 [error]: ❌ Login failed: Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+Expected pattern: [32m/True\s*ValueHub/i[39m
+Received string:  [31m"Sign in to your account"[39m
+Timeout: 5000ms
+
+Call log:
+[2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+[2m    9 × unexpected value "Sign in to your account"[22m
+
+2025-11-15T12:59:21+05:30 [error]: ❌ Delivery Category validation failed: Suggested Category is missing in Costing Notes.
+2025-11-15T12:59:28+05:30 [error]: ❌ Lifetime Qty mismatch — Expected: 600000, Found: 0
+2025-11-15T12:59:28+05:30 [error]: ❌ Quantity validation failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32m600000[39m
+Received: [31m0[39m
+2025-11-15T13:00:07+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T13:00:28+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+
+2025-11-15T13:02:28+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T13:02:49+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+
+2025-11-15T14:26:53+05:30 [error]: ❌ Unexpected error in verifyCostingPartInfo1: page.waitForSelector: Target page, context or browser has been closed
+2025-11-15T14:27:21+05:30 [error]: ❌ Login failed: Error: page.title: Execution context was destroyed, most likely because of a navigation
+2025-11-15T14:28:03+05:30 [error]: ❌ Title or logo validation failed.
+2025-11-15T14:28:03+05:30 [error]: Current URL: https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ftruevaluehubapp.onmicrosoft.com%2foauth2%2fauthresp&response_type=code&scope=openid+profile+email&response_mode=form_post&nonce=L%2f9yENg1movoeHP7wNQa9A%3d%3d&ui_locales=en&state=StateProperties%3deyJTSUQiOiJ4LW1zLWNwaW0tcmM6NDAzYTAxYzAtMTY4My00N2Y2LWI3M2UtMWIxMjgxNGQzMzQ4IiwiVElEIjoiZTI4YTFmN2MtZGFjNy00NWJmLTg4OWUtYmI5ZjczODlmYzAwIiwiVE9JRCI6IjEwNzhlYmY4LWEzYjctNGJkYi04OGM0LTNjMzk0MTM2ZGZkOSJ9
+2025-11-15T14:28:03+05:30 [error]: ❌ Login failed: Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator('.logo-title')
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 10000ms[22m
+[2m  - waiting for locator('.logo-title')[22m
+[2m    - waiting for" https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/b2c_1_b2c_signupsignin/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&scope=https%3A%2F%2Ftruevaluehubapp.on…" navigation to finish...[22m
+[2m    - navigated to "https://login.microsoftonline.com/1078ebf8-a3b7-4bdb-88c4-3c394136dfd9/oauth2/v2.0/authorize?client_id=bc0b5743-62d1-4579-94f5-bb975c2fc262&redirect_uri=https%3a%2f%2ftruevaluehubapp.b2clogin.com%2ft…"[22m
+
+2025-11-15T14:31:24+05:30 [error]: ❌ Supply Terms verification failed: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+2025-11-15T14:31:44+05:30 [error]: ❌ Add File validation failed: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator:  locator('input#actual-btn[type="file"]')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+[2m  - Expect "toBeVisible" with timeout 5000ms[22m
+[2m  - waiting for locator('input#actual-btn[type="file"]')[22m
+[2m    9 × locator resolved to <input hidden="" type="file" id="actual-btn" _ngcontent-ng-c70416824=""/>[22m
+[2m      - unexpected value "hidden"[22m
+

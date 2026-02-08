@@ -1,0 +1,13 @@
+2025/10/30-18:57:43.432 4478 Reusing MANIFEST C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\user-data\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/10/30-18:57:43.436 4478 Recovering log #7
+2025/10/30-18:57:43.441 4478 Reusing old log C:\Playwright Projects\Playwright-JavaScript-qaTruevaluehub-main\user-data\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb/000007.log 
+2025/10/30-18:57:43.637 5ea4 Level-0 table #11: started
+2025/10/30-18:57:43.643 5ea4 Level-0 table #11: 1461 bytes OK
+2025/10/30-18:57:43.648 5ea4 Delete type=0 #7
+2025/10/30-18:57:43.649 5ea4 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x04\x01\x02\x01\x03\x00k\x00e\x00y' @ 281 : 1
+2025/10/30-18:57:43.650 5ea4 Compacting 1@0 + 1@1 files
+2025/10/30-18:57:43.655 5ea4 Generated table #12@0: 32 keys, 684 bytes
+2025/10/30-18:57:43.655 5ea4 Compacted 1@0 + 1@1 files => 684 bytes
+2025/10/30-18:57:43.656 5ea4 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/30-18:57:43.658 5ea4 Delete type=2 #11
+2025/10/30-18:57:43.659 5ea4 Manual compaction at level-0 from '\x00\x04\x01\x02\x01\x03\x00k\x00e\x00y' @ 281 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)

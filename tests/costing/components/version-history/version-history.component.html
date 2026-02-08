@@ -1,0 +1,140 @@
+<div class="version-history-container">
+  <!-- Banner showing current version -->
+  <div class="version-banner mb-3 p-3" *ngIf="currentViewingVersion">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="flex items-center gap-2 font-semibold">
+          <mat-icon class="visibility-icon !w-4" svgIcon="eye-icon"></mat-icon>
+          Version {{ currentViewingVersion.versionNumber }}
+        </span>
+        <span class="ml-6">
+          Edited by {{ currentViewingVersion.userName }} on {{ currentViewingVersion.date | date: 'dd/MM/yy' }}.
+          {{ currentViewingVersion.time }}
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn-primary flex items-center gap-2" (click)="onRestoreVersion(currentViewingVersion)">
+          <mat-icon svgIcon="version-history" class="text-white !size-4"></mat-icon>
+          Restore Version
+        </button>
+        <button class="btn btn-outline-primary min-w-28" (click)="exitVersionView()">Exit View</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Version History Table -->
+  <div class="version-history-section">
+    <div class="table-container curved-table">
+      <p-table [value]="versionHistoryList" [styleClass]="'p-datatable-sm'">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 50px" scope="col"></th>
+            <th pSortableColumn="versionNumber" scope="col">
+              <div class="flex items-center justify-start gap-0">
+                <span>Version</span>
+                <p-sortIcon field="versionNumber"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="date" class="min-w-32" scope="col">
+              <div class="flex items-center justify-start gap-0">
+                <span>Date</span>
+                <p-sortIcon field="date"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="time" class="min-w-36" scope="col">
+              <div class="flex items-center justify-start gap-0">
+                <span>Time</span>
+                <p-sortIcon field="time"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="userName" class="min-w-44" scope="col">
+              <div class="flex items-center justify-start gap-0">
+                <span>User</span>
+                <p-sortIcon field="userName"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="totalCost" class="text-right" scope="col">
+              <div class="flex items-center justify-start gap-0">
+                <span>Total cost ($)</span>
+                <p-sortIcon field="totalCost"></p-sortIcon>
+              </div>
+            </th>
+            <th class="text-center" scope="col">Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-version>
+          <tr>
+            <td>
+              <p-checkbox [binary]="true" [(ngModel)]="version.selected" (onChange)="onCheckboxChange(version, $event)"></p-checkbox>
+            </td>
+            <td class="badge-cell">
+              <div class="flex items-center gap-2">
+                <a href="javascript:void(0)" (click)="viewVersion(version)" class="">v{{ version.versionNumber }}</a>
+                <span class="badge badge-primary text-center" *ngIf="version.isLatest">Latest</span>
+              </div>
+            </td>
+            <td class="min-w-32">{{ version.date | date: 'MM/dd/yyyy' }}</td>
+            <td class="min-w-36">{{ version.time }}</td>
+            <td class="min-w-44">
+              <div class="truncate-3-lines">{{ version.userName }}</div>
+            </td>
+            <td>
+              <div class="truncate-3-lines">{{ version.totalCost }}</div>
+            </td>
+            <td class="text-center">
+              <div class="flex items-center gap-2 justify-center">
+                <button class="btn icon-btn p-0 action-btn text-black size-7 flex items-center justify-center" (click)="viewVersion(version)" matTooltip="Restore Version">
+                  <mat-icon svgIcon="version-history" class="text-primary text-black !size-5"></mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 p-3">
+        <button class="btn btn-primary" [disabled]="selectedVersions.length < 2" (click)="compareVersions()">Compare Selection</button>
+        <button class="btn btn-outline-primary" (click)="clearSelection()">Clear Selection</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compare Versions Table -->
+  <div class="compare-versions-section mt-4" *ngIf="showCompareTable && selectedVersions.length >= 2">
+    <div class="table-container curved-table">
+      <div class="table-wrapper">
+        <p-table [value]="compareRows" [columns]="selectedVersions" [styleClass]="'p-datatable-sm'">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th class="min-w-44"></th>
+              <th *ngFor="let version of columns" class="min-w-32">
+                <div class="text-right">
+                  <div class="mb-2">
+                    <span *ngIf="version.isLatest" class="badge badge-primary mr-2 text-center">Primary</span>
+                    <span class="text-sm font-semibold">v{{ version.versionNumber }}</span>
+                  </div>
+                  <div class="info-text text-xs font-normal">{{ version.date | date: 'MM/dd/yyyy' }}, {{ version.time }}</div>
+                  <div class="info-text text-xs font-normal">by {{ version.userName }}</div>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-row let-columns="columns">
+            <tr [ngClass]="{ 'text-bold bg-row': row.bold, 'should-cost-row': row.isTotalRow }">
+              <td class="min-w-44">
+                {{ row.label }}
+                <mat-icon *ngIf="row.showInfoIcon" svgIcon="info-icon" class="ml-1"></mat-icon>
+              </td>
+              <td *ngFor="let version of columns" class="text-right min-w-32">
+                <span>$</span>
+                <span>{{ version[row.field] | number }}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>

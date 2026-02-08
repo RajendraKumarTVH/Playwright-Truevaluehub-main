@@ -1,0 +1,304 @@
+<ng-container [formGroup]="formGroup">
+  <ng-template #popContent>
+    <div [innerHTML]="name"></div>
+    <div class="div-img" *ngIf="url">
+      <img alt="" class="img-class" [src]="url" />
+    </div>
+  </ng-template>
+  <app-tooling-material-table
+    [compVals]="compVals"
+    [canUpdate]="canUpdate"
+    (addMaterialInfo)="addMaterial()"
+    (editMaterialInfo)="onEditMaterialInfo($event)"
+    (deleteMaterialInfo)="onDeleteMaterialClick($event)"></app-tooling-material-table>
+  <div class="card mt-3">
+    <div class="card-header">{{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Mold' }} Item Description</div>
+    <div class="card-body">
+      <div
+        class="row"
+        *ngIf="
+          compVals.mouldid !== moldItems.SideCoreCost && compVals.mouldid !== moldItems.AngularCoreCost && compVals.mouldid !== moldItems.UnscrewingCost && compVals.mouldid !== moldItems.HotRunnerCost
+        ">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Mold Item Description</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Mold_Item_Description')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <select formControlName="moldDescriptionId" class="form-control" (change)="onMoldDescriptionChange($event)">
+            <option value="" selected>-------Select Description---------</option>
+            <option *ngFor="let option of moldItemDescsriptionsList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="row mt-3"
+        *ngIf="
+          compVals.mouldid !== moldItems.SideCoreCost && compVals.mouldid !== moldItems.AngularCoreCost && compVals.mouldid !== moldItems.UnscrewingCost && compVals.mouldid !== moldItems.HotRunnerCost
+        ">
+        <div class="col-4">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Category</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Mold_Category')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <select formControlName="catergoryId" (change)="mapOnGroupChange($event)" class="form-control">
+            <option value="" selected>---Select Material Category----</option>
+            <option *ngFor="let group of compVals.materialGroupList" value="{{ group.id }}">{{ group.name }}</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label input-sm no-wrap has-icon">
+                <span class="label-text">Family</span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Mold_Family')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <select formControlName="familyId" class="form-control" (change)="onMaterialFamilyChange($event, 0)" placeholder="Select Material Family">
+                <option value="" selected>----Select Material Family -----</option>
+                <option *ngFor="let materialtypedata of compVals.materialTypeList" value="{{ materialtypedata.materialTypeId }}">{{ materialtypedata.materialTypeName }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Description/Grade</span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Mold_Description_Grade')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <select formControlName="gradeId" (change)="mapOnMaterialDesc($event)" class="form-control">
+                <option value="" selected>----Select Description -----</option>
+                <option *ngFor="let material of compVals.materialDescriptionList" value="{{ material.materialMasterId }}">{{ material.materialDescription }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          compVals.mouldid !== moldItems.SideCoreCost && compVals.mouldid !== moldItems.AngularCoreCost && compVals.mouldid !== moldItems.UnscrewingCost && compVals.mouldid !== moldItems.HotRunnerCost
+        ">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Volume Purchased(Ton/Contract)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Volume_Purchased')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="volumePurchased" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Material price($/Kg)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Material_Price')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="materialPrice" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Scrap price($/Kg)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Scrap_Price')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="scrapPrice" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Density (g/cc)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Material_Density')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" formControlName="density" [OnlyNumber]="true" class="form-control" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+      </div>
+      <div
+        class="row mt-3"
+        *ngIf="
+          compVals.mouldid !== moldItems.SideCoreCost && compVals.mouldid !== moldItems.AngularCoreCost && compVals.mouldid !== moldItems.UnscrewingCost && compVals.mouldid !== moldItems.HotRunnerCost
+        ">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Envelope Length/Part(' + conversionValue + ')' : 'Envelope Length/Part(mm)' }}</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Envelope_Length_Per_Part')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="length"
+            [OnlyNumber]="true"
+            (blur)="calculateMaterialCost()"
+            min="0"
+            [readonly]="!(compVals.mouldid === moldItems.ElectrodeMaterialcost1 || compVals.mouldid === moldItems.ElectrodeMaterialcost2)" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Envelope Width/Part(' + conversionValue + ')' : 'Envelope Width/Part(mm)' }}</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Envelope_Width_Per_Part')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="width" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" [readonly]="isWidthFormControlNameReadOnly" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ isEnableUnitConversion ? 'Envelope Height/Part(' + conversionValue + ')' : 'Envelope Height/Part(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Envelope_Height_Per_Part')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="height" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" [readonly]="isHeightformControlNameReadOnly" />
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="
+          compVals.mouldid !== moldItems.SideCoreCost && compVals.mouldid !== moldItems.AngularCoreCost && compVals.mouldid !== moldItems.UnscrewingCost && compVals.mouldid !== moldItems.HotRunnerCost
+        ">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Quantity(No.)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Quantity')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="quantity"
+            [OnlyNumber]="true"
+            (blur)="calculateMaterialCost()"
+            min="0"
+            [readonly]="!(compVals.mouldid === moldItems.ElectrodeMaterialcost1 || compVals.mouldid === moldItems.ElectrodeMaterialcost2)" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Material cutting allowance (%)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Material_Cutting_Allowance')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="materialCuttingAllowance" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+
+        <div class="col-4 mt-3" *ngIf="compVals.mouldid !== moldItems.ElectrodeMaterialcost1 && compVals.mouldid !== moldItems.ElectrodeMaterialcost2">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Net weight(Kg)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Net_Weight')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="netWeight" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ compVals.mouldid === moldItems.ElectrodeMaterialcost1 || compVals.mouldid === moldItems.ElectrodeMaterialcost2 ? 'Net weight(Kg)' : 'Total Net weight(Kg)' }} :
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Total_Net_Weight')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="totalPlateWeight" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ compVals.mouldid === moldItems.ElectrodeMaterialcost1 || compVals.mouldid === moldItems.ElectrodeMaterialcost2 ? 'Electrode Price(in Kgs)' : 'Total Material Cost($)' }}
+            </span>
+            <span
+              class="notification"
+              [ngbPopover]="popContent"
+              placement="auto"
+              (click)="
+                showinfo(compVals.mouldid === moldItems.ElectrodeMaterialcost1 || compVals.mouldid === moldItems.ElectrodeMaterialcost2 ? 'Tooling_Electrode_Price' : 'Tooling_Total_Material_Cost')
+              ">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="totalRawMaterialCost" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" readonly />
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="
+          compVals.mouldid === moldItems.SideCoreCost || compVals.mouldid === moldItems.AngularCoreCost || compVals.mouldid === moldItems.UnscrewingCost || compVals.mouldid === moldItems.HotRunnerCost
+        ">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Mold Item Description</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Mold_Item_Description')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <select formControlName="moldDescriptionId" class="form-control" (change)="onMoldDescriptionChange($event)">
+            <option value="" selected>-------Select Description---------</option>
+            <option *ngFor="let option of moldItemDescsriptionsList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+
+        <div class="col-4 mt-3" [formGroup]="toolingFormGroup" *ngIf="compVals.mouldid === moldItems.SideCoreCost">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts External Side cores (Nos)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Undercuts_Side_Cores')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="undercutsSideCores" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3" [formGroup]="toolingFormGroup" *ngIf="compVals.mouldid === moldItems.AngularCoreCost">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts Internal Angular Slides (Nos)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Undercuts_Angular_Slides')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" formControlName="undercutsAngularSlides" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3" [formGroup]="toolingFormGroup" *ngIf="compVals.mouldid === moldItems.UnscrewingCost">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts Unscrewing (Nos)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Undercuts_Unscrewing')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="undercutsUnscrewing" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label">
+            {{
+              compVals.mouldid === moldItems.SideCoreCost
+                ? 'Side Core Cost ($)'
+                : compVals.mouldid === moldItems.AngularCoreCost
+                  ? 'Angular Core Cost ($)'
+                  : compVals.mouldid === moldItems.UnscrewingCost
+                    ? 'Unscrewing Cost ($)'
+                    : compVals.mouldid === moldItems.HotRunnerCost
+                      ? 'Hot Runner Cost ($)'
+                      : ''
+            }}
+          </label>
+          <input type="number" class="form-control" formControlName="totalRawMaterialCost" [OnlyNumber]="true" min="0" (blur)="calculateMaterialCost()" />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

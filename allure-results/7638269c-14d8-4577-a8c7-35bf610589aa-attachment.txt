@@ -1,0 +1,70 @@
+[INFO] ═══════════════════════════════════════════════════════════
+[INFO] 🚀 Starting MIG Welding E2E Test Suite
+[INFO] 📋 Project ID: 15298
+2026-02-08T14:40:40+05:30 [info]: 🔑 Starting Login Flow...
+2026-02-08T14:40:40+05:30 [info]: 🌐 Navigating to: https://qa.truevaluehub.com
+2026-02-08T14:40:46+05:30 [info]: 🔍 Checking if login page is visible...
+2026-02-08T14:40:46+05:30 [info]:    • SSO Button Visible     : true
+2026-02-08T14:40:46+05:30 [info]:    • Username Input Visible: true
+2026-02-08T14:40:46+05:30 [info]: 🖱️ Clicking SSO button...
+2026-02-08T14:40:59+05:30 [info]: ℹ️ Username field not visible — login probably already completed.
+2026-02-08T14:40:59+05:30 [info]: ✅ Login verified successfully
+[INFO] 🔹 Navigating to project: 15298
+[INFO] Existing part found. Clicking Clear All...
+[INFO] 📂 Opening dropdown: Project Selector
+[INFO] ✅ Project Selector dropdown opened
+[INFO] ✅ Project option selected
+✅ Filled text "15298" into input
+[INFO] ✔ Navigated to project ID: 15298
+[INFO] 🔹 TC008: Verifying Manufacturing Cost
+[INFO] 
+💰 Unified Welding Verification → WeldingCleaning
+[INFO] 📐 L:27, W:20, H:5 | Density:7.87
+[INFO] ℹ️ WeldingCleaning already selected
+[INFO] 🧹 Using Weld Cleaning manufacturing gatherer
+[INFO] 📥 Gathering Weld Cleaning Manufacturing Info from UI...
+[INFO] 🔹 Reading Net Weight...
+[INFO] 🔹 Processing Part Complexity...
+[INFO] ⏳ Polling Net Weight: 5642.4
+[INFO] ⏳ Polling Net Weight: 5642.4
+[INFO] ⏳ Polling Net Weight: 5642.4
+[INFO] ✅ Part Complexity resolved as: 2
+[INFO] 📐 L:27, W:20, H:5 | Density:7.87
+[INFO] 🔩 Weld 1 UI → {"weldType":"Fillet","weldSide":"Both","weldSize":6,"weldElementSize":6,"weldLength":200,"weldPlaces":1,"wireDia":1.2,"noOfWeldPasses":1}
+[INFO] 🔩 Weld 2 UI → {"weldType":"Fillet","weldSide":"Single","weldSize":8,"weldElementSize":8,"weldLength":60,"weldPlaces":1,"wireDia":1.2,"noOfWeldPasses":1}
+[INFO] 📊 Collected 2 weld sub-materials for weld cleaning
+[INFO] No of Intermediate Start/Stops = No of Weld Passes → 2
+[INFO] 🧮 Computed No of Weld Passes (Weld1 + Weld2): 2
+[INFO] Cutting Length: 460
+[INFO] Max Weld Element Size: 8
+[INFO] Weld Cross Sectional Area:460*8 = 7360
+[INFO] Material Type: Carbon Steel
+[INFO] Disc Brush Dia: 50
+[INFO] Net Material Cost: 0.1676
+[INFO] Feed Per Rough: 25
+[INFO] Feed Per Final: 12.5
+[INFO] No of Passes: 1
+[INFO] Reorientation Time: 10
+[INFO] No of Weld Passes (computed): 1
+[INFO] No of Intermediate Start/Stops = No of Weld Passes → 1
+[INFO] Part Handling Time → reorientationTime=10, noOfIntermediateStartAndStop=1, total=15
+[INFO] Term: 55800
+[INFO] Process Time: partHandlingTime=15, feedPerREvRough=25, feedPerREvFinal=12.5, deburringRPM=1360, term=55800, processTime=16.641176470588235
+[INFO] Cycle Time: processTime 16.641176470588235, efficiency 75, cycleTime 22.1882
+[INFO] Direct Machine Cost: machineHourRate 7.8341, cycleTime 22.1882, directMachineCost 0.0483
+[INFO] Direct Set Up Cost: machineHourRate 7.8341, skilledLaborRatePerHour 1.8627, setUpTime 30, lotSize 1000, directSetUpCost 0.0048
+[INFO] Direct Set Up Cost: 0.0048
+[INFO] Direct Labor Cost: noOfLowSkilledLabours 1, lowSkilledLaborRatePerHour 1.1051, cycleTime 22.1882, directLaborCost 0.0068
+[INFO] Direct Labor Cost: 0.0068
+[INFO] Inspection Time: partComplexity 2, inspectionTime 0.5
+[INFO] Inspection Cost: qaOfInspectorRate 1.5845, samplingRate 8, lotSize 1000, inspectionTime 0.5, inspectionCost 0.0011
+[INFO] Yield Per: 98.5
+[INFO] Yield Cost: directMachineCost 0.0483, directSetUpCost 0.0048, directLaborCost 0.0068, inspectionCost 0.0011, yieldCost 0.0034
+[INFO] Direct Process Cost: 0.0644
+[INFO] 🔍 Verifying Direct Machine Cost { expected: 0.0483, uiValue: 0.2434, precision: 4 }
+[INFO] 🔍 Verifying Direct Labor Cost { expected: 0.0068, uiValue: 0.0343, precision: 4 }
+[INFO] 🔍 Verifying Direct Setup Cost { expected: 0.0048, uiValue: 0.0048, precision: 4 }
+[INFO] 🔍 Verifying QA Inspection Cost { expected: 0.0011, uiValue: 0.0004, precision: 4 }
+[INFO] 🏁 MIG Welding E2E Test Suite Completed
+[INFO] ✅ Browser context closed
+[INFO] ✅ User profile cleaned successfully

@@ -1,0 +1,6 @@
+2026/01/10-17:39:57.913 3990 Creating DB C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-latest\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb since it was missing.
+2026/01/10-17:39:57.921 3990 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-latest\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/10-17:39:57.965 3990 Level-0 table #5: started
+2026/01/10-17:39:57.967 3990 Level-0 table #5: 1971 bytes OK
+2026/01/10-17:39:57.969 3990 Delete type=0 #3
+2026/01/10-17:39:57.970 3990 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -1,0 +1,600 @@
+<form [formGroup]="costingSecProcessform" (ngSubmit)="onFormSubmit()" autocomplete="off" (change)="onFormValueChange()">
+  <div class="row">
+    <div class="card">
+      <div class="card-header">Secondary Process</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table" aria-describedby="Secondary Process">
+            <thead>
+              <tr>
+                <th scope="col" class="table-head">Sl #</th>
+                <th scope="col" class="table-head">Process Name</th>
+                <th scope="col" class="table-head">Cost($)</th>
+                <th scope="col" class="table-head">Comments</th>
+                <th scope="col" class="table-head">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                scope="row"
+                *ngFor="let d of secondaryProcessList; let i = index"
+                [ngClass]="{
+                  'grid-bg-color': d.secondaryProcessInfoId === selectedSecondaryProcessInfoId,
+                }">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  {{ secondaryProcessNamesMap.get(d.secondaryProcessId || 0) }}
+                </td>
+                <td>{{ _shareService.isValidNumber(d.platingCost) }}</td>
+                <td>{{ d.processRemarks }}</td>
+                <td>
+                  <a href="javascript:void(0)" name="{{ d.secondaryProcessInfoId }}" (click)="onEditClick(d)">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                  <a href="javascript:void(0)" name="{{ d.secondaryProcessInfoId }}" (click)="onDeleteClick($event, i + 1, i - 1)">
+                    <mat-icon>delete</mat-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 links-block">
+      <a class="link-info" (click)="onAddSecondaryProcess()" href="javascript:void(0)" id="aBCmat">Add Process</a>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label mt-1 table-head" for="Secondary_Process">
+            Process Name
+            <span class="clsred">*</span>
+            :
+          </label>
+          <select
+            [ngClass]="{
+              'input-failure': !f.Secondary_Process.errors,
+              'input-success': f.Secondary_Process.errors,
+            }"
+            class="form-control"
+            formControlName="Secondary_Process"
+            id="Secondary_Process"
+            (change)="viewCTDetails($event)">
+            <option value="">--Select Process--</option>
+            <option *ngFor="let x of secondaryProcessNamesList" value="{{ x.id }}">
+              {{ x.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label mt-1 table-head" for="InHouse_Outsourced">Inhouse/Outsource:</label>
+          <select
+            class="form-control"
+            formControlName="InHouse_Outsourced"
+            [ngClass]="{
+              'input-failure': !f.InHouse_Outsourced.errors,
+              'input-success': f.InHouse_Outsourced.errors,
+            }"
+            id="InHouse_Outsourced"
+            (change)="resetPlatingCost()">
+            <option value="">--Select InHouse/OutSource ---</option>
+            <option value="1">Inhouse</option>
+            <option value="2">Outsource</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Plating Material -->
+      <ng-container class="plating-material row" *ngIf="isPlating">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="platingMaterial">Plating Material:</label>
+            <select
+              class="form-control"
+              formControlName="platingMaterial"
+              [ngClass]="{
+                'input-failure': !f.platingMaterial.errors,
+                'input-success': f.platingMaterial.errors,
+              }"
+              id="platingMaterial"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Plating Material--</option>
+              <option value="Copper">Copper</option>
+              <option value="Glance chromium">Glance chromium</option>
+              <option value="Gold">Gold</option>
+              <option value="Hard chromium">Hard chromium</option>
+              <option value="Nickel">Nickel</option>
+              <option value="Palladium">Palladium</option>
+              <option value="Platinum">Platinum</option>
+              <option value="Silver">Silver</option>
+              <option value="Tin">Tin</option>
+              <option value="Zinc">Zinc</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="Plating_area">
+              {{ isEnableUnitConversion ? 'Plating Area (' + conversionValue + ')' : 'Plating Area (mm^2)' }}
+              :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="Plating_area"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.Plating_area.errors,
+                'input-success': f.Plating_area.errors,
+              }"
+              id="Plating_area"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="platingMachineDescription">Machine Description :</label>
+            <select
+              class="form-control"
+              formControlName="platingMachineDescription"
+              [ngClass]="{
+                'input-failure': !f.platingMachineDescription.errors,
+                'input-success': f.platingMachineDescription.errors,
+              }"
+              id="platingMachineDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Machine Description--</option>
+              <option *ngFor="let secdes of secondaryProcessPlatingMachineDescList" value="{{ secdes }}">
+                {{ secdes }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="Plating_Thick">Plating thick (µm):</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="Plating_Thick"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.Plating_Thick.errors,
+                'input-success': f.Plating_Thick.errors,
+              }"
+              id="Plating_Thick"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Heat Treatment -->
+      <ng-container class="heat-treatment row" *ngIf="isHeatTreat">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Heat Treatment Hours(hr):</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="htCycleTime"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.htCycleTime.errors,
+                'input-success': f.htCycleTime.errors,
+              }"
+              placeholder="Enter Heat Treatment Hours(hr)"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="heatTreatMachineDescription">Machine Description :</label>
+            <select
+              class="form-control"
+              formControlName="heatTreatMachineDescription"
+              [ngClass]="{
+                'input-failure': !f.heatTreatMachineDescription.errors,
+                'input-success': f.heatTreatMachineDescription.errors,
+              }"
+              id="heatTreatMachineDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Machine Description--</option>
+              <option value="60-250°C">60-250°C</option>
+              <option value="100-250°C">100-250°C</option>
+              <option value="200-250°C">200-250°C</option>
+              <option value="350-200°C">350-200°C</option>
+            </select>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Shot Blasting -->
+      <ng-container class="shot-blasting row" *ngIf="isShotBlasting">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="shotBlastingMachineDescription">Machine Description :</label>
+            <select
+              class="form-control"
+              formControlName="shotBlastingMachineDescription"
+              [ngClass]="{
+                'input-failure': !f.shotBlastingMachineDescription.errors,
+                'input-success': f.shotBlastingMachineDescription.errors,
+              }"
+              id="shotBlastingMachineDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Machine Description--</option>
+              <option *ngFor="let secdes of secondaryProcessHTMachineDescList" value="{{ secdes }}">
+                {{ secdes }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="partWeight">Part Weight (g) :</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="partWeight"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.partWeight.errors,
+                'input-success': f.partWeight.errors,
+              }"
+              id="partWeight"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Welding -->
+      <ng-container class="welding" *ngIf="isWelding">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="weldSize">
+              {{ isEnableUnitConversion ? 'Weld Size (' + conversionValue + ')' : 'Weld Size(mm)' }}
+              :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="weldSize"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.weldSize.errors,
+                'input-success': f.weldSize.errors,
+              }"
+              id="weldSize"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="weldLength">
+              {{ isEnableUnitConversion ? 'Weld Length (' + conversionValue + ')' : 'Weld Length(mm)' }}
+              :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="weldLength"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.weldLength.errors,
+                'input-success': f.weldLength.errors,
+              }"
+              id="weldLength"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Deburring -->
+      <ng-container class="deburring" *ngIf="isDeburring">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1" for="deburringMachineDescription">Machine Description :</label>
+            <select
+              class="form-control"
+              formControlName="deburringMachineDescription"
+              [ngClass]="{
+                'input-failure': !f.deburringMachineDescription.errors,
+                'input-success': f.deburringMachineDescription.errors,
+              }"
+              id="deburringMachineDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Machine Description--</option>
+              <option *ngFor="let secdes of secondaryProcessDeburringMachineDescList" value="{{ secdes }}">
+                {{ secdes }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Cycle Time:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="deburringCycleTime"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.deburringCycleTime.errors,
+                'input-success': f.deburringCycleTime.errors,
+              }"
+              placeholder="Enter Cycle Time"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Powder Coating -->
+      <ng-container class="powder-coating" *ngIf="isPowdercoating">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Material Description:</label>
+            <select
+              class="form-control"
+              formControlName="powderCoatingMaterialDescription"
+              [ngClass]="{
+                'input-failure': !f.powderCoatingMaterialDescription.errors,
+                'input-success': f.powderCoatingMaterialDescription.errors,
+              }"
+              id="powderCoatingMaterialDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Material Description--</option>
+              <option *ngFor="let secdes of powderCoatingMaterialDescriptionList" value="{{ secdes }}">
+                {{ secdes }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Coating Area:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="coatingArea"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.coatingArea.errors,
+                'input-success': f.coatingArea.errors,
+              }"
+              placeholder="Enter Coating Area"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Coating Thickness:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="coatingThickness"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.coatingThickness.errors,
+                'input-success': f.coatingThickness.errors,
+              }"
+              placeholder="Enter Coating Thickness"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Coating Coverage (%):</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="coatingCoverage"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.coatingCoverage.errors,
+                'input-success': f.coatingCoverage.errors,
+              }"
+              placeholder="Enter Coating Coverage(%)"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Coating Method:</label>
+            <select
+              class="form-control"
+              formControlName="powderCoatingMethod"
+              [ngClass]="{
+                'input-failure': !f.powderCoatingMethod.errors,
+                'input-success': f.powderCoatingMethod.errors,
+              }"
+              id="powderCoatingMethod"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Powder Coating Method--</option>
+              <option value="spray">Spray</option>
+              <option value="dip">Dip</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">
+              {{ isEnableUnitConversion ? 'Masking Area (' + conversionValue + ')' : ' Masking Area(mm2)' }}
+              :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="powderCoatingMaskingArea"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.powderCoatingMaskingArea.errors,
+                'input-success': f.powderCoatingMaskingArea.errors,
+              }"
+              placeholder="Enter Masking Cycle Time"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Painting -->
+      <ng-container class="screen-painting" *ngIf="isPainting">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Material Description:</label>
+            <select
+              class="form-control"
+              formControlName="paintingMaterialDescription"
+              [ngClass]="{
+                'input-failure': !f.paintingMaterialDescription.errors,
+                'input-success': f.paintingMaterialDescription.errors,
+              }"
+              id="paintingMaterialDescription"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Material--</option>
+              <option *ngFor="let secdes of paintingMaterialDescriptionList" value="{{ secdes }}">
+                {{ secdes }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Painting Area:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="paintingCoatingArea"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.paintingCoatingArea.errors,
+                'input-success': f.paintingCoatingArea.errors,
+              }"
+              placeholder="Enter Painting Area"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Painting Thickness:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="paintingCoatingThickness"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.paintingCoatingThickness.errors,
+                'input-success': f.paintingCoatingThickness.errors,
+              }"
+              placeholder="Enter Painting Thickness"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Painting Coverage (%):</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="paintingCoatingCoverage"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.paintingCoatingCoverage.errors,
+                'input-success': f.paintingCoatingCoverage.errors,
+              }"
+              placeholder="Enter Painting Coverage(%)"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">Painting Method:</label>
+            <select
+              class="form-control"
+              formControlName="paintingCoatingMethod"
+              [ngClass]="{
+                'input-failure': !f.paintingCoatingMethod.errors,
+                'input-success': f.paintingCoatingMethod.errors,
+              }"
+              id="paintingCoatingMethod"
+              (change)="resetPlatingCost()">
+              <option value="">--Select Painitng Method--</option>
+              <option value="spray">Spray</option>
+              <option value="dip">Dip</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label mt-1">
+              {{ isEnableUnitConversion ? 'Masking Area (' + conversionValue + ')' : 'Masking Area(mm2)' }}
+              :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="paintingMaskingArea"
+              min="0"
+              [ngClass]="{
+                'input-failure': !f.paintingMaskingArea.errors,
+                'input-success': f.paintingMaskingArea.errors,
+              }"
+              placeholder="Enter Masking Area"
+              (blur)="resetPlatingCost()" />
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label mt-1 table-head" for="platingCost">
+            Cost ($)
+            <span class="clsred">*</span>
+            :
+          </label>
+          <input
+            type="number"
+            class="form-control"
+            min="0"
+            [value]="costingSecProcessform.controls.platingCost.value"
+            formControlName="platingCost"
+            [ngClass]="{
+              'input-failure': !f.platingCost.errors,
+              'input-success': f.platingCost.errors,
+            }"
+            id="platingCost" />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label table-head" for="ProcessRemarks">Comments :</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="ProcessRemarks"
+            [ngClass]="{
+              'input-failure': !f.ProcessRemarks.errors,
+              'input-success': f.ProcessRemarks.errors,
+            }"
+            placeholder="Process Remarks"
+            id="ProcessRemarks" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 text-center m-t-10"></div>
+  </div>
+</form>

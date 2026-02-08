@@ -1,0 +1,7 @@
+{
+  "github.copilot.chat.mcp.servers": {
+    "debugssy": {
+      "url": "http://localhost:3000/mcp"
+    }
+  }
+}

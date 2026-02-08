@@ -1,0 +1,13 @@
+2026/01/18-08:01:07.943 91c Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/18-08:01:07.944 91c Recovering log #7
+2026/01/18-08:01:07.944 91c Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\IndexedDB\https_qa.truevaluehub.com_0.indexeddb.leveldb/000007.log 
+2026/01/18-08:01:07.957 91c Level-0 table #11: started
+2026/01/18-08:01:07.959 91c Level-0 table #11: 1500 bytes OK
+2026/01/18-08:01:07.960 91c Delete type=0 #7
+2026/01/18-08:01:07.961 4b38 Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at '\x00\x05\x01\x02\x01\x03\x00k\x00e\x00y' @ 366 : 1
+2026/01/18-08:01:07.961 4b38 Compacting 1@0 + 1@1 files
+2026/01/18-08:01:07.963 4b38 Generated table #12@0: 30 keys, 660 bytes
+2026/01/18-08:01:07.963 4b38 Compacted 1@0 + 1@1 files => 660 bytes
+2026/01/18-08:01:07.963 4b38 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/01/18-08:01:07.964 4b38 Delete type=2 #11
+2026/01/18-08:01:07.965 4b38 Manual compaction at level-0 from '\x00\x05\x01\x02\x01\x03\x00k\x00e\x00y' @ 366 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)

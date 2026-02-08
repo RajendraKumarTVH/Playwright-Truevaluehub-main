@@ -1,0 +1,11 @@
+2026/02/08-01:32:13.924 1630 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-all-categories\Default\Local Storage\leveldb/MANIFEST-000001
+2026/02/08-01:32:13.942 1630 Recovering log #3
+2026/02/08-01:32:13.948 1630 Level-0 table #3: started
+2026/02/08-01:32:13.969 1630 Level-0 table #3: 207211 bytes OK
+2026/02/08-01:32:13.981 1630 Delete type=0 #3
+2026/02/08-01:33:14.007 1630 Level-0 table #6: started
+2026/02/08-01:33:14.021 1630 Level-0 table #6: 46671 bytes OK
+2026/02/08-01:33:14.025 1630 Delete type=0 #4
+2026/02/08-01:33:42.691 5828 Level-0 table #8: started
+2026/02/08-01:33:42.727 5828 Level-0 table #8: 316237 bytes OK
+2026/02/08-01:33:42.732 5828 Delete type=0 #5
