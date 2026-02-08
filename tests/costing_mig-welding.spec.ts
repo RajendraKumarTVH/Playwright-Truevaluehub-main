@@ -195,9 +195,7 @@ test.describe.serial('MIG Welding - Complete E2E Flow', () => {
 		async () => {
 			await runStep('TC008_Manufacturing_Cost_Failure', async () => {
 				logger.info('🔹 TC008: Verifying Manufacturing Cost')
-				// await migWeldingLogic.verifyMaterialInformationDetails()
-				// await migWeldingLogic.verifyWeldingDetails(MigWeldingTestData)
-				//await migWeldingLogic.verifyMigCosts()
+				await migWeldingLogic.verifyMigCosts()
 				await migWeldingLogic.verifyWeldCleaningCost()
 			})
 		}

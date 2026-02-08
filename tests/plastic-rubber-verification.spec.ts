@@ -4,7 +4,7 @@ import Logger from './lib/LoggerUtil';
 import { LoginPage } from '../pageFactory/pageRepository/LoginPage';
 import { PlasticRubberPage } from './pages/plastic-rubber.page';
 import { PlasticRubberLogic } from './pages/plastic-rubber-logic';
-import { ManufacturingPage } from './db/manufacturing.page';
+
 
 const logger = Logger;
 
@@ -20,7 +20,6 @@ let page: Page;
 let loginPage: LoginPage;
 let plasticRubberPage: PlasticRubberPage;
 let plasticRubberLogic: PlasticRubberLogic;
-let manufacturingPage: ManufacturingPage;
 
 test.describe('Plastic & Rubber Sustainability Verification', () => {
 
@@ -39,7 +38,6 @@ test.describe('Plastic & Rubber Sustainability Verification', () => {
         loginPage = new LoginPage(page, context);
         plasticRubberPage = new PlasticRubberPage(page, context);
         plasticRubberLogic = new PlasticRubberLogic(plasticRubberPage);
-        manufacturingPage = new ManufacturingPage(page);
 
         await loginPage.loginToApplication();
         await page.goto(`${CONFIG.baseUrl}/costing/${CONFIG.projectId}/manufacturing`);
