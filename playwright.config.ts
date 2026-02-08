@@ -2,10 +2,13 @@ import { PlaywrightTestConfig } from '@playwright/test'
 import { testConfig } from './testConfig'
 import { OrtoniReportConfig } from 'ortoni-report'
 
+/* --------------------
+ * ENV SETUP
+ * -------------------- */
 const ENV = process.env.ENV || process.env.npm_config_ENV || 'qa'
-const isCI = !!process.env.CI
+const isCI = Boolean(process.env.CI)
 
-const resolveBaseURL = (): string => {
+const baseURL: string = (() => {
 	switch (ENV) {
 		case 'qa':
 			return testConfig.qa
@@ -18,13 +21,11 @@ const resolveBaseURL = (): string => {
 		default:
 			return testConfig.qa
 	}
-}
+})()
 
-const baseURL = resolveBaseURL()
-
-// --------------------
-// Ortoni (LOCAL ONLY)
-// --------------------
+/* --------------------
+ * ORTONI REPORT (LOCAL)
+ * -------------------- */
 const ortoniConfig: OrtoniReportConfig = {
 	title: 'Playwright Framework with TypeScript',
 	projectName: 'Playwright Framework with TypeScript',
@@ -35,9 +36,9 @@ const ortoniConfig: OrtoniReportConfig = {
 	base64Image: true
 }
 
-// --------------------
-// Shared Use
-// --------------------
+/* --------------------
+ * SHARED USE OPTIONS
+ * -------------------- */
 const sharedUse = {
 	baseURL,
 	ignoreHTTPSErrors: true,
@@ -49,9 +50,9 @@ const sharedUse = {
 	navigationTimeout: 30_000
 }
 
-// --------------------
-// Config
-// --------------------
+/* --------------------
+ * PLAYWRIGHT CONFIG
+ * -------------------- */
 const config: PlaywrightTestConfig = {
 	testDir: './tests',
 	testIgnore: ['**/*.jest.spec.ts'],
@@ -65,7 +66,9 @@ const config: PlaywrightTestConfig = {
 
 	globalSetup: './global-setup',
 
-	// ✅ REPORTERS (CI SAFE)
+	/* --------------------
+	 * REPORTERS
+	 * -------------------- */
 	reporter: isCI
 		? [['list'], ['html', { outputFolder: 'html-report', open: 'never' }]]
 		: [
@@ -76,6 +79,9 @@ const config: PlaywrightTestConfig = {
 				['ortoni-report', ortoniConfig]
 			],
 
+	/* --------------------
+	 * PROJECTS
+	 * -------------------- */
 	projects: [
 		{
 			name: 'Edge',
@@ -85,13 +91,10 @@ const config: PlaywrightTestConfig = {
 				channel: 'msedge',
 				headless: isCI,
 
-				// ❌ viewport null REMOVED in CI
 				viewport: isCI ? { width: 1280, height: 720 } : null,
 
 				launchOptions: {
-					// ❌ slowMo removed in CI
 					slowMo: isCI ? 0 : 3000,
-
 					args: isCI
 						? ['--no-sandbox', '--disable-dev-shm-usage']
 						: [

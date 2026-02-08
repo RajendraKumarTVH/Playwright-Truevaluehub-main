@@ -1,7 +1,6 @@
 
 import { Locator, Page, BrowserContext } from '@playwright/test'
 import { BasePage } from '../lib/BasePage'
-import { Time } from 'mssql'
 // ==================== PAGE OBJECT ====================
 export class MigWeldingPage extends BasePage {
 	// ==================== NAVIGATION LOCATORS ====================  
