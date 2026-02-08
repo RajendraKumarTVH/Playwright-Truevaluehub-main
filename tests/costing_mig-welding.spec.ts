@@ -2,7 +2,8 @@ import {
 	test,
 	chromium,
 	type BrowserContext,
-	type Page
+	type Page,
+	type FullConfig
 } from '@playwright/test'
 import fs from 'node:fs'
 import Logger from './lib/LoggerUtil'

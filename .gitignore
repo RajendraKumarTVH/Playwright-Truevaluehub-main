@@ -6,3 +6,13 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+/html-report/
+/allure-results/
+/screenshots/
+/logs/
+/logging/
+/auth_spec.json
+
+# OS
+.DS_Store
+Thumbs.db
