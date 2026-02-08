@@ -2,10 +2,8 @@ import { PlaywrightTestConfig } from '@playwright/test'
 import { testConfig } from './testConfig'
 import { OrtoniReportConfig } from 'ortoni-report'
 
-// -----------------------------------------------------
-// Environment
-// -----------------------------------------------------
 const ENV = process.env.ENV || process.env.npm_config_ENV || 'qa'
+const isCI = !!process.env.CI
 
 const resolveBaseURL = (): string => {
 	switch (ENV) {
@@ -18,16 +16,15 @@ const resolveBaseURL = (): string => {
 		case 'devApi':
 			return testConfig.devApi
 		default:
-			console.warn(`⚠️ Unknown ENV "${ENV}", defaulting to QA`)
 			return testConfig.qa
 	}
 }
 
 const baseURL = resolveBaseURL()
 
-// -----------------------------------------------------
-// Ortoni Report
-// -----------------------------------------------------
+// --------------------
+// Ortoni (LOCAL ONLY)
+// --------------------
 const ortoniConfig: OrtoniReportConfig = {
 	title: 'Playwright Framework with TypeScript',
 	projectName: 'Playwright Framework with TypeScript',
@@ -38,9 +35,9 @@ const ortoniConfig: OrtoniReportConfig = {
 	base64Image: true
 }
 
-// -----------------------------------------------------
-// Shared browser settings
-// -----------------------------------------------------
+// --------------------
+// Shared Use
+// --------------------
 const sharedUse = {
 	baseURL,
 	ignoreHTTPSErrors: true,
@@ -52,9 +49,9 @@ const sharedUse = {
 	navigationTimeout: 30_000
 }
 
-// -----------------------------------------------------
+// --------------------
 // Config
-// -----------------------------------------------------
+// --------------------
 const config: PlaywrightTestConfig = {
 	testDir: './tests',
 	testIgnore: ['**/*.jest.spec.ts'],
@@ -63,18 +60,21 @@ const config: PlaywrightTestConfig = {
 	expect: { timeout: 10_000 },
 
 	fullyParallel: true,
-	workers: process.env.CI ? 2 : 4,
-	retries: process.env.CI ? 2 : 0,
+	workers: isCI ? 1 : 4,
+	retries: isCI ? 2 : 0,
 
 	globalSetup: './global-setup',
 
-	reporter: [
-		['list'],
-		['./CustomReporterConfig.ts'],
-		['allure-playwright'],
-		['html', { outputFolder: 'html-report', open: 'never' }],
-		['ortoni-report', ortoniConfig]
-	],
+	// ✅ REPORTERS (CI SAFE)
+	reporter: isCI
+		? [['list'], ['html', { outputFolder: 'html-report', open: 'never' }]]
+		: [
+				['list'],
+				['./CustomReporterConfig.ts'],
+				['allure-playwright'],
+				['html', { outputFolder: 'html-report', open: 'on-failure' }],
+				['ortoni-report', ortoniConfig]
+			],
 
 	projects: [
 		{
@@ -83,17 +83,24 @@ const config: PlaywrightTestConfig = {
 				...sharedUse,
 				browserName: 'chromium',
 				channel: 'msedge',
-				headless: false,
-				viewport: null,
+				headless: isCI,
+
+				// ❌ viewport null REMOVED in CI
+				viewport: isCI ? { width: 1280, height: 720 } : null,
+
 				launchOptions: {
-					slowMo: 3000,
-					args: [
-						'--start-maximized',
-						'--no-first-run',
-						'--no-default-browser-check',
-						'--disable-infobars',
-						'--disable-blink-features=AutomationControlled'
-					]
+					// ❌ slowMo removed in CI
+					slowMo: isCI ? 0 : 3000,
+
+					args: isCI
+						? ['--no-sandbox', '--disable-dev-shm-usage']
+						: [
+								'--start-maximized',
+								'--no-first-run',
+								'--no-default-browser-check',
+								'--disable-infobars',
+								'--disable-blink-features=AutomationControlled'
+							]
 				}
 			}
 		}

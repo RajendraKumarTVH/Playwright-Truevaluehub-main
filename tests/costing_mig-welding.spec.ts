@@ -69,14 +69,16 @@ test.describe.serial('MIG Welding - Complete E2E Flow', () => {
 		logger.info('═══════════════════════════════════════════════════════════')
 		logger.info('🚀 Starting MIG Welding E2E Test Suite')
 		logger.info(`📋 Project ID: ${CONFIG.projectId}`)
+		const isCI = !!process.env.CI;
 
-		context = await chromium.launchPersistentContext(CONFIG.userProfilePath, {
-			channel: 'msedge',
-			headless: false,
-			args: ['--start-maximized'],
-			viewport: null,
-			timeout: CONFIG.timeout
-		})
+		context = await chromium.launchPersistentContext(
+			CONFIG.userProfilePath,
+			{
+				channel: 'msedge',
+				headless: isCI,          // ✅ headless in CI
+				args: isCI ? [] : ['--start-maximized'],
+			}
+		);
 
 		page = context.pages().length ? context.pages()[0] : await context.newPage()
 
