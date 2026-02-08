@@ -1,7 +1,7 @@
 
 import { ProcessInfoDto } from './interfaces';
 import { isValidNumber } from './helpers';
-import { PartComplexity, ProcessType } from './constants';
+import { PartComplexity } from './constants';
 import { PlasticRubberConfig } from './plastic-rubber-config';
 
 export class PlasticRubberProcessCalculator {

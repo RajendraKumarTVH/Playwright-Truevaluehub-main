@@ -22,10 +22,11 @@ export class PlasticRubberPage extends BasePage {
     readonly ManufacturingCategory: Locator
     readonly BOMQtyNos: Locator
     readonly AnnualVolumeQtyNos: Locator
-    readonly LotsizeNos: Locator
+    readonly LotSize: Locator
     readonly ProductLifeRemainingYrs: Locator
     readonly LifeTimeQtyRemainingNos: Locator
-    // ==================== PROCESS INFORMATION LOCATORS ====================
+    readonly AdditionalDetails: Locator
+    readonly PartComplexity: Locator
     // ==================== SUPPLY TERMS LOCATORS ====================
     readonly SupplierDropdown: Locator
     readonly SupplierOptions: Locator
@@ -54,15 +55,46 @@ export class PlasticRubberPage extends BasePage {
     readonly MaterialPrice: Locator
     readonly VolumePurchased: Locator
     readonly VolumeDiscount: Locator
+    readonly DiscountedMaterialPrice: Locator
     readonly MatPriceGross: Locator
-    readonly netMaterialCost: Locator
+    readonly NetMaterialCost: Locator
     readonly PartThickness: Locator
     readonly PartEnvelopeLength: Locator
     readonly PartEnvelopeWidth: Locator
     readonly PartEnvelopeHeight: Locator
-    readonly NetWeight: Locator
     readonly PartSurfaceArea: Locator
     readonly PartVolume: Locator
+    readonly PartNetWeight: Locator
+    readonly MaxWallThick: Locator
+    readonly WallAverageThickness: Locator
+    readonly MinWallThick: Locator
+    readonly StandardDeviation: Locator
+    readonly PartProjectedArea: Locator
+    readonly NumberOfInserts: Locator
+    readonly MaterialUtilisationPer: Locator
+    readonly PartGrossWeight: Locator
+    readonly PartScrapWeight: Locator
+    readonly NetPartWeight: Locator
+    readonly ScrapRecoveryPer: Locator
+    readonly PartGrossMaterialCost: Locator
+    readonly PartScrapRecovery: Locator
+    readonly RegrindPer: Locator
+    //Cavity and Mold Type
+    readonly NoOfCavities: Locator
+    readonly NumberOfCavityLengthNos: Locator
+    readonly NumberOfCavityWidth: Locator
+    readonly RunnerType: Locator
+    readonly RunnerDia: Locator
+    readonly RunnerLength: Locator
+    readonly NoOfExternalSideCores: Locator
+    readonly NoOfInternalSideCores: Locator
+    readonly UnscrewingUndercuts: Locator
+
+    //=========================== Material Sustainability  ==================================   
+    readonly MaterialSustainability: Locator
+    readonly MaterialCO2: Locator
+    readonly ScrapCO2: Locator
+    readonly PartCO2: Locator
     //========================Physical Properties =================
     readonly MaterialDetailsTab: Locator
     readonly MatlDescrProp: Locator
@@ -71,20 +103,23 @@ export class PlasticRubberPage extends BasePage {
     readonly YieldStrength: Locator
     readonly TensileStrength: Locator
     readonly ShearingStrength: Locator
-    // Inputs
-    readonly NoOfInserts: Locator;
-    readonly GrossWeight: Locator;
-    readonly WallAverageThickness: Locator;
-    readonly NoOfCavities: Locator;
-    readonly NetMaterialCost: Locator;
-    readonly NetPartWeight: Locator;
-    readonly RunnerProjectedArea: Locator;
-    readonly PartProjectedArea: Locator;
-    readonly ShotSize: Locator;
-    readonly PlatenSizeLength: Locator;
-    readonly PlatenSizeWidth: Locator;
-    readonly MachineTonnage: Locator;
-
+    //=========================== Manufacturing Information ==================================   
+    readonly ManufacturingInformation: Locator
+    readonly MfgDetailsTab: Locator
+    readonly InjectionMouldingSingleShot: Locator
+    readonly ProcessGroup: Locator
+    readonly NewToolingCostAllocation: Locator
+    readonly RecommendTonnage: Locator
+    readonly SelectedTonnage: Locator
+    readonly RequiredPlatenSize: Locator
+    readonly PlatenSizeOfMachine: Locator
+    readonly ShotWeightRequired: Locator
+    readonly ShotWeightOfMachine: Locator
+    readonly MachineType: Locator
+    readonly MachineName: Locator
+    readonly MachineDescription: Locator
+    readonly MachineEfficiency: Locator
+    readonly DirectProcessCost: Locator
     // Process Times & Params
     readonly CoolingTime: Locator;
     readonly InsertsPlacement: Locator;
@@ -100,9 +135,9 @@ export class PlasticRubberPage extends BasePage {
     // Costs & Rates
     readonly DirectMachineCost: Locator;
     readonly MachineHourRate: Locator;
-    readonly Efficiency: Locator;
     readonly SetUpTime: Locator;
     readonly NoOfLowSkilledLabours: Locator;
+    readonly SkilledLaborHours: Locator;
     readonly LowSkilledLaborRate: Locator;
     readonly DirectLaborCost: Locator;
     readonly InspectionCost: Locator;
@@ -110,11 +145,10 @@ export class PlasticRubberPage extends BasePage {
     readonly InspectionTime: Locator;
     readonly QAInspectorRate: Locator;
     readonly DirectSetUpCost: Locator;
-    readonly LotSize: Locator;
     readonly YieldCost: Locator;
     readonly YieldPercentage: Locator;
-    readonly DirectProcessCost: Locator;
-
+    readonly directLaborCost: Locator;
+    readonly directMachineCost: Locator;
     // Sustainability
     readonly TotalEsgImpactAnnualKgCO2Part: Locator;
     readonly EsgImpactElectricityConsumption: Locator;
@@ -154,13 +188,15 @@ export class PlasticRubberPage extends BasePage {
         this.AnnualVolumeQtyNos = page.locator(
             "//input[@formcontrolname='AnnualVolume']"
         )
-        this.LotsizeNos = page.locator("(//label[contains(.,'Lot size (Nos.)')]/following::input)[1]")
+        this.LotSize = page.locator('input[formcontrolname="lotsize"]');
         this.ProductLifeRemainingYrs = page.locator(
             "//input[@formcontrolname='prodLifeRemaining']"
         )
         this.LifeTimeQtyRemainingNos = page.locator(
             "//input[@formcontrolname='lifeTimeQtyRemaining']"
         )
+        this.AdditionalDetails = page.locator("//span[normalize-space(text())='Additional Details']")
+        this.PartComplexity = page.locator("select[formcontrolname='partComplexity']")
         // Supply Terms
         this.SupplierDropdown = page.locator('[formcontrolname="supplierName"]')
         this.SupplierOptions = page.locator(
@@ -208,12 +244,16 @@ export class PlasticRubberPage extends BasePage {
         this.ScrapPrice = page.locator('input[formcontrolname="scrapPrice"]').first()
         this.MaterialPrice = page.locator('input[formcontrolname="matPrice"]')
         this.VolumePurchased = page.locator(
-            'input[formcontrolname="volumePurchased"]'
+            '(//label[contains(.,"Volume Purchased (Ton/Contract)")]/following::input)[1]'
         )
         this.VolumeDiscount = page.locator(
             'input[formcontrolname="volumeDiscountPer"]'
         )
-        this.netMaterialCost = page.locator(
+        this.DiscountedMaterialPrice = page.locator(
+            'input[formcontrolname="matPriceGross"]'
+        )
+
+        this.NetMaterialCost = page.locator(
             'input[formcontrolname="netMaterialCost"]'
         )
         this.MatPriceGross = page.locator('input[formcontrolname="matPriceGross"]')
@@ -225,16 +265,46 @@ export class PlasticRubberPage extends BasePage {
         this.PartEnvelopeLength = page.getByPlaceholder('Length')
         this.PartEnvelopeWidth = page.getByPlaceholder('Width')
         this.PartEnvelopeHeight = page.getByPlaceholder('Height')
-        this.NetWeight = page.locator('input[formcontrolname="netWeight"]')
+        this.MaxWallThick = page.locator('input[formcontrolname="maxWallthick"]')
+        this.WallAverageThickness = page.locator('input[formcontrolname="wallAverageThickness"]');
+        this.StandardDeviation = page.locator('input[formcontrolname="standardDeviation"]');
+        this.MinWallThick = page.locator('input[formcontrolname="minWallthick"]');
+        this.PartProjectedArea = page.locator('input[formcontrolname="partProjectArea"]');
+        this.PartSurfaceArea = page.locator('input[formcontrolname="partSurfaceArea"]')
         this.PartVolume = page.locator('input[formcontrolname="partVolume"]')
-        this.PartSurfaceArea = page.locator(
-            'input[formcontrolname="partSurfaceArea"]'
-        )
+        this.PartNetWeight = page.locator('(//label[contains(.,"Part Net Weight(g)")])/following::input)[1]')
+        this.NumberOfInserts = page.locator('input[formcontrolname="noOfInserts"]');
+        this.MaterialUtilisationPer = page.locator('input[formcontrolname="utilisationPer"]');
+        this.PartGrossWeight = page.locator('input[formcontrolname="grossWeight"]');
+        this.PartScrapWeight = page.locator('input[formcontrolname="scrapWeight"]');
+        this.ScrapRecoveryPer = page.locator('input[formcontrolname="grossMaterialCost"]');
+        this.PartGrossMaterialCost = page.locator('input[formcontrolname="shotSize"]');
+        this.PartScrapRecovery = page.locator('input[formcontrolname="scrapRecCost"]');
+        this.RegrindPer = page.locator('input[formcontrolname="regrindAllowance"]');
+        this.NetPartWeight = page.locator('input[formcontrolname="netWeight"]');
+        //Cavity and Mold Type
+        this.NoOfCavities = page.locator('input[formcontrolname="noOfCavities"]');
+        this.NumberOfCavityLengthNos = page.locator('input[formcontrolname="cavityArrangementLength"]');
+        this.NumberOfCavityWidth = page.locator('input[formcontrolname="cavityArrangementWidth"]');
+        this.RunnerType = page.locator('select[formcontrolname="runnerType"]');
+        this.RunnerDia = page.locator('input[formcontrolname="runnerDia"]');
+        this.RunnerLength = page.locator('input[formcontrolname="runnerLength"]');
+        this.NoOfExternalSideCores = page.locator('input[formcontrolname="totalWeldLength"]');
+        this.NoOfInternalSideCores = page.locator('input[formcontrolname="totalWeldBeadArea"]');
+        this.UnscrewingUndercuts = page.locator('input[formcontrolname="beadSize"]');
+
         // Material Details
         this.MaterialDetailsTab = page.getByRole('tab', {
             name: 'Material Details',
             exact: true
         })
+
+        //Material Sustainability
+        this.MaterialSustainability = page.locator("(//div[contains(@class,'card-header card-header-colour')]//span)[1]")
+        this.MaterialCO2 = page.locator('input[formcontrolname="co2KgMaterial"]')
+        this.ScrapCO2 = page.locator('input[formcontrolname="co2KgScrap"]')
+        this.PartCO2 = page.locator('input[formcontrolname="co2KgPart"]')
+        // ======================== Material Details ==================================
         this.MatlDescrProp = page.locator('input[formcontrolname="materialDesc"]')
         this.Region = page.locator('input[formcontrolname="countryName"]')
         this.Density = page.locator('input[formcontrolname="density"]')
@@ -243,50 +313,63 @@ export class PlasticRubberPage extends BasePage {
             'input[formcontrolname="ultimateTensileStrength"]'
         )
         this.ShearingStrength = page.locator('input[formcontrolname="meltTemp"]')
+        //============== Manufacturing Information ================================
+        this.ManufacturingInformation = page.locator(
+            "//h6[normalize-space(text())='Manufacturing Information']"
+        )
+        this.MfgDetailsTab = page.getByRole('tab', { name: 'Manufacturing Details' })
+        this.InjectionMouldingSingleShot = page.locator("//tr[.//td[normalize-space()='Injection Moulding-Single Shot']]//input[@name='editRow']")
+        this.ProcessGroup = page.locator(
+            "//select[@formcontrolname='matPrimaryProcessName']"
+        )
+        this.NewToolingCostAllocation = page.locator('input[formcontrolname="liquidTemp"]')
+        this.RecommendTonnage = page.locator('input[formcontrolname="recommendTonnage"]')
+        this.SelectedTonnage = page.locator('input[formcontrolname="selectedTonnage"]')
+        this.RequiredPlatenSize = page.locator('input[formcontrolname="requiredPlatenSize"]')
+        this.PlatenSizeOfMachine = page.locator('input[formcontrolname="selectedBedSize"]')
+        this.ShotWeightRequired = page.locator('input[formcontrolname="requiredCurrent"]')
+        this.ShotWeightOfMachine = page.locator('input[formcontrolname="shotSize"]')
+        this.MachineType = page.locator("//select[@placeholder='Select M/c Automation']")
+        this.MachineName = page.locator('select[formcontrolname="machineId"]')
+        this.MachineDescription = page.locator(
+            "(//label[contains(.,'Machine Description')]/following::input)[1]"
+        )
+        this.MachineEfficiency = page.locator('input[formcontrolname="efficiency"]')
+        this.DirectProcessCost = page.locator(
+            'input[formcontrolname="directProcessCost"]'
+        )
+        //================= Cycle Time Details   ================
 
-        // Map locators based on formcontrolname or likely selectors
-        this.Density = page.locator('input[formcontrolname="density"]');
-        this.NoOfInserts = page.locator('input[formcontrolname="noOfInserts"]');
-        this.GrossWeight = page.locator('input[formcontrolname="grossWeight"]');
-        this.WallAverageThickness = page.locator('input[formcontrolname="wallAverageThickness"]');
-        this.NoOfCavities = page.locator('input[formcontrolname="noOfCavities"]');
-        this.NetMaterialCost = page.locator('input[formcontrolname="netMatCost"]');
-        this.NetPartWeight = page.locator('input[formcontrolname="netWeight"]');
-        this.RunnerProjectedArea = page.locator('input[formcontrolname="runnerProjectedArea"]');
-        this.PartProjectedArea = page.locator('input[formcontrolname="partProjectedArea"]');
-
-        this.ShotSize = page.locator('input[formcontrolname="shotSize"]');
-        this.PlatenSizeLength = page.locator('input[formcontrolname="platenLengthmm"]');
-        this.PlatenSizeWidth = page.locator('input[formcontrolname="platenWidthmm"]');
-        this.MachineTonnage = page.locator('input[formcontrolname="machineTonnageTons"]');
-
-        this.CoolingTime = page.locator('input[formcontrolname="coolingTime"]');
         this.InsertsPlacement = page.locator('input[formcontrolname="insertsPlacement"]');
-        this.PartEjection = page.locator('input[formcontrolname="partEjection"]');
+        this.DryCycleTime = page.locator('input[formcontrolname="dryCycleTime"]');
+        this.InjectionTime = page.locator('input[formcontrolname="injectionTime"]');
         this.SideCoreMechanisms = page.locator('input[formcontrolname="sideCoreMechanisms"]');
+        this.CoolingTime = page.locator('input[formcontrolname="coolingTime"]');
+        this.PartEjection = page.locator('input[formcontrolname="partEjection"]');
         this.Others = page.locator('input[formcontrolname="others"]');
         this.PackAndHoldTime = page.locator('input[formcontrolname="packAndHoldTime"]');
-        this.InjectionTime = page.locator('input[formcontrolname="injectionTime"]');
-        this.DryCycleTime = page.locator('input[formcontrolname="dryCycleTime"]');
         this.TotalTime = page.locator('input[formcontrolname="totalTime"]');
-        this.CycleTime = page.locator('input[formcontrolname="cycleTime"]');
 
-        this.DirectMachineCost = page.locator('input[formcontrolname="directMachineCost"]');
-        this.MachineHourRate = page.locator('input[formcontrolname="machineHourRate"]');
-        this.Efficiency = page.locator('input[formcontrolname="efficiency"]');
-        this.SetUpTime = page.locator('input[formcontrolname="setUpTime"]');
-        this.NoOfLowSkilledLabours = page.locator('input[formcontrolname="noOfLowSkilledLabours"]');
-        this.LowSkilledLaborRate = page.locator('input[formcontrolname="lowSkilledLaborRatePerHour"]');
-        this.DirectLaborCost = page.locator('input[formcontrolname="directLaborCost"]');
-        this.InspectionCost = page.locator('input[formcontrolname="inspectionCost"]');
+
+        //==================== Manufacturing Details costs ===================
         this.SamplingRate = page.locator('input[formcontrolname="samplingRate"]');
-        this.InspectionTime = page.locator('input[formcontrolname="inspectionTime"]');
+        this.LowSkilledLaborRate = page.locator('input[formcontrolname="lowSkilledLaborRatePerHour"]');
+        this.SkilledLaborHours = page.locator('input[formcontrolname="skilledLaborRatePerHour"]');
+        this.NoOfLowSkilledLabours = page.locator('input[formcontrolname="noOfLowSkilledLabours"]');
         this.QAInspectorRate = page.locator('input[formcontrolname="qaOfInspectorRate"]');
-        this.DirectSetUpCost = page.locator('input[formcontrolname="directSetUpCost"]');
-        this.LotSize = page.locator('input[formcontrolname="lotsize"]'); // varying name? used 'lotsize' in mig
-        this.YieldCost = page.locator('input[formcontrolname="yieldCost"]');
+        this.MachineHourRate = page.locator('input[formcontrolname="machineHourRate"]');
+        this.DirectMachineCost = page.locator('input[formcontrolname="directMachineCost"]');
         this.YieldPercentage = page.locator('input[formcontrolname="yieldPer"]');
-        this.DirectProcessCost = page.locator('input[formcontrolname="directProcessCost"]');
+        this.SetUpTime = page.locator('input[formcontrolname="setUpTime"]');
+        this.InspectionTime = page.locator('input[formcontrolname="inspectionTime"]');
+        this.CycleTime = page.locator('input[formcontrolname="cycleTime"]');
+        this.DirectLaborCost = page.locator('input[formcontrolname="directLaborCost"]');
+
+        this.YieldCost = page.locator('input[formcontrolname="yieldCost"]');
+        this.directLaborCost = page.locator('input[formcontrolname="directLaborCost"]')
+        this.DirectSetUpCost = page.locator('input[formcontrolname="directSetUpCost"]');
+        this.InspectionCost = page.locator('input[formcontrolname="inspectionCost"]');
+        this.directMachineCost = page.locator('input[formcontrolname="directMachineCost"]')
 
         // Sustainability
         this.TotalEsgImpactAnnualKgCO2Part = page.locator('.co2-total strong');

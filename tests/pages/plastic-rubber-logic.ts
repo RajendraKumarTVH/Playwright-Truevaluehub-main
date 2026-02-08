@@ -1,6 +1,6 @@
 import { PlasticRubberPage } from './plastic-rubber.page';
 import { PlasticRubberProcessCalculator } from '../utils/plastic-rubber-process-calculator';
-import { ProcessInfoDto } from '../utils/interfaces';
+import { MaterialDimensionsAndDensity, ProcessInfoDto } from '../utils/interfaces';
 import { ProcessType } from '../utils/constants';
 import { VerificationHelper } from '../lib/BasePage';
 import Logger from '../lib/LoggerUtil';
@@ -11,7 +11,133 @@ export class PlasticRubberLogic {
     private calculator = new PlasticRubberProcessCalculator();
 
     constructor(public page: PlasticRubberPage) { }
+    public async getMaterialDimensionsAndDensity(): Promise<MaterialDimensionsAndDensity> {
+        const DEFAULT_DENSITY = 7.85
+        let density = DEFAULT_DENSITY
+        let length = 0
+        let width = 0
+        let height = 0
+        try {
+            if (this.page.isPageClosed?.()) {
+                logger.warn('⚠️ Page already closed — using defaults')
+                return { length, width, height, density }
+            }
+            await this.page.waitAndClick(this.page.MaterialDetailsTab)
+            if (
+                await this.page.Density.first()
+                    .isVisible({ timeout: 3000 })
+                    .catch(() => false)
+            ) {
+                density =
+                    Number(await this.page.Density.first().inputValue()) ||
+                    DEFAULT_DENSITY
+            } else {
+                logger.warn('⚠️ Density field not visible — using default')
+            }
+            await this.page.waitAndClick(this.page.MaterialInfo)
+            if (
+                await this.page.PartEnvelopeLength.first()
+                    .isVisible({ timeout: 3000 })
+                    .catch(() => false)
+            ) {
+                ;[length, width, height] = (
+                    await Promise.all([
+                        this.page.PartEnvelopeLength.first().inputValue(),
+                        this.page.PartEnvelopeWidth.first().inputValue(),
+                        this.page.PartEnvelopeHeight.first().inputValue()
+                    ])
+                ).map(v => Number(v) || 0)
+            } else {
+                logger.warn('⚠️ Dimension fields not visible — using defaults')
+            }
+        } catch (err) {
+            logger.warn(`⚠️ Failed to read material data safely: ${err}`)
+        }
+        logger.info(`📐 L:${length}, W:${width}, H:${height} | Density:${density}`)
+        return { length, width, height, density }
+    }
 
+    //======================== Part Complexity ========================
+    async getPartComplexity(testData?: {
+        partComplexity?: 'low' | 'medium' | 'high'
+    }): Promise<number> {
+        logger.info('🔹 Processing Part Complexity...')
+        await this.page.AdditionalDetails.scrollIntoViewIfNeeded()
+        await this.page.waitAndClick(this.page.AdditionalDetails)
+        const selectValueMap: Record<'low' | 'medium' | 'high', string> = {
+            low: '1',
+            medium: '2',
+            high: '3'
+        }
+
+        if (testData?.partComplexity) {
+            const key = testData.partComplexity.toLowerCase() as
+                | 'low'
+                | 'medium'
+                | 'high'
+
+            const optionValue = selectValueMap[key]
+            if (!optionValue) {
+                throw new Error(
+                    `❌ Invalid Part Complexity: ${testData.partComplexity}`
+                )
+            }
+
+            logger.info(`🔧 Selecting Part Complexity: ${key}`)
+            await this.page.PartComplexity.selectOption(optionValue)
+        }
+        const selectedValue = await this.page.PartComplexity.inputValue()
+        if (!selectedValue) {
+            logger.warn('⚠️ Part Complexity not selected, defaulting to LOW')
+            return 1
+        }
+        const partComplexity = Number(selectedValue)
+
+        if (![1, 2, 3].includes(partComplexity)) {
+            throw new Error(
+                `❌ Unexpected Part Complexity value in UI: "${selectedValue}"`
+            )
+        }
+        logger.info(`✅ Part Complexity resolved as: ${partComplexity}`)
+        await this.page.waitAndClick(this.page.PartDetails)
+        return partComplexity
+    }
+
+    // ========================== Navigation ==========================
+
+    async navigateToProject(projectId: string): Promise<void> {
+        logger.info(`🔹 Navigating to project: ${projectId}`)
+        await this.page.waitAndClick(this.page.projectIcon)
+        logger.info('Existing part found. Clicking Clear All...')
+        const isClearVisible = await this.page.ClearAll.isVisible().catch(
+            () => false
+        )
+
+        if (isClearVisible) {
+            await this.page.waitAndClick(this.page.ClearAll)
+        } else {
+            await this.page.keyPress('Escape')
+        }
+        await this.page.openMatSelect(this.page.SelectAnOption, 'Project Selector')
+
+        const projectOption = this.page.page
+            .locator('mat-option, mat-mdc-option')
+            .filter({ hasText: 'Project #' })
+            .first()
+
+        await projectOption.waitFor({ state: 'visible', timeout: 10000 })
+        await projectOption.scrollIntoViewIfNeeded()
+        await projectOption.click()
+
+        logger.info('✅ Project option selected')
+
+        await this.page.waitAndFill(this.page.ProjectValue, projectId)
+        await this.page.pressTab()
+        await this.page.pressEnter()
+        await this.page.waitForNetworkIdle()
+        await this.page.ProjectID.click()
+        logger.info(`✔ Navigated to project ID: ${projectId}`)
+    }
     /**
      * Verifies Injection Moulding Calculations
      */
@@ -20,14 +146,14 @@ export class PlasticRubberLogic {
 
         // 1. Collect inputs from UI
         const density = await this.page.readNumberSafe(this.page.Density, 'Density');
-        const grossWeight = await this.page.readNumberSafe(this.page.GrossWeight, 'Gross Weight');
+        const grossWeight = await this.page.readNumberSafe(this.page.PartGrossWeight, 'Gross Weight');
         const wallAvgThickness = await this.page.readNumberSafe(this.page.WallAverageThickness, 'Wall Avg Thickness');
         const noOfCavities = await this.page.readNumberSafe(this.page.NoOfCavities, 'No Of Cavities');
         const netMatCost = await this.page.readNumberSafe(this.page.NetMaterialCost, 'Net Material Cost');
         const netWeight = await this.page.readNumberSafe(this.page.NetPartWeight, 'Net Weight');
 
         const machineHourRate = await this.page.readNumberSafe(this.page.MachineHourRate, 'Machine Hour Rate');
-        const efficiency = await this.page.readNumberSafe(this.page.Efficiency, 'Efficiency');
+        const efficiency = await this.page.readNumberSafe(this.page.MachineEfficiency, 'Efficiency');
         const lowSkilledLaborRate = await this.page.readNumberSafe(this.page.LowSkilledLaborRate, 'Low Skilled Labor Rate');
         const noOfLowSkilledLabours = await this.page.readNumberSafe(this.page.NoOfLowSkilledLabours, 'No Of Low Skilled Labours');
 
