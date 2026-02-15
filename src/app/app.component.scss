@@ -1,0 +1,18 @@
+.header-details {
+  border-bottom: 1px solid #e2e2e2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 110;
+}
+
+.page-container {
+  background-color: #fff;
+  padding-top: 56px;
+  padding-left: 96px;
+
+  &.expanded {
+    padding-left: 184px;
+  }
+}

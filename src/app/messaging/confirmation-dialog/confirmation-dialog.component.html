@@ -1,0 +1,14 @@
+<div class="dialog-container">
+  <div class="content-holder">
+    <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+    <mat-dialog-content class="content" [innerHtml]="dialogMessage" tabindex="0"></mat-dialog-content>
+  </div>
+  <mat-dialog-actions class="actions-holder flex items-center gap-2">
+    <button class="btn btn-outline-primary" (click)="closeDialog()">Cancel</button>
+    @if (confirmButtonColor !== 'accent') {
+      <button mat-button color="{{ confirmButtonColor }}" (click)="onConfirmButtonClicked()">{{ dialogAction }}</button>
+    } @else {
+      <button class="btn btn-primary capitalize" (click)="onConfirmButtonClicked()">{{ dialogAction }}</button>
+    }
+  </mat-dialog-actions>
+</div>

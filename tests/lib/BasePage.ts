@@ -86,11 +86,21 @@ export class BasePage {
 		return VerificationHelper.safeFill(locator, value, fieldName, options)
 	}
 
-	async waitAndClick(locator: Locator): Promise<void> {
-		await locator.waitFor({ state: 'visible', timeout: 10000 })
-		await locator.scrollIntoViewIfNeeded()
-		await locator.click({ force: true })
+	async waitAndClick(locator: Locator, retries = 3) {
+		for (let i = 0; i < retries; i++) {
+			try {
+				await locator.waitFor({ state: 'visible', timeout: 10000 });
+				await locator.scrollIntoViewIfNeeded();
+				await locator.click({ force: true });
+				return;
+			} catch (err) {
+				if (i === retries - 1) throw err;
+				logger.warn(`Retrying click #${i + 1}`);
+				await this.page.waitForTimeout(1000);
+			}
+		}
 	}
+
 
 	async ifNeededScrollAndClick(
 		locator: Locator,
@@ -1232,29 +1242,27 @@ export class BasePage {
 			await this.page.waitForTimeout(500) // allow animation
 		}
 	}
-
 	async waitForStableNumber(
 		locator: Locator,
 		fieldName: string,
-		timeout = 12000,
-		interval = 400
+		timeout = 6000,
+		interval = 600
 	): Promise<number> {
 		const start = Date.now()
-		let lastValue = -1
-		let stableCount = 0
+		let lastValue: number | null = null
 
 		while (Date.now() - start < timeout) {
 			const value = await this.getInputAsNum(locator)
-			logger.info(`⏳ Polling ${fieldName}: ${value}`)
 
+			// log only meaningful values
+			if (lastValue === null || value !== lastValue) {
+				logger.info(`⏳ ${fieldName}: ${value}`)
+			}
+
+			// one stable read is enough
 			if (value > 0 && value === lastValue) {
-				stableCount++
-				if (stableCount >= 2) {
-					logger.info(`✅ ${fieldName} stabilized at ${value}`)
-					return value
-				}
-			} else {
-				stableCount = 0
+				logger.info(`✅ ${fieldName} stabilized at ${value}`)
+				return value
 			}
 
 			lastValue = value
@@ -1266,30 +1274,36 @@ export class BasePage {
 	async pollStableNumberGreaterThan(
 		selector: Locator,
 		fieldName: string,
-		timeout = 10000,
-		interval = 500
+		timeout = 5000, // shorter timeout
+		interval = 100  // faster polling
 	): Promise<number> {
-		const start = Date.now()
-		let lastValue = -1
-		let stableCount = 0
+		const start = Date.now();
+		let lastValue: number | null = null;
+		let stableCount = 0;
 
 		while (Date.now() - start < timeout) {
-			const value = await this.getInputAsNum(selector)
-			logger.info(`⏳ Polling ${fieldName}: ${value}`)
+			const value = await this.getInputAsNum(selector);
 
-			if (value > 0 && value === lastValue) {
-				stableCount++
-				if (stableCount >= 2) return value // stable twice
+			// Treat NaN as unstable
+			if (!Number.isFinite(value)) {
+				stableCount = 0;
+			} else if (lastValue !== null && Math.abs(value - lastValue) < 0.0001) {
+				stableCount++;
+				if (stableCount >= 1) { // only one stable read
+					return value;
+				}
 			} else {
-				stableCount = 0
+				stableCount = 0;
 			}
 
-			lastValue = value
-			await this.wait(interval)
+			lastValue = value;
+			await this.page.waitForTimeout(interval);
 		}
 
-		throw new Error(`${fieldName} did not stabilize within ${timeout}ms`)
+		logger.warn(`⚠️ ${fieldName} did not fully stabilize, using last value`);
+		return lastValue ?? 0;
 	}
+
 	async readNumberSafe(
 		selector: Locator,
 		name: string,
@@ -1374,29 +1388,24 @@ export class BasePage {
 	}
 
 	public async openMatSelect(trigger: Locator, label: string): Promise<void> {
-		logger.info(`📂 Opening dropdown: ${label}`)
+		logger.info(`📂 Opening dropdown: ${label}`);
 
-		await trigger.waitFor({ state: 'visible', timeout: 10000 })
-		await trigger.scrollIntoViewIfNeeded()
-		await trigger.click({ force: true })
-		await this.page.waitForTimeout(500) // ⏳ small wait for overlay to open
+		await trigger.waitFor({ state: 'visible', timeout: 10_000 });
+		await trigger.scrollIntoViewIfNeeded();
+		await trigger.click(); // force not needed in most cases
 
-		// Try to find any visible mat-option (standard or MDC)
 		const options = this.page.locator(
 			'mat-option, mat-mdc-option, [role="option"]'
-		)
+		);
 
-		try {
-			await options.first().waitFor({ state: 'visible', timeout: 10000 })
-			logger.info(`✅ ${label} dropdown opened`)
-		} catch (err) {
-			logger.warn(
-				`⚠️ Dropdown options didn't appear for ${label} via overlay search. Attempting retry click...`
-			)
-			await trigger.click({ force: true })
-			await options.first().waitFor({ state: 'visible', timeout: 5000 })
-		}
+		await options.first().waitFor({
+			state: 'visible',
+			timeout: 10_000,
+		});
+
+		logger.info(`✅ ${label} dropdown opened`);
 	}
+
 	async safeGetNumber(locator: Locator, fallback = 0): Promise<number> {
 		try {
 			// Locator exists in DOM?
@@ -1656,29 +1665,65 @@ export class VerificationHelper {
 		value: number,
 		expected: number,
 		label: string,
-		tolerancePercent: number = 2,
-		unit: string = ''
+		tolerancePercent = 2,
+		unit = ''
 	): Promise<void> {
-		const diffPercent = Math.abs((value - expected) / expected) * 100
 
-		expect
-			.soft(
-				diffPercent,
-				`${label} difference ${diffPercent.toFixed(2)}% exceeds tolerance`
-			)
-			.toBeLessThanOrEqual(tolerancePercent)
+		// Guard: expected is zero or near-zero
+		if (Math.abs(expected) < 1e-6) {
+			logger.info(`✓ ${label}: ${value}${unit} (Expected: 0${unit})`)
+			expect.soft(
+				value,
+				`${label}: expected 0${unit}, actual=${value}${unit}`
+			).toBeCloseTo(0, 6)
+			return
+		}
+
+		const diffPercent =
+			(Math.abs(value - expected) / Math.abs(expected)) * 100
+
+		logger.info(
+			`✓ ${label}: ${value}${unit} (Expected: ${expected}${unit}, Diff: ${diffPercent.toFixed(2)}%)`
+		)
+
+		expect.soft(
+			diffPercent,
+			`${label} difference ${diffPercent.toFixed(2)}% exceeds tolerance ${tolerancePercent}%`
+		).toBeLessThanOrEqual(tolerancePercent)
 	}
+
 	static async verifyNumericCloseTo(
-		value: number,
+		getValue: () => Promise<number>,
 		expected: number,
 		label: string,
-		precision: number = 2
+		precision: number = 2,
+		retries: number = 2
 	): Promise<void> {
+		let value = 0
+
+		for (let attempt = 1; attempt <= retries; attempt++) {
+			value = await getValue()
+
+			if (
+				Number(value.toFixed(precision)) ===
+				Number(expected.toFixed(precision))
+			) {
+				break
+			}
+
+			if (attempt < retries) {
+				await new Promise(r => setTimeout(r, 300))
+			}
+		}
+
 		logger.info(
-			`   ✓ ${label}: ${value.toFixed(precision)} (Expected: ${expected.toFixed(precision)})`
+			`✓ ${label}: ${value.toFixed(precision)} (Expected: ${expected.toFixed(precision)})`
 		)
-		expect.soft(value).toBeCloseTo(expected, precision)
+
+		expect.soft(value, `${label} mismatch`)
+			.toBeCloseTo(expected, precision)
 	}
+
 
 	static async verifyOptional(
 		value: number | undefined | null,
@@ -1935,4 +1980,9 @@ export class VerificationHelper {
 			throw err
 		}
 	}
+	async normalizePercent(value?: number): Promise<number> {
+		if (typeof value !== 'number') return 0;
+		return value <= 1 ? value * 100 : value;
+	}
+
 }

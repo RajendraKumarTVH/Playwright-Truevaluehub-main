@@ -1,0 +1,56 @@
+<div class="table-responsive-sm p-3 data-table">
+  <div class="table-wrap">
+    <table class="table table-striped" aria-describedby="Projects">
+      <thead>
+        <tr>
+          <th scope="col">Project #</th>
+          <th scope="col">Project Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Costing Complete (%)</th>
+          <th scope="col">Savings Identified ($)</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proj of projects">
+          <td>
+            <a class="nav-link active" style="cursor: pointer" data-bs-toggle="tab">{{ proj.projectInfoId }}</a>
+            <!-- (click)="RedirectToCosting($event)" -->
+          </td>
+          <td>
+            {{ proj.projectDesc }}
+          </td>
+          <!-- <td>{{proj.StatusText}}</td> -->
+          <td>
+            {{ this.projectStatusEnum(proj.projectStatusId) }}
+          </td>
+          <td>
+            {{ proj.currentSpend }}
+          </td>
+          <td>
+            {{ proj.shouldCostSpend }}
+          </td>
+          <td>
+            {{ proj.createDate | date }}
+          </td>
+          <td>
+            {{ getUserName(proj.createdUserId) }}
+          </td>
+          <td>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-small light-button" id="btnedit" value="{{ proj.projectInfoId }}" (click)="onRestoreEdit(proj.projectInfoId)">
+                <i class="bx bx-edit"></i>
+                Restore
+              </button>
+              <a href="javascript:void(0)" title="Delete" (click)="onDeleteClick(proj.projectInfoId)" class="btn btn-small light-button flex items-center justify-center leading-none">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,344 @@
+[
+  {
+    "toPartWeight": 2,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 1000,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1,
+        "loadingTimeSec": 30,
+        "setupTimeMins": 20,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 10000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 20,
+        "setupTimeMins": 25,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.1,
+        "loadingTimeSec": 5,
+        "setupTimeMins": 30,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 5,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 1000,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1,
+        "loadingTimeSec": 60,
+        "setupTimeMins": 20,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 10000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 45,
+        "setupTimeMins": 25,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.1,
+        "loadingTimeSec": 10,
+        "setupTimeMins": 30,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 15,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 800,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1,
+        "loadingTimeSec": 120,
+        "setupTimeMins": 20,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 8000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 60,
+        "setupTimeMins": 25,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.1,
+        "loadingTimeSec": 20,
+        "setupTimeMins": 30,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 25,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 500,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1,
+        "loadingTimeSec": 180,
+        "setupTimeMins": 20,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 5000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 90,
+        "setupTimeMins": 25,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.15,
+        "loadingTimeSec": 30,
+        "setupTimeMins": 30,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 50,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 300,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1,
+        "loadingTimeSec": 240,
+        "setupTimeMins": 30,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 3000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 120,
+        "setupTimeMins": 40,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.15,
+        "loadingTimeSec": 45,
+        "setupTimeMins": 50,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 100,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 250,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1.25,
+        "loadingTimeSec": 360,
+        "setupTimeMins": 30,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 2500,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 180,
+        "setupTimeMins": 40,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.2,
+        "loadingTimeSec": 60,
+        "setupTimeMins": 50,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 250,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 200,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1.5,
+        "loadingTimeSec": 480,
+        "setupTimeMins": 45,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 2000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 240,
+        "setupTimeMins": 50,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.2,
+        "loadingTimeSec": 90,
+        "setupTimeMins": 60,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 500,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 100,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 1.75,
+        "loadingTimeSec": 600,
+        "setupTimeMins": 60,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 1000,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 300,
+        "setupTimeMins": 75,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.25,
+        "loadingTimeSec": 120,
+        "setupTimeMins": 90,
+        "machineEfficiency": 95
+      }
+    ]
+  },
+  {
+    "toPartWeight": 1000,
+    "processes": [
+      {
+        "machineType": 3,
+        "toVolume": 50,
+        "regionIds": [1, 2],
+        "regionIdsOthers": [3, 4, 9, 15, 24, 31, 32, 33, 37, 39, 40, 41, 42, 45, 47, 48, 49, 52, 54, 55, 57, 58, 59, 62, 63, 64, 65, 66, 67, 69, 70, 71],
+        "region": "India, China, Low cost countries",
+        "labour": 2,
+        "loadingTimeSec": 900,
+        "setupTimeMins": 75,
+        "machineEfficiency": 80
+      },
+      {
+        "machineType": 2,
+        "toVolume": 500,
+        "regionIds": [1, 2, 11, 22, 4, 31],
+        "regionIdsOthers": [13, 8, 26, 16, 9, 15, 71, 27, 41, 48, 33, 34, 69, 70, 59, 66, 25, 67],
+        "region": "India, China, Japan, Korea, Eastern EUROPE, Mexico, Brazil",
+        "labour": 1,
+        "loadingTimeSec": 600,
+        "setupTimeMins": 90,
+        "machineEfficiency": 85
+      },
+      {
+        "machineType": 1,
+        "toVolume": 1000000000,
+        "regionIds": [5],
+        "regionIdsOthers": [7, 10, 14, 20, 30, 17, 44, 36, 46, 50, 53, 56, 38, 28, 12],
+        "region": "USA, Western EUROPE",
+        "labour": 0.3,
+        "loadingTimeSec": 180,
+        "setupTimeMins": 120,
+        "machineEfficiency": 95
+      }
+    ]
+  }
+]

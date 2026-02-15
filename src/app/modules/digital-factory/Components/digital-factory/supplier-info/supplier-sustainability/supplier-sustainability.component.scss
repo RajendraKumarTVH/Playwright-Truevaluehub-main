@@ -1,0 +1,24 @@
+mat-expansion-panel.mat-expansion-panel {
+  box-shadow: none !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--Neutral-colors-grey-02, #e2e2e2);
+  background: var(--Primary-color-white, #fff);
+  margin-bottom: 16px !important;
+  &.mat-expanded {
+    border-color: var(--primary-shade);
+  }
+  .mat-expansion-panel-header-title {
+    gap: 6px;
+  }
+  .item-head {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .mat-expansion-panel-header {
+    padding: 0 12px;
+    border-radius: 0;
+  }
+  .mat-expansion-panel-header-description {
+    margin: 0;
+  }
+}

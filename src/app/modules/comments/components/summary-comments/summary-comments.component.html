@@ -1,0 +1,31 @@
+<div class="modal-content my-3" *ngIf="comments && comments.length > 0">
+  <div class="modal-header">
+    <h5 class="modal-title mb-2">Field Notes</h5>
+  </div>
+  <div class="modal-body">
+    <i class="fa fa-sort text-primary sort-icon" matTooltip="Sort" matTooltipPosition="above" *ngIf="comments?.length > 1" (click)="sortComments()">Sort</i>
+    <ul class="list-group">
+      <!-- <li class="list-group-item px-5 py-3" *ngIf="comments?.length <= 0">
+                No comments added yet
+            </li> -->
+      <li class="list-group-item mb-2 comment-font" *ngFor="let comment of comments">
+        <div class="d-flex flex-column justify-content-between align-items-start comment-font">
+          <div>
+            <i class="fa fa-sticky-note-o me-1" aria-hidden="true"></i>
+            <b>{{ screenNames[comment?.screenId] }}</b>
+            -
+            {{ comment?.formControlName | camelcaseToWords }}
+            <span *ngIf="comment?.primaryId > 0" class="comment-font-subtext">({{ comment?.primaryId }})</span>
+          </div>
+          <div [innerHTML]="comment?.commentText | newlineBr" class="comment-font-subtext"></div>
+        </div>
+        <div class="text-muted mt-2 comment-font-subtext">
+          By
+          <b>{{ comment?.userName }}</b>
+          on
+          <i>{{ comment?.modifiedDate | date: 'medium' }}</i>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

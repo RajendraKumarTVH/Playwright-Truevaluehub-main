@@ -1,7 +1,7 @@
-import fs from 'fs'
+import { rimraf } from 'rimraf'
 
-export default async () => {
-	if (!fs.existsSync('auth_spec.json')) {
-		throw new Error('❌ auth_spec.json missing. Run auth setup locally.')
-	}
+async function globalSetup(): Promise<void> {
+	await rimraf('./allure-results')
 }
+
+export default globalSetup

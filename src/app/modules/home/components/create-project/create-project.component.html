@@ -1,0 +1,635 @@
+<div id="createproject" class="h-full">
+  <div class="d-flex flex-column h-full">
+    <div class="d-flex gap-3 h-full">
+      <div class="d-flex flex-column upload-file-section bg-white rounded-1 p-3 justify-between">
+        <div class="d-flex flex-column upload-controls min-w-0">
+          <div class="upload-area-control form-group h-full">
+            <label for="pninput">
+              Project Name/Number
+              <span class="text-danger">*</span>
+            </label>
+            <input type="text" id="pninput" class="form-control" maxlength="50" placeholder="Project Name/Number" [formControl]="projectname" />
+          </div>
+          <div class="upload-area-control form-group">
+            <label for="pdinput">Description</label>
+            <textarea id="pdinput" class="form-control" placeholder="Description" maxlength="100" [formControl]="projectdescription" rows="2" (keydown)="onKeyDown($event)"></textarea>
+          </div>
+          <div class="upload-area-control form-group">
+            <label for="taginput">Tag</label>
+            <input type="text" id="taginput" class="form-control" maxlength="200" placeholder="Tag" [formControl]="tag" />
+          </div>
+          <!-- <div class="upload-area-control tag-group flex items-center gap-2">
+            <p-autocomplete
+              [(ngModel)]="selectedTags"
+              inputId="tag-autocomplete"
+              multiple
+              fluid
+              [suggestions]="availableTags"
+              (completeMethod)="searchTags($event)"
+              placeholder="Enter Tag"
+              [showClear]="false"
+              [forceSelection]="false"
+              styleClass="custom-autocomplete" />
+          </div> -->
+          <div class="form-group upload-area-control">
+            <label for="">
+              Costing Target Month (MM/YYYY)
+              <span class="text-danger">*</span>
+            </label>
+            <div class="input-group wrapper cost-input-group w-100">
+              <input class="form-control rounded" [max]="today" matInput [matDatepicker]="dp" [formControl]="projectDate" />
+              <mat-datepicker-toggle matSuffix [for]="dp" class="datepicker-toggle">
+                <mat-icon matDatepickerToggleIcon svgIcon="calendar-icon"></mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #dp startView="year" (monthSelected)="setMonthAndYear($event, dp)" panelClass="project-month-picker"></mat-datepicker>
+            </div>
+          </div>
+          <!-- <div class="upload-area-control d-flex">
+            <div class="d-flex">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-lg d-flex align-items-center gap-2"
+                (click)="downloadMyFile()"
+              >
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <span>Template Download</span>
+              </button>
+            </div>
+          </div> -->
+          <!-- <div class="upload-area-control form-group d-flex flex-column">
+            <label for="">Attach files<span class="text-danger">*</span></label>
+            <div
+              class="p-3 form-control upload-area d-flex align-items-center justify-content-center h-100"
+              id="folder-drop1"
+              appDnd
+              (fileDropped)="onDropped($event)"
+            >
+              <input
+                type="file"
+                #fileDropRef1
+                id="fileDropRef1"
+                webkitdirectory
+                mozdirectory
+                multiple
+                (change)="onBrowseHandler($event)"
+              />
+              <div class="w-100 d-flex text-center">
+                <mat-icon
+                  *ngIf="!templateFileName"
+                  class="size-16 d-flex align-items-center justify-content-center flex-shrink-0"
+                  svgIcon="upload_icon"
+                ></mat-icon>
+                <div class="d-inline">
+                  <p
+                    class="d-inline mr-1 lh-sm font-small"
+                    *ngIf="!templateFileName"
+                  >
+                    Drag &amp; drop your File or Folder
+                  </p>
+                  <label
+                    *ngIf="!templateFileName"
+                    class="btn btn-link p-0 d-unset d-inline border-0 lh-sm font-small text-decoration-none"
+                    for="fileDropRef1"
+                    >Add File / Folder</label
+                  >
+                </div>
+                <span
+                  *ngIf="templateFileName"
+                  class="templatefilename-view font-small"
+                  >{{ templateFileName }}</span
+                >
+              </div>
+            </div>
+          </div> -->
+          <div *ngIf="showProgressBar" class="progress-div">
+            <h5 class="upload-status-label">Upload Status</h5>
+            <ngb-progressbar type="#0d6efd" class="progress-bar-container" [max]="100" [value]="progressBarValue" [striped]="true" [animated]="true">
+              <span class="progress-bar-value skill">{{ math.round(progressBarValue) }}% Completed</span>
+            </ngb-progressbar>
+          </div>
+        </div>
+        <div class="d-flex flex-column mt-4 mb-2 form-group unassociated-files" *ngIf="unAssociatedDocuments.length > 0">
+          <label>Unassociated files</label>
+          <ul id="remainingpartsul">
+            <li *ngFor="let document of unAssociatedDocuments; let i = index" [dndDraggable]="i" dndEffectAllowed="move" class="not-associated-documents justify-content-between d-flex">
+              <p class="word-wrap-p">{{ document?.name }}</p>
+              <mat-icon class="trash-icon flex-shrink-0 d-flex" svgIcon="trash_icon" (click)="removeUnassociatedDocuments(i)" tabindex="0"></mat-icon>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-2 pt-3">
+          <button type="button" class="btn btn-outline-primary w-100 text-center align-items-center justify-content-center mw-50 d-flex" (click)="saveDraftProject(true)">Save to Draft</button>
+          <button
+            type="button"
+            class="btn btn-primary w-100 text-center align-items-center justify-content-center mw-50 d-flex"
+            *ngIf="parts && parts.length > 0"
+            [disabled]="unAssociatedDocuments.length > 0 || disabledActivateButton"
+            (click)="onActivateProject(true)">
+            Activate Project
+          </button>
+        </div>
+      </div>
+      <!-- <hr /> -->
+      <div class="d-flex flex-col w-100 overflow-hidden gap-3 right-container">
+        <div class="upload-area-control form-group d-flex flex-column w-100 bg-white py-[.75rem] px-[.75rem] flex-grow overflow-y-auto" [class.flex-grow-0]="parts.length >= 1">
+          <!-- <label for="">Attach files<span class="text-danger">*</span></label> -->
+          <div
+            class="p-3 form-control upload-area d-flex align-items-center justify-content-center h-100"
+            [ngClass]="{ uploaded: parts.length >= 1 }"
+            id="folder-drop1"
+            appDnd
+            (fileDropped)="onDropped($event)">
+            <input type="file" #fileDropRef1 id="fileDropRef1" webkitdirectory mozdirectory multiple (change)="onBrowseHandler($event)" />
+            <div class="w-100 d-flex text-center align-items-center justify-content-center">
+              <div class="flex flex-col justify-center items-center">
+                <img *ngIf="parts.length < 1" src="assets/images/create-project-placeholder.png" alt="Drag and drop files" class="w-[9.6rem] h-auto mb-4" />
+                <p class="d-inline lh-sm font-medium upload-text mb-1" *ngIf="!templateFileName">Drag and drop files here or</p>
+                <div class="flex items-center mb-4">
+                  <label *ngIf="!templateFileName" class="btn btn-link upload-text p-0 d-unset inline-flex items-center border-0 font-medium text-decoration-none" for="fileDropRef1">
+                    <span><mat-icon *ngIf="!templateFileName" class="!size-4 d-flex align-items-center justify-content-center flex-shrink-0 mr-1" svgIcon="upload_icon"></mat-icon></span>
+                    <span>Choose files</span>
+                  </label>
+                  <span class="ml-1 upload-text">to upload</span>
+                </div>
+                <div class="supported-formats p-3 text-xs">
+                  <div class="flex supported-format-list justify-center">
+                    <span class="flex items-center">
+                      <mat-icon class="size-16 d-flex align-items-center justify-content-center flex-shrink-0 mr-1" svgIcon="check-circle-filled"></mat-icon>
+                      Preferred CAD :
+                    </span>
+                    <span>&nbsp; .prt,.step,.stp,.xml</span>
+                  </div>
+                  <div class="flex supported-format-list justify-center">
+                    <span class="flex items-center">
+                      <mat-icon class="size-16 d-flex align-items-center justify-content-center flex-shrink-0 mr-1" svgIcon="check-circle-outline"></mat-icon>
+                      Supported CAD :
+                    </span>
+                    <span>&nbsp; .sldprt,.ipt,.CATPart,.prt</span>
+                  </div>
+                </div>
+                <p class="supported-format-list text-xs text-center mt-2">
+                  Other Supported File Formats :
+                  <span>&nbsp; .txt, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf</span>
+                </p>
+              </div>
+              <!-- <div class="tdrop-right wid-100">
+                <p class="top-txt">Drag and drop files here or</p>
+                <div>
+                  <label class="btn btn-primary" for="fileDropRef4">
+                    <img src="assets/images/folderuploadicon.png" alt="" />
+                    <span>Choose files</span>
+                  </label>
+                  <span>to upload</span>
+                </div>
+              </div> -->
+              <span *ngIf="templateFileName" class="templatefilename-view font-medium">{{ templateFileName }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- <div
+          class="d-flex w-100 min-vh-50 bg-white rounded-1 p-16"
+          *ngIf="parts.length == 0"
+        >
+          <div
+            class="d-flex flex-column align-items-center justify-content-center w-100 h-100 bg-gray-450 rounded-1 p-16"
+          >
+            <div class="d-flex min-w-0 mb-3">
+              <img
+                class="img-fluid"
+                src="../../../../../../assets/images/no-files-found.svg"
+              />
+            </div>
+            <h4>No Files attached to view the results here</h4>
+          </div>
+        </div> -->
+
+        <div class="d-flex mw-100 bg-white rounded-1 w-100 flex-1" id="bomdatatable" *ngIf="parts.length >= 1">
+          <div class="table-wrap">
+            <p-table #dt dataKey="partNumber" [value]="parts" responsiveLayout="scroll" [columns]="cols" editMode="row" styleClass="template-grid w-100 create-project-table">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th scope="col" style="width: 50px">#</th>
+                  <th *ngFor="let col of columns" scope="col" [style.width.px]="col.width" [ngClass]="{ 'col-width-150': col.header === 'Annual Volume' }">
+                    {{ col.header }}
+                    <span *ngIf="col.mandatory" class="text-danger">*</span>
+                  </th>
+
+                  <!-- <th class="col-width-200">Attachment</th> -->
+                  <th class="col-width-250" scope="col">Extraction File</th>
+                  <th class="col-width-250 no-border-right" scope="col">Supporting Files</th>
+                  <th class="col-width-80 sticky-action-col" scope="col">Action</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-index="rowIndex" let-editing="editing">
+                <tr [pEditableRow]="rowData">
+                  <td>
+                    {{ index + 1 }}
+                  </td>
+                  <td>
+                    {{ rowData.partNumber }}
+                  </td>
+                  <td>
+                    <p-cellEditor class="p-cell-editor">
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="rowData.partDescription" (keydown)="onKeyDown($event)" />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ rowData.partDescription }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td class="col-width-150">
+                    <p-cellEditor class="p-cell-editor">
+                      <ng-template pTemplate="input">
+                        <input pInputText type="number" min="0" [(ngModel)]="rowData.annualVolume" />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ rowData.annualVolume }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <!-- <td>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" maxlength="2" [(ngModel)]="rowData.unitofMeasure" />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ rowData.unitofMeasure }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td> -->
+                  <td>
+                    {{ rowData.status }}
+                  </td>
+                  <td>
+                    <!-- <select class="form-control" [(ngModel)]="selectedCommodity"
+                      (onChange)="changeCommodity(selectedCommodity, rowData)">
+                      <option value="">---Description----</option>
+                      <option *ngFor="let group of commodityList" value="{{group.commodityId}}">
+                        {{ group.commodity }}
+                      </option>
+                    </select> -->
+                    <p-cellEditor class="p-cell-editor">
+                      <ng-template pTemplate="input">
+                        <p-dropdown
+                          [options]="commodityList"
+                          optionLabel="commodity"
+                          appendTo="body"
+                          [(ngModel)]="selectedCommodity"
+                          (onChange)="changeCommodity(selectedCommodity, rowData)"
+                          [style]="{ width: '100%' }"
+                          [filter]="true"
+                          filterPlaceholder="Search commodity..."></p-dropdown>
+                      </ng-template>
+
+                      <ng-template pTemplate="output">
+                        {{ getCommodityName(rowData.commodityId) }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td>
+                    <p-cellEditor class="p-cell-editor">
+                      <ng-template pTemplate="input">
+                        <p-dropdown
+                          [options]="vendorList"
+                          appendTo="body"
+                          optionLabel="supplierDirectoryMasterDto.vendorName"
+                          [(ngModel)]="selectedSupplier"
+                          (onChange)="changeSupplier(selectedSupplier, rowData)"
+                          [style]="{ width: '100%' }"
+                          [filter]="true"
+                          filterPlaceholder="Search Supplier..."></p-dropdown>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ getSupplierName(rowData.vendorId) }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td>
+                    <p-cellEditor class="p-cell-editor">
+                      <ng-template pTemplate="input">
+                        <p-dropdown
+                          [options]="buLocationList"
+                          optionLabel="buName"
+                          appendTo="body"
+                          [(ngModel)]="selectedDeliverySite"
+                          (onChange)="changeDeliverySite(selectedDeliverySite, rowData)"
+                          [style]="{ width: '100%' }"
+                          [filter]="true"
+                          filterPlaceholder="Search DeliverySite..."></p-dropdown>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ getDeliverySiteName(rowData.buId) }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td>
+                    <div class="grid-dnddropzone">
+                      <ul class="filenameUl-table">
+                        <li class="filenamelist-table" *ngFor="let file of findExtractionDocument(rowData.fileList); index as i" [dndDraggable]="file" dndEffectAllowed="move">
+                          <mat-icon class="remove-icon" (click)="removeUploadedDocument(file.documentId, rowData, file)">remove</mat-icon>
+                          <!-- <mat-icon class="remove-icon" (click)="removeUploadedDocument(file.documentId, rowData, file)">remove</mat-icon> -->
+                          <span>{{ file.documentName }}</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div dndDropzone (dndDrop)="onDropExtractionFile($event, rowData, index)" dndeffectallowed="copyMove" class="grid-dnddropzone">
+                      <div class="grid-dndplaceholderref" dndPlaceholderRef>Upload document</div>
+                    </div>
+                  </td>
+                  <td class="relative no-border-right">
+                    <div>
+                      <ul class="filenameUl-table">
+                        <li class="filenamelist-table" *ngFor="let file of findSupportingDocuments(rowData.fileList); index as i" [dndDraggable]="file" dndEffectAllowed="move">
+                          <mat-icon class="remove-icon" (click)="removeUploadedDocument(file.documentId, rowData, file)">remove</mat-icon>
+                          <span>{{ file.documentName }}</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div dndDropzone (dndDrop)="onDropSupportingFile($event, rowData, index)" dndeffectallowed="copyMove" class="grid-dnddropzone">
+                      <div class="grid-dndplaceholderref" dndPlaceholderRef>Upload document</div>
+                    </div>
+                  </td>
+                  <td class="btn-icons-td sticky-action-col">
+                    <div class="sticky-inner">
+                      <button *ngIf="!editing" matMiniFab color="primary" pButton pRipple pInitEditableRow (click)="onRowEditInit(index)" class="mr-2">
+                        <mat-icon color="black" svgIcon="editpen_icon"></mat-icon>
+                      </button>
+                      <button *ngIf="editing" matMiniFab color="primary" pButton pRipple pSaveEditableRow (click)="onRowEditSave(rowData, index)" class="mr-2 btn-check-icon">
+                        <mat-icon>check</mat-icon>
+                      </button>
+                      <button *ngIf="editing" matMiniFab color="warn" pButton pRipple pCancelEditableRow (click)="onRowEditCancel(index)">
+                        <mat-icon svgIcon="close_icon"></mat-icon>
+                      </button>
+                      <button *ngIf="!editing" matMiniFab color="warn" pButton pRipple (click)="onRowDeleteInit(rowData, index)">
+                        <mat-icon color="black" svgIcon="delete_icon"></mat-icon>
+                      </button>
+                      <!-- <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(index)"
+                      class="fa fa-pencil fa-1x p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow class="fa fa-check fa-2x"
+                      (click)="onRowEditSave(rowData, index)"
+                      class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow
+                      (click)="onRowEditCancel(index)"
+                      class="fa fa-times fa-2x p-button-rounded p-button-text p-button-danger"></button>
+                    <button *ngIf="!editing" pButton pRipple type="button" (click)="onRowDeleteInit(rowData, index)"
+                      class="fa fa-trash fa-1x p-button-rounded p-button-text"></button> -->
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="columns.length + 3">No records found</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="createproject" class="pad-20" style="display: none" *ngIf="removeUnused">
+  <div class="create-project-row">
+    <div class="col-4 p-left-div">
+      <div>
+        <label class="field_name">
+          Project Name/Number :
+          <span class="clsred">*</span>
+        </label>
+        <input type="text" id="pninput" class="field" maxlength="50" placeholder="Project Name/Number" [formControl]="projectname" />
+      </div>
+      <div class="pd-div">
+        <label class="field_name">
+          Description :
+          <span class="clsred">*</span>
+        </label>
+        <textarea id="pdinput" placeholder="Enter Description" maxlength="100" [formControl]="projectdescription" rows="2"></textarea>
+      </div>
+      <div class="pd-div">
+        <label class="field_name">
+          Costing Target Quarter :
+          <span class="clsred">*</span>
+        </label>
+        <div class="input-group">
+          <input class="quarter-field" type="text" readonly="readonly" [formControl]="quarter" placeholder="Qq yyyy" />
+          <div class="input-group-append">
+            <div ngbDropdown #drop="ngbDropdown" class="d-inline-block" autoClose="outside" placement="bottom-right" (openChange)="showQuarter = true">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle></button>
+              <div ngbDropdownMenu style="width: 13rem">
+                <div class="selectYear">
+                  <div class="ngb-dp-arrow">
+                    <button class="btn btn-link ngb-dp-arrow-btn" type="button">
+                      <span class="ngb-dp-navigation-chevron" (click)="showQuarter ? changeYear((year || yearDefault) - 1) : (year10 = year10 - 10)"></span>
+                    </button>
+                  </div>
+                  <button type="button" class="btn btn-link" (click)="changeShowQuarter()">
+                    {{ showQuarter ? (year ? year : yearDefault) : year10 + ' - ' + (year10 + 9) }}
+                  </button>
+                  <div class="ngb-dp-arrow right">
+                    <button class="btn btn-link ngb-dp-arrow-btn" type="button" (click)="showQuarter ? changeYear((year || yearDefault) + 1) : (year10 = year10 + 10)">
+                      <span class="ngb-dp-navigation-chevron"></span>
+                    </button>
+                  </div>
+                </div>
+                <ng-container *ngIf="showQuarter">
+                  <button [ngClass]="{ 'bg-primary': item.value === quarterText }" ngbDropdownItem *ngFor="let item of options" (click)="click(item.value, drop)">
+                    <span class="col option-quarter" *ngFor="let month of item.months">{{ month }}</span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="!showQuarter">
+                  <button
+                    [ngClass]="{ 'bg-primary': year10 + item === year }"
+                    ngbDropdownItem
+                    *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                    (click)="changeYear(year10 + item); showQuarter = true">
+                    <span>{{ year10 + item }}</span>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-7 p-right-div">
+      <h2>Download Template</h2>
+      <div class="tmpdwn" (click)="downloadMyFile()">
+        <p class="template-label">Download Template</p>
+        <img class="download-image" src="assets/images/downloadicon.png" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container px-4 template-container">
+    <div class="row gx-5">
+      <div class="col">
+        <div class="p-3" id="folder-drop2" appDnd (fileDropped)="onDropped($event)">
+          <input type="file" #fileDropRef2 id="fileDropRef2" webkitdirectory mozdirectory multiple (change)="onBrowseHandler($event)" />
+          <img src="assets/images/folderuploadicon.png" alt="" />
+          <div class="tdrop-right wid-100">
+            <p class="top-txt">Drag &amp; drop or</p>
+            <label class="btn btn-primary p-0" for="fileDropRef2">Browse</label>
+            <span *ngIf="templateFileName" class="templatefilename-view">{{ templateFileName }}</span>
+          </div>
+        </div>
+        <div *ngIf="showProgressBar" class="progress-div">
+          <h5 class="upload-status-label">Upload Status</h5>
+          <ngb-progressbar type="#0d6efd" class="progress-bar-container" [max]="100" [value]="progressBarValue" [striped]="true" [animated]="true">
+            <span class="progress-bar-value skill">{{ math.round(progressBarValue) }}% Completed</span>
+          </ngb-progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container px-4 template-container" style="display: none">
+    <div class="row gx-5">
+      <div class="col">
+        <div class="p-3" id="template-drop" appDnd (fileDropped)="onTemplateFileDropped($event)">
+          <h3 class="upload-number">1</h3>
+          <input type="file" #fileDropRef3 id="fileDropRef3" accept=".xlsx, .xls, .csv" (change)="fileBrowseHandler($event)" (click)="validate()" />
+          <img src="assets/images/templateuploadicon.png" alt="" />
+          <div class="tdrop-right">
+            <p class="top-txt">Drag &amp; drop your template</p>
+            <label class="btn btn-primary" for="fileDropRef3">ADD Template</label>
+            <span class="templatefilename-view">{{ templateFileName }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3" id="folder-drop3" appDnd (fileDropped)="onFolderDropped($event)">
+          <h3 class="upload-number">2</h3>
+          <input type="file" #fileDropRef4 id="fileDropRef4" webkitdirectory mozdirectory multiple (change)="folderBrowseHandler($event)" />
+
+          <div class="tdrop-right wid-100">
+            <p class="top-txt">Drag and drop files here or</p>
+            <div>
+              <label class="btn btn-primary" for="fileDropRef4">
+                <img src="assets/images/folderuploadicon.png" alt="" />
+                <span>Choose files</span>
+              </label>
+              <span>to upload</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showProgressBar" class="progress-div">
+          <h5 class="upload-status-label">Upload Status</h5>
+          <ngb-progressbar type="#0d6efd" class="progress-bar-container" [max]="100" [value]="progressBarValue" [striped]="true" [animated]="true">
+            <span class="progress-bar-value skill">{{ math.round(progressBarValue) }}% Completed</span>
+          </ngb-progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+  <table class="table table-bordered" aria-describedby="" id="bomdatatable" *ngIf="parts.length >= 1">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Sr. No</th>
+        <th scope="col">Part Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Annual Volume</th>
+        <!-- <th scope="col">Unit of measure</th> -->
+        <th scope="col">Status</th>
+        <th scope="col">File Attachment</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bom-row" *ngFor="let part of parts; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <div>
+            {{ part.partNumber }}
+          </div>
+        </td>
+        <td>
+          <div *ngIf="part.isEdit">
+            <input type="text" class="tbl-editinput" [(ngModel)]="part.partDescription" />
+            <!--(ngModelChange)="onModelChange($event)"-->
+          </div>
+          <div *ngIf="!part.isEdit">{{ part.partDescription }}</div>
+        </td>
+        <td>
+          <div *ngIf="part.isEdit">
+            <input type="number" class="tbl-editinput" [(ngModel)]="part.annualVolume" />
+            <!-- (ngModelChange)="onModelChange($event)"-->
+          </div>
+          <div *ngIf="!part.isEdit">{{ part.annualVolume }}</div>
+        </td>
+        <!-- <td>
+          <div *ngIf="part.isEdit">
+            <input type="number" class="tbl-editinput" [(ngModel)]="part.unitofMeasure" maxlength="2"
+              (ngModelChange)="onModelChange($event)" />
+          </div>
+          <div *ngIf="!part.isEdit"> {{part.unitofMeasure }}</div>
+        </td> -->
+        <td>
+          <div>
+            {{ part.status }}
+          </div>
+          <input type="hidden" value="{{ part.projectId }}" />
+        </td>
+        <td>
+          <div>
+            <ul class="filenameUl-table">
+              <li class="filenamelist-table" *ngFor="let file of part.fileList; index as i">
+                <mat-icon *ngIf="part.isEdit" class="remove-icon" (click)="removeUploadedDocument(file.documentId, part, file)">remove</mat-icon>
+                <span>{{ file.documentName }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div dndDropzone (dndDrop)="onDrop($event, part)" dndeffectallowed="copyMove" style="width: 100%; height: 50px" [ngClass]="{ IsEdit: part.isEdit }">
+            <div style="border: 1px #3f83f9 solid; border-radius: 5px; padding: 15px" dndPlaceholderRef>Upload document</div>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="part.isEdit" class="savecancel-div">
+            <a href="javascript:void(0)" (click)="saveClick()" title="Save">
+              <mat-icon class="check-circle">checkcircle</mat-icon>
+            </a>
+            &nbsp; &nbsp;
+            <a href="javascript:void(0)" (click)="cancelClick()" title="Cancel">
+              <mat-icon class="cancel-icon">cancel</mat-icon>
+            </a>
+          </div>
+          <div *ngIf="!part.isEdit">
+            <a href="javascript:void(0)" (click)="editClick(part)" title="Edit">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex flex-column form-group mt-4 mb-2 unassociated-files" *ngIf="unAssociatedDocuments.length > 0">
+    <label>Unassociated files</label>
+    <ul id="remainingpartsul" class="unassociated-files">
+      <li *ngFor="let document of unAssociatedDocuments; let i = index" [dndDraggable]="i" dndEffectAllowed="move" class="not-associated-documents">
+        <mat-icon class="remove-icon" (click)="removeUnassociatedDocuments(i)">remove</mat-icon>
+        <p class="word-wrap-p">{{ document?.name }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="bom-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="unAssociatedDocuments.length > 0" (click)="saveDraftProject(true)">Save to Draft</button>
+    <button
+      type="button"
+      class="btn btn-primary activateproject-btn"
+      *ngIf="this.currentProjectId > 0 && parts && parts.length > 0"
+      [disabled]="unAssociatedDocuments.length > 0 || disabledActivateButton"
+      (click)="onActivateProject(true)">
+      Activate Project
+    </button>
+  </div>
+</div>

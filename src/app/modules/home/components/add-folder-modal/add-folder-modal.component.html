@@ -1,0 +1,12 @@
+<div class="modal-header flex items-center justify-between px-0 pb-2">
+  <h4 class="modal-title text-xs font-semibold">{{ modalTitle }}</h4>
+  <button aria-label="Close modal" title="Close" class="modal-close flex items-center justify-center border-none bg-white" (click)="close()">
+    <mat-icon class="close-icon text-black" matTooltip="Close" matTooltipPosition="above" svgIcon="close_icon"></mat-icon>
+  </button>
+</div>
+<div class="modal-body flex flex-col">
+  <form class="w-full flex flex-col" (submit)="save(); $event.preventDefault()">
+    <input name="folderName" placeholder="Enter" [(ngModel)]="folderName" class="form-control" />
+    <button type="button" color="primary" class="btn min-w-24 mt-3 btn-primary ml-auto" (click)="save()" [disabled]="!folderName || folderName.trim() === ''">Save</button>
+  </form>
+</div>

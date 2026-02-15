@@ -1,0 +1,10 @@
+<div class="dialog-container">
+  <div class="content-holder">
+    <div class="dialog-title">{{ dialogTitle }}</div>
+    <mat-dialog-content class="content" [innerHtml]="dialogMessage" tabindex="0"></mat-dialog-content>
+  </div>
+  <mat-dialog-actions class="actions-holder">
+    <button pButton type="submit" class="btn btn-outline-primary ml-2 confirmation-btn p-button-rounded p-button-text" (click)="closeDialog()">{{ cancelText }}</button>
+    <button pButton type="submit" class="btn btn-primary ml-2 confirmation-btn p-button-rounded p-button-text" (click)="onConfirmButtonClicked()">{{ actionText }}</button>
+  </mat-dialog-actions>
+</div>

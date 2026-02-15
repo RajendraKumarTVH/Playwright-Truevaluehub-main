@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header">Manufacturing Summary</div>
+  <div class="card-body">
+    <table class="table m-0" aria-describedby="Manufacturing">
+      <thead>
+        <tr>
+          <th scope="col">Sl #</th>
+          <th scope="col">Manufacturing Description</th>
+          <th scope="col">Cost($)</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let process of compVals.toolingProcessInfoList; let i = index" [ngClass]="{ 'selected-item-color': process.toolingProcessId === compVals.selectedToolProcessId }">
+          <td>{{ i + 1 }}</td>
+          <td>{{ process.processGroupName }}</td>
+          <td>{{ process.totalProcessCost }}</td>
+          <td style="text-align: center">
+            <a href="javascript:void(0)" (click)="onEditProcessInfo(process)"><mat-icon>edit</mat-icon></a>
+            <a *ngIf="canUpdate" href="javascript:void(0)" (click)="onDeleteProcessClick(process.toolingProcessId)"><mat-icon>delete</mat-icon></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="border: none"></td>
+          <td><strong>Total</strong></td>
+          <td>
+            <strong>{{ totalProcessCost }}</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="links-block d-flex">
+      <a *ngIf="canUpdate" class="link-info ml-auto" title="Add Process" (click)="addProcess()">Add Process</a>
+    </div>
+  </div>
+</div>

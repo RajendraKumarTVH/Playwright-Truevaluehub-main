@@ -1,0 +1,105 @@
+<div class="card !p-0">
+  <p class="section-description mb-3">Add all the gases utilized by this supplier annually</p>
+
+  <div class="df-gases-utilized-table common-table-container">
+    <div class="common-table-inner-wrap">
+      <div class="table-container">
+        <table mat-table [dataSource]="gasRows" class="mat-table sustainability-gas-utilized-table" aria-describedby="">
+          <!-- Description -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="custom-ac-wrap flex relative w-full">
+                <p-autoComplete
+                  [(ngModel)]="row.description"
+                  [suggestions]="filteredGases"
+                  (completeMethod)="filterGases($event)"
+                  field="name"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  inputStyleClass="form-control category-input-dropdown"
+                  panelStyleClass="custom-autocomplete-panel df-custom-autocomplete w-full"
+                  appendTo="body">
+                  <!-- header: search + tag chips -->
+                  <ng-template pTemplate="header">
+                    <div class="custom-ac-header">
+                      <input type="text" pInputText class="custom-ac-search" [placeholder]="'Search'" (input)="filterGases({ query: $any($event.target).value })" />
+                      <div class="custom-ac-tags">
+                        <button type="button" class="tag-pill" [class.active]="activeTag === 'All'" (click)="setTag('All')">All</button>
+                        <button type="button" class="tag-pill" [class.active]="activeTag === 'Refrigerant'" (click)="setTag('Refrigerant')">Refrigerant</button>
+                        <button type="button" class="tag-pill" [class.active]="activeTag === 'Industrial'" (click)="setTag('Industrial')">Industrial</button>
+                        <button type="button" class="tag-pill" [class.active]="activeTag === 'Fire Suppressant'" (click)="setTag('Fire Suppressant')">Fire Suppressant</button>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <!-- item: name + right-aligned tag pill -->
+                  <ng-template let-gas pTemplate="item">
+                    <div class="custom-ac-item w-full flex items-center justify-between">
+                      <span class="label text-xs font-medium">{{ gas.name }}</span>
+                      <span class="tag-pill small" [ngClass]="gas.color">{{ gas.tag }}</span>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+                <ng-container *ngIf="getGasByName(row.description) as gas">
+                  <span class="tag-pill small selected-pill" [ngClass]="gas.color">
+                    {{ gas.tag }}
+                  </span>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Annual Volume -->
+          <ng-container matColumnDef="annualVolume">
+            <th mat-header-cell *matHeaderCellDef>Annual Volume</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="field-input error">
+                <input type="number" class="form-control text-left" [(ngModel)]="row.annualVolume" placeholder="0" />
+              </div>
+              <div class="field-error">Required field</div>
+            </td>
+          </ng-container>
+
+          <!-- Unit -->
+          <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef>Unit</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="category-dropdown">
+                <input type="text" class="form-control category-input-dropdown" placeholder="Select unit" [(ngModel)]="row.unit" [matAutocomplete]="unitAuto" />
+
+                <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+
+                <mat-autocomplete #unitAuto="matAutocomplete" (optionSelected)="onUnitSelected(row, $event.option.value)">
+                  <mat-option *ngFor="let u of unitOptions" [value]="u" class="df-overlay-option">
+                    {{ u }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Action -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+            <td mat-cell *matCellDef="let row; let i = index" class="text-center">
+              <button type="button" class="btn btn-delete icon-btn p-0" (click)="removeRow(i)" title="Remove">
+                <mat-icon svgIcon="delete_icon"></mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <button pButton type="submit" class="btn btn-outline-primary flex items-center gap-1" (click)="addRow()">
+      <mat-icon class="df-add-icon" svgIcon="plus-add-icon">add</mat-icon>
+      Add Another
+    </button>
+  </div>
+</div>

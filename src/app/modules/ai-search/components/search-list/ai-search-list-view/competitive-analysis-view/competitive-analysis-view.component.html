@@ -1,0 +1,123 @@
+<div class="competitive-analysis-view w-full h-full flex gap-0">
+  <!-- Left: Chart and summary -->
+  <div class="left-panel flex-1 flex flex-col bg-white p-3 overflow-y-auto">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h4 class="text-lg font-semibold text-black">Competitive Spend Analysis</h4>
+      </div>
+      <button mat-icon-button aria-label="More options">
+        <mat-icon svgIcon="expand-full-screen"></mat-icon>
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters flex flex-wrap items-center gap-0 mb-4 text-xs">
+      <button class="filter-chip" [class.active]="activeView === 'supplier'" (click)="changeView('supplier')" title="Supplier">Supplier</button>
+      <button class="filter-chip" [class.active]="activeView === 'category'" (click)="changeView('category')" title="Category">Category</button>
+      <button class="filter-chip" [class.active]="activeView === 'material'" (click)="changeView('material')" title="material">Material</button>
+      <button class="filter-chip" [class.active]="activeView === 'region'" (click)="changeView('region')" title="Region">Region</button>
+    </div>
+    <!-- Chart -->
+    <div class="chart-wrapper">
+      <highcharts-chart class="bubble-chart block w-full h-full" [constructorType]="'chart'" [options]="chartOptions"></highcharts-chart>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary-grid flex flex-wrap gap-3 mt-4 text-xs pb-3">
+      <div class="metric-card flex items-center">
+        <div class="metric-item flex flex-col">
+          <p class="label m-0">Spend($)</p>
+          <p class="value m-0 text-balck text-base font-semibold">$12,000.00</p>
+        </div>
+      </div>
+      <div class="metric-card flex items-center">
+        <div class="metric-item flex flex-col">
+          <p class="label m-0">Annual Should Cost ($)</p>
+          <p class="value m-0 text-balck text-base font-semibold">$1,000.00</p>
+        </div>
+        <div class="metric-item flex flex-col">
+          <p class="label m-0">Annual Should Cost Opportunity ($)</p>
+          <p class="value m-0 text-balck text-base font-semibold value-increase">$100.00</p>
+        </div>
+      </div>
+      <div class="metric-card flex items-center">
+        <div class="metric-item flex flex-col">
+          <p class="label m-0">Annual Should Cost ($)</p>
+          <p class="value m-0 text-balck text-base font-semibold">$1,000.00</p>
+        </div>
+        <div class="metric-item flex flex-col">
+          <p class="label m-0">Annual Should Cost Opportunity ($)</p>
+          <p class="value m-0 text-balck text-base font-semibold value-increase">+$100.00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Bubble details placeholder -->
+  <div class="right-panel flex p-3 shrink-0">
+    <div class="no-data-found w-full h-full flex flex-col items-center justify-center" *ngIf="!showDetails">
+      <img src="assets/icons/select-cursor-bubble.svg" class="mb-3 placeholder-img" alt="selected part" />
+      <p class="text-xs text-black text-center max-w-[140px] font-medium">Click on a bubble to see all its details here</p>
+    </div>
+    <div class="more-info-container" *ngIf="showDetails">
+      <div class="sidebar-header d-flex justify-between">
+        <div class="header-text">
+          <h3 class="font-semibold text-base text-black">Part Number: P-10234</h3>
+          <div class="text-xs">Gear Housing</div>
+        </div>
+      </div>
+      <div class="side-bar-content">
+        <div class="info-section">
+          <h4 class="section-title">Part Information</h4>
+          <div class="info-grid">
+            <div class="info-group">
+              <div class="more-info-label">Created By:</div>
+              <div class="more-info-value">Hardware</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Material</div>
+              <div class="more-info-value">Plastic</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Supplier Name</div>
+              <div class="more-info-value">Galactic Enterprises Pvt Ltd</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Supplier City:</div>
+              <div class="more-info-value">Berlin</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Supplier Country:</div>
+              <div class="more-info-value">Germany</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-section">
+          <h4 class="section-title">Cost Insights</h4>
+          <div class="info-grid">
+            <div class="info-group">
+              <div class="more-info-label">Annual Spend($)</div>
+              <div class="more-info-value">120</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Annual Should Cost ($)</div>
+              <div class="more-info-value">100</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Annual Should Cost Opportunity ($)</div>
+              <div class="more-info-value">10</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Annual Should Cost ($)</div>
+              <div class="more-info-value">100</div>
+            </div>
+            <div class="info-group">
+              <div class="more-info-label">Annual Should Cost Opportunity ($)</div>
+              <div class="more-info-value">10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.mat-icon {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  font-size: 10px;
+  color: var(--primary-shade);
+}
+.float-end {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+::ng-deep .col,
+::ng-deep .col-3,
+::ng-deep .col-4 {
+  app-field-comment span .no-notes-icon {
+    opacity: 0;
+  }
+}
+
+::ng-deep .col:hover,
+::ng-deep .col-3:hover,
+::ng-deep .col-4:hover {
+  app-field-comment span .no-notes-icon {
+    opacity: 1;
+  }
+}

@@ -38,3 +38,5 @@ export type {
 
 
 export { PlasticRubberProcessCalculator } from './plastic-rubber-process-calculator';
+export { PlatingCalculator } from './PlatingCalculator';
+export { BrazingCalculator } from './BrazingCalculator';

@@ -1,0 +1,97 @@
+.edit-toolbar {
+  display: flex;
+  background: transparent;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.digital-factory-btn {
+  height: 36px;
+  font-size: 12px;
+  font-weight: 500;
+  flex-flow: row;
+  align-items: center;
+  min-width: 135px;
+  display: flex;
+  justify-content: center;
+}
+
+.seperator {
+  width: 1px;
+  background-color: var(--component-border);
+  min-height: 36px;
+}
+
+.floating-bar-actions {
+  width: 36px;
+  height: 36px;
+  border: solid 1px var(--component-border);
+  border-radius: 10px;
+  color: var(--black);
+  transition:
+    border-color 0.1s ease-in-out,
+    background-color 0.1s ease-in-out;
+  will-change: border-color, background-color;
+
+  &:focus-visible,
+  &:hover {
+    color: var(--primary-shade);
+    border-color: var(--primary-shade);
+  }
+
+  &[disabled] {
+    border-color: var(--bs-btn-disabled-bg);
+    background-color: var(--bs-btn-disabled-bg);
+    color: var(--bs-btn-disabled-color);
+    cursor: not-allowed;
+  }
+}
+
+.app-floating-toolbar {
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0px 8px 130px 0px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  min-width: 450px;
+  max-width: 535px;
+  min-height: 54px;
+  bottom: 0;
+  margin: 20px auto;
+  z-index: 99;
+  place-items: center;
+  padding: 0.5rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px;
+}
+
+.app-floating-toolbar .bottom-right-corner button {
+  border-radius: 6px;
+  border: 1px solid var(--Primary-color-black, #3f83f9);
+  background: var(--Primary-color-white, #fff);
+  color: var(--Primary-color-black, #3f83f9);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  padding: 8px 20px;
+}
+
+.app-floating-toolbar .bottom-right-corner .btn-save {
+  border-radius: 6px;
+  border: 1px solid var(--Primary-color-black, #3f83f9);
+  background: var(--Primary-color-black, #3f83f9);
+  color: var(--Primary-color-White, #fff);
+}
+
+.app-floating-toolbar .dirty-button {
+  color: var(--Primary-color-White, #fff) !important;
+}
+
+.app-floating-toolbar .floating-container {
+  display: inline-block;
+  float: left;
+}

@@ -1,0 +1,20 @@
+.certification-info-container {
+  display: flex;
+  flex-flow: column;
+  background: #f3f7ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.certification-info {
+  flex: 2;
+  padding: 10px;
+}
+
+.certification-info-header {
+  font-weight: 600;
+}
+
+.certification-info-content {
+  padding-top: 15px;
+}

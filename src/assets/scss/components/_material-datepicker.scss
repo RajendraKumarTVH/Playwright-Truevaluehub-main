@@ -1,0 +1,21 @@
+mat-datepicker-content.mat-datepicker-content {
+  color: var(--mat-sys-on-surface);
+  background-color: var(--bs-white);
+  border-radius: var(--mat-sys-corner-large);
+  box-shadow: var(--mat-datepicker-calendar-container-elevation-shadow);
+
+  .mat-calendar-body-today.mat-calendar-body-selected {
+    box-shadow: inset 0 0 0 1px #fff;
+  }
+}
+
+mat-datepicker-toggle {
+  mat-icon.mat-icon {
+    width: 16px;
+    height: 16px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

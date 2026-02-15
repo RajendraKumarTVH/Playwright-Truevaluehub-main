@@ -1,0 +1,73 @@
+<div class="table-card-body best-region-table">
+  <div class="analytics-table-wrapper">
+    <div class="table-container custom-scroller">
+      <div class="table-scroll-wrapper first-child-sticky" [ngClass]="{ 'd-none': dataSource.filteredData.length === 0 }">
+        <mat-table [dataSource]="dataSource" matSort>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | camelcaseToWords | customizeSimulationText }}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element[column] }}</mat-cell>
+          </ng-container>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card">
+    <div class="card-header"><strong>Costs summary</strong> </div>
+    <div class="card-body table-card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 2%">Sl.No</th>
+                    <th scope="col" style="width: 11%">Country Name</th>
+                    <th scope="col" style="width: 7%"> Material Cost ($)</th>
+                    <th scope="col" style="width: 7%"> Process Cost ($)</th>
+                    <th scope="col" style="width: 10%"> Total Tooling Cost ($)</th>
+                    <th scope="col" style="width: 10%"> Tooling Cost/Part ($)</th>
+                    <th scope="col" style="width: 7%"> Packaging Cost ($)</th>
+                    <th scope="col" style="width: 7%"> Logistics Cost ($)</th>
+                    <th scope="col" style="width: 7%"> Overhead Cost ($)</th>
+                    <th scope="col" style="width: 9%">Total Cost ($)</th>
+                    <th scope="col" style="width: 7%">Total ESG (CO2 Kg)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let summary of data; let i = index">
+                    <td>{{i+1}}.</td>
+                    <td class="heading-left">{{summary?.countryName}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.materialTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.processTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.toolingTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.toolingAmortizationCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.packagingTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.logisticsTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.OHPTotalCost)}}
+                    </td>
+                    <td class="heading-left">
+                        {{ sharedService.isValidNumber(summary?.totalCost) }}
+                    </td>
+                    <td class="heading-left">
+                        {{sharedService.isValidNumber(summary?.totalCostESG)}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->

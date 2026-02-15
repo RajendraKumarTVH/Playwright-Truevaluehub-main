@@ -1,0 +1,76 @@
+.supplier-list-container {
+  display: flex;
+  margin-top: 20px;
+  overflow: auto;
+  max-height: calc(100vh - 375px);
+
+  @media (max-width: 1200px) {
+    height: calc(100vh - 40px);
+  }
+
+  @media (max-width: 992px) {
+    height: calc(100vh - 30px);
+  }
+
+  @media (max-width: 768px) {
+    height: calc(100vh - 20px);
+  }
+
+  @media (max-width: 576px) {
+    height: calc(100vh - 10px);
+  }
+}
+
+.supplier-table-row-def {
+  padding: 5px 5px;
+  cursor: pointer;
+  border-bottom: none;
+}
+
+.vendor-name-highlight {
+  color: #3f83f9;
+}
+
+:host ::ng-deep {
+  .mat-table {
+    width: max-content;
+    background: #fff;
+  }
+
+  .mat-mdc-header-row {
+    // background: #f5f6f9;
+    background: #f0f0f0;
+  }
+
+  .mat-mdc-header-cell {
+    border-bottom: none;
+  }
+
+  .mat-header-cell,
+  .mat-cell,
+  .mat-footer-cell {
+    font-size: 12px;
+  }
+
+  .mat-header-row {
+    background-color: #f0f0f0;
+    height: 34px;
+    min-height: 34px;
+  }
+
+  .mat-paginator-container {
+    max-height: 53px;
+    min-height: 53px;
+  }
+  .mat-sort-header-content {
+    color: #0000008a;
+  }
+
+  .mat-mdc-cell {
+    border-bottom-color: #e9e9e9;
+  }
+
+  .mdc-data-table__row:last-child > .mat-mdc-cell {
+    border-bottom: 1px solid #e9e9e9;
+  }
+}

@@ -1,0 +1,17 @@
+export enum FormGroupKeysMaterial {
+  Casting = 'castingMaterial',
+  Machining = 'machiningMaterial',
+  InjectionMolding = 'injectionMoldingMaterial',
+  CompressionMolding = 'compressionMoldingMaterial',
+  SheetMetal = 'sheetMetalMaterial',
+  PlasticVacuumForming = 'plasticVacuumFormingMaterial',
+  TubeBending = 'tubeBendingMaterial',
+  InsulationJacket = 'insulationJacketMaterial',
+  PlasticTubeExtrusion = 'plasticTubeExtrusionMaterial',
+  HotForgingClosedDieHot = 'hotForgingClosedDieHotMaterial',
+  MetalExtrusion = 'metalExtrusionMaterial',
+  Pcb = 'pcbMaterial',
+  CustomCable = 'customCableMaterial',
+  Pcba = 'pcbaMaterial',
+  MaterialSustainability = 'materialSustainability',
+}

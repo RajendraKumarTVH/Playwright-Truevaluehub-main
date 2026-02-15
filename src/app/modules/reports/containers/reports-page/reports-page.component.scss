@@ -1,0 +1,56 @@
+mat-sidenav-container {
+  // margin-top: 75px;
+  margin-top: -21px;
+}
+
+mat-list-item {
+  cursor: pointer;
+}
+
+.is-active {
+  background: #f5f9ff;
+  color: #3f83f9;
+}
+
+.mat-list-base .mat-list-item .mat-list-icon,
+.mat-list-base .mat-list-option .mat-list-icon {
+  height: 32px;
+}
+
+.list-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.list-item-content .mat-icon {
+  min-width: 24px;
+  height: 24px;
+  width: 24px;
+}
+
+mat-list-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+mat-list-item:hover .list-item-content,
+mat-list-item:hover span {
+  color: #3f83f9;
+  cursor: pointer;
+}
+
+mat-list-item:hover {
+  background-color: #f0f6ff;
+}
+
+mat-list-item.is-active .list-item-content,
+mat-list-item.is-active .list-item-content span,
+mat-list-item.is-active .list-item-content mat-icon {
+  color: #3f83f9;
+}
+
+mat-list-item.is-active {
+  background-color: #f5f9ff;
+}

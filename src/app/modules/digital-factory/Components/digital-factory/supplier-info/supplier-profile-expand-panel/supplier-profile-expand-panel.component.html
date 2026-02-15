@@ -1,0 +1,77 @@
+<mat-accordion class="accordion-panels" multi>
+  <mat-expansion-panel [expanded]="true" #aboutInfo>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i class="material-icons cls-item-icon">info_outline</i>
+        <span class="cls-item-head">About</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!aboutInfo.expanded">add</mat-icon>
+        <mat-icon *ngIf="aboutInfo.expanded">remove</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <app-supplier-profile-info [supplierInfo]="supplierInfo"></app-supplier-profile-info>
+    </ng-container>
+  </mat-expansion-panel>
+  <mat-expansion-panel #productInfo>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i class="material-icons cls-item-icon">info_outline</i>
+        <span class="cls-item-head">Products and Categories</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!productInfo.expanded">add</mat-icon>
+        <mat-icon *ngIf="productInfo.expanded">remove</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <app-supplier-product-info [supplierInfo]="supplierInfo"></app-supplier-product-info>
+    </ng-container>
+  </mat-expansion-panel>
+  <mat-expansion-panel #certificateInfo>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i class="material-icons cls-item-icon">info_outline</i>
+        <span class="cls-item-head">Certifications and Registrations</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!certificateInfo.expanded">add</mat-icon>
+        <mat-icon *ngIf="certificateInfo.expanded">remove</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <app-supplier-certification-info [supplierInfo]="supplierInfo"></app-supplier-certification-info>
+    </ng-container>
+  </mat-expansion-panel>
+  <mat-expansion-panel #riskInfo>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i class="material-icons cls-item-icon">info_outline</i>
+        <span class="cls-item-head">Risk and Compliance</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!riskInfo.expanded">add</mat-icon>
+        <mat-icon *ngIf="riskInfo.expanded">remove</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <app-supplier-risk-info [supplierInfo]="supplierInfo"></app-supplier-risk-info>
+    </ng-container>
+  </mat-expansion-panel>
+  <mat-expansion-panel #videosInfo>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <i class="material-icons cls-item-icon">info_outline</i>
+        <span class="cls-item-head">Videos</span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!videosInfo.expanded">add</mat-icon>
+        <mat-icon *ngIf="videosInfo.expanded">remove</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <app-supplier-videos-info [supplierInfo]="supplierInfo"></app-supplier-videos-info>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,25 @@
+<div class="dialog-container">
+  <div class="content-holder">
+    <div mat-dialog-title style="float: right; font-weight: 700; cursor: pointer" (click)="closeDialog()">X</div>
+    <h3 mat-dialog-title style="margin: 2%">{{ dialogTitle }}</h3>
+
+    <mat-dialog-content class="content" [innerHtml]="dialogMessage"></mat-dialog-content>
+  </div>
+
+  <div class="container" style="display: none">
+    <mat-card-content>
+      <div class="div-img">
+        <img [src]="url" alt="" />
+      </div>
+    </mat-card-content>
+  </div>
+  <!-- <mat-dialog-actions class="actions-holder"> -->
+  <!-- <button class="btn btn-secondary" (click)="closeDialog()">
+            Close
+        </button> -->
+  <!-- <button class="btn btn-primary" cdkFocusInitial (click)="onConfirmButtonClicked()">
+            Continue Session
+        </button> -->
+
+  <!-- </mat-dialog-actions> -->
+</div>

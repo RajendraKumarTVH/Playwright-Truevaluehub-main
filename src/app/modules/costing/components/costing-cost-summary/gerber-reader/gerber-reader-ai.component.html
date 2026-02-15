@@ -1,0 +1,81 @@
+<div class="gerber-reader-container">
+  <h6>Gerber extraction info</h6>
+  <!-- <div class="px-1 upload-btn-container" style="border-bottom: 1px dotted lightgray; padding-bottom: 5px">
+    <input #fileInput type="file" (change)="onUpload(fileInput.files)" hidden />
+    <div class="d-flex flex-row align-items-end gap-2">
+      <span>Upload a different file to see the extraction details. (Optional)</span>
+      <button type="button" class="btn btn-primary btn-lg d-flex align-items-center gap-2 upload-btn" title="Upload Image" (click)="fileInput.click()">
+        <mat-icon svgIcon="uploadit_icon" color="y-icon"></mat-icon>
+        <span>Upload</span>
+      </button>
+    </div>
+  </div> -->
+  <div *ngIf="!gerberDataSource" class="no-gerber-data-container">
+    <span>Gerber data is currenly being extracted, please try again in a while...</span>
+  </div>
+  <div *ngIf="gerberDataSource" class="gerber-info-container">
+    <div class="copper-dimension-container">
+      <div class="copper-layer-container">
+        <span style="font-weight: 500">Copper layer Info:</span>
+        <div *ngFor="let layer of copperLayers">
+          <div>{{ layer.fileName }}</div>
+        </div>
+        <div style="border: 1px dotted lightgray; padding: 5px">Total number of copper layers: {{ copperLayers.length }}</div>
+      </div>
+      <div class="dimension-container">
+        <span style="font-weight: 500">Dimension Info:</span>
+        <p-table [value]="gerberDataSource?.dimensionInfo" [paginator]="true" [rows]="gerberDataSource?.dimensionInfo?.length" responsiveLayout="scroll" class="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th id="">File Name</th>
+              <th id="">Dimension</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-drill>
+            <tr>
+              <td>{{ drill.fileName }}</td>
+              <td>{{ drill.Dimension }}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="2">No Dimensions available</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="drill-info-container">
+      <span style="font-weight: 500">Drill Info:</span>
+      <p-table [value]="gerberDataSource?.drillInfo" [paginator]="true" [rows]="gerberDataSource?.drillInfo?.length" responsiveLayout="scroll" class="p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th id="">File Name</th>
+            <th id="">Drill Diameter</th>
+            <th id="">Drill Type</th>
+            <th id="">Drill Name</th>
+            <th id="">Number Of Drill Type Wise</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-drill>
+          <tr>
+            <td>{{ drill.fileName }}</td>
+            <td>{{ drill.drillDiameter }}</td>
+            <td>{{ drill.drillType }}</td>
+            <td>{{ drill.drillName }}</td>
+            <td>{{ drill.numberOfDrillTypeWise }}</td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="2">No drill infos available</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,411 @@
+<div [formGroup]="formGroup">
+  <div class="card" *ngIf="injecMoldingVals.showMasterBatchSection">
+    <div class="card-header">Master Batch Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Master Batch Color</span>
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'primaryCount'"></app-field-comment>
+          <div class="dropdown-wrap">
+            <select
+              formControlName="primaryCount"
+              class="form-control"
+              (change)="calculateCost('primaryCount')"
+              [ngClass]="{
+                'input-mandatory': f.primaryCount.errors,
+                'input-valid': f.primaryCount.valid && !f.primaryCount.dirty,
+                'input-overridden': f.primaryCount.dirty && f.primaryCount.touched,
+              }">
+              <option value="" selected>Select Color</option>
+              <option *ngFor="let option of masterBatchColorList" [value]="option.id">
+                {{ option.name }}
+              </option>
+            </select>
+            <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          </div>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Master Batch Dosage (%)</span>
+            <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span> -->
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'colorantPer'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="colorantPer" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Master Batch price ($/Kg)</span>
+            <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span> -->
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'colorantPrice'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="colorantPrice" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Volume Purchased (Ton/Contract)</span>
+            <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span> -->
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'primaryWeight'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="primaryWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Volume Discount (%)</span>
+            <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span> -->
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'primaryPrice'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="primaryPrice" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Discounted Material price ($/Kg):</span>
+            <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span> -->
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'colorantCost'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="colorantCost" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Part Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ injecMoldingVals.isEnableUnitConversion ? 'Part Envelope Length (' + injecMoldingVals.conversionValue + ')' : 'Part Envelope Length(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" ngbPopoverClass="custom-popover" placement="auto" popoverTitle="Description" (click)="showinfo('Envelope_Length_mm')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'length'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.length.errors,
+              'input-valid': f.length.valid && !f.length.dirty,
+              'input-overridden': f.length.dirty && f.length.touched,
+            }"
+            class="form-control"
+            formControlName="length"
+            [OnlyNumber]="true"
+            placeholder="Length"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ injecMoldingVals.isEnableUnitConversion ? 'Part Envelope Width (' + injecMoldingVals.conversionValue + ')' : 'Part Envelope Width(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" ngbPopoverClass="custom-popover" placement="auto" popoverTitle="Description" (click)="showinfo('Envelope_Width_mm')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'width'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.width.errors,
+              'input-valid': f.width.valid && !f.width.dirty,
+              'input-overridden': f.width.dirty && f.width.touched,
+            }"
+            class="form-control"
+            formControlName="width"
+            [OnlyNumber]="true"
+            placeholder="Width"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ injecMoldingVals.isEnableUnitConversion ? 'Part Envelope Height (' + injecMoldingVals.conversionValue + ')' : 'Part Envelope Height(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" ngbPopoverClass="custom-popover" placement="auto" popoverTitle="Description" (click)="showinfo('Envelope_Height_mm')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'height'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.height.errors,
+              'input-valid': f.height.valid && !f.height.dirty,
+              'input-overridden': f.height.dirty && f.height.touched,
+            }"
+            class="form-control"
+            formControlName="height"
+            [OnlyNumber]="true"
+            placeholder="Height"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ injecMoldingVals.isEnableUnitConversion ? 'Max.wall thick/Part (' + injecMoldingVals.conversionValue + ')' : 'Max. wall thick/Part(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Max_Wall_Thickness')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'maxWallthick'"></app-field-comment>
+          <input type="number" class="form-control" placeholder=" Enter Max. wall thick (mm)" formControlName="maxWallthick" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ injecMoldingVals.isEnableUnitConversion ? 'Avg.wall thick/Part (' + injecMoldingVals.conversionValue + ')' : 'Avg.wall thick/Part(mm)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Avg_Wall_Thickness')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'wallAverageThickness'"></app-field-comment>
+          <input type="number" class="form-control" placeholder=" Enter Max. wall thick (mm)" formControlName="wallAverageThickness" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Standard Deviation</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Standard_Deviation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'standardDeviation'"></app-field-comment>
+          <input type="number" class="form-control" placeholder=" Enter Max. wall thick (mm)" formControlName="standardDeviation" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              Part Projected Area
+              {{ injecMoldingVals.isEnableUnitConversion ? '(' + injecMoldingVals.conversionValue + '^2)' : '(mm^2)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Projected_Area')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.partProjectArea.errors,
+              'input-valid': f.partProjectArea.valid && !f.partProjectArea.dirty,
+              'input-overridden': f.partProjectArea.dirty && f.partProjectArea.touched,
+            }"
+            class="form-control"
+            placeholder="Enter Area"
+            [OnlyNumber]="true"
+            formControlName="partProjectArea"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              Part Surface Area
+              {{ injecMoldingVals.isEnableUnitConversion ? '(' + injecMoldingVals.conversionValue + '^2)' : '(mm^3)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Surface_Area')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'partSurfaceArea'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="partSurfaceArea" (blur)="calculateCost()" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              Part Volume
+              {{ injecMoldingVals.isEnableUnitConversion ? '(' + injecMoldingVals.conversionValue + '^3)' : '(mm^3)' }}
+            </span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Volume')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Part Net Weight(g)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Net_Weight')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{
+              'input-mandatory': f.netWeight.errors,
+              'input-valid': f.netWeight.valid && !f.netWeight.dirty,
+              'input-overridden': f.netWeight.dirty && f.netWeight.touched,
+            }"
+            placeholder="Enter weight"
+            formControlName="netWeight"
+            [OnlyNumber]="true"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Number Of Inserts/Part</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Number_Of_Inserts')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'noOfInserts'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.noOfInserts.errors,
+              'input-valid': f.noOfInserts.valid && !f.noOfInserts.dirty,
+              'input-overridden': f.noOfInserts.dirty && f.noOfInserts.touched,
+            }"
+            class="form-control"
+            formControlName="noOfInserts"
+            [OnlyNumber]="true"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Material Utilisation %</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Material_Utilisation')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'utilisation'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="utilisation" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+        </div>
+      </div>
+    </div>
+
+    <ng-template #popContent>
+      <div [innerHTML]="popupName"></div>
+      <div class="div-img" *ngIf="popupUrl">
+        <img alt="" class="img-class" [src]="popupUrl" />
+      </div>
+    </ng-template>
+
+    <div class="card mt-3">
+      <div class="card-header">Material Cost Details</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Gross weight(g)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Gross_Weight')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input type="number" class="form-control" formControlName="grossWeight" id="grossWeight" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Scrap Weight(g)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Scrap_Weight')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div>
+
+          <div class="col-4" *ngIf="injecMoldingVals.processFlag.IsProcessTypeRubberInjectionMolding">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Scrap Cost($)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Scrap_Recovery_Cost')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'scrapRecCost'"></app-field-comment>
+            <input type="number" class="form-control" readonly="readonly" formControlName="scrapRecCost" />
+          </div>
+
+          <div class="col-4" *ngIf="!injecMoldingVals.processFlag.IsProcessTypeRubberInjectionMolding">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Scrap Recovery/Part(%)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Scrap_Recovery_Percentage')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'scrapRecovery'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="scrapRecovery" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div>
+
+          <div class="col-4" *ngIf="!injecMoldingVals.processFlag.IsProcessTypeRubberInjectionMolding">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Gross Material Cost($)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Gross_Material_Cost')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'grossMaterialCost'"></app-field-comment>
+            <input type="number" class="form-control" readonly="readonly" formControlName="grossMaterialCost" />
+          </div>
+          <div class="col-4" *ngIf="!injecMoldingVals.processFlag.IsProcessTypeRubberInjectionMolding">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Scrap Recovery($)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Scrap_Recovery_Cost')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'scrapRecCost'"></app-field-comment>
+            <input type="number" class="form-control" readonly="readonly" formControlName="scrapRecCost" />
+          </div>
+
+          <div class="col-4" *ngIf="!injecMoldingVals.processFlag.IsProcessTypeRubberInjectionMolding">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Regrind(%)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Regrind')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="injecMoldingVals.formIdentifier" [fieldIdentifier]="'regrindAllowance'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="regrindAllowance" [OnlyNumber]="true" (blur)="onBlurEvent($event)" min="0" />
+          </div>
+
+          <div class="row">
+            <div class="col-4 mx-auto">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text font-medium">Net Material cost($)</span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Net_Material_Cost')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" class="form-control text-base font-semibold" formControlName="netMaterialCost" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

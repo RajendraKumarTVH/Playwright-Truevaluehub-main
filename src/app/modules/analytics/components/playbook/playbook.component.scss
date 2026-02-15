@@ -1,0 +1,59 @@
+table,
+tr,
+td {
+  border: none;
+}
+table th {
+  text-align: center;
+}
+.heading-left {
+  font-weight: 500;
+  text-align: left;
+}
+
+.search-card {
+  min-height: 315px;
+  // margin-left: 100px;
+  input[type='number'] {
+    text-align: left;
+  }
+}
+.page-header {
+  font-size: large;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.table-card-body {
+  margin: 0px;
+}
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.no-spin {
+  -moz-appearance: textfield !important;
+}
+.readonly-textbox {
+  pointer-events: none;
+  background: aliceblue;
+}
+.graph-section {
+  height: 365px;
+}
+canvas {
+  display: block;
+  box-sizing: border-box;
+  height: 650px !important;
+  width: 600px !important;
+  position: relative;
+  top: -137px;
+}
+input[type='number'] {
+  text-align: right;
+}
+
+.col-form-label {
+  font-size: 0.875rem;
+}

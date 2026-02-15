@@ -1,9 +1,0 @@
-2026/01/18-08:18:08.165 70d0 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\Session Storage/MANIFEST-000001
-2026/01/18-08:18:08.168 70d0 Recovering log #6
-2026/01/18-08:18:08.173 70d0 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\Session Storage/000006.log 
-2026/01/18-08:18:37.419 53c8 Level-0 table #10: started
-2026/01/18-08:18:37.422 70d0 Current memtable full; waiting...
-2026/01/18-08:18:37.428 53c8 Level-0 table #10: 85183 bytes OK
-2026/01/18-08:18:37.433 53c8 Delete type=0 #6
-2026/01/18-08:18:37.438 60a8 Level-0 table #12: started
-2026/01/18-08:18:37.444 60a8 Level-0 table #12: 18365 bytes OK

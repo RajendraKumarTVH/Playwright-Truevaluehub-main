@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col mb-2">
+    <a href="javascript:void(0)" class="link-info" (click)="viewDfmIssues()">View Dfm Issues</a>
+  </div>
+  <mat-expansion-panel *ngIf="dfmIssues">
+    <mat-expansion-panel-header class="total-issue-header">
+      <mat-panel-title>
+        <h6 class="font-14">Total Issues: {{ dfmIssues?.TotalIssues }}</h6>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="card-body">
+      <div *ngFor="let issue of dfmIssues?.DfmSheetMetalAnalyzerInfos; let i = index" [attr.data-index]="i">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6>{{ issue.IssueKey }}</h6>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <span class="label label-default" *ngFor="let issueData of issue.ExpectedValue[0].ActualValue">
+              <div>
+                <span class="label label-default c-st">
+                  {{ issueData.key }}:
+                  {{ issueData.value }}
+                </span>
+              </div>
+            </span>
+          </div>
+          <div>
+            <span class="label label-default c-st" *ngIf="issue.ExpectedValue[0]">
+              {{ issue.ExpectedValue[0].key }}:
+              {{ issue.ExpectedValue[0].value }}
+            </span>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</div>

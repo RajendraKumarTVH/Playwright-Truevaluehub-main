@@ -1,0 +1,14 @@
+<div class="page-container" [ngClass]="{ expanded: isCollapsed }">
+  <div class="header-details">
+    <app-nav-menu *ngIf="this.loginDisplay"></app-nav-menu>
+  </div>
+  <!-- <br /> -->
+  <div class="page pageContainer !pt-4 d-flex">
+    <block-ui class="d-flex w-100">
+      <app-nav-left-menu *ngIf="this.loginDisplay" class="px-0 left-navigation flex-shrink-0" (collapseChange)="onCollapseChange($event)"></app-nav-left-menu>
+      <div class="px-0 app-content">
+        <router-outlet></router-outlet>
+      </div>
+    </block-ui>
+  </div>
+</div>

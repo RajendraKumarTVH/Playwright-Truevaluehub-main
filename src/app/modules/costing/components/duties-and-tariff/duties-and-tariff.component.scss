@@ -1,0 +1,347 @@
+input[type='text']:disabled {
+  text-align: right;
+}
+
+.cls-item-head {
+  display: inline-block !important;
+}
+
+.custom-header {
+  background-color: #f5f6f9;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.mat-expanded {
+    margin-bottom: 16px;
+  }
+}
+
+::ng-deep .custom-header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+::ng-deep .header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+::ng-deep .header-title {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+::ng-deep .header-right {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.co2-total {
+  font-weight: 600;
+  color: #000000;
+}
+
+table {
+  width: 100%;
+}
+
+mat-footer-cell {
+  font-weight: bold;
+  background: #f0f0f0;
+}
+
+.header-cell {
+  font-weight: bold;
+  background-color: #f5f6f9;
+  color: #000000;
+}
+
+.footer-cell {
+  font-weight: bold;
+  background-color: #f5f6f9;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.input-box {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #f5f6f9;
+  font-family: monospace;
+  display: inline-block;
+  min-width: 80px;
+  text-align: right;
+  color: #6c6c6d;
+}
+
+.expansion-panel {
+  margin-bottom: 16px;
+  /* Adjust the gap size as needed */
+}
+
+.grid-bg-color {
+  background-color: rgba(157, 160, 156, 0.377);
+}
+
+.footer-label {
+  font-weight: bold;
+}
+
+.footer-value {
+  font-weight: bold;
+}
+
+.mat-footer-row {
+  background-color: #f9f9f9;
+}
+
+.search-link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  padding-top: 30px;
+  color: var(--primary-shade) !important;
+
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    font-size: 16px;
+    color: var(--primary-shade);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+::ng-deep .table-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.spinner-overlay {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1000;
+  top: 100vh;
+  background-color: transparent !important;
+}
+
+.bt-spinner {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #222;
+  border-top-color: grey;
+  animation: 1s spin linear infinite;
+  z-index: 2;
+}
+
+select.form-control option {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 300px !important;
+}
+
+.custom-select-field {
+  width: 300px; /* or any fixed width */
+}
+
+.ellipsis-option {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-mat-select {
+  background-color: white;
+}
+
+.custom-mat-select .mat-form-field-outline {
+  border-radius: 5px;
+}
+
+.custom-mat-select .mat-select {
+  text-align: left;
+}
+
+.ellipsis-option {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Validation Colors */
+.mat-form-field.is-invalid .mat-form-field-outline {
+  stroke: red !important;
+  border-color: red !important;
+}
+
+.mat-form-field.is-valid .mat-form-field-outline {
+  stroke: green !important;
+  border-color: green !important;
+}
+
+/* Optional: Remove ripple effect for clean UX */
+.mat-select-trigger {
+  padding: 0.5rem 0.75rem;
+}
+
+::ng-deep {
+  .form-group {
+    .mat-mdc-form-field {
+      .mat-mdc-form-field-flex {
+        .mdc-notched-outline {
+          .mat-mdc-notch-piece {
+            --mdc-outlined-text-field-outline-color: var(--bs-border-color);
+            --mdc-outlined-text-field-error-hover-outline-color: var(--bs-border-color);
+            --mdc-outlined-text-field-error-outline-color: var(--bs-border-color);
+          }
+          .mdc-notched-outline__leading,
+          .mdc-notched-outline__trailing {
+            --mdc-outlined-text-field-container-shape: 6px;
+          }
+        }
+        .mat-mdc-form-field-infix {
+          --mat-form-field-container-vertical-padding: 4px;
+          --mat-form-field-container-height: 34px;
+
+          .mat-mdc-select {
+            --mat-select-trigger-text-size: 0.75rem;
+            --mat-select-trigger-text-weight: 500;
+            --mat-select-trigger-text-line-height: 1.2;
+          }
+        }
+      }
+
+      .mdc-text-field--outlined {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      &.input-mandate {
+        .mat-mdc-form-field-flex {
+          .mdc-notched-outline {
+            .mdc-notched-outline__leading {
+              border-left-color: var(--bs-red);
+              border-left-width: 3px;
+            }
+          }
+        }
+      }
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+  }
+
+  .custom-mat-select .mat-select-trigger {
+    padding: 4px 8px; // reduces selected item padding
+    min-height: 32px; // dropdown trigger height
+    line-height: 32px;
+    font-size: 13px;
+  }
+
+  .mat-select-panel {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .mat-option {
+    height: 32px !important; // reduce each option height
+    font-size: 13px;
+    line-height: 32px;
+    padding: 0 12px;
+  }
+
+  .select-field-panel {
+    &.mat-mdc-select-panel {
+      .mat-mdc-option {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        min-width: 0px;
+
+        .mdc-list-item__primary-text {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+.tariff-table-btn {
+  padding: 11px;
+  font-size: 0.75rem;
+
+  .mat-icon {
+    max-width: 8px;
+    max-height: 8px;
+    font-size: 8px;
+  }
+}
+.hts-classification,
+.tariff-breakdown-fields {
+  border-radius: 5px;
+  background: var(--readonly-surface);
+  border: 1px solid var(--light-blue-border);
+}
+::ng-deep .duties-and-tariff-form .mat-mdc-select-arrow {
+  display: none !important;
+}
+
+::ng-deep .duties-and-tariff-form .mat-mdc-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+::ng-deep .duties-and-tariff-form .mat-mdc-select-trigger::after {
+  content: url('/assets/icons/down-arrow-icon.svg');
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  background-color: var(--blue-light-border);
+}
+.mat-mdc-option {
+  --mat-option-selected-state-label-text-color: var(--bs-black);
+}
+.tariff-breakdown {
+  position: relative;
+
+  &::before {
+    content: '';
+    height: 0px;
+    display: block;
+    margin: 0 auto;
+    padding-top: 20px;
+    width: calc(100%);
+    border-bottom: 1px solid var(--material-table-border);
+  }
+}

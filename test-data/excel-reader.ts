@@ -155,7 +155,8 @@ export class MigWeldingExcelReader {
 
     constructor(filePath: string) {
         this.filePath = filePath;
-        this.workbook = XLSX.readFile(filePath);
+        // Read with sheetRows: 0 to load ALL rows (default is 200)
+        this.workbook = XLSX.readFile(filePath, { sheetRows: 0 });
     }
 
     /**

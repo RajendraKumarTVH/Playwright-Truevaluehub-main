@@ -1,0 +1,85 @@
+export interface CostingMaterialInfoModel {
+  materialGroup: string;
+  partId: string;
+  density: string;
+  matPrice: string;
+  scrapPrice: string;
+  materialCategory: string;
+  materialFamily: string;
+  materialDescription: string;
+  length: string;
+  width: string;
+  height: string;
+  avgWallThick: string;
+  maxWallThick: string;
+  netWeight: string;
+  netMaterialCost: string;
+  runnerType: string;
+  area: string;
+  volume: string;
+  partFinish: string;
+  noofInserts: string;
+  windowsArea: string;
+  noofCavities: string;
+  runnerDia: string;
+  scrapweight: string;
+  grossWeight: string;
+  grossMaterialCost: string;
+  scrapRecCost: string;
+  matNo: string;
+  matPrimaryProcessName?: string;
+
+  noOfChildParts: number;
+  totalPinPopulation: number;
+  noOfTypesOfPins: number;
+  maxBomQuantityOfIndividualPinTypes: number;
+  noOfStitchingStationsRequired: number;
+  totalCostOfTerminals: number;
+  costOfPinHeader: number;
+  totatCostOfRawMaterials: number;
+  flashVolume: number;
+  scaleLoss: number;
+  grossVolumne: number;
+  yeildUtilization: number;
+}
+
+export interface UpdateCostingMaterialInfoModel {
+  partId: string;
+  materialGroup: string;
+  density: string;
+  matPrice: string;
+  scrapPrice: string;
+  materialCategory: string;
+  materialFamily: string;
+  materialDescription: string;
+  length: string;
+  width: string;
+  height: string;
+  avgWallThick: string;
+  maxWallThick: string;
+  netWeight: string;
+  netMaterialcost: string;
+  runnerType: string;
+  area: string;
+  volume: string;
+  partFinish: string;
+  noofInserts: string;
+  windowsArea: string;
+  noofCavities: string;
+  runnerDia: string;
+  scrapweight: string;
+  grossweight: string;
+  grossMaterialcost: string;
+  scrapRecCost: string;
+  matno: string;
+  matprimaryprocessname?: string;
+
+  noOfChildParts: number;
+  totalPinPopulation: number;
+  noOfTypesOfPins: number;
+  maxBomQuantityOfIndividualPinTypes: number;
+  noOfStitchingStationsRequired: number;
+  totalCostOfTerminals: number;
+  costOfPinHeader: number;
+  totatCostOfRawMaterials: number;
+}

@@ -1,0 +1,20 @@
+<div class="table-card-body best-region-table">
+  <div class="analytics-table-wrapper">
+    <div class="table-container custom-scroller">
+      <div class="table-scroll-wrapper first-child-sticky second-child-sticky" [ngClass]="{ 'd-none': dataSource.filteredData.length === 0 }">
+        <mat-table [dataSource]="dataSource" matSort>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | camelcaseToWords | customizeSimulationText }}</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span *ngIf="column === 'processName'" matTooltip="{{ element['processType'] }}">{{ element[column] }}</span>
+              <span *ngIf="column !== 'processName'">{{ element[column] }}</span>
+            </mat-cell>
+          </ng-container>
+
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>

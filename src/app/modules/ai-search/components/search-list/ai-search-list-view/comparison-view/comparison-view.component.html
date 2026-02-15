@@ -1,0 +1,148 @@
+<div class="comparison-modal w-full h-full flex flex-col min-h-0">
+  <header class="cmp-header flex items-center justify-between !mb-3">
+    <h4 class="title text-xs font-semibold">Part Comparison</h4>
+    <button type="button" class="btn icon-btn w-6 h-6 p-0 close-btn flex items-center justify-center opacity-100" aria-label="Close" (click)="close()">
+      <mat-icon class="flex items-center justify-center text-base">close</mat-icon>
+    </button>
+  </header>
+
+  <div class="cmp-table-wrap flex-shrink-0 flex-grow">
+    <div class="cmp-table-container common-table-container">
+      <p-table [value]="[{}]" [tableStyle]="{ width: '100%', '--cols': parts?.length || 1 }" styleClass="ai-comparison-table" [scrollable]="true" scrollHeight="80vh">
+        <ng-template pTemplate="header">
+          <tr>
+            <th id="" class="label-col">
+              <div class="selection-count">{{ data?.partIds?.length }} item{{ data?.partIds?.length > 1 ? 's' : '' }} selected</div>
+            </th>
+            <th id="" *ngFor="let p of parts; let i = index" class="value-col">
+              <div class="flex justify-between">
+                <span>{{ p.intPartNumber }}</span>
+                <button class="btn icon-btn w-6 h-6 p-0 close-btn flex items-center justify-center opacity-100" title="Remove" (click)="removePart(i)">
+                  <mat-icon class="flex items-center justify-center text-base">close</mat-icon>
+                </button>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+          <!-- Basic Info -->
+          <tr class="section-row">
+            <td [attr.colspan]="1 + parts?.length">Basic Info</td>
+          </tr>
+          <tr>
+            <td class="label-col">Part Description</td>
+            <td *ngFor="let p of parts">{{ p.intPartDescription }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Drawing Number</td>
+            <td *ngFor="let p of parts">{{ p.drawingNumber }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Created By</td>
+            <td *ngFor="let p of parts">{{ users[p.createdUserId] }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Date Created</td>
+            <td *ngFor="let p of parts">{{ p.createDate | date: 'mediumDate' }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Project Number</td>
+            <td *ngFor="let p of parts">{{ p.projectInfoId }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Supplier - Country - City</td>
+            <td *ngFor="let p of parts">{{ p.vendorName }}</td>
+          </tr>
+
+          <!-- Part Details -->
+          <tr class="section-row">
+            <td [attr.colspan]="1 + parts?.length">Part Details</td>
+          </tr>
+          <tr>
+            <td class="label-col">Family/Material Grade</td>
+            <td *ngFor="let p of parts">{{ p.materialDescription }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Category</td>
+            <td *ngFor="let p of parts">{{ commodities[p.commodityId] }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Process Group</td>
+            <td *ngFor="let p of parts">{{ p.processId }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Part Size (L*W*H) mm</td>
+            <td *ngFor="let p of parts">{{ p.partSize }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Surface Area (mm2)</td>
+            <td *ngFor="let p of parts">{{ p.surfaceArea }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Part Volume (mm3)</td>
+            <td *ngFor="let p of parts">{{ p.partVolume }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Part Weight (g)</td>
+            <td *ngFor="let p of parts">{{ p.partWeight }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Annual Volume (qty)</td>
+            <td *ngFor="let p of parts">{{ p.annualVolume }}</td>
+          </tr>
+
+          <!-- Score -->
+          <tr class="section-row">
+            <td [attr.colspan]="1 + parts?.length">Score</td>
+          </tr>
+          <tr>
+            <td class="label-col">Competitiveness Score</td>
+            <td *ngFor="let p of parts">
+              <span class="value-increase">{{ p.competitivenessScore }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">Complexity Score</td>
+            <td *ngFor="let p of parts">
+              <span class="value-decrease">{{ p.complexityScore }}</span>
+            </td>
+          </tr>
+
+          <!-- Cost -->
+          <tr class="section-row">
+            <td [attr.colspan]="1 + parts?.length">Cost</td>
+          </tr>
+          <tr>
+            <td class="label-col">Material Cost ($)</td>
+            <td *ngFor="let p of parts">{{ p.materialCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Manufacturing Cost ($)</td>
+            <td *ngFor="let p of parts">{{ p.manufacturingCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Tooling ($)</td>
+            <td *ngFor="let p of parts">{{ p.toolingCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Overhead & profit ($)</td>
+            <td *ngFor="let p of parts">{{ p.overheadAndProfitCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Packaging Cost ($)</td>
+            <td *ngFor="let p of parts">{{ p.packagingCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Freight ($)</td>
+            <td *ngFor="let p of parts">{{ p.frieghtCost }}</td>
+          </tr>
+          <tr>
+            <td class="label-col">Duties & Tariff ($)</td>
+            <td *ngFor="let p of parts">{{ p.dutiesAndTariffCost }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+.supplier-info-main-container {
+  background: #f3f7ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.supplier-profile-header {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1d1d1d;
+}
+
+.supplier-profile-details {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  font-size: 12px;
+  flex: 2;
+}
+
+.supplier-profile-row {
+  display: flex;
+  flex-flow: row;
+}
+
+.details-field-name {
+  font-size: 14px;
+  color: #717171;
+}
+
+.details-field {
+  width: 33%;
+}
+
+.supplier-profile-value {
+  font-size: 14px;
+}
+
+.supplier-profile-header-contact {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.supplier-info-inside {
+  display: flex;
+  flex-flow: row;
+  gap: 30px;
+}
+
+.supplier-contact-info {
+  margin-top: 40px;
+  width: 200px;
+  height: 300px;
+  flex: 1;
+}
+
+agm-map {
+  height: 100%;
+  width: 100%;
+}
+
+.contact-info-detail {
+  display: flex;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.contact-info-icon {
+  font-size: 20px;
+}
+
+.about-header {
+  font-weight: 500;
+  font-size: 14px;
+}

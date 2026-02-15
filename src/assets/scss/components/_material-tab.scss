@@ -1,0 +1,113 @@
+.costing-page-part-information-tab,
+.material-tab-bordered-container {
+  margin-top: 16px;
+  .mat-mdc-tab-list {
+    flex-grow: 0;
+  }
+  .mat-mdc-tab-body-wrapper {
+    border-radius: 5px;
+    padding: 12px 8px 16px 8px;
+    background-color: var(--table-head-row-bg);
+    border: 1px solid var(--light-blue-border);
+  }
+  .mat-mdc-tab,
+  .custom-tab {
+    height: 32px;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: text-shadow 0.2s ease;
+    color: var(--label-shade);
+    background-color: var(--bs-white);
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      .mdc-tab-indicator__content--underline {
+        border-top-left-radius: 5px;
+      }
+    }
+    &:last-child {
+      border-top-right-radius: 5px;
+      .mdc-tab-indicator__content--underline {
+        border-top-right-radius: 5px;
+        border-right: 1px solid var(--tab-border);
+      }
+    }
+    .mdc-tab__text-label {
+      font-size: 12px;
+      color: var(--label-shade);
+    }
+    .mdc-tab-indicator__content--underline {
+      height: 100%;
+      border-top-width: 1px;
+      border-color: var(--tab-border);
+      border-left: 1px solid var(--tab-border);
+    }
+    .mdc-tab-indicator__content {
+      opacity: 1;
+    }
+    .mdc-tab__content {
+      height: auto;
+    }
+    &.mdc-tab-indicator--active {
+      color: var(--primary-shade);
+      border-left-color: transparent;
+      border-right-color: transparent;
+      text-shadow: 0 0 0.2px currentColor;
+      border-bottom-color: transparent;
+      background: var(--table-head-row-bg);
+      .mdc-tab__text-label {
+        color: var(--primary-shade);
+      }
+      .mdc-tab-indicator__content--underline {
+        border-top-width: 2px;
+        border-color: var(--primary-shade);
+        border-left-color: transparent !important;
+      }
+      &:first-child {
+        border-left-color: transparent;
+      }
+      &:last-child {
+        .mdc-tab-indicator__content--underline {
+          border-right-color: transparent !important;
+        }
+      }
+      & + .mat-mdc-tab {
+        .mdc-tab-indicator__content--underline {
+          border-left-color: transparent;
+        }
+      }
+      &:hover,
+      &:focus {
+        .mdc-tab__text-label {
+          color: var(--primary-shade);
+        }
+      }
+    }
+    &:focus,
+    &:hover {
+      .mdc-tab__text-label {
+        color: var(--primary-shade);
+      }
+    }
+  }
+  .mat-mdc-tab-label-container {
+    border-bottom: none;
+  }
+}
+
+.material-tab-bordered-container {
+  .mat-mdc-tab-body-wrapper {
+    padding: 0px 8px;
+  }
+}
+.home-project-container {
+  .project-listing-tab {
+    .mat-mdc-tab-list {
+      padding-left: 16px;
+    }
+  }
+  // uncomment this and remove border-bottom: 0 when integrate new folder ui
+  // .mat-mdc-tab-link-container {
+  //   border-bottom: 0;
+  // }
+}

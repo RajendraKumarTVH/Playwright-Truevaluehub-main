@@ -1,0 +1,13 @@
+@media print {
+  @page {
+    margin-top: 2mm;
+    margin-left: 2mm;
+    margin-right: 2mm;
+    size: landscape;
+  }
+}
+
+.btn-style {
+  float: right;
+  margin: 10px;
+}

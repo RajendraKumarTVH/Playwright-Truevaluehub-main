@@ -1,0 +1,226 @@
+<div class="search-section d-flex flex-column gap-0 py-3 px-3">
+  <div class="d-flex justify-content-between align-items-center w-100" #searchHeader>
+    <div class="d-flex items-center">
+      <div class="filter-container" #filterContainer>
+        <button
+          type="button"
+          class="btn btn-outline-primary d-flex align-items-center justify-center gap-2 min-w-28 filter-btn"
+          (click)="filterMenuPopover.toggle($event)"
+          title="Filter"
+          [class.active]="isFilterPopoverOpen">
+          <mat-icon svgIcon="filter-blue"></mat-icon>
+          <span>Filters</span>
+        </button>
+      </div>
+
+      <div class="upload-btn-container ml-2">
+        <input #fileInput type="file" accept="image/*" (change)="onImageSimilarityUpload(fileInput.files)" hidden />
+        <button type="button" class="btn btn-outline-primary d-flex align-items-center gap-2 upload-btn min-w-40" title="Upload Image" (click)="openImageSearchDialog()">
+          <mat-icon svgIcon="search-image"></mat-icon>
+          <span>Search by Image</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="view-mode-toggle d-flex align-items-center" role="group" aria-label="Change view mode">
+      <button type="button" class="btn btn-icon" [ngClass]="{ active: currentViewMode === 'grid' }" (click)="switchView('grid')">
+        <mat-icon svgIcon="grid-icon"></mat-icon>
+      </button>
+      <button type="button" class="btn btn-icon" [ngClass]="{ active: currentViewMode === 'table' }" (click)="switchView('table')">
+        <mat-icon svgIcon="table-icon"></mat-icon>
+      </button>
+      <button type="button" class="btn btn-icon" [ngClass]="{ active: currentViewMode === 'column' }" (click)="switchView('column')">
+        <mat-icon svgIcon="column-icon"></mat-icon>
+      </button>
+      <button type="button" class="btn btn-icon" [ngClass]="{ active: currentViewMode === 'chart' }" (click)="switchView('chart')">
+        <mat-icon svgIcon="chart-line-icon"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="filters?.length > 0" class="ai-search-filter-tags-container flex gap-2 !mt-3">
+    <a *ngFor="let filter of filters" class="tag">
+      <span>
+        {{ filter.searchLabel | titlecase }}:
+        <strong *ngIf="filter.searchKey === 'createdBy'; else manufacturingBlock">
+          {{ userDict[filter.searchValue]?.userName }}
+        </strong>
+
+        <ng-template #manufacturingBlock>
+          <strong *ngIf="filter.searchKey === 'manufacturingCategory'; else defaultBlock">
+            {{ mfgCategoryDict[filter.searchValue]?.commodity }}
+          </strong>
+        </ng-template>
+
+        <ng-template #defaultBlock>
+          <strong>{{ filter.searchValue }}</strong>
+        </ng-template>
+      </span>
+      <mat-icon svgIcon="close_icon" (click)="removeFilter(filter)"></mat-icon>
+    </a>
+    <a class="link cursor-pointer" title="Clear All" (click)="removeAllFilters()">Clear All</a>
+  </div>
+  <p-popover
+    #filterMenuPopover
+    (onShow)="onFilterPopoverShow()"
+    (onHide)="onFilterPopoverHide()"
+    [style]="{ width: activeFilterKey ? '560px' : '280px' }"
+    popoverClass="ai-filter-popover"
+    [appendTo]="searchHeader"
+    position="bottom">
+    <div class="filter-popover-body d-flex">
+      <div class="filter-menu">
+        <div class="filter-menu-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 text-black font-semibold text-base">Filters</h4>
+          <button type="button" class="btn close-btn" title="Close Filters" (click)="closeAll()">
+            <mat-icon svgIcon="close_icon"></mat-icon>
+          </button>
+        </div>
+        <div class="filter-section">
+          <div class="filter-header">Project Details</div>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('partNumber', $event)">
+            <span>Part Number</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['partNumber'] > 0" class="count">{{ appliedFilterCount['partNumber'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('projectNumber', $event)">
+            <span>Project Number</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['projectNumber'] > 0" class="count">{{ appliedFilterCount['projectNumber'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('partDescription', $event)">
+            <span>Part Description</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['partDescription'] > 0" class="count">{{ appliedFilterCount['partDescription'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('tags', $event)">
+            <span>Tags</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['tags'] > 0" class="count">{{ appliedFilterCount['tags'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('drawingNumber', $event)">
+            <span>Drawing Number</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['drawingNumber'] > 0" class="count">{{ appliedFilterCount['drawingNumber'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('projectStatus', $event)">
+            <span>Project Status</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['projectStatus'] > 0" class="count">{{ appliedFilterCount['projectStatus'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('createdBy', $event)">
+            <span>Created By</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['createdBy'] > 0" class="count">{{ appliedFilterCount['createdBy'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('createdDate', $event)">
+            <span>Created Date</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['createdDate'] > 0" class="count">{{ appliedFilterCount['createdDate'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+        </div>
+        <div class="filter-section">
+          <div class="filter-header">Manufacturing Category</div>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('manufacturingCategory', $event)">
+            <span>Mfg Category</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['manufacturingCategory'] > 0" class="count">{{ appliedFilterCount['manufacturingCategory'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('processGroup', $event)">
+            <span>Process Group</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['processGroup'] > 0" class="count">{{ appliedFilterCount['processGroup'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('mfgCity', $event)">
+            <span>Mfg City</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['mfgCity'] > 0" class="count">{{ appliedFilterCount['mfgCity'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('mfgCountry', $event)">
+            <span>Mfg Country</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['mfgCountry'] > 0" class="count">{{ appliedFilterCount['mfgCountry'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-header">Material Details</div>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('materialType', $event)">
+            <span>Material Type</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['materialType'] > 0" class="count">{{ appliedFilterCount['materialType'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+          <a class="filter-link" href="#" (click)="$event.preventDefault(); openMultiSelect('materialGrade', $event)">
+            <span>Material Grade</span>
+            <div class="flex">
+              <div *ngIf="appliedFilterCount['materialGrade'] > 0" class="count">{{ appliedFilterCount['materialGrade'] }}</div>
+              <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: details / listbox shown when activeFilterKey is set -->
+      <div class="filter-submenu ai-filter-menu" [hidden]="!activeFilterKey">
+        <div class="multiselect-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 text-black text-sm font-semibold">{{ filterLabels[activeFilterKey] || (getFilterLabel ? getFilterLabel(activeFilterKey) : activeFilterKey) }}</h4>
+          <button type="button" class="btn close-btn" title="close" (click)="closeSubmenu()">
+            <mat-icon svgIcon="close_icon"></mat-icon>
+          </button>
+        </div>
+
+        <div class="multiselect-body">
+          <p-listbox
+            #listBox
+            [options]="options"
+            [(ngModel)]="selectedValues[activeFilterKey]"
+            optionLabel="label"
+            optionValue="value"
+            [checkbox]="true"
+            [filter]="true"
+            [multiple]="true"
+            scrollHeight="550px"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="40"
+            class="w-100"
+            (onChange)="onCheckboxSelect($event)"></p-listbox>
+          <div *ngIf="loading" class="absolute inset-0 flex items-center justify-center bg-white/70">
+            <p-progressSpinner strokeWidth="4" styleClass="w-6 h-6 text-primary"></p-progressSpinner>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-popover>
+</div>

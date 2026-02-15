@@ -1,0 +1,15 @@
+export enum MaterialCategory {
+  Glass = 1,
+  Plastics = 2,
+  Foam = 3,
+  PlasticFilm = 4,
+  Chemicals = 5,
+  NonFerrous = 6,
+  PaintPowderGasSand = 7,
+  Fabric = 8,
+  Packaging = 9,
+  PackagingConfig = 10,
+  Ferrous = 11,
+  Rubber = 12,
+  Other = 13,
+}

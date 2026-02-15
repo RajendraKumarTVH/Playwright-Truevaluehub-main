@@ -1,0 +1,137 @@
+<div *ngIf="similaritySearchPart" class="similarity-search-container !p-3">
+  <div class="flex justify-between items-center header-section !mb-3">
+    <h2 class="text-base">Similarity Search</h2>
+    <button class="close-btn" (click)="closeSimilaritySearch()"><mat-icon svgIcon="close_icon"></mat-icon></button>
+  </div>
+  <div class="search-header">
+    <div class="ai-card-media">
+      <!-- Carousel when both image + pdf thumbnails exist -->
+      <div *ngIf="similaritySearchPart?.imgThumbnailData && similaritySearchPart?.pdfThumbnailData" class="carousel-container">
+        <div class="flex justify-between items-center carousel-inner-container">
+          <button class="nav-button prev-button" (click)="onImageViewChange(similaritySearchPart, 'prev')" aria-label="prev">
+            <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+          </button>
+          <div class="carousel-inner flex overflow-hidden justify-center items-center">
+            <div class="carousel-slides-container" [style.transform]="'translateX(' + (similaritySearchPart.imageShowing === 'pdf' ? '-100%' : '0') + ')'">
+              <div class="carousel-slide">
+                <img *ngIf="similaritySearchPart.imgThumbnailData" src="data:image/png;base64,{{ similaritySearchPart.imgThumbnailData }}" alt="part" class="img-fluid" />
+              </div>
+              <div class="carousel-slide">
+                <img *ngIf="similaritySearchPart.pdfThumbnailData" src="data:image/png;base64,{{ similaritySearchPart.pdfThumbnailData }}" alt="pdf thumbnail" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+          <button class="nav-button next-button" (click)="onImageViewChange(similaritySearchPart, 'next')" aria-label="next">
+            <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+          </button>
+        </div>
+        <ul class="dots-container">
+          <li class="dot-li" [class.active]="similaritySearchPart.imageShowing === 'cad'" (click)="setImageView(similaritySearchPart, 'cad')">
+            <button class="dot"></button>
+          </li>
+          <li class="dot-li" [class.active]="similaritySearchPart.imageShowing === 'pdf'" (click)="setImageView(similaritySearchPart, 'pdf')">
+            <button class="dot"></button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Single image -->
+      <div *ngIf="similaritySearchPart.imgThumbnailData && !similaritySearchPart.pdfThumbnailData" class="single-media">
+        <img src="data:image/png;base64,{{ similaritySearchPart.imgThumbnailData }}" alt="part" class="img-fluid" />
+      </div>
+
+      <!-- Single pdf thumbnail -->
+      <div *ngIf="!similaritySearchPart.imgThumbnailData && similaritySearchPart.pdfThumbnailData" class="single-media">
+        <img src="data:image/png;base64,{{ similaritySearchPart.pdfThumbnailData }}" alt="pdf thumbnail" class="img-fluid" />
+      </div>
+
+      <!-- fallback loading icon -->
+      <div *ngIf="!similaritySearchPart.imgThumbnailData && !similaritySearchPart.pdfThumbnailData" class="single-media">
+        <img alt="" src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" />
+      </div>
+    </div>
+    <div class="header-text !mb-5">
+      <h3 class="font-semibold text-sm text-black mb-0">{{ similaritySearchPart.intPartNumber }}</h3>
+      <div class="text-xs">{{ similaritySearchPart.intPartDescription }}</div>
+    </div>
+  </div>
+  <div class="info-section">
+    <h4 class="section-title">Part Information</h4>
+    <div class="info-grid">
+      <div class="info-group">
+        <div class="more-info-label">Created By:</div>
+        <div class="more-info-value">{{ getUserName(similaritySearchPart.createdUserId) }}</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Date Created:</div>
+        <div class="more-info-value">{{ similaritySearchPart.createdDate | date: 'mediumDate' }}</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Project Number:</div>
+        <div class="more-info-value">{{ similaritySearchPart.projectInfoId }}</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Supplier City:</div>
+        <div class="more-info-value">{{ similaritySearchPart.supplierCity }}</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Supplier Country:</div>
+        <div class="more-info-value">{{ similaritySearchPart.supplierCountry }}</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Drawing Number:</div>
+        <div class="more-info-value">{{ similaritySearchPart.drawingNumber }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="info-section">
+    <h4 class="section-title">Dimensions & Physical Data</h4>
+    <div class="info-grid">
+      <div class="info-group">
+        <div class="more-info-label">Size (L×W×H):</div>
+        <div class="more-info-value">{{ similaritySearchPart.extractionInfoDto?.dimArea }} mm</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Surface Area:</div>
+        <div class="more-info-value">{{ similaritySearchPart.extractionInfoDto?.surfaceArea }} mm²</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Volume:</div>
+        <div class="more-info-value">{{ similaritySearchPart.extractionInfoDto?.volume }} mm³</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Weight:</div>
+        <div class="more-info-value">{{ similaritySearchPart.weight }} g</div>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Annual Volume:</div>
+        <div class="more-info-value">{{ similaritySearchPart.annualVolume || '—' }} qty</div>
+      </div>
+    </div>
+  </div>
+  <div class="info-section">
+    <h4 class="section-title">Scores & Cost Insights</h4>
+    <div class="info-grid">
+      <div class="info-group">
+        <div class="more-info-label">Competitiveness Score:</div>
+        <span class="value-increase more-info-value">{{ similaritySearchPart.competitivenessScore || '—' }}%</span>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Complexity Score:</div>
+        <span class="value-decrease more-info-value">{{ similaritySearchPart.complexityScore || '—' }}%</span>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Annual Spend:</div>
+        <span class="more-info-value">${{ similaritySearchPart.annualSpend }}</span>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Purchase Price:</div>
+        <span class="more-info-value">${{ similaritySearchPart.purchasePrice }}</span>
+      </div>
+      <div class="info-group">
+        <div class="more-info-label">Should Cost:</div>
+        <span class="more-info-value">${{ similaritySearchPart.shouldCost }}</span>
+      </div>
+    </div>
+  </div>
+</div>

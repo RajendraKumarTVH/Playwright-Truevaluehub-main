@@ -1,0 +1,43 @@
+.chart-base {
+  width: 100%;
+  .chart-base-container {
+    padding: 40;
+  }
+}
+
+.chart {
+  width: 100%;
+  display: block;
+  min-height: 400px;
+}
+.custom-y-crosshair .highcharts-crosshair-thin {
+  stroke: yellow;
+  stroke-width: 2px;
+}
+.expand-button {
+  top: 16px;
+  right: 12px;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  position: absolute;
+  background: var(--bs-white);
+  box-shadow: 0px 1px 3px 0px #00000026;
+  mat-icon {
+    color: var(--bs-black);
+  }
+}
+::ng-deep .pricing-chart-container {
+  .chart {
+    width: calc(100% - 40px);
+  }
+  .chart-container {
+    background-color: var(--bs-white);
+  }
+}
+::ng-deep .chemical-chart-container {
+  .expand-button {
+    display: none;
+  }
+}

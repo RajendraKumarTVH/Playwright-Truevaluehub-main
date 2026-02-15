@@ -1,0 +1,26 @@
+.waterfall-chart {
+  font-family: var(--body-font);
+  position: relative;
+}
+
+.waterfall-header-label {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.waterfall-percent-label {
+  font-size: 12px;
+  min-width: 55px;
+  text-align: right;
+  padding-left: 6px;
+  white-space: nowrap;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+.waterfall-horizontal-separator {
+  height: 1px;
+  background-color: var(--component-border);
+  width: 66.6%;
+  margin: 4px 0 4px auto;
+}

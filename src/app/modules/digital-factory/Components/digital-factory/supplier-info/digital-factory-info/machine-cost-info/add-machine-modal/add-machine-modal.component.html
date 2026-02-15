@@ -1,0 +1,349 @@
+<div>
+  <form [formGroup]="form">
+    <mat-tab-group class="df-tab material-tab-bordered-container">
+      <mat-tab label="Machine Details">
+        <div class="add-model-heading !mb-3">Machine Details</div>
+        <div class="add-fields row flex-wrap w-full">
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <mat-label class="add-label form-label no-wrap has-icon">
+              <span class="label-text">
+                Process group
+                <span style="color: red">*</span>
+              </span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </mat-label>
+            <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+              <input matInput formControlName="processMasterId" type="dropdown" [matAutocomplete]="processGroupAuto" placeholder="Select category" class="form-control category-input-dropdown" />
+              <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+              <mat-autocomplete #processGroupAuto="matAutocomplete" [displayWith]="displayProcessGroupName" (optionSelected)="onMaterialProcessGroupSelect($event)">
+                <mat-option *ngFor="let group of filteredMaterialProcessGroup$ | async" [value]="group.processId" class="df-overlay-option">
+                  {{ group.primaryProcess }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('processMasterId')?.hasError('required')">Process group is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <mat-label class="add-label form-label no-wrap has-icon">
+              <span class="label-text">
+                Process Group (Manufacturing Info)
+                <span style="color: red">*</span>
+              </span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </mat-label>
+            <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+              <input
+                matInput
+                formControlName="processTypeId"
+                type="dropdown"
+                [matAutocomplete]="manufacturingCategoryAuto"
+                placeholder="Select manufacturing category"
+                class="form-control category-input-dropdown" />
+              <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+              <mat-autocomplete #manufacturingCategoryAuto="matAutocomplete" [displayWith]="displaymanufacturingCategoryName" (optionSelected)="onManufacturingCategorySelect($event)">
+                <mat-option *ngFor="let type of filteredProcessTypes$ | async" [value]="type.processTypeId" class="df-overlay-option">
+                  {{ type.primaryProcess }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('processTypeId')?.hasError('required')">Material Type is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <mat-label class="add-label form-label no-wrap has-icon">
+              <span class="label-text">
+                Machine Name
+                <span style="color: red">*</span>
+              </span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </mat-label>
+            <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+              <input matInput formControlName="machineMasterId" type="dropdown" [matAutocomplete]="machineAuto" placeholder="Select description" class="form-control category-input-dropdown" />
+              <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+              <mat-autocomplete #machineAuto="matAutocomplete" [displayWith]="displayMachineName" (optionSelected)="onMachineNameSelect($event)">
+                <mat-option *ngFor="let mat of filteredMachineNames$ | async" [value]="mat.machineID" class="df-overlay-option">
+                  {{ mat.machineName }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('machineMasterId')?.hasError('required')">Machine Name is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row with-seperator-top-dashed">
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="investmentCost" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Investment Cost (USD)</span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="investmentCost" type="number" formControlName="investmentCost" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="installationFactor" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Installation Cost (%)</span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="installationFactor" type="number" formControlName="installationFactor" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="age" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">
+                Machine Depreciation (Yrs)
+                <span style="color: red">*</span>
+              </span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="age" type="number" formControlName="age" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="efficiency" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Years Installed</span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="efficiency" type="number" formControlName="efficiency" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+        </div>
+        <div class="row with-seperator-top-dashed">
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="utilization" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Annual Maintenance Cost (%)</span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="utilization" type="number" formControlName="utilization" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <label for="suppliesCost" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Annual Supplies Cost (%)</span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input id="suppliesCost" type="number" formControlName="suppliesCost" class="df-input-field form-control" placeholder="Enter value" />
+          </div>
+          <div class="col-3 !mb-3">
+            <label for="interestRate" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Interest Rate (%)</span>
+              <span class="notification" placement="auto">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input type="number" formControlName="interestRate" class="df-input-field" placeholder="Enter value" />
+          </div>
+          <div class="col-3 !mb-3">
+            <label for="rentRate" class="add-label form-label no-wrap has-icon">
+              <span class="label-text">Rent Rate (USD/sqm)</span>
+              <span class="notification" placement="auto">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <input type="number" formControlName="rentRate" class="df-input-field" placeholder="Enter value" />
+          </div>
+        </div>
+        <div class="add-fields row flex-wrap with-seperator-top-solid">
+          <div class="add-model-heading !mb-3">Machine Hourly Cost Details</div>
+          <div class="flex !px-2 py-0 items-center">
+            <div class="machine-details-chart-container">
+              <p-chart type="doughnut" [data]="machineChartData" [options]="machineChartOptions" class="w-full chart-container"></p-chart>
+            </div>
+            <!-- Right: labels + values -->
+            <div class="machine-details-legend">
+              <div class="legend-header-row flex justify-between">
+                <div class="legend-title text-xs font-medium">Machine Hourly Cost</div>
+                <div class="min-w-[147px] text-xs font-medium text-black text-left">$/hr</div>
+              </div>
+              <div class="legend-section !my-3 text-xs">FIXED COSTS</div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#B49AE1'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Depreciation</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="depreciation" />
+              </div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#C9AFE9'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Interest</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="interest" />
+              </div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#E0D2FF'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Rent & Overhead</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="rentAndOverhead" />
+              </div>
+
+              <div class="legend-section !my-3 text-xs">VARIABLE COSTS</div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#7DD3FC'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Power</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="power" />
+              </div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#A5E4FF'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Maintainance</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="maintainance" />
+              </div>
+              <div class="legend-row">
+                <span class="legend-color" [style.background]="'#CFF3FF'"></span>
+                <span class="legend-label flex-1 text-sm font-medium text-black">Supplies</span>
+                <input readonly type="number" class="legend-value !p-2 text-xs font-medium text-black" formControlName="supplies" />
+              </div>
+
+              <div class="legend-total">
+                <span>Machine Hour Rate</span>
+                <div class="legend-value !p-2 text-xs font-medium text-black">
+                  {{ calculatedMhr ?? '' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Labor & Power Assumptions">
+        <div class="!pl-3 !pr-3 !pt-3">
+          <div class="add-model-heading !mb-3">Labor Assumptions</div>
+          <div class="add-fields row flex-wrap">
+            <div class="col-3 !mb-3">
+              <label for="lowSkilledLaborersNeeded" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Low-Skilled Laborers Needed</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="lowSkilledLaborersNeeded" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="semiSkilledLaborersNeeded" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Semi-Skilled Laborers Needed</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="semiSkilledLaborersNeeded" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="highSkilledLaborersNeeded" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">High-Skilled Laborers Needed</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="highSkilledLaborersNeeded" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="specialSkilledLaborersNeeded" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Special-Skilled Laborers Needed</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="specialSkilledLaborersNeeded" class="df-input-field" placeholder="Enter value" />
+            </div>
+          </div>
+          <div class="add-fields row flex-wrap with-seperator-top-dashed">
+            <div class="add-model-heading !mb-3">Power Assumptions</div>
+            <div class="col-3 !mb-3">
+              <label for="ratedPower" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Rated Power (KW)</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="ratedPower" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="powerCost" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Power Cost (KWh)</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="powerCost" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="powerUtilization" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Power Utilization (%)</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="powerUtilization" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="averageMachineUtilization" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Average Machine Utilization</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="averageMachineUtilization" class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="averageMachineAvailability" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Average Machine Availability(%)</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" formControlName="averageMachineAvailability" class="df-input-field" placeholder="Enter value" />
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Technical Characteristics">
+        <div class="!pl-3 !pr-3 !pt-3">
+          <div class="add-model-heading !mb-3">Technical Characteristics</div>
+          <div class="add-fields row flex-wrap">
+            <div class="col-3 !mb-3">
+              <label for="" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Machine Characteristics 1</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" disabled class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Machine Characteristics 2</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" disabled class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Machine Characteristics 3</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" disabled class="df-input-field" placeholder="Enter value" />
+            </div>
+            <div class="col-3 !mb-3">
+              <label for="" class="add-label form-label no-wrap has-icon">
+                <span class="label-text">Machine Characteristics 4</span>
+                <span class="notification" placement="auto">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" disabled class="df-input-field" placeholder="Enter value" />
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>
+<app-edit-toolbar [canUndo]="canUndo()" [canRedo]="canRedo()" [dirty]="isDirty()" (undo)="undo()" (redo)="redo()" (save)="save()" (discard)="discard()"></app-edit-toolbar>

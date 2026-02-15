@@ -1,0 +1,41 @@
+[
+    {
+        "TestCaseId": "TC001",
+        "MaterialFinish": "Plain",
+        "FragileStatus": "Standard",
+        "Freight": "Land / Air",
+        "PackagingItems": [
+            {
+                "PackagingType": "Primary",
+                "PackagingMaterial": "NON-PERFORATED FOAM ROLLS",
+                "PackageDescription": "72 x 2,000"
+            }
+        ]
+    },
+    {
+        "TestCaseId": "TC002",
+        "MaterialFinish": "Plain",
+        "FragileStatus": "Standard",
+        "Freight": "Land / Air",
+        "PackagingItems": [
+            {
+                "PackagingType": "Secondary",
+                "PackagingMaterial": "Cardboard Box",
+                "PackageDescription": "508x381x356mm - 32 ECT"
+            }
+        ]
+    },
+    {
+        "TestCaseId": "TC003",
+        "MaterialFinish": "Plain",
+        "FragileStatus": "Standard",
+        "Freight": "Land / Air",
+        "PackagingItems": [
+            {
+                "PackagingType": "Tertiary",
+                "PackagingMaterial": "Pallets",
+                "PackageDescription": "Wood - US Std - 1200x1000mm"
+            }
+        ]
+    }
+]

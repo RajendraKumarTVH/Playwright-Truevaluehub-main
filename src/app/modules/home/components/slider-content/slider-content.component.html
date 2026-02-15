@@ -1,0 +1,116 @@
+<div class="parts-slider-header">Extraction Progress</div>
+
+<div class="row pt-3">
+  <div class="col-12">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">
+          <label class="parts-slider-label-key">Project #</label>
+          <label class="parts-slider-label-value">{{ rowData.projectInfoId }}</label>
+        </div>
+        <div class="col-6">
+          <label class="parts-slider-label-key">Project Name</label>
+          <label class="parts-slider-label-value">{{ rowData.projectName }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-6"></div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <label class="parts-slider-grid-section-title">Parts</label>
+      <div class="d-flex ms-auto">
+        <button mat-button matTooltip="Refresh" (click)="onRefreshIconClick()">
+          <mat-icon id="{{ rowData.projectInfoId }}">refresh</mat-icon>
+        </button>
+        @if (shouldShowRetryButton) {
+          <button mat-button matTooltip="Retry" (click)="onRetryIconClick()">
+            <mat-icon id="{{ rowData.projectInfoId }}">replay</mat-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row pt-3">
+  <p-table [value]="rowData.partDetails" dataKey="partInfoId" class="parts-slider-scrollable-table" [scrollable]="true" scrollHeight="calc(100vh - 200px)">
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="active-projects-grid-col-header-background" scope="col" [pSortableColumn]="'partInfoId'">
+          Part #
+          <p-sortIcon [field]="'partInfoId'"></p-sortIcon>
+        </th>
+        <th class="active-projects-grid-col-header-background" scope="col" [pSortableColumn]="'intPartNumber'">
+          Part Name
+          <p-sortIcon [field]="'intPartNumber'"></p-sortIcon>
+        </th>
+        <th class="active-projects-grid-col-header-background" scope="col">% Extraction Completed</th>
+        <th class="active-projects-grid-col-header-background" scope="col">Time Remaining</th>
+        <th class="active-projects-grid-col-header-background" scope="col">Drawing</th>
+        <th class="active-projects-grid-col-header-background" scope="col">Extraction Status</th>
+        <th class="active-projects-grid-col-header-background" scope="col">Reason For Failure</th>
+        <th class="active-projects-grid-col-header-background" scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="active-projects-grid-col-data-border">
+          {{ item.partInfoId }}
+        </td>
+        <td class="active-projects-grid-col-data-border">
+          {{ item.intPartNumber }}
+        </td>
+        <td class="active-projects-grid-col-data-border">
+          <div class="flex-td">
+            <app-progress-bar [percentage]="item.dataExtractionPercentage" [mode]="'donut'"></app-progress-bar>
+            <span [innerText]="item?.dataExtractionPercentage ?? 0"></span>
+            %
+          </div>
+        </td>
+        <td class="active-projects-grid-col-data-border">
+          <div class="flex-td">
+            <app-progress-bar [percentage]="item.dataExtractionTimeRemaining" [mode]="'donut'"></app-progress-bar>
+            <span [innerText]="item.dataExtractionTimeRemaining"></span>
+          </div>
+        </td>
+        <td class="active-projects-grid-col-data-border">{{ item.docName }}</td>
+        <td
+          class="active-projects-grid-col-data-border"
+          [style.color]="item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2 ? '#C1272D' : item.dataExtractionStatus === 1 ? '#8D5704' : '#144F37'">
+          <span
+            *ngIf="item.partExtractionStatus"
+            class="part-data-extraction-status"
+            [innerText]="item.partExtractionStatus"
+            [style.background-color]="item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2 ? '#FBE8ED' : item.dataExtractionStatus === 1 ? '#FCF5E8' : '#E6F6EA'"></span>
+        </td>
+        <td class="active-projects-grid-col-data-border" [style.color]="'red'">
+          {{ item.reasonForFailure }}
+        </td>
+        <td class="col-proj-200 active-projects-grid-col-data-border">
+          <p-fileUpload
+            mode="basic"
+            chooseLabel="Choose"
+            name="File"
+            *ngIf="item.documentRecordId && (item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2)"
+            (onSelect)="updateNewDocumentForFailedRecord($event, item.partInfoId, item.documentRecordId, rowData)"
+            [showUploadButton]="false">
+            <ng-template pTemplate="content" *ngIf="uploadedPartFilesCount > 0">
+              <div class="py-3">Upload {{ uploadedPartFilesCount }} Files</div>
+            </ng-template>
+          </p-fileUpload>
+          @if (canUpdate) {
+            <button type="button" pButton pRipple icon="pi pi-trash" class="remove-btn" (click)="removeBomClick(item.projectInfoId, item.bomId, item.scenarioId, rowData)"></button>
+          }
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">There are no parts in project.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

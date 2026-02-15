@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10 mt-1">
+      <div class="mb-2" *ngIf="!isLoaded">
+        <h6 class="ms-2">Loading .....</h6>
+      </div>
+      <div class="card mb-2" *ngIf="isLoaded">
+        <!-- <div class="page-header text-center">Document Details</div> -->
+        <!-- <pre>
+                    {{documentDetails | json}}
+                </pre> -->
+        <div class="card-header">
+          <h5 class="ms-2">
+            <mat-icon>description</mat-icon>
+            {{ documentDetails.DisplayName }}
+          </h5>
+        </div>
+
+        <div class="card-body search-card">
+          <div class="card-body">
+            <div class="row mt-2">
+              <div class="col-4">
+                <img src="{{ documentDetails.ThumbNailURLFromID }}" class="img-thumbnail" alt="..." />
+              </div>
+              <div class="col-8">
+                <table class="table table-stripe table-sm" aria-describedby="">
+                  <tr>
+                    <th class="p-1">Extracted Attributes</th>
+                  </tr>
+                  <tbody *ngFor="let item of documentDetails.ExtractedAttributes">
+                    <tr>
+                      <td class="capitalize" *ngFor="let subItem of item | customSplit: '='">
+                        {{ subItem }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

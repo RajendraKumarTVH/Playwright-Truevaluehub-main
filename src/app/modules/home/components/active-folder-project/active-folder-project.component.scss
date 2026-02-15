@@ -1,0 +1,25 @@
+app-active-folder-project {
+  min-height: calc(100vh - 200px);
+}
+.breadcrumb-icon {
+  width: 8px;
+  height: 8px;
+}
+.breadcrumb-link {
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+  color: var(--bs-black) !important;
+}
+.file-explorer-actions {
+  button {
+    padding: 11px;
+    font-size: 0.75rem;
+
+    .mat-icon {
+      max-width: 8px;
+      max-height: 8px;
+      font-size: 8px;
+    }
+  }
+}

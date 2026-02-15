@@ -1,0 +1,17 @@
+.viewer-container {
+  height: calc(90vh - 50px);
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.viewer-container-data {
+  width: max-content;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+}
+
+.viewer-container-image {
+  max-width: none !important;
+}

@@ -1,0 +1,120 @@
+<div class="flex flex-col h-100 min-h-0 relative">
+  <div class="current-analysis-table-wrap flex flex-col gap-2">
+    <div class="table-wrap overflow-hidden relative">
+      <p-table #costDriversTable [value]="costDrivers" [scrollable]="true" scrollHeight="600px" class="custom-p-table w-full">
+        <ng-template pTemplate="header">
+          <tr>
+            <th id="keyCostDriver" class="frozen-col min-w-36" pFrozenColumn>
+              <div class="truncate-2-lines">Key Cost Driver</div>
+            </th>
+            <th id="currentValue">
+              <div class="truncate-2-lines">Current Value</div>
+            </th>
+            <th id="negativePastChange" class="min-w-24">
+              <div class="truncate-2-lines">-ve past 12M change</div>
+            </th>
+            <th id="possitivePastChange" class="min-w-24">
+              <div class="truncate-2-lines">+ve past 12M change</div>
+            </th>
+            <th id="st" class="min-w-24">
+              <div class="truncate-2-lines">Std Dev</div>
+            </th>
+            <th id="volatility" class="min-w-24">
+              <div class="truncate-2-lines">Volatility</div>
+            </th>
+            <th id="negChange" class="frozen-col-right min-w-28" pFrozenColumn alignFrozen="right">
+              <div class="truncate-2-lines">- Change (%)</div>
+            </th>
+            <th id="posChange" class="frozen-col-right min-w-28" pFrozenColumn alignFrozen="right">
+              <div class="truncate-2-lines">+ Change (%)</div>
+            </th>
+            <th id="rightContent" class="frozen-col-right" pFrozenColumn alignFrozen="right">
+              <div class="flex items-center justify-center gap-2 w-full">
+                <div class="flex items-center left-content gap-1">
+                  <div class="truncate-2-lines">- Change (%)</div>
+                  <mat-icon svgIcon="left-arrow-icon" class="edit"></mat-icon>
+                </div>
+                <div class="flex items-center right-content gap-1">
+                  <mat-icon svgIcon="right-arrow-icon" class="edit"></mat-icon>
+                  <div class="truncate-2-lines">+ Change (%)</div>
+                </div>
+              </div>
+            </th>
+            <th id="alignRight" class="frozen-col-right action-cell" pFrozenColumn alignFrozen="right"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-driver>
+          <tr>
+            <td class="frozen-col min-w-36" pFrozenColumn>
+              <ng-container *ngIf="driver.isNew; else readonlyName">
+                <div class="dropdown-wrap max-w-32">
+                  <input type="text" class="form-control max-w-32 border-none" placeholder=" Select driver" [(ngModel)]="driver.name" [matAutocomplete]="costDriverAuto" />
+                  <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                </div>
+                <mat-autocomplete #costDriverAuto="matAutocomplete">
+                  <mat-option *ngFor="let option of availableCostDrivers" [value]="option">
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
+              </ng-container>
+              <ng-template #readonlyName>
+                {{ driver.name }}
+              </ng-template>
+            </td>
+            <td>{{ driver.currentValue }}</td>
+            <td>{{ driver.pastChange12M }}</td>
+            <td>{{ driver.futureChange12M }}</td>
+            <td>{{ driver.stdDev }}</td>
+            <td>{{ driver.volatility }}</td>
+            <td class="frozen-col-right field-cell" pFrozenColumn alignFrozen="right">
+              <!-- Conditionally Add the class "touched-field" in below input after user edit to give the dirty field appearance -->
+              <input type="text" class="form-control max-w-32 touched-field" placeholder=" Enter" [(ngModel)]="driver.negativeChange" (focus)="openChangeModal()" />
+            </td>
+            <td class="frozen-col-right field-cell" pFrozenColumn alignFrozen="right">
+              <input type="text" class="form-control max-w-32" placeholder=" Enter" [(ngModel)]="driver.positiveChange" (focus)="openChangeModal()" />
+            </td>
+            <td class="frozen-col-right chart-cell" pFrozenColumn alignFrozen="right">
+              <div class="chart-container">
+                <div class="negative-wrap w-1/2 flex relative justify-end ml-8 h-full">
+                  <div class="neg-bar flex items-center absolute" [style.width.%]="driver.negativePercentage">
+                    <span class="negative-label absolute left-0">{{ driver.negativeChangePercent }}</span>
+                    <div class="negative-bar flex grow" [title]="driver.negativeChangePercent + '%'"></div>
+                  </div>
+                </div>
+                <div class="positive-wrap w-1/2 flex relative mr-8 h-full">
+                  <div class="pos-bar flex items-center absolute" [style.width.%]="driver.positivePercentage">
+                    <div class="positive-bar flex grow" [title]="'+' + driver.positiveChangePercent + '%'"></div>
+                    <span class="positive-label absolute right-0">+ {{ driver.positiveChangePercent }}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="frozen-col-right head-controls action-cell" pFrozenColumn alignFrozen="right">
+              <button mat-button class="flex items-center justify-center" (click)="deleteDriver(driver)">
+                <mat-icon svgIcon="trash"></mat-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+        <div class="custom-modal" (click)="$event.stopPropagation()">
+          <div class="modal-content flex flex-col items-center justify-center">
+            <p class="modal-text">
+              <mat-icon svgIcon="information" class="edit"></mat-icon>
+              Sensitivity inputs have been updated.
+            </p>
+            <p class="modal-text">Please recalculate to view the updated chart.</p>
+            <button type="button" class="btn btn-primary recalculate-btn">Recalculate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" (click)="addDriver()" class="btn btn-outline-primary search-btn flex items-center gap-2 add-driver-cta">
+        <mat-icon svgIcon="plus-add-icon" class="edit"></mat-icon>
+        Add Driver
+      </button>
+    </div>
+  </div>
+</div>

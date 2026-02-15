@@ -72,12 +72,12 @@ const config: PlaywrightTestConfig = {
 	reporter: isCI
 		? [['list'], ['html', { outputFolder: 'html-report', open: 'never' }]]
 		: [
-				['list'],
-				['./CustomReporterConfig.ts'],
-				['allure-playwright'],
-				['html', { outputFolder: 'html-report', open: 'on-failure' }],
-				['ortoni-report', ortoniConfig]
-			],
+			['list'],
+			['./CustomReporterConfig.ts'],
+			['allure-playwright'],
+			['html', { outputFolder: 'html-report', open: 'on-failure' }],
+			['ortoni-report', ortoniConfig]
+		],
 
 	/* --------------------
 	 * PROJECTS
@@ -94,16 +94,16 @@ const config: PlaywrightTestConfig = {
 				viewport: isCI ? { width: 1280, height: 720 } : null,
 
 				launchOptions: {
-					slowMo: isCI ? 0 : 3000,
+					slowMo: isCI ? 0 : 4000,
 					args: isCI
 						? ['--no-sandbox', '--disable-dev-shm-usage']
 						: [
-								'--start-maximized',
-								'--no-first-run',
-								'--no-default-browser-check',
-								'--disable-infobars',
-								'--disable-blink-features=AutomationControlled'
-							]
+							'--start-maximized',
+							'--no-first-run',
+							'--no-default-browser-check',
+							'--disable-infobars',
+							'--disable-blink-features=AutomationControlled'
+						]
 				}
 			}
 		}

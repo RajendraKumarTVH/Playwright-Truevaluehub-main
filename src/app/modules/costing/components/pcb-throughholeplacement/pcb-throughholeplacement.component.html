@@ -1,0 +1,84 @@
+<div class="card-body" [formGroup]="throughHolePlacementForm">
+  <!--top part-->
+  <div>
+    <span class="bottomline mb-2">Through hole type / placement</span>
+    <div class="row">
+      <div class="col left">
+        <div class="card">
+          <div class="card-body">
+            <p class="bottomline text-center">TH component types count</p>
+            <div class="mt-2">
+              <label for="inputEmail4" class="mb-2">wave soldered part types:</label>
+              <input type="number" class="form-control hideupdownnumberinput" formControlName="waveSolderedPartTypes" />
+            </div>
+            <div class="mt-2">
+              <label for="inputEmail4" class="mb-2">Manual solder part types:</label>
+              <input type="number" class="form-control hideupdownnumberinput" formControlName="manualSolderedPartTypes" />
+            </div>
+            <div class="mt-2">
+              <label for="inputEmail4" class="mb-2">Selective solder part types:</label>
+              <input type="number" class="form-control hideupdownnumberinput" formControlName="selectiveSolderedPartTypes" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col right">
+        <div class="card">
+          <div class="card-body">
+            <p class="bottomline text-center">TH component placements count</p>
+            <div class="mt-2">
+              <label for="inputEmail4" class="mb-2">TH placements:(wave + Selective)</label>
+              <input type="number" class="form-control hideupdownnumberinput" formControlName="thPlacements" />
+            </div>
+            <div class="mt-2">
+              <label for="inputEmail4" class="mb-2">Manual solder Placements:</label>
+              <input type="number" class="form-control hideupdownnumberinput" formControlName="manualSolderPlacements" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end of top part-->
+  <hr />
+  <!--bottom part-->
+  <div class="row">
+    <div class="col left">
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">No. of Pems:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="No. of Pems" formControlName="noofPems" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Total TH Solder Joints(Wave, Slective and Manual):</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Total TH Solder Joints" formControlName="totalTHsolderJoints" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Manual solder joints:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Manual solder joints" formControlName="manualSolderJoints" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">High level assesmbly parts:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="High level assesmbly parts" formControlName="highLevelAssemblyparts" />
+      </div>
+    </div>
+    <div class="col right">
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Selective solder joints:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Selective solder joints" formControlName="selectiveSolderJoints" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Holes to be masked:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Holes to be masked" formControlName="holestobeMasked" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Node count (if ICT is applicable):</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Node count" formControlName="nodeCount" />
+      </div>
+      <div class="mt-2">
+        <label for="inputEmail4" class="mb-2">Press fit connector count:</label>
+        <input type="number" class="form-control hideupdownnumberinput" placeholder="Press fit connector count" formControlName="pressFitConnectorCount" />
+      </div>
+    </div>
+  </div>
+  <!--end of bottom part-->
+</div>

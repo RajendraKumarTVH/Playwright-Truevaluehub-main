@@ -1,0 +1,703 @@
+<ng-container [formGroup]="formGroup">
+  <ng-container *ngIf="tab === 'Manufacturing Details'">
+    <div class="row">
+      <!-- <ng-container *ngIf="compVals.processFlag.IsNoBakeCasting"> -->
+      <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+          <label class="form-label no-wrap">Core Machining Type</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'machingType'"></app-field-comment>
+          <select formControlName="subProcessTypeID" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>---Select Machining Type----</option>
+            <option value="1">Continuous Type</option>
+            <option value="2">Batch Type</option>
+          </select>
+        </div> -->
+      <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCoreAssemblyForCasting">
+          <label class="form-label no-wrap">Core Complexity</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'complexity'"></app-field-comment>
+          <select formControlName="subProcessTypeID" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>-------Select Complexity Type---------</option>
+            <option value="1">Simple</option>
+            <option value="2">Medium</option>
+            <option value="3">Complex</option>
+          </select>
+        </div> -->
+      <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsMoldAssemblyForCasting">
+          <label class="form-label no-wrap">Type of Manipulator</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'manipulatorType'"></app-field-comment>
+          <select formControlName="subProcessTypeID" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>-------Select Manipulator Type---------</option>
+            <option value="1">A Frame Type</option>
+            <option value="2">Hydraulic beam</option>
+            <option value="3">Chain Manipulator</option>
+          </select>
+        </div> -->
+      <!-- </ng-container> -->
+      <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsGreenCasting && compVals.processFlag.IsMoldMakingForCasting">
+        <label class="form-label no-wrap">Machine Flask size required ( mmxmm)</label>
+        <input type="text" formControlName="tableSizeRequired" class="form-control" readonly="readonly" />
+      </div> -->
+      <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessGravityDieCasting">
+      <label class="form-label no-wrap">{{ compVals.isEnableUnitConversion ? 'Projected Area(' + compVals.conversionValue + '^2)' : 'Projected Area(mm^2)' }} :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partArea'"></app-field-comment>
+      <input type="number" formControlName="partArea" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessGravityDieCasting">
+      <label class="form-label no-wrap">{{ compVals.isEnableUnitConversion ? 'Surface Area(' + compVals.conversionValue + '^2)' : 'Surface Area(mm^2)' }} :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'flashArea'"></app-field-comment>
+      <input type="number" formControlName="flashArea" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div> -->
+      <!-- <div class="col-4" *ngIf="compVals.processFlag.IsGreenCasting && compVals.processFlag.IsPouringForCasting">
+        <label class="form-label no-wrap">Diameter of Sprue({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</label>
+        <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'SprueDiameter'"></app-field-comment>
+        <input type="number" formControlName="drillDiameter" [OnlyNumber]="true" min="0" (blur)="calculateCost()" class="form-control" />
+      </div> -->
+      <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsFettlingForCasting">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">
+            {{ compVals.isEnableUnitConversion ? 'Fettling Rate (' + compVals.conversionValue + '/sec)' : 'Fettling Rate (mm/sec)' }}
+          </span>
+          <app-info-tooltip [infoId]="'Casting_Fettling_Rate'"></app-info-tooltip>
+        </label>
+        <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment>
+        <input
+          type="number"
+          [ngClass]="{ 'input-mandatory': f.cuttingSpeed.errors, 'input-valid': f.cuttingSpeed.valid && !f.cuttingSpeed.dirty, 'input-overridden': f.cuttingSpeed.dirty && f.cuttingSpeed.touched }"
+          formControlName="cuttingSpeed"
+          (blur)="calculateCost()"
+          class="form-control"
+          [OnlyNumber]="true"
+          min="0" />
+      </div>
+      <div class="col-4 position-relative" *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">Slider Required</span>
+          <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Slider_Required')">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfHitsRequired'"></app-field-comment>
+        <div class="dropdown-wrap">
+          <select formControlName="noOfHitsRequired" class="form-control" (change)="onSliderRequiredChange()">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+        </div>
+      </div>
+      <div class="col-4 position-relative" *ngIf="compVals.processFlag.IsMoldMakingForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsNoBakeCasting)">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">Mold/Hour (Nos)</span>
+          <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Mold_Hour')">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <app-field-comment [formIdentifier]="compVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'noOfCore'"></app-field-comment>
+        <input
+          type="number"
+          [ngClass]="{ 'input-mandatory': f.noOfCore.errors, 'input-valid': f.noOfCore.valid && !f.noOfCore.dirty, 'input-overridden': f.noOfCore.dirty && f.noOfCore.touched }"
+          formControlName="noOfCore"
+          (blur)="calculateCost()"
+          class="form-control"
+          [OnlyNumber]="true"
+          min="0" />
+      </div>
+      <div class="col-4" *ngIf="(compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting) && compVals.processFlag.IsDegatingForCasting">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">Gate Shape</span>
+          <app-info-tooltip [infoId]="'Casting_Gate_Shape'"></app-info-tooltip>
+        </label>
+        <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfBends'"></app-field-comment>
+        <select formControlName="noOfBends" class="form-control">
+          <option value="0" selected>--------------Select-------------</option>
+          <option value="1">Rectangle</option>
+          <option value="2">Round</option>
+        </select>
+      </div>
+      <div class="col-4" *ngIf="(compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting) && compVals.processFlag.IsDegatingForCasting">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">Cutting Rate (Sq.{{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}/min)</span>
+          <app-info-tooltip [infoId]="'Casting_Cutting_Rate'"></app-info-tooltip>
+        </label>
+        <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment>
+        <input
+          type="number"
+          [ngClass]="{
+            'input-mandatory': f.cuttingSpeed.errors,
+            'input-valid': f.cuttingSpeed.valid && !f.cuttingSpeed.dirty,
+            'input-overridden': f.cuttingSpeed.dirty && f.cuttingSpeed.touched,
+          }"
+          formControlName="cuttingSpeed"
+          (blur)="calculateCost()"
+          class="form-control"
+          [OnlyNumber]="true"
+          min="0" />
+      </div>
+      <div
+        *ngIf="!(compVals.processFlag.IsProcessTypeGalvanization || compVals.processFlag.IsProcessMigWelding || compVals.processFlag.IsProcessTigWelding)"
+        class="col-4"
+        [ngClass]="{
+          'offset-8':
+            compVals.processFlag.IsCasting &&
+            !compVals.processFlag.IsFettlingForCasting &&
+            !compVals.processFlag.IsProcessHighPressureDieCasting &&
+            !compVals.processFlag.IsProcessLowPressureDieCasting &&
+            !compVals.processFlag.IsMoldMakingForCasting &&
+            !compVals.processFlag.IsDegatingForCasting,
+          'offset-4':
+            compVals.processFlag.IsFettlingForCasting ||
+            compVals.processFlag.IsProcessHighPressureDieCasting ||
+            compVals.processFlag.IsProcessLowPressureDieCasting ||
+            compVals.processFlag.IsMoldMakingForCasting,
+        }">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text">Efficiency (%)</span>
+          <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Efficiency')">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'efficiency'"></app-field-comment>
+        <input
+          type="number"
+          formControlName="efficiency"
+          class="form-control"
+          (blur)="calculateCost()"
+          [OnlyNumber]="true"
+          min="0"
+          [ngClass]="{ 'input-overridden': f.efficiency.dirty && f.efficiency.touched }" />
+      </div>
+      <div class="row" *ngIf="(compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting) && compVals.processFlag.IsDegatingForCasting">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Gate Width/Dia {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+            <app-info-tooltip [infoId]="'Casting_Gate_Diameter'"></app-info-tooltip>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'SprueDiameter'"></app-field-comment>
+          <input
+            type="number"
+            formControlName="drillDiameter"
+            [OnlyNumber]="true"
+            min="0"
+            (blur)="calculateCost()"
+            class="form-control"
+            [ngClass]="{ 'input-overridden': f.drillDiameter.dirty && f.drillDiameter.touched }" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Gate Thick {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+            <app-info-tooltip [infoId]="'Casting_Gate_Thick'"></app-info-tooltip>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'flashThickness'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.flashThickness.errors,
+              'input-valid': f.flashThickness.valid && !f.flashThickness.dirty,
+              'input-overridden': f.flashThickness.dirty && f.flashThickness.touched,
+            }"
+            formControlName="flashThickness"
+            (blur)="calculateCost()"
+            class="form-control"
+            [OnlyNumber]="true"
+            min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No. of Gates (Nos)</span>
+            <app-info-tooltip [infoId]="'Casting_No_Of_Gates'"></app-info-tooltip>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfParts'"></app-field-comment>
+          <input type="number" formControlName="noOfParts" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+      </div>
+      <ng-container
+        *ngIf="
+          compVals.processFlag.IsProcessHighPressureDieCasting ||
+          compVals.processFlag.IsProcessLowPressureDieCasting ||
+          compVals.processFlag.IsProcessGravityDieCasting ||
+          (compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)) ||
+          (compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting)
+        ">
+        <ng-container
+          *ngIf="
+            (compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)) ||
+            (compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting)
+          ">
+          <!-- <div class="col-4 mt-3">
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)">
+              Required Core Box Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }} :
+            </label>
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+              Required Mold Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }} :
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'allowanceAlongLength'"></app-field-comment>
+            <input type="number" formControlName="allowanceAlongLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)">
+              Required Core Box Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }} :
+            </label>
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+              Required Mold Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }} :
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'allowanceAlongWidth'"></app-field-comment>
+            <input type="number" formControlName="allowanceAlongWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div> -->
+          <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCorePreparationForCasting && !compVals.processFlag.IsGDCCasting">
+            <label class="form-label no-wrap">Sand Volume Required {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^3)' : '(mm^3)' }}</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sandVolumeRequired'"></app-field-comment>
+            <input type="number" formControlName="sandShooting" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div> -->
+          <div *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting" class="col-4 mt-3"></div>
+        </ng-container>
+
+        <!-- <ng-container
+        *ngIf="
+          (compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)) ||
+          ((compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessGravityDieCasting) && formGroup.controls['noOfHitsRequired'].value === '1')
+        ">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">{{ compVals.isEnableUnitConversion ? 'Length of Slider Movement(' + compVals.conversionValue + ')' : 'Length of Slider Movement(mm)' }}:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'platenSizeLength'"></app-field-comment>
+          <input type="number" formControlName="platenSizeLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">{{ compVals.isEnableUnitConversion ? 'Width of Slider Movement(' + compVals.conversionValue + ')' : 'Width of Slider Movement(mm)' }}:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'platenSizeWidth'"></app-field-comment>
+          <input type="number" formControlName="platenSizeWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+        </ng-container> -->
+
+        <div
+          class="col-4 mt-3"
+          *ngIf="!compVals.processFlag.IsGDCCasting && !compVals.processFlag.IsHPDCCasting && !compVals.processFlag.IsGreenCasting && !compVals.processFlag.IsProcessLowPressureDieCasting">
+          <!-- <label
+            class="form-label no-wrap"
+            *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessGravityDieCasting">
+            Total Die Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label> -->
+          <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)">
+            Machine Core Box Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label> -->
+          <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+            Machine Mold Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label>
+          <ng-container *ngTemplateOutlet="lengthOfCoatedField"></ng-container>
+        </div>
+        <div
+          class="col-4 mt-3"
+          *ngIf="!compVals.processFlag.IsGDCCasting && !compVals.processFlag.IsHPDCCasting && !compVals.processFlag.IsGreenCasting && !compVals.processFlag.IsProcessLowPressureDieCasting">
+          <!-- <label
+            class="form-label no-wrap"
+            *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting || compVals.processFlag.IsProcessGravityDieCasting">
+            Total Die Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label> -->
+          <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsCorePreparationForCasting && (compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting)">
+            Machine Core Box Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label> -->
+          <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+            Machine Mold Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+          </label>
+          <ng-container *ngTemplateOutlet="widthOfCoatedField"></ng-container>
+        </div>
+
+        <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsGreenCastingAuto && compVals.processFlag.IsMoldMakingForCasting">
+          <label class="form-label no-wrap">Type of Molding Line</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'MoldingLineType'"></app-field-comment>
+          <select formControlName="subProcessTypeID" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>-------Select Molding Line Type---------</option>
+            <option value="1">Vertical Molding Line</option>
+            <option value="2">Horizontal Molding Line</option>
+          </select>
+        </div> -->
+        <ng-template #lengthOfCoatedField>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'lengthOfCoated'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.lengthOfCoated.errors,
+              'input-valid': f.lengthOfCoated.valid && !f.lengthOfCoated.dirty,
+              'input-overridden': f.lengthOfCoated.dirty && f.lengthOfCoated.touched,
+            }"
+            formControlName="lengthOfCoated"
+            (blur)="calculateCost()"
+            class="form-control"
+            [OnlyNumber]="true"
+            min="0" />
+        </ng-template>
+        <ng-template #widthOfCoatedField>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'widthOfCoated'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.widthOfCoated.errors,
+              'input-valid': f.widthOfCoated.valid && !f.widthOfCoated.dirty,
+              'input-overridden': f.widthOfCoated.dirty && f.widthOfCoated.touched,
+            }"
+            formControlName="widthOfCoated"
+            (blur)="calculateCost()"
+            class="form-control"
+            [OnlyNumber]="true"
+            min="0" />
+        </ng-template>
+      </ng-container>
+      <!-- <div class="row"> -->
+      <!-- <div class="col-4 position-relative" *ngIf="compVals.processFlag.IsMoldMakingForCasting && (compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting)">
+          <label class="form-label text-nowrap no-wrap has-icon">Recommended Flask Sizes LxWxH (mm)</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'platenSizeWidth'"></app-field-comment>
+          <input type="number" formControlName="platenSizeLength" class="form-control" readonly />
+        </div>
+        <div class="col-4 position-relative" *ngIf="compVals.processFlag.IsMoldMakingForCasting && (compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting)">
+          <label class="form-label no-wrap has-icon">Selected Flask Sizes LxWxH (mm)</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'platenSizeWidth'"></app-field-comment>
+          <input type="number" formControlName="platenSizeWidth" class="form-control" readonly />
+        </div> -->
+      <div class="col-4 mt-3 offset-4" *ngIf="!(compVals.processFlag.IsProcessTypeGalvanization || compVals.processFlag.IsProcessTypePlating)">
+        <label class="form-label no-wrap has-icon">
+          <span class="label-text font-medium">Net Process Cost/Part ($)</span>
+          <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Net_Process_Cost')">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <input type="number" formControlName="directProcessCost" class="form-control font-semibold text-base" readonly />
+      </div>
+      <!-- </div> -->
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tab === 'Machine Details'">
+    <div class="card mt-3">
+      <div class="card-header">Machine Details</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCorePreparationForCasting || compVals.processFlag.IsMoldMakingForCasting">
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+              <span class="label-text">Max. Core Box Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Core_Box_Length'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsMoldMakingForCasting">
+              <span class="label-text">Max. Flask Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Flask_Length'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+              Required Mold Length {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+            </label>
+            <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">Platen Size L x W (mm)</label> -->
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'allowanceAlongLength'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="allowanceAlongLength"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [readonly]="compVals.processFlag.IsMoldMakingForCasting && compVals.processFlag.IsNoBakeCasting"
+              [ngClass]="{ 'input-overridden': f.allowanceAlongLength.dirty && f.allowanceAlongLength.touched }" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCorePreparationForCasting || compVals.processFlag.IsMoldMakingForCasting">
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+              <span class="label-text">Max. Core box Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Core_Box_Width'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsMoldMakingForCasting">
+              <span class="label-text">Max. Flask Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Flask_Width'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsInvestmentCasting && compVals.processFlag.IsWaxInjectionMoldingForCasting">
+              Required Mold Width {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+            </label>
+            <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">Slider Size LXW (mm)</label> -->
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'allowanceAlongWidth'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="allowanceAlongWidth"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [readonly]="compVals.processFlag.IsMoldMakingForCasting && compVals.processFlag.IsNoBakeCasting"
+              [ngClass]="{ 'input-overridden': f.allowanceAlongWidth.dirty && f.allowanceAlongWidth.touched }" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsCorePreparationForCasting || compVals.processFlag.IsMoldMakingForCasting">
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+              <span class="label-text">Max. Core Box Height {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Core_Box_Height'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsMoldMakingForCasting">
+              <span class="label-text">Max. Flask Height {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Flask_Height'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'allowanceBetweenParts'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="allowanceBetweenParts"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [readonly]="compVals.processFlag.IsMoldMakingForCasting && compVals.processFlag.IsNoBakeCasting"
+              [ngClass]="{ 'input-overridden': f.allowanceBetweenParts.dirty && f.allowanceBetweenParts.touched }" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsShotblastingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Machine Table Size ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+              <app-info-tooltip [infoId]="'Casting_Machine_Table_Size'"></app-info-tooltip>
+            </label>
+            <input type="text" formControlName="tableSizeRequired" class="form-control" />
+          </div>
+          <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsMeltingForCasting">
+            <label class="form-label no-wrap">Capacity (m^3)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'machineCapacity'"></app-field-comment>
+            <input type="number" formControlName="machineCapacity" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" readonly />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsMeltingForCasting">
+            <label class="form-label no-wrap">Capacity (Ton)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'machcineCapacity'"></app-field-comment>
+            <input type="number" formControlName="machcineCapacity" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div> -->
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsMeltingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Rated Power (KW)</span>
+              <app-info-tooltip [infoId]="'Casting_Rated_Power'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'powerSupply'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="powerSupply"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [ngClass]="{ 'input-overridden': f.powerSupply.dirty && f.powerSupply.touched }" />
+          </div>
+          <!-- <div
+            class="col-4 mt-3"
+            *ngIf="
+              compVals.processFlag.IsCorePreparationForCasting ||
+              compVals.processFlag.IsMeltingForCasting ||
+              compVals.processFlag.IsShotblastingForCasting ||
+              compVals.processFlag.IsMoldMakingForCasting ||
+              compVals.processFlag.IsProcessLowPressureDieCasting ||
+              (compVals.processFlag.IsHPDCCasting && !compVals.processFlag.IsFettlingForCasting)
+            ">
+            <label class="form-label no-wrap">Efficiency (%)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'efficiency'"></app-field-comment>
+            <input type="number" formControlName="efficiency" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div> -->
+          <!-- <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">
+            <label class="form-label no-wrap">
+              {{ compVals.isEnableUnitConversion ? 'Slider Movement Length(' + compVals.conversionValue + ')' : 'Slider Movement Length(mm)' }}
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'platenSizeLength'"></app-field-comment>
+            <input type="number" formControlName="platenSizeLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div> -->
+          <div
+            class="col-4 mt-3"
+            *ngIf="
+              compVals.processFlag.IsCorePreparationForCasting ||
+              compVals.processFlag.IsProcessGravityDieCasting ||
+              compVals.processFlag.IsPouringForCasting ||
+              compVals.processFlag.IsShotblastingForCasting ||
+              compVals.processFlag.IsProcessHighPressureDieCasting ||
+              compVals.processFlag.IsProcessLowPressureDieCasting
+            ">
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+              <span class="label-text">Machine Tonnage (TPH)</span>
+              <app-info-tooltip [infoId]="'Casting_Machine_Tonnage'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsProcessGravityDieCasting">
+              <span class="label-text">Max. Clamping Pressure (Kg)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Clamping_Pressure'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsPouringForCasting">
+              <span class="label-text">Ladle Capacity (Kg)</span>
+              <app-info-tooltip [infoId]="'Casting_Ladle_Capacity'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsShotblastingForCasting">
+              <span class="label-text">
+                <!-- Max. Load Capacity ({{ compVals.processFlag.IsShotblastingForCasting && compVals.processFlag.IsHPDCCasting ? 'g' : 'Kg' }}) -->
+                Max. Load Capacity (Kg)
+              </span>
+              <app-info-tooltip [infoId]="'Casting_Max_Load_Capacity'"></app-info-tooltip>
+            </label>
+            <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsMoldMakingForCasting && compVals.processFlag.IsNoBakeCasting">Machine Capacity Required (Kgs)</label> -->
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">
+              <span class="label-text">Tonnage (Ton)</span>
+              <app-info-tooltip [infoId]="compVals.processFlag.IsProcessLowPressureDieCasting ? 'Casting_LPDC_Tonnage' : 'Casting_Tonnage'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'totalTonnageRequired'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="totalTonnageRequired"
+              [readonly]="compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting"
+              class="form-control"
+              (blur)="calculateCost()"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+          <div
+            class="col-4 mt-3"
+            [ngClass]="{
+              'offset-4': compVals.processFlag.IsCorePreparationForCasting,
+            }"
+            *ngIf="compVals.processFlag.IsCorePreparationForCasting || compVals.processFlag.IsProcessGravityDieCasting || compVals.processFlag.IsShakeoutForCasting">
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsCorePreparationForCasting">
+              <span class="label-text">Max. Core Weight (Kg)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Core_Weight'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsProcessGravityDieCasting && compVals.processFlag.IsGDCCasting">
+              <span class="label-text">Max. Mold Weight (Kg)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Mold_Weight'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsShakeoutForCasting">
+              <span class="label-text">Max. Flask Weight (Kg)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Flask_Weight'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'meltingWeight'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="meltingWeight"
+              class="form-control"
+              (blur)="calculateCost()"
+              [OnlyNumber]="true"
+              min="0"
+              [ngClass]="{ 'input-overridden': f.meltingWeight.dirty && f.meltingWeight.touched }" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsShotblastingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Max. Load Volume (Cu.Ft)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Load_Volume'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'flashThickness'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.flashThickness.errors,
+                'input-valid': f.flashThickness.valid && !f.flashThickness.dirty,
+                'input-overridden': f.flashThickness.dirty && f.flashThickness.touched,
+              }"
+              formControlName="flashThickness"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsShakeoutForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Max. Flask Size L x W (mm)</span>
+              <app-info-tooltip [infoId]="'Casting_Max_Flask_Size'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'shotSize'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="shotSize"
+              class="form-control"
+              (blur)="calculateCost()"
+              [OnlyNumber]="true"
+              min="0"
+              [ngClass]="{ 'input-overridden': f.shotSize.dirty && f.shotSize.touched }" />
+          </div>
+          <div
+            class="col-4 mt-3"
+            *ngIf="
+              compVals.processFlag.IsProcessGravityDieCasting ||
+              compVals.processFlag.IsPouringForCasting ||
+              compVals.processFlag.IsProcessHighPressureDieCasting ||
+              compVals.processFlag.IsProcessLowPressureDieCasting
+            ">
+            <label
+              class="form-label no-wrap has-icon"
+              *ngIf="compVals.processFlag.IsProcessGravityDieCasting || compVals.processFlag.IsProcessHighPressureDieCasting || compVals.processFlag.IsProcessLowPressureDieCasting">
+              <span class="label-text">No. of Parts/Hour(Nos)</span>
+              <app-info-tooltip [infoId]="'Casting_No_Of_Parts_Per_Hour'"></app-info-tooltip>
+            </label>
+            <label class="form-label no-wrap has-icon" *ngIf="compVals.processFlag.IsPouringForCasting">
+              <span class="label-text">No. of Molds Poured/Batch (Nos)</span>
+              <app-info-tooltip [infoId]="'Casting_No_Of_Molds_Poured'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfParts'"></app-field-comment>
+            <input type="number" formControlName="noOfParts" class="form-control" readonly [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsFettlingForCasting || compVals.processFlag.IsDegatingForCasting || compVals.processFlag.IsShotblastingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Machine Type</span>
+              <app-info-tooltip [infoId]="'Casting_Machine_Type'"></app-info-tooltip>
+            </label>
+            <input type="text" class="form-control" readonly [value]="compVals.selectedMachineDescription" />
+          </div>
+          <div
+            class="col-4 mt-3"
+            *ngIf="(compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting || compVals.processFlag.IsNoBakeCasting) && compVals.processFlag.IsPouringForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Sprue Diameter({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+              <app-info-tooltip [infoId]="'Casting_Sprue_Diameter'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'SprueDiameter'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="drillDiameter"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              class="form-control"
+              [ngClass]="{ 'input-overridden': f.drillDiameter.dirty && f.drillDiameter.touched }" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsMeltingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Power Utilization (%)</span>
+              <app-info-tooltip [infoId]="'Casting_Power_Utilization'"></app-info-tooltip>
+            </label>
+            <input
+              type="number"
+              formControlName="utilisation"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [ngClass]="{ 'input-overridden': f.utilisation.dirty && f.utilisation.touched }" />
+          </div>
+          <div
+            class="col-4 mt-3"
+            *ngIf="!(compVals.processFlag.IsNoBakeCasting || compVals.processFlag.IsGreenCasting || compVals.processFlag.IsGDCCasting) && compVals.processFlag.IsDegatingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Cutting Rate (Sq.{{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}/sec)</span>
+              <app-info-tooltip [infoId]="'Casting_Cutting_Rate'"></app-info-tooltip>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.cuttingSpeed.errors,
+                'input-valid': f.cuttingSpeed.valid && !f.cuttingSpeed.dirty,
+                'input-overridden': f.cuttingSpeed.dirty && f.cuttingSpeed.touched,
+              }"
+              formControlName="cuttingSpeed"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+          <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsDegatingForCasting">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Force(Ton)</span>
+              <app-info-tooltip [infoId]="'Casting_Force'"></app-info-tooltip>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'theoreticalForce'"></app-field-comment>
+            <input
+              type="number"
+              formControlName="theoreticalForce"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0"
+              (blur)="calculateCost()"
+              [ngClass]="{ 'input-overridden': f.theoreticalForce.dirty && f.theoreticalForce.touched }" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #popContent>
+  <div [innerHTML]="popupName"></div>
+  <div class="div-img" *ngIf="popupUrl">
+    <img alt="" class="img-class" [src]="popupUrl" />
+  </div>
+</ng-template>

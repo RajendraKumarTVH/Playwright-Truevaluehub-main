@@ -17,7 +17,6 @@ export {
     ManufacturingInformation,
     MachineDetails,
     CycleTimeDetails,
-    SubProcessDetails,
     ManufacturingDetails,
     SustainabilityManufacturing,
     CostSummary,
@@ -51,3 +50,9 @@ export {
     ManufacturingDetailsExcelData,
     CostSummaryExcelData
 } from './excel-reader';
+export {
+    materialMasterReader,
+    MaterialMasterReader,
+    MaterialMasterData,
+    MaterialLookupCriteria
+} from './material-master-reader';

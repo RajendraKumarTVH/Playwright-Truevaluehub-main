@@ -1,0 +1,88 @@
+/* Primeng datepicker  updated sytyle */
+.p-datepicker-panel {
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: var(--bs-gray-700);
+  font-family: var(--bs-font-roboto);
+
+  .p-datepicker-select-month {
+    padding: 0.1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 32px;
+    border-radius: 6px;
+    color: var(--bs-gray-700);
+
+    &:hover {
+      color: var(--check-box-blue);
+    }
+
+    &:focus {
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2rem var(--focus-border-color);
+    }
+  }
+
+  .p-datepicker-select-year {
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    color: var(--bs-gray-700);
+
+    span {
+      line-height: 32px;
+    }
+
+    &:hover {
+      color: var(--check-box-blue);
+    }
+
+    &:focus {
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2rem var(--focus-border-color);
+    }
+  }
+
+  .p-button.p-button-icon-only {
+    width: 2rem;
+    height: 2rem;
+    border: 0 none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--bs-secondary);
+  }
+
+  .p-button {
+    &:hover {
+      background: var(--bs-gray-200);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem var(--focus-border-color);
+    }
+  }
+
+  .p-datepicker-day-view {
+    thead {
+      tr {
+        th {
+          border: none;
+
+          span {
+            font-weight: 600;
+            color: var(--bs-gray-700);
+          }
+        }
+      }
+    }
+  }
+
+  .p-datepicker-day-cell {
+    padding: 8px;
+  }
+
+  .p-datepicker-header {
+    border-bottom: 1px solid var(--bs-gray-300);
+  }
+}

@@ -1,0 +1,296 @@
+<ng-container [formGroup]="formGroup">
+  <div class="card mt-3">
+    <div class="card-header">Part Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Pipe Outer Diameter ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Pipe_Outer_Diameter')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partOuterDiameter'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="partOuterDiameter" (blur)="calculateCost()" min="0" />
+          <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessPlasticTubeExtrusion">
+            <span class="label-text">
+                        {{compVals.isEnableUnitConversion ? 'Envelope Height ('+ compVals.conversionValue + ')' :
+                        'Envelope Height(mm)' }}
+                        </span
+                        <span class="notification" [ngbPopover]="popContent" placement="auto"  
+                            (click)="showinfo('Envelope_Height_mm')"><mat-icon class="info-icon" svgIcon="information"></mat-icon></span>:
+                    </label>
+                    <app-field-comment class="position-absolute right-top-comment"
+                        [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'height'"></app-field-comment>
+                    <input type="number" [ngClass]="{'input-mandatory':f.height.errors,'input-valid': f.height.valid && !f.height.dirty, 'input-overridden': f.height.dirty && f.height.touched}"
+                        class="form-control" formControlName="height" [OnlyNumber]="true" placeholder="Height"
+                        (blur)="calculateCost()" min="0" /> -->
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Pipe Inner Diameter ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Pipe_Inner_Diameter')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partInnerDiameter'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="partInnerDiameter" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Pipe Length ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Envelope_Length_mm')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'length'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.length.errors,
+              'input-valid': f.length.valid && !f.length.dirty,
+              'input-overridden': f.length.dirty && f.length.touched,
+            }"
+            class="form-control"
+            formControlName="length"
+            [OnlyNumber]="true"
+            placeholder="Length"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 mt-3 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Pipe Thickness ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Wall_Thickness_mm')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'wallThickness'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" formControlName="wallAverageThickness" (blur)="calculateCost()" min="0" />
+          <!-- <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessPlasticTubeExtrusion">
+            <span class="label-text">
+                        Envelope Width ({{compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }})
+                        </span>
+                        <span class="notification" [ngbPopover]="popContent" placement="auto"  
+                            (click)="showinfo('Envelope_Width_mm')"><mat-icon class="info-icon" svgIcon="information"></mat-icon></span>:
+                    </label>
+                    <app-field-comment class="position-absolute right-top-comment"
+                        [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'width'"></app-field-comment>
+                    <input type="number" [ngClass]="{'input-mandatory':f.width.errors,'input-valid': f.width.valid && !f.width.dirty, 'input-overridden': f.width.dirty && f.width.touched}"
+                        class="form-control" formControlName="width" [OnlyNumber]="true" placeholder="Width"
+                        (blur)="calculateCost()" min="0" /> -->
+        </div>
+        <!-- <div class="col-4 mt-3 position-relative">
+                    <label class="form-label no-wrap">Area of Cross Section {{ compVals.isEnableUnitConversion ? '('+
+                        compVals.conversionValue + '^2)' : '(mm^2)' }} :
+                    </label>
+                    <app-field-comment class="position-absolute right-top-comment"
+                        [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+                    <input type="number"
+                        [ngClass]="{'input-mandatory':f.partProjectArea.errors,'input-valid': f.partProjectArea.valid && !f.partProjectArea.dirty, 'input-overridden': f.partProjectArea.dirty && f.partProjectArea.touched}"
+                        class="form-control" placeholder="Enter Area" [OnlyNumber]="true"
+                        formControlName="partProjectArea" (blur)="calculateCost()" min="0" />
+                </div> -->
+
+        <div class="row">
+          <div class="col-4 position-relative">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">
+                Part Projected Area
+                {{ isEnableUnitConversion ? '(' + conversionValue + '^2)' : '(mm^2)' }}
+              </span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Part_Projected_Area')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="formIdentifier" [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.partProjectArea.errors,
+                'input-valid': f.partProjectArea.valid,
+              }"
+              class="form-control"
+              placeholder="Enter Area"
+              [OnlyNumber]="true"
+              formControlName="partProjectArea"
+              (blur)="calculateCost()"
+              min="0" />
+          </div>
+          <div class="col-4 position-relative">
+            <label class="form-label no-wrap">
+              <span class="label-text">
+                Part Surface Area
+                {{ isEnableUnitConversion ? '(' + conversionValue + '^2)' : '(mm^3)' }}
+              </span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Part_Surface_Area')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="formIdentifier" [fieldIdentifier]="'partSurfaceArea'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="partSurfaceArea" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 position-relative">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">
+                Part Volume
+                {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^3)' : '(mm^3)' }}
+              </span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Part_Volume_plastic-tube')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+            <input type="number" class="form-control" [OnlyNumber]="true" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Part Weight (g)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Part_Weight_plastic-tube')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+            <input
+              type="number"
+              class="form-control"
+              [ngClass]="{
+                'input-mandatory': f.netWeight.errors,
+                'input-valid': f.netWeight.valid && !f.netWeight.dirty,
+                'input-overridden': f.netWeight.dirty && f.netWeight.touched,
+              }"
+              placeholder="Enter weight"
+              formControlName="netWeight"
+              [OnlyNumber]="true"
+              (blur)="calculateCost()"
+              min="0" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No. of inserts</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('No_of_Inserts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="formIdentifier" [fieldIdentifier]="'noOfInserts'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfInserts.errors,
+                'input-valid': f.noOfInserts.valid && !f.noOfInserts.dirty,
+                'input-overridden': f.noOfInserts.dirty && f.noOfInserts.touched,
+              }"
+              class="form-control"
+              formControlName="noOfInserts"
+              [OnlyNumber]="true"
+              (blur)="calculateCost()"
+              min="0" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Material Utilization (%)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Material_Utilisation_Plastic_Tube')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'utilisation'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="utilisation" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div>
+          <!-- <div class="col-4 mt-3">
+            <label class="form-label no-wrap">Gross Weight (g)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'grossWeight'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="grossWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">Scrap Weight/Part (g)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Material Cost Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Gross Weight/Part (g)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Gross_Weight_Per_Part_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'grossWeight'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="grossWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Scrap Weight/Part (g)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Scrap_Weight_Per_Part_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Scrap Recovery/Part (%)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Scrap_Recovery_Percentage_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapRecovery'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="scrapRecovery" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Gross Material Cost/Part ($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Gross_Material_Cost_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="grossMaterialCost" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Scrap Recovery Cost/Part($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Scrap_Recovery_Cost_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="scrapRecCost" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Regrind Percentage (%)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Regrind_Percentage_Plastic_Tube')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <app-field-comment [formIdentifier]="formIdentifier" [fieldIdentifier]="'regrindAllowance'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="regrindAllowance" [OnlyNumber]="true" min="0" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mx-auto">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text font-medium">Net Material Cost ($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Net_Material_Cost')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control text-base font-semibold" formControlName="netMaterialCost" readonly />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #popContent>
+  <div [innerHTML]="popupName"></div>
+  <div class="div-img" *ngIf="popupUrl">
+    <img alt="" class="img-class" [src]="popupUrl" />
+  </div>
+</ng-template>

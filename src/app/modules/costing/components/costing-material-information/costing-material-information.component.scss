@@ -1,0 +1,163 @@
+// .grid-bg-color {
+//   td {
+//     background-color: rgba(157, 160, 156, 0.377);
+//   }
+// }
+
+// tbody {
+//   background-color: #ffffff;
+//   color: #000000;
+// }
+
+.notification {
+  padding: 2px;
+  cursor: pointer;
+  //display: inline-block;
+  color: black;
+  // background-color: rgba(0, 0, 255, 0.233);
+}
+
+.icon-btn {
+  a .primary {
+    color: #0d6efd;
+  }
+
+  a .warn {
+    color: #dc3545;
+  }
+}
+
+.notification:hover {
+  color: blue;
+}
+
+.div-img {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding-top: 5%;
+  cursor: pointer;
+}
+
+.img-class {
+  transition: transform 0.2s;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  background-color: rgb(173, 173, 237);
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+img:hover {
+  transform: scale(2.5);
+}
+
+select optgroup {
+  font-style: italic;
+  font-weight: 300;
+
+  option {
+    font-style: normal;
+    font-weight: normal;
+  }
+}
+
+// .table-head {
+//   font-size: 12px;
+// }
+
+::ng-deep {
+  .popover-header {
+    font-size: 14px;
+  }
+  .popover-body {
+    font-size: 12px;
+  }
+  .filter-field {
+    border: solid 1px var(--bs-gray-400);
+    border-radius: 4px;
+
+    .p-select-label {
+      padding: 4px 8px;
+    }
+  }
+}
+
+.search-link {
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  width: fit-content;
+  letter-spacing: 0px;
+  align-items: center;
+  color: var(--primary-shade) !important;
+
+  .mat-icon {
+    width: 12px;
+    height: 12px;
+    font-size: 16px;
+    margin-right: 4px;
+  }
+}
+
+.link-info {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0px;
+  color: var(--primary-shade) !important;
+}
+
+.center {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-wrap {
+  width: 100%;
+  height: auto;
+  display: block;
+  min-height: 242px;
+  border-radius: 6px;
+  background: var(--bs-white);
+  border: 1px solid var(--bs-border-color);
+}
+.chart {
+  width: 100%;
+  display: block;
+}
+
+.pre-formatted-text {
+  white-space: pre;
+}
+
+.stock-up {
+  line-height: 150%;
+  border-radius: 6px;
+  border: 1px solid var(--status-green-border);
+  background-color: var(--stock-green-bg);
+  .value {
+    color: var(--table-green-text);
+  }
+}
+.stock-down {
+  line-height: 150%;
+  border-radius: 6px;
+  border: 1px solid var(--stock-red-border);
+  background-color: var(--bg-light-red);
+  .value {
+    color: var(--stock-red-text);
+  }
+}
+.chemical-chart-header {
+  .notification-icon {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+}

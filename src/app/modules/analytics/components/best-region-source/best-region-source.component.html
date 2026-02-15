@@ -1,0 +1,81 @@
+<div class="container-fluid analytics-container flex flex-col h-full bg-white">
+  <div class="page-header flex p-1 pt-3 w-full">
+    <h2 class="mb-0 text-base font-semibold" *ngIf="simulationResult.length === 0">Best Region to Source</h2>
+    <!-- Uncomment below code for breadcrumb -->
+    <div class="flex items-center gap-0 breadcrumb-wrap" *ngIf="isRunAnalysisClicked && simulationResult.length > 0">
+      <a href="/analytics/simulation" class="text-xs text-black underline link" [routerLink]="['/analytics/simulation']" (click)="resetToInitialState()">Best Region to Source</a>
+      <mat-icon class="play-icon !size-2 mx-[6px] shrink-0" svgIcon="play-filled-icon"></mat-icon>
+      <p class="mb-0 text-xs text-black">{{ analysisName }}</p>
+    </div>
+  </div>
+  <div class="tab-container bg-white flex form-group flex-col px-1 pt-10">
+    <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+      <mat-tab label="New">
+        <div class="flex flex-col content-wrap mt-3 p-3">
+          <!-- First Section -->
+          <div class="content-section container-fluid form-container flex flex-col !px-0 gap-0 !pb-5">
+            <div class="flex form-header items-center gap-2" *ngIf="isRunAnalysisClicked && simulationResult?.length > 0 && !isEditMode">
+              <h3 class="form-title font-semibold text-sm mb-0">
+                {{ analysisName }}
+              </h3>
+              <button class="text-xs border-none edit-btn p-0 m-0 shadow-none app-l-header-edit-btn icon-btn flex justify-center items-center w-6 h-6" (click)="enableEdit()" title="Edit">
+                <mat-icon class="shrink-0" svgIcon="editpen_icon"></mat-icon>
+              </button>
+            </div>
+            <!-- Uncomment for editable state of form header -->
+            <div class="flex items-center editable-header row pb-2" *ngIf="isRunAnalysisClicked && simulationResult?.length > 0 && isEditMode">
+              <div class="col-4">
+                <input type="text" class="form-control" [(ngModel)]="tempAnalysisName" placeholder="Enter value" autofocus />
+              </div>
+
+              <div class="flex items-center gap-2 editable-header-controls col-4">
+                <button class="flex items-center justify-center btn btn-primary save" (click)="saveEdit()" title="Save">
+                  <mat-icon class="text-sm shrink-0" svgIcon="check-icon"></mat-icon>
+                </button>
+
+                <button class="flex items-center justify-center btn btn-outline-secondary icon-btn" (click)="cancelEdit()" title="Cancel">
+                  <mat-icon class="text-sm shrink-0" svgIcon="close_icon"></mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <app-simulation-form
+              [simulationFormData]="simulationFormData"
+              [hasResults]="simulationResult?.length > 0"
+              [page]="pageEnum.BestRegion"
+              [currentAnalysisId]="currentAnalysisId"
+              (partInfo)="assignPart($event)"
+              (runSimulationEmit)="runSimulation($event)"
+              (saveSimulationResultEmit)="saveSimulationResult()"
+              (reInitFetchEmit)="reInitFetch($event)"
+              (copyAnalysisEmit)="makeCopyInNewTab()"
+              (deleteAnalysisEmit)="deleteCurrentAnalysis()"></app-simulation-form>
+          </div>
+
+          <!-- Graph Section -->
+          <div>
+            <h3 class="form-title font-semibold text-sm mb-0 seperator-solid-top" *ngIf="simulationResult?.length > 0">Best Region Graph</h3>
+            <app-chart
+              *ngIf="simulationResult?.length"
+              [chartType]="chartType"
+              [chartConstructor]="chartConstructor"
+              [chartHeight]="chartHeight"
+              [chartData]="simulationResult"
+              class="best-region-chart"></app-chart>
+          </div>
+          <!-- Data Section -->
+          <div *ngIf="simulationResult?.length" class="content-section container-fluid flex flex-col gap-3 !px-0 seperator-solid-top !mt-5">
+            <div class="flex form-header items-center gap-2">
+              <h3 class="form-title font-semibold text-sm mb-0">Best Region Data</h3>
+            </div>
+            <app-best-region-table [data]="simulationResult"></app-best-region-table>
+          </div>
+        </div>
+      </mat-tab>
+      <!-- Uncomment below code for Saved tab -->
+      <mat-tab label="Saved">
+        <app-saved-analysis #savedAnalysis (copyAnalysisEmit)="loadCopiedAnalysis($event)" (openAnalysisEmit)="loadCopiedAnalysis($event)"></app-saved-analysis>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

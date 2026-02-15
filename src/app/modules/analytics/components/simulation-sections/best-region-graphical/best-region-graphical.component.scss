@@ -1,0 +1,10 @@
+:host {
+  position: relative;
+}
+app-best-region-graphical {
+  pointer-events: none;
+}
+
+app-best-region-graphical ::ng-deep .chart-area {
+  pointer-events: all;
+}

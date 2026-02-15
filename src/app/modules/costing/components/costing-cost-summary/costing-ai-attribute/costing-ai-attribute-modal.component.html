@@ -1,0 +1,95 @@
+<button type="button" class="btn-close" aria-label="Close" (click)="dismissAll()"></button>
+<div class="ai-attribute-modal-container">
+  <div *ngIf="!showLoader" class="info-secion-container">
+    <div class="info-section material-section">
+      <app-material-table [materialInfoList]="materialInfoDataSource"></app-material-table>
+    </div>
+    <div class="info-section manufacturing-section">
+      <app-manufacturing-table [machineInfoList]="processInfoDataSource"></app-manufacturing-table>
+    </div>
+    <div class="info-section tooling-section">
+      <app-tooling-table [compVals]="toolingInfoDataSource"></app-tooling-table>
+    </div>
+    <div class="Seccondary-process-section">
+      <div class="card">
+        <div class="card-header">Secondary Process</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" aria-describedby="Secondary Process">
+              <thead>
+                <tr>
+                  <th scope="col" class="table-head">Sl #</th>
+                  <th scope="col" class="table-head">Process Name</th>
+                  <th scope="col" class="table-head">Cost($)</th>
+                  <th scope="col" class="table-head">Comments</th>
+                  <th scope="col" class="table-head">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row" *ngFor="let d of secondaryProcessDataSource; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    {{ secondaryProcessNamesMap.get(d.secondaryProcessId || 0) }}
+                  </td>
+                  <td>{{ sharedService.isValidNumber(d.platingCost) }}</td>
+                  <td>{{ d.processRemarks }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="purchased-section">
+      <div class="row row-cols-2">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">Purchased (Catalogue) Parts Information</div>
+            <div class="col-lg-12">
+              <table class="table" aria-describedby="Purchased Parts">
+                <thead>
+                  <tr>
+                    <th scope="col" class="table-head">Sl #</th>
+                    <th scope="col" class="table-head">Part Name</th>
+                    <th scope="col" class="table-head">Description</th>
+                    <th scope="col" class="table-head">Reference</th>
+                    <th scope="col" class="table-head">Unit Cost($)</th>
+                    <th scope="col" class="table-head">Qty</th>
+                    <th scope="col" class="table-head">Extended Cost</th>
+                    <th scope="col" class="table-head">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr scope="row" *ngFor="let d of costInfoDataSource; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ d.partName }}</td>
+                    <td id="{{ 'row' + i }}">
+                      <p id="{{ 'row' + i }}-content" class="read-more-content">
+                        {{ d.description }}
+                      </p>
+                      <ng-container *ngIf="d.description?.trim().length > 0">
+                        <a href="javascript:void(0);" id="{{ 'row' + i }}-more" (click)="toggleReadMore('row' + i)">Read more</a>
+                        <a href="javascript:void(0);" id="{{ 'row' + i }}-less" style="display: none" (click)="toggleReadMore('row' + i)">Read less</a>
+                      </ng-container>
+                    </td>
+                    <td>{{ d.partNo }}</td>
+                    <td>{{ d.partCost | number: '.2-2' }}</td>
+                    <td>{{ d.qty }}</td>
+                    <td>{{ d.extCost | number: '.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="packaging-secion">
+      <div _ngcontent-nco-c359="" class="card-header">Packaging</div>
+      <app-costing-packaging-information [part]="partInfoDto" #packageinfo></app-costing-packaging-information>
+    </div>
+  </div>
+  <div class="overlay" *ngIf="showLoader">
+    <div class="bt-spinners"></div>
+  </div>
+</div>

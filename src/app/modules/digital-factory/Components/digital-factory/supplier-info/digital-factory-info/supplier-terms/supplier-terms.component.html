@@ -1,0 +1,111 @@
+<form [formGroup]="form">
+  <div class="flex flex-col gap-2">
+    <div class="card !pl-3 !pr-3 !pt-3">
+      <h2 class="text-xs font-semibold !mb-3">Supplier Terms</h2>
+      <div class="add-fields row flex-wrap">
+        <div class="col-3 !mb-3">
+          <label for="supplierId" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Unique ID</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <div class="form-control category-input-dropdown">{{ digitalFactoryInfo?.supplierId }}</div>
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="paymentTerms" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Vendor Status</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="paymentTerms" name="paymentTerms" type="text" class="form-control category-input-dropdown" placeholder="Enter value" />
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="incotermId" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Incoterms</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown mat-selectbox">
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="incotermId">
+                <mat-option *ngFor="let option of incoterms" [value]="option.value">
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="vmiType" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Vmi Type</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="vmiType" name="vmiType" type="text" class="form-control category-input-dropdown" placeholder="Enter Vmi type" />
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="annualSpendType" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Annual Spend Type</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="annualSpendType" name="annualSpendType" type="text" class="form-control category-input-dropdown" />
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="uniqueCategories" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Unique Categories</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="uniqueCategories" name="uniqueCategories" type="text" class="form-control category-input-dropdown" />
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="contractStatus" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Contract Status</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="contractStatus" name="contractStatus" type="text" class="form-control category-input-dropdown" />
+          </div>
+        </div>
+
+        <div class="col-3 !mb-3">
+          <label for="contractStatus" class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Client Supplier Contact</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <div class="col category-dropdown">
+            <input formControlName="contractStatus" name="contractStatus" type="text" class="form-control category-input-dropdown" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-edit-toolbar [canUndo]="canUndo()" [canRedo]="canRedo()" [dirty]="isDirty()" (undo)="undo()" (redo)="redo()" (save)="save()" (discard)="discard()"></app-edit-toolbar>

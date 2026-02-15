@@ -1,0 +1,228 @@
+<div [formGroup]="smdPlacementForm">
+  <div class="row">
+    <div class="col">
+      <span style="font-weight: bold; border-bottom: 1px solid">No. of SMD Sides:</span>
+    </div>
+    <div class="col">
+      <input class="form-check-input" (change)="smdSelectionChange(0)" type="radio" [value]="0" id="flexRadioDefault0" formControlName="smdSelection" />
+      <label class="form-check-label" for="flexRadioDefault0">No SMD</label>
+    </div>
+    <div class="col">
+      <input class="form-check-input" (change)="smdSelectionChange(1)" type="radio" [value]="1" id="flexRadioDefault1" formControlName="smdSelection" />
+      <label class="form-check-label" for="flexRadioDefault1">Single Side</label>
+    </div>
+    <div class="col">
+      <input class="form-check-input" (change)="smdSelectionChange(2)" type="radio" [value]="2" id="flexRadioDefault2" formControlName="smdSelection" />
+      <label class="form-check-label" for="flexRadioDefault2">Double Side</label>
+    </div>
+  </div>
+  <!--Single sided div-->
+  <div class="mt-3" *ngIf="showSingleSideSelectionDiv">
+    <div class="pickandplacediv">
+      <span class="bottomline">Pick and Place Machine:</span>
+      <div class="row alignitemscenter">
+        <div class="col-3 text-center">
+          <span class="bottomline">Top side:</span>
+        </div>
+        <div class="col-6">
+          <select id="inputState" #machinetopside class="form-control" formControlName="selectedMachineTopSide">
+            <option *ngFor="let item of machineData" [value]="item.machineName">
+              {{ item.machineName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row alignitemscenter" *ngIf="showSingleSideSelectionDiv && showDoubleSideSelectionDiv">
+        <div class="col-3 text-center">
+          <span class="bottomline">Bottom side:</span>
+        </div>
+        <div class="col-6">
+          <select id="inputState" class="form-control" formControlName="selectedMachineBottomSide">
+            <option *ngFor="let item of machineData" [value]="item.machineName">
+              {{ item.machineName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!--topside component-->
+    <div id="topsidecomponent" formGroupName="topSideComponentForm">
+      <span style="border-bottom: 1px solid">Top side component</span>
+      <div class="row ml-2 mr-2 alignitemscenter">
+        <div class="col-6 mt-2 mb-2 textoverflowellipis">
+          <span placement="top" ngbTooltip="Complexity of board for Pick Place Operation on top side:">Complexity of board for Pick Place Operation on top side:</span>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="topSideComplexitySelection($event)" [value]="0" id="placeoperation0" />
+          <label class="form-check-label" for="placeoperation0">Low</label>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="topSideComplexitySelection($event)" [value]="1" id="placeoperation1 /" />
+          <label class="form-check-label" for="placeoperation1">Medium</label>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="topSideComplexitySelection($event)" [value]="2" id="placeoperation2" />
+          <label class="form-check-label" for="placeoperation2">High</label>
+        </div>
+      </div>
+      <div class="row">
+        <!--singel side types of SMD component count(left)-->
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <p class="bottomline text-center">Types of SMD component count</p>
+              <div class="form-group">
+                <label class="mb-2">2 &amp; 3 Lead Parts:</label>
+                <input type="number" (keyup)="toptypesmdInputChange()" formControlName="leadParts" class="form-control mb-2 hideupdownnumberinput" placeholder="2 & 3 Lead Parts" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">IC Parts:</label>
+                <input type="number" (keyup)="toptypesmdInputChange()" formControlName="icParts" class="form-control mb-2 hideupdownnumberinput" placeholder="IC Parts" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">Complex Parts</label>
+                <input type="number" (keyup)="toptypesmdInputChange()" formControlName="complexParts" class="form-control mb-2 hideupdownnumberinput" placeholder="Complex Parts" />
+              </div>
+              <div class="form-group" style="margin-left: 50px">
+                <label class="mb-2">Total SMD part types:</label>
+                <input
+                  type="number"
+                  (keyup)="toptypesmdInputChange()"
+                  formControlName="totalSMDParts"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  [attr.disabled]="1"
+                  placeholder="Total SMD part types" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--singel side placement of SMD component count(right)-->
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <p class="bottomline text-center">Placement of SMD component count</p>
+              <div class="form-group">
+                <label class="mb-2">2 &amp; 3 Lead Placements:</label>
+                <input type="number" (keyup)="topplacementsmdInputChange()" formControlName="leadPlacements" class="form-control mb-2 hideupdownnumberinput" placeholder="2 & 3 Lead Placements" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">IC Placements:</label>
+                <input type="number" (keyup)="topplacementsmdInputChange()" formControlName="icPlacements" class="form-control mb-2 hideupdownnumberinput" placeholder="IC Placements" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">Complex Parts Placements:</label>
+                <input
+                  type="number"
+                  (keyup)="topplacementsmdInputChange()"
+                  formControlName="complexPartsPlacement"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  placeholder="Complex Parts Placements" />
+              </div>
+              <div class="form-group" style="margin-left: 50px">
+                <label class="mb-2">Total No.of SMD Placements:</label>
+                <input
+                  type="number"
+                  (keyup)="topplacementsmdInputChange()"
+                  formControlName="totalSMDPlacements"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  [attr.disabled]="1"
+                  placeholder="Total No.of SMD Placements" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end of topside component-->
+    <hr />
+    <!--bottomside component-->
+    <div id="bottomsidecomponent" formGroupName="bottomSideForm" *ngIf="showSingleSideSelectionDiv && showDoubleSideSelectionDiv">
+      <span style="border-bottom: 1px solid">Bottom side component</span>
+      <div class="row ml-2 mr-2 alignitemscenter">
+        <div class="col-6 mt-2 mb-2 textoverflowellipis">
+          <span placement="top" ngbTooltip="Complexity of board for Pick Place Operation on bottom side:">Complexity of board for Pick Place Operation on bottom side:</span>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="bottomSideComplexitySelection($event)" [value]="0" id="placeoperation0-bottom" />
+          <label class="form-check-label" for="placeoperation0-bottom">Low</label>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="bottomSideComplexitySelection($event)" [value]="1" id="placeoperation1-bottom" />
+          <label class="form-check-label" for="placeoperation1-bottom">Medium</label>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="radio" formControlName="boardComplexity" (change)="bottomSideComplexitySelection($event)" [value]="2" id="placeoperation2-bottom" />
+          <label class="form-check-label" for="placeoperation2-bottom">High</label>
+        </div>
+      </div>
+      <div class="row">
+        <!--singel side types of SMD component count(left)-->
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <p class="bottomline text-center">Types of SMD component count</p>
+              <div class="form-group">
+                <label class="mb-2">2 &amp; 3 Lead Parts:</label>
+                <input type="number" (keyup)="bottomtypesmdInputChange()" formControlName="leadParts" class="form-control mb-2 hideupdownnumberinput" placeholder="2 & 3 Lead Parts" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">IC Parts:</label>
+                <input type="number" (keyup)="bottomtypesmdInputChange()" formControlName="icParts" class="form-control mb-2 hideupdownnumberinput" placeholder="IC Parts" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">Complex Parts</label>
+                <input type="number" (keyup)="bottomtypesmdInputChange()" formControlName="complexParts" class="form-control mb-2 hideupdownnumberinput" placeholder="Complex Parts" />
+              </div>
+              <div class="form-group" style="margin-left: 50px">
+                <label class="mb-2">Total SMD part types:</label>
+                <input
+                  type="number"
+                  (keyup)="bottomtypesmdInputChange()"
+                  formControlName="totalSMDParts"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  [attr.disabled]="1"
+                  placeholder="Total SMD part types" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--single side placement of SMD component count(right)-->
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <p class="bottomline text-center">Placement of SMD component count</p>
+              <div class="form-group">
+                <label class="mb-2">2 &amp; 3 Lead Placements:</label>
+                <input type="number" (keyup)="bottomplacementsmdInputChange()" formControlName="leadPlacements" class="form-control mb-2 hideupdownnumberinput" placeholder="2 & 3 Lead Placements" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">IC Placements:</label>
+                <input type="number" (keyup)="bottomplacementsmdInputChange()" formControlName="icPlacements" class="form-control mb-2 hideupdownnumberinput" placeholder="IC Placements" />
+              </div>
+              <div class="form-group">
+                <label class="mb-2">Complex Parts Placements:</label>
+                <input
+                  type="number"
+                  (keyup)="bottomplacementsmdInputChange()"
+                  formControlName="complexPartsPlacement"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  placeholder="Complex Parts Placements" />
+              </div>
+              <div class="form-group" style="margin-left: 50px">
+                <label class="mb-2">Total No.of SMD Placements:</label>
+                <input
+                  type="number"
+                  (keyup)="bottomplacementsmdInputChange()"
+                  formControlName="totalSMDPlacements"
+                  class="form-control mb-2 hideupdownnumberinput"
+                  [attr.disabled]="1"
+                  placeholder="Total No.of SMD Placements" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--bottom side component-->
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<form [formGroup]="form">
+  <div class="supplier-profile-container flex justify-between !gap-4">
+    <div class="factory-layout flex-1">
+      <div class="card !p-3">
+        <div class="text-xs font-semibold !mb-7">Factory Footprint</div>
+        <div class="row flex-wrap">
+          <div class="col-12 col-md-6 col-xl-3">
+            <label for="factoryTotalSize" class="add-label form-label no-wrap no-wrap">
+              <span class="label-text">Total Size (sq ft)</span>
+            </label>
+            <input id="factoryTotalSize" formControlName="factoryTotalSize" type="number" class="form-control form-control" />
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+            <mat-label class="add-label form-label no-wrap has-icon">
+              <span class="label-text">
+                Factory Type
+                <span style="color: red">*</span>
+              </span>
+              <span class="notification" placement="auto" popoverTitle="Description">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </mat-label>
+            <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+              <input matInput formControlName="factoryType" type="dropdown" [matAutocomplete]="factoryTypeAuto" placeholder="Select factory type" class="form-control category-input-dropdown" />
+              <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+              <mat-autocomplete #factoryTypeAuto="matAutocomplete">
+                <mat-option *ngFor="let option of ['Climate Controlled', 'Non-Climate Controlled', 'Mixed']" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="card !p-3">
+        <div class="text-xs font-semibold !mb-7">Factory Hours</div>
+        <div class="row flex-wrap">
+          <div class="col-12 col-md-6 col-xl-3">
+            <label for="shiftsPerDay" class="form-label no-wrap">Number of Shifts/day</label>
+            <input formControlName="shiftsPerDay" name="shiftsPerDay" type="number" class="form-control form-control" placeholder="Enter Number of Shifts" />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <label for="hoursPerShift" class="form-label no-wrap">Hours per shift(hrs)</label>
+            <input formControlName="hoursPerShift" name="hoursPerShift" type="number" class="form-control" placeholder="Enter hours per shift" />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <label for="workingDaysPerYear" class="form-label no-wrap">Working days per year(days)</label>
+            <input formControlName="workingDaysPerYear" name="workingDaysPerYear" type="number" class="form-control" placeholder="Enter working days per year" />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <label for="totalBreaksPerShift" class="form-label no-wrap">Total Breaks per Shift (Minutes)</label>
+            <input formControlName="totalBreaksPerShift" name="totalBreaksPerShift" type="number" class="form-control" placeholder="Enter total breaks per shift" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right Column - Annual Hours and Market Comparison -->
+    <div class="annual-hours-column">
+      <!-- Total Annual Hours -->
+      <div class="card !p-3">
+        <div class="text-xs font-semibold !mb-3">Total Annual Hours</div>
+        <div class="total-anual-hours-field">
+          <label for="totalAnualHours" class="form-label">(Hours per day - (Total Breaks per Shift / 60)) * Working Days per Year</label>
+          <input type="text" class="form-control text-lg font-bold text-center" formControlName="totalAnualHours" />
+        </div>
+        <!-- Market Comparison (Cost) -->
+        <div class="market-comparison-section !mt-8">
+          <label for="" class="form-label no-wrap text-center w-full justify-center">Market Comparison (Cost)</label>
+          <div class="gauge-container flex justify-center">
+            <ng-container [ngSwitch]="getMarketComparisonColor()">
+              <!-- LOW = RED -->
+              <ng-container *ngSwitchCase="'low'">
+                <svg width="126" height="82" viewBox="0 0 126 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_11149_30131)">
+                    <path
+                      d="M8.5427 69.6278C8.5427 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747C89.5371 22.581 95.4738 26.5477 100.474 31.5484C105.475 36.549 109.442 42.4857 112.148 49.0194C114.855 55.553 116.247 62.5558 116.247 69.6278"
+                      stroke="#E2E2E2"
+                      stroke-width="18.0713" />
+                    <path
+                      d="M8.54269 69.6278C8.54269 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747"
+                      stroke="#F9D645"
+                      stroke-width="17.1075" />
+                    <path d="M86.9482 11.0985L68.644 60.3043L62.9173 57.7758L86.9482 11.0985Z" fill="black" />
+                    <path
+                      d="M64.426 54.3223C68.4182 54.3223 71.6545 57.5586 71.6545 61.5508C71.6545 65.543 68.4182 68.7793 64.426 68.7793C60.4338 68.7793 57.1975 65.543 57.1974 61.5508C57.1974 57.5586 60.4338 54.3223 64.426 54.3223ZM64.426 59.1406C63.0952 59.1406 62.0168 60.22 62.0168 61.5508C62.0169 62.8814 63.0953 63.96 64.426 63.96C65.7566 63.9599 66.835 62.8814 66.8351 61.5508C66.8351 60.2201 65.7567 59.1406 64.426 59.1406Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_11149_30131">
+                      <rect width="125.294" height="81.9231" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </ng-container>
+
+              <!-- MEDIUM = YELLOW -->
+              <ng-container *ngSwitchCase="'medium'">
+                <svg width="126" height="82" viewBox="0 0 126 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_11149_30131)">
+                    <path
+                      d="M8.5427 69.6278C8.5427 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747C89.5371 22.581 95.4738 26.5477 100.474 31.5484C105.475 36.549 109.442 42.4857 112.148 49.0194C114.855 55.553 116.247 62.5558 116.247 69.6278"
+                      stroke="#E2E2E2"
+                      stroke-width="18.0713" />
+                    <path
+                      d="M8.54269 69.6278C8.54269 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747"
+                      stroke="#F9D645"
+                      stroke-width="17.1075" />
+                    <path d="M86.9482 11.0985L68.644 60.3043L62.9173 57.7758L86.9482 11.0985Z" fill="black" />
+                    <path
+                      d="M64.426 54.3223C68.4182 54.3223 71.6545 57.5586 71.6545 61.5508C71.6545 65.543 68.4182 68.7793 64.426 68.7793C60.4338 68.7793 57.1975 65.543 57.1974 61.5508C57.1974 57.5586 60.4338 54.3223 64.426 54.3223ZM64.426 59.1406C63.0952 59.1406 62.0168 60.22 62.0168 61.5508C62.0169 62.8814 63.0953 63.96 64.426 63.96C65.7566 63.9599 66.835 62.8814 66.8351 61.5508C66.8351 60.2201 65.7567 59.1406 64.426 59.1406Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_11149_301311">
+                      <rect width="125.294" height="81.9231" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </ng-container>
+
+              <!-- HIGH = GREEN -->
+              <ng-container *ngSwitchCase="'high'">
+                <svg width="126" height="82" viewBox="0 0 126 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_11149_30131)">
+                    <path
+                      d="M8.5427 69.6278C8.5427 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747C89.5371 22.581 95.4738 26.5477 100.474 31.5484C105.475 36.549 109.442 42.4857 112.148 49.0194C114.855 55.553 116.247 62.5558 116.247 69.6278"
+                      stroke="#E2E2E2"
+                      stroke-width="18.0713" />
+                    <path
+                      d="M8.54269 69.6278C8.54269 62.5558 9.93563 55.553 12.642 49.0194C15.3483 42.4857 19.315 36.549 24.3157 31.5484C29.3163 26.5477 35.253 22.581 41.7867 19.8747C48.3203 17.1683 55.3231 15.7754 62.3951 15.7754C69.4671 15.7754 76.4698 17.1683 83.0035 19.8747"
+                      stroke="#F9D645"
+                      stroke-width="17.1075" />
+                    <path d="M86.9482 11.0985L68.644 60.3043L62.9173 57.7758L86.9482 11.0985Z" fill="black" />
+                    <path
+                      d="M64.426 54.3223C68.4182 54.3223 71.6545 57.5586 71.6545 61.5508C71.6545 65.543 68.4182 68.7793 64.426 68.7793C60.4338 68.7793 57.1975 65.543 57.1974 61.5508C57.1974 57.5586 60.4338 54.3223 64.426 54.3223ZM64.426 59.1406C63.0952 59.1406 62.0168 60.22 62.0168 61.5508C62.0169 62.8814 63.0953 63.96 64.426 63.96C65.7566 63.9599 66.835 62.8814 66.8351 61.5508C66.8351 60.2201 65.7567 59.1406 64.426 59.1406Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_11149_301311">
+                      <rect width="125.294" height="81.9231" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-edit-toolbar [canUndo]="canUndo()" [canRedo]="canRedo()" [dirty]="isDirty()" (undo)="undo()" (redo)="redo()" (save)="save()" (discard)="discard()"></app-edit-toolbar>

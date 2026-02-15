@@ -1,0 +1,59 @@
+<div class="modal-content" *ngIf="deleteId <= 0">
+  <div class="modal-header flex items-center justify-between">
+    <h5 class="modal-title font-semibold mb-0">Notes for {{ data.fieldIdentifier | camelcaseToWords }}</h5>
+    <button aria-label="Close modal" title="Close Modal" class="modal-close flex items-center justify-center border-none bg-white">
+      <mat-icon class="close-icon" matTooltip="Close" matTooltipPosition="above" (click)="onCancel()">close_icon</mat-icon>
+    </button>
+  </div>
+  <div #scrollContainer class="modal-body custom-scroller">
+    <div class="flex flex-col" [ngClass]="{ 'mb-3': comments.length === 1 }">
+      <textarea class="form-control" [(ngModel)]="currentComment" placeholder="Type your Notes here..." maxlength="250"></textarea>
+      <div class="mt-3 d-flex justify-content-end">
+        <!-- <button class="btn btn-sm btn-secondary me-3" (click)="onCancel()">Cancel</button> -->
+        <button class="btn btn-sm btn-primary" (click)="onSubmit()">Submit</button>
+      </div>
+    </div>
+    <i class="fa fa-sort text-primary sort-icon" matTooltip="Sort" matTooltipPosition="above" *ngIf="comments.length > 1" (click)="sortComments()">Sort</i>
+    <ul class="list-group">
+      <!-- <li class="list-group-item px-5 py-3" *ngIf="comments.length <= 0">
+                No comments added yet
+            </li> -->
+      <li class="list-group-item mb-2 comment-font" *ngFor="let comment of comments">
+        <div class="d-flex justify-content-between align-items-start comment-font">
+          <div [innerHTML]="comment.commentText | newlineBr" class="comment-font-subtext"></div>
+          <span class="d-flex mt-1 comment-font" *ngIf="comment.modifiedUserId === user.id">
+            <i class="fa fa-times me-2 text-warning comment-font" matTooltip="Cancel Edit" matTooltipPosition="above" *ngIf="editId === comment.commentId" (click)="resetAll()"></i>
+            <i
+              class="fa fa-edit me-2 text-primary comment-font"
+              matTooltip="Edit"
+              matTooltipPosition="above"
+              *ngIf="editId !== comment.commentId"
+              (click)="onEdit(comment.commentId, comment.commentText)"></i>
+            <i class="fa fa-trash text-danger comment-font" matTooltip="Delete" matTooltipPosition="above" (click)="onDelete(comment.commentId)"></i>
+          </span>
+        </div>
+        <div class="text-muted mt-2 comment-font-subtext">
+          By
+          <b>{{ comment.userName }}</b>
+          <span *ngIf="comment.modifiedDate">
+            on
+            <i>{{ comment.modifiedDate | date: 'medium' }}</i>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-container *ngIf="deleteId > 0">
+  <div class="modal-header px-3 py-2">
+    <h5 class="modal-title">Confirm Delete</h5>
+  </div>
+  <div class="modal-body px-3 py-1">
+    <p>Are you sure you want to delete this note?</p>
+  </div>
+  <div class="modal-footer px-3 py-2">
+    <button type="button" class="btn btn-secondary mx-3" (click)="resetAll()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="onDeleteConfirm()">Delete</button>
+  </div>
+</ng-container>

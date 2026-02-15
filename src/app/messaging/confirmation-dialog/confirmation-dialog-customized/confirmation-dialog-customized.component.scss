@@ -1,0 +1,28 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  .content-holder {
+    .content {
+      word-wrap: break-word;
+      font-size: 12px;
+    }
+  }
+  .actions-holder {
+    justify-content: flex-end;
+    button {
+      margin-right: 10px;
+    }
+
+    .confirmation-btn {
+      width: 100px;
+      height: 34px;
+      font-size: 12px;
+    }
+  }
+
+  .dialog-title {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 0 15px 0;
+  }
+}

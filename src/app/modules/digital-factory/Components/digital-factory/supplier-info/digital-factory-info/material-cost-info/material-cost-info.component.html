@@ -1,0 +1,157 @@
+<div *ngIf="dataSource.data?.length === 0 && !showAddMaterialForm" class="df-empty-info">
+  <img class="df-empty-info-icon" src="assets/icons/material-empty-info.png" alt="" />
+  <span class="df-empty-info-text">Add Materials to track their costs</span>
+  <button pButton type="submit" class="btn btn-outline-primary ml-2 digital-factory-btn p-button-rounded p-button-text" (click)="addMaterialInfo()">
+    <mat-icon class="df-add-icon">add</mat-icon>
+    Add Material
+  </button>
+</div>
+<div *ngIf="dataSource.data?.length > 0" class="df-tab-table-container">
+  <div class="df-material-main-container">
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-table" aria-describedby="[]">
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <ng-container *ngIf="column !== 'marketComparison'; else marketComparisonHeader">
+              {{ columnConfig[column].displayName }}
+            </ng-container>
+            <ng-template #marketComparisonHeader>
+              <div class="inline-flex">
+                <span class="notification">
+                  {{ columnConfig[column].displayName }}
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </div>
+            </ng-template>
+          </th>
+          <ng-container *ngIf="column === 'edit'">
+            <td mat-cell *matCellDef="let row; let i = index">
+              <div class="flex justify-end align-items-center">
+                <label>
+                  <input
+                    type="radio"
+                    name="dfMaterialEditRadio"
+                    [checked]="row.digitalFactoryMaterialInfoId === currentEditingMaterialInfo?.digitalFactoryMaterialInfoId"
+                    (change)="onInputChange(row)"
+                    (click)="onInputChange(row)"
+                    onkeypress="" />
+                </label>
+                <span class="ms-2">{{ i + 1 }}</span>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="column !== 'remove' && column !== 'edit' && column !== 'marketComparison'">
+            <td mat-cell *matCellDef="let row" class="supplier-table-row-def">
+              <span>{{ row[column] }}</span>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="column === 'marketComparison'">
+            <td mat-cell *matCellDef="let row; let i = index" class="text-center">
+              <span class="flex justify-center align-items-center">
+                <!-- Red gauge -->
+                <svg width="52" height="34" viewBox="0 0 52 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                  <g clip-path="url(#clip0_10352_15508)">
+                    <path
+                      d="M3.54762 28.8961C3.54762 25.9611 4.12572 23.0548 5.24891 20.3432C6.3721 17.6315 8.01839 15.1677 10.0938 13.0923C12.1692 11.0169 14.633 9.37063 17.3446 8.24743C20.0563 7.12424 22.9626 6.54614 25.8976 6.54614C28.8327 6.54614 31.739 7.12424 34.4506 8.24744C37.1622 9.37063 39.6261 11.0169 41.7015 13.0923C43.7768 15.1677 45.4231 17.6315 46.5463 20.3432C47.6695 23.0548 48.2476 25.9611 48.2476 28.8961"
+                      stroke="#E2E2E2"
+                      stroke-width="7.5" />
+                    <path
+                      d="M3.54762 28.8961C3.54762 25.9611 4.12572 23.0548 5.24891 20.3432C6.37211 17.6315 8.0184 15.1677 10.0938 13.0923C10.5067 12.6793 10.9351 12.2834 11.3777 11.9051C11.4184 11.8704 11.4592 11.8357 11.5001 11.8013"
+                      stroke="#C1272D"
+                      stroke-width="7.5" />
+                    <path d="M9.05253 9.06892L23.6406 25.2535L25.4632 23.402L9.05253 9.06892Z" fill="black" />
+                    <path
+                      d="M25.7196 22.5449C24.0628 22.5449 22.7196 23.8881 22.7196 25.5449C22.7196 27.2018 24.0628 28.5449 25.7196 28.5449C27.3765 28.5449 28.7196 27.2018 28.7196 25.5449C28.7196 23.8881 27.3765 22.5449 25.7196 22.5449ZM25.7196 24.5449C26.2719 24.5449 26.7196 24.9926 26.7196 25.5449C26.7196 26.0972 26.2719 26.5449 25.7196 26.5449C25.1673 26.5449 24.7196 26.0972 24.7196 25.5449C24.7196 24.9926 25.1673 24.5449 25.7196 24.5449Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_10352_15508">
+                      <rect width="52" height="34" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <!-- Yellow gauge -->
+                <!-- <svg width="52" height="34" viewBox="0 0 52 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                  <g clip-path="url(#clip0_10352_15510)">
+                    <path
+                      d="M3.54542 28.8961C3.54542 25.9611 4.12352 23.0548 5.24671 20.3432C6.36991 17.6315 8.01619 15.1677 10.0916 13.0923C12.167 11.0169 14.6308 9.37063 17.3424 8.24743C20.0541 7.12424 22.9604 6.54614 25.8954 6.54614C28.8305 6.54614 31.7368 7.12424 34.4484 8.24744C37.16 9.37063 39.6239 11.0169 41.6993 13.0923C43.7746 15.1677 45.4209 17.6315 46.5441 20.3432C47.6673 23.0548 48.2454 25.9611 48.2454 28.8961"
+                      stroke="#E2E2E2"
+                      stroke-width="7.5" />
+                    <path
+                      d="M3.54542 28.8961C3.54542 25.9611 4.12352 23.0548 5.24671 20.3432C6.3699 17.6315 8.01619 15.1677 10.0916 13.0923C12.167 11.0169 14.6308 9.37063 17.3424 8.24743C20.0541 7.12424 22.9604 6.54614 25.8954 6.54614C28.8305 6.54614 31.7368 7.12424 34.4484 8.24744"
+                      stroke="#F9D645"
+                      stroke-width="7.1" />
+                    <path d="M36.0855 4.60586L28.4889 25.0274L26.1122 23.9781L36.0855 4.60586Z" fill="black" />
+                    <path
+                      d="M26.7383 22.5449C28.3951 22.5449 29.7383 23.8881 29.7383 25.5449C29.7383 27.2018 28.3951 28.5449 26.7383 28.5449C25.0814 28.5449 23.7383 27.2018 23.7383 25.5449C23.7383 23.8881 25.0814 22.5449 26.7383 22.5449ZM26.7383 24.5449C26.186 24.5449 25.7383 24.9926 25.7383 25.5449C25.7383 26.0972 26.186 26.5449 26.7383 26.5449C27.2906 26.5449 27.7383 26.0972 27.7383 25.5449C27.7383 24.9926 27.2906 24.5449 26.7383 24.5449Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_10352_15510">
+                      <rect width="52" height="34" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg> -->
+                <!-- Green gauge -->
+                <!-- <svg width="52" height="34" viewBox="0 0 52 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                  <g clip-path="url(#clip0_10352_15512)">
+                    <path
+                      d="M3.54542 28.8961C3.54542 25.9611 4.12352 23.0548 5.24671 20.3432C6.36991 17.6315 8.01619 15.1677 10.0916 13.0923C12.167 11.0169 14.6308 9.37063 17.3424 8.24743C20.0541 7.12424 22.9604 6.54614 25.8954 6.54614C28.8305 6.54614 31.7368 7.12424 34.4484 8.24744C37.16 9.37063 39.6239 11.0169 41.6993 13.0923C43.7746 15.1677 45.4209 17.6315 46.5441 20.3432C47.6673 23.0548 48.2454 25.9611 48.2454 28.8961"
+                      stroke="#E2E2E2"
+                      stroke-width="7.5" />
+                    <path
+                      d="M3.54541 28.8961C3.54541 25.9611 4.12352 23.0548 5.24671 20.3432C6.3699 17.6315 8.01619 15.1677 10.0916 13.0923C12.167 11.0169 14.6308 9.37063 17.3424 8.24743C20.0541 7.12424 22.9604 6.54614 25.8954 6.54614C28.8305 6.54614 31.7368 7.12424 34.4484 8.24744C37.16 9.37063 39.6239 11.0169 41.6993 13.0923C43.7746 15.1677 45.4209 17.6315 46.5441 20.3432C47.2619 22.0761 47.7571 23.8886 48.0211 25.7373"
+                      stroke="#2BA746"
+                      stroke-width="7.1" />
+                    <path d="M51.8858 25.7597L29.47 26.8639L29.4926 24.2659L51.8858 25.7597Z" fill="black" />
+                    <path
+                      d="M26.7386 22.5449C28.3955 22.5449 29.7386 23.8881 29.7386 25.5449C29.7386 27.2018 28.3955 28.5449 26.7386 28.5449C25.0818 28.5449 23.7386 27.2018 23.7386 25.5449C23.7386 23.8881 25.0818 22.5449 26.7386 22.5449ZM26.7386 24.5449C26.1863 24.5449 25.7386 24.9926 25.7386 25.5449C25.7386 26.0972 26.1863 26.5449 26.7386 26.5449C27.2909 26.5449 27.7386 26.0972 27.7386 25.5449C27.7386 24.9926 27.2909 24.5449 26.7386 24.5449Z"
+                      fill="black" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_10352_15512">
+                      <rect width="52" height="34" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg> -->
+              </span>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="column === 'remove'">
+            <td mat-cell *matCellDef="let row" class="supplier-table-row-def">
+              <span [style.fontSize.px]="12" (click)="onMaterialRemove(row)" class="icon-delete" onkeypress="">
+                <mat-icon svgIcon="trash"></mat-icon>
+              </span>
+            </td>
+          </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns" [ngClass]="{ 'active-row': i === 0 }"></tr>
+      </table>
+    </div>
+    <div class="machine-cost-header">
+      <button pButton type="submit" class="btn btn-outline-primary digital-factory-btn p-button-rounded p-button-text" (click)="addMaterialInfo()">
+        <mat-icon class="df-add-icon">add</mat-icon>
+        Add Material
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showAddMaterialForm" class="add-material-inline-form">
+  <mat-tab-group class="df-tab material-tab-bordered-container">
+    <mat-tab label="Material Selection">
+      <app-add-material-modal [selectedMaterialInfo]="currentEditingMaterialInfo" (materialAdded)="onMaterialAdded($event)"></app-add-material-modal>
+    </mat-tab>
+
+    <mat-tab label="Historic Values">
+      <div class="!p-3">
+        <app-price-chart
+          [supplierId]="digitalFactoryInfo?.supplierDirectoryMasterDto?.supplierId"
+          [selectedMaterialInfo]="currentEditingMaterialInfo"
+          [countryId]="digitalFactoryInfo?.supplierDirectoryMasterDto?.countryId"></app-price-chart>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

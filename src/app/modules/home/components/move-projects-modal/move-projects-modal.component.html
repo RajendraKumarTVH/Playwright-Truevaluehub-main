@@ -1,0 +1,55 @@
+<div class="move-modal flex flex-col p-0">
+  <div class="move-modal-body p-3 flex-1 flex flex-col">
+    <div class="move-header flex items-center justify-between mb-3">
+      <div class="title font-semibold text-xs">Move to Folder</div>
+      <button class="btn icon-btn w-6 h-6 p-0 flex items-center justify-center" (click)="close()" title="Close">
+        <mat-icon svgIcon="close_icon" class="!w-3 !h-3"></mat-icon>
+      </button>
+    </div>
+
+    <div class="move-search w-full mb-3 flex items-center gap-2 relative">
+      <mat-icon class="search-icon absolute top-1/2 -translate-y-1/2" svgIcon="search_icon"></mat-icon>
+      <input type="text" placeholder="Search" class="w-full" />
+    </div>
+    <div class="flex items-start justify-between w-full">
+      <div class="flex flex-col w-full gap-1">
+        <div class="move-breadcrumb flex items-center gap-1" *ngIf="breadcrumb.length">
+          <a class="crumb !text-black text-xs" (click)="goRoot()">Active Projects</a>
+          <span class="crumb-sep" *ngFor="let crumb of breadcrumb; let i = index">
+            <mat-icon svgIcon="play-filled-icon" class="breadcrumb-icon mx-1"></mat-icon>
+            <a class="breadcrumb-link" (click)="onBreadcrumbClick(i)">{{ crumb.name }}</a>
+          </span>
+        </div>
+        <div class="move-subtitle text-lg font-semibold !text-black">
+          {{ selectedFolderName || 'Active Projects' }}
+        </div>
+      </div>
+
+      <div class="move-actions flex justify-end flex-shrink-0">
+        <button aria-label="Add folder" class="flex items-center btn btn-outline-primary gap-1" title="Add Folder">
+          <mat-icon svgIcon="plus-add-icon"></mat-icon>
+          Add Folder
+        </button>
+      </div>
+    </div>
+    <div class="folder-list flex flex-col overflow-y-auto w-full mt-3 mb-2" *ngIf="currentList.length; else emptyState">
+      <div class="folder-row flex items-center gap-2 p-1 cursor-pointer w-auto" *ngFor="let folder of currentList" (click)="onFolderClick(folder)">
+        <mat-icon svgIcon="folder-filled-color" class="folder-icon mr-1"></mat-icon>
+        <span>{{ folder.name }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="move-footer flex items-center justify-end gap-2 px-3 !py-5">
+    <span class="selected-text">{{ selectedCountLabel }}</span>
+    <div class="footer-actions flex gap-2 ml-2">
+      <button class="btn btn-outline-primary min-w-36" title="Cancel" (click)="close()">Cancel</button>
+      <button class="btn btn-primary min-w-36" title="Move Here">Move Here</button>
+    </div>
+  </div>
+  <ng-template #emptyState>
+    <div class="empty-icon flex flex-col items-center justify-center gap-4 flex-1">
+      <mat-icon svgIcon="folder-empty-icon" class="empty-folder"></mat-icon>
+      <div class="font-medium text-base">No folders added yet</div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="edit-toolbar">
+  <div class="app-floating-toolbar flex items-center justify-between">
+    <div class="flex items-center gap-2 undoredo-button">
+      <button mat-icon-button aria-label="Undo" class="floating-bar-actions flex items-center justify-center" matTooltip="Undo" matTooltip="Undo" (click)="undo.emit()" [disabled]="!canUndo">
+        <mat-icon svgIcon="undo-icon"></mat-icon>
+      </button>
+
+      <button mat-icon-button matTooltip="Redo" class="floating-bar-actions flex items-center justify-center" (click)="redo.emit()" [disabled]="!canRedo">
+        <mat-icon svgIcon="redo-icon"></mat-icon>
+      </button>
+    </div>
+
+    <div class="seperator h-full mr-auto"></div>
+
+    <button mat-stroked-button class="btn btn-outline-primary ml-2 digital-factory-btn p-button-rounded p-button-text" color="warn" (click)="discard.emit()" [disabled]="!dirty">Discard</button>
+
+    <button mat-raised-button class="btn btn-primary ml-2 digital-factory-btn p-button-rounded p-button-text" color="accent" (click)="save.emit()" [disabled]="!dirty">Save</button>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,12 @@
+.snack-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .message {
+    font-size: 14px;
+  }
+  .sub-messages {
+    font-size: 12px;
+  }
+}

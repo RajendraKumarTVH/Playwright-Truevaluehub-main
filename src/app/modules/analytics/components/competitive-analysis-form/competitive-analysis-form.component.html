@@ -1,0 +1,186 @@
+<form action="" class="competitive-analysis-form w-100">
+  <div class="row pb-2 with-separator">
+    <div class="col-4 my-2">
+      <label class="form-label">
+        <span class="label-text">Project</span>
+      </label>
+      <div class="dropdown-wrap">
+        <input type="text" matInput placeholder="Select Project" [matAutocomplete]="projectAuto" class="form-control" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete #projectAuto="matAutocomplete" autoActiveFirstOption>
+          <mat-option value="Project 1 - 101">Project 1 - 101</mat-option>
+          <mat-option value="Project 2 - 102">Project 2 - 102</mat-option>
+          <mat-option value="Project 3 - 103">Project 3 - 103</mat-option>
+          <mat-option value="Project 4 - 104">Project 4 - 104</mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+    <div class="col-4 my-2">
+      <label class="form-label">
+        <span class="label-text">Scenario</span>
+      </label>
+      <div class="dropdown-wrap">
+        <input type="text" matInput placeholder="Select Scenario" [matAutocomplete]="scenarioAuto" class="form-control" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete #scenarioAuto="matAutocomplete" autoActiveFirstOption>
+          <mat-option value="Scenario 1">Scenario 1</mat-option>
+          <mat-option value="Scenario 2">Scenario 2</mat-option>
+          <mat-option value="Scenario 3">Scenario 3</mat-option>
+          <mat-option value="Scenario 4">Scenario 4</mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+    <div class="col-4 my-2">
+      <label class="form-label">
+        <span class="label-text">Part Name</span>
+      </label>
+      <div class="dropdown-wrap">
+        <input type="text" matInput placeholder="Select Part Name" [matAutocomplete]="partNameAuto" class="form-control" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete #partNameAuto="matAutocomplete" autoActiveFirstOption>
+          <mat-option value="Part name 1">Part name 1</mat-option>
+          <mat-option value="Part name 2">Part name 2</mat-option>
+          <mat-option value="Part name 3">Part name 3</mat-option>
+          <mat-option value="Part name 4">Part name 4</mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+    <div class="col-4 my-2">
+      <label class="form-label">
+        <span class="label-text">Time Period</span>
+      </label>
+      <div class="date-picker-wrapper flex items-center !gap-4">
+        <div class="input-group dropdown-wrap cost-input-group w-100">
+          <input class="form-control rounded" placeholder="Start Date" [max]="today" matInput [matDatepicker]="startPicker" (focus)="startPicker.open()" (click)="startPicker.open()" />
+          <mat-datepicker #startPicker startView="month" panelClass="project-month-picker"></mat-datepicker>
+          <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+        </div>
+        <span class="text-xs">to</span>
+        <div class="input-group dropdown-wrap cost-input-group w-100">
+          <input class="form-control rounded" placeholder="End Date" [max]="today" matInput [matDatepicker]="endPicker" (focus)="endPicker.open()" (click)="endPicker.open()" />
+          <mat-datepicker #endPicker startView="month" panelClass="project-month-picker"></mat-datepicker>
+          <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row with-separator">
+    <p class="font-medium text-xs mb-3">Purchase Price Paid/Unit</p>
+    <div class="label-row row">
+      <div class="col-4">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <label class="form-label w-100">From</label>
+          <span class="text-xs w-[2em]"></span>
+          <label class="form-label w-100">To</label>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <label class="form-label w-100">Volume (No.s)</label>
+          <span class="text-xs"></span>
+          <label class="form-label w-100">Price/Unit ($)</label>
+        </div>
+      </div>
+    </div>
+    <!-- First price-row -->
+    <div class="price-row row">
+      <div class="col-4 mb-3">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input
+              class="form-control rounded"
+              placeholder="Start Date"
+              [max]="today"
+              matInput
+              [matDatepicker]="startPicker1"
+              [(ngModel)]="selectedStartDate1"
+              (focus)="startPicker1.open()"
+              (click)="startPicker1.open()" />
+            <mat-datepicker #startPicker1 startView="month" panelClass="project-month-picker"></mat-datepicker>
+            <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          </div>
+          <span class="text-xs">to</span>
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input
+              class="form-control rounded"
+              placeholder="End Date"
+              [max]="today"
+              matInput
+              [matDatepicker]="endPicker1"
+              [(ngModel)]="selectedEndDate1"
+              (focus)="endPicker1.open()"
+              (click)="endPicker1.open()" />
+            <mat-datepicker #endPicker1 startView="month" panelClass="project-month-picker"></mat-datepicker>
+            <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mb-3">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input class="form-control" />
+          </div>
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Second price-row -->
+    <div class="price-row row">
+      <div class="col-4 mb-3">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input
+              class="form-control rounded"
+              placeholder="Start Date"
+              [max]="today"
+              matInput
+              [matDatepicker]="startPicker2"
+              [(ngModel)]="selectedStartDate2"
+              (focus)="startPicker2.open()"
+              (click)="startPicker2.open()" />
+            <mat-datepicker #startPicker2 startView="month" panelClass="project-month-picker"></mat-datepicker>
+            <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          </div>
+          <span class="text-xs">to</span>
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input
+              class="form-control rounded"
+              placeholder="End Date"
+              [max]="today"
+              matInput
+              [matDatepicker]="endPicker2"
+              [(ngModel)]="selectedEndDate2"
+              (focus)="endPicker2.open()"
+              (click)="endPicker2.open()" />
+            <mat-datepicker #endPicker2 startView="month" panelClass="project-month-picker"></mat-datepicker>
+            <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mb-3">
+        <div class="date-picker-wrapper flex items-center !gap-4">
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input class="form-control" />
+          </div>
+          <div class="input-group dropdown-wrap cost-input-group w-100">
+            <input class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="add-price-link flex items-center text-xs font-medium">
+      <mat-icon class="!size-4 mr-1" svgIcon="plus-add-icon"></mat-icon>
+      <span>Add Another Price</span>
+    </a>
+  </div>
+  <button type="button" class="btn btn-primary mr-4">Run Analysis</button>
+  <button type="button" class="btn btn-primary">Save</button>
+</form>

@@ -1,0 +1,56 @@
+<ng-container [formGroup]="formGroup">
+  <div class="row">
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetStacking">
+      <label class="form-label no-wrap">Sheet Loading(s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'loadingTime'"></app-field-comment>
+      <input type="number" formControlName="loadingTime" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" />
+    </div>
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetStacking">
+      <label class="form-label no-wrap">Sheet Unloading(s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'unloadingTime'"></app-field-comment>
+      <input type="number" formControlName="unloadingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetStacking">
+      <label class="form-label no-wrap">Lamination Time (s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'lubeTime'"></app-field-comment>
+      <input type="number" formControlName="lubeTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+
+    <div class="col-4 mt-3" *ngIf="!compVals.processFlag.IsProcessRubberFeltSheetStacking">
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetCutting">Machine Cutting speed (m/min) :</label>
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessSeamStitching">Machine Stitching Speed (m/min) :</label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment>
+      <input type="number" formControlName="cuttingSpeed" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetStacking">Machine Efficiency % :</label>
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetCutting">Cutting Efficiency % :</label>
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessSeamStitching">Stitching Efficiency % :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'efficiency'"></app-field-comment>
+      <input type="number" formControlName="efficiency" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessSeamStitching">
+      <label class="form-label no-wrap">Total Stitching Length ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingLength'"></app-field-comment>
+      <input type="number" formControlName="cuttingLength" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" />
+    </div>
+
+    <div class="col-4 mt-3" *ngIf="!compVals.processFlag.IsProcessRubberFeltSheetStacking">
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessRubberFeltSheetCutting">Rubber Sheet Cutting Time (s) :</label>
+      <label class="form-label no-wrap" *ngIf="compVals.processFlag.IsProcessSeamStitching">Stitching Time (s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingTime'"></app-field-comment>
+      <input type="number" formControlName="cuttingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+
+    <div class="col-4 mt-3" *ngIf="compVals.processFlag.IsProcessSeamStitching || compVals.processFlag.IsProcessRubberFeltSheetCutting">
+      <label class="form-label no-wrap">Loading & Unloading Time (s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sheetLoadUloadTime'"></app-field-comment>
+      <input type="number" formControlName="sheetLoadUloadTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3 offset-4">
+      <label class="form-label no-wrap">Net Process Cost($):</label>
+      <input type="number" formControlName="directProcessCost" class="form-control" readonly="readonly" />
+    </div>
+  </div>
+</ng-container>

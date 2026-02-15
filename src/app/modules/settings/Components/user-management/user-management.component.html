@@ -1,0 +1,45 @@
+<div class="user-management-container">
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" placeholder="Search by username" class="search-input" />
+    <button (click)="clearSearch()" class="search-button">Clear</button>
+  </div>
+  <p-table [value]="filteredUsers" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]" [tableStyle]="{ 'min-width': '50rem' }" [sortMode]="'multiple'">
+    <ng-template #header>
+      <tr>
+        <th id="userAction"></th>
+        <th id="userName">User name</th>
+        <th id="firstName">First name</th>
+        <th id="middleName">Middle name</th>
+        <th id="lastName">Last name</th>
+        <th id="email">Email</th>
+        <th id="phoneNumber">Phone #</th>
+        <th id="title">Title</th>
+        <th id="role">Role</th>
+        <th id="clientGroup">Client Group</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-user>
+      <tr>
+        <td>
+          <ng-container *ngIf="!user.status; else actions">
+            <span class="inactive-text">Inactive</span>
+          </ng-container>
+          <ng-template #actions>
+            <i *ngIf="user.status === true" (click)="onUserEditClick(user)" class="pi pi-pencil edit-icon"></i>
+            <i *ngIf="user.status === true" (click)="onUserDeleteClick(user)" class="pi pi-trash action-icon" style="color: slateblue"></i>
+          </ng-template>
+        </td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.middleName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.title }}</td>
+        <td>{{ user.role?.roleName }}</td>
+        <td>{{ user.clientGroupId }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

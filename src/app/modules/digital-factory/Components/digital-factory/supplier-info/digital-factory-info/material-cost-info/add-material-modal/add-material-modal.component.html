@@ -1,0 +1,159 @@
+<div class="add-modal-container !p-3">
+  <div class="add-model-heading !mb-3">Add Material</div>
+  <form [formGroup]="form">
+    <div class="add-fields row flex-wrap w-full">
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <mat-label class="add-label form-label no-wrap has-icon">
+          <span class="label-text">
+            Material Category
+            <span style="color: red">*</span>
+          </span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </mat-label>
+        <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+          <input matInput formControlName="materialGroupId" type="dropdown" [matAutocomplete]="categoryAuto" placeholder="Select category" class="form-control category-input-dropdown" />
+          <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          <mat-autocomplete #categoryAuto="matAutocomplete" [displayWith]="displayGroupName" (optionSelected)="onMaterialGroupChange($event)">
+            <mat-option *ngFor="let group of filteredGroups$ | async" [value]="group.id" class="df-overlay-option">
+              {{ group.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.get('materialGroupId')?.hasError('required')">Category is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <mat-label class="add-label form-label no-wrap has-icon">
+          <span class="label-text">
+            Material Family
+            <span style="color: red">*</span>
+          </span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </mat-label>
+        <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+          <input matInput formControlName="materialTypeId" type="dropdown" [matAutocomplete]="typeAuto" placeholder="Select family" class="form-control category-input-dropdown" />
+          <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          <mat-autocomplete #typeAuto="matAutocomplete" [displayWith]="displayMaterialTypeName" (optionSelected)="onMaterialTypeChange($event)">
+            <mat-option *ngFor="let type of filteredMaterialTypes$ | async" [value]="type.materialTypeId" class="df-overlay-option">
+              {{ type.materialTypeName }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.get('materialTypeId')?.hasError('required')">Material Type is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <mat-label class="add-label form-label no-wrap has-icon">
+          <span class="label-text">
+            Material (Description/Grade)
+            <span style="color: red">*</span>
+          </span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </mat-label>
+        <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+          <input matInput formControlName="materialMasterId" type="dropdown" [matAutocomplete]="descriptionAuto" placeholder="Select description" class="form-control category-input-dropdown" />
+          <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          <mat-autocomplete #descriptionAuto="matAutocomplete" [displayWith]="displayMaterialMasterName" (optionSelected)="onMaterialDescriptionChange($event)">
+            <mat-option *ngFor="let mat of filteredMaterialMasters$ | async" [value]="mat.materialMasterId" class="df-overlay-option">
+              {{ mat.materialDescription }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.get('materialMasterId')?.hasError('required')">Material Type is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <mat-label class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Country of origin</span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </mat-label>
+        <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+          <input matInput formControlName="countryOfOrigin" type="dropdown" [matAutocomplete]="countryAuto" placeholder="Select country" class="form-control category-input-dropdown" />
+          <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          <mat-autocomplete #countryAuto="matAutocomplete" [displayWith]="displayCountryName">
+            <mat-option *ngFor="let country of filteredCountries$ | async" [value]="country.countryId" class="df-overlay-option">
+              {{ country.countryName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <mat-label class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Stock Form</span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </mat-label>
+        <mat-form-field appearance="outline" class="w-100" class="col category-dropdown">
+          <input matInput formControlName="stockFormId" type="dropdown" [matAutocomplete]="stockFormAuto" placeholder="Select stock form" class="form-control category-input-dropdown" />
+          <mat-icon matSuffix class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+          <mat-autocomplete #stockFormAuto="matAutocomplete" [displayWith]="displayStockFormName">
+            <mat-option *ngFor="let stockForm of filteredStockForms$ | async" [value]="stockForm.stockFormId" class="df-overlay-option">
+              {{ stockForm.formName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <label for="volumnPurchased" class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Purchased Volume (MT)</span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <input type="number" formControlName="volumePurchased" class="df-input-field form-control" placeholder="Enter value" />
+      </div>
+    </div>
+    <div class="row with-seperator-top-dashed">
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <label for="volumeDiscount" class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Volume Discount (%)</span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <input id="volumeDiscount" type="number" formControlName="discountPercent" class="df-input-field form-control" placeholder="Enter value" />
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <label for="materialPrice" class="add-label form-label no-wrap has-icon">
+          <span class="label-text">
+            Material Price ($/Kg)
+            <span style="color: red">*</span>
+          </span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <input id="materialPrice" type="number" formControlName="price" class="df-input-field form-control" placeholder="Enter value" />
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <label for="scrapPrice" class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Scrap Price ($/Kg)</span>
+          <span class="notification" placement="auto" popoverTitle="Description">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <input id="scrapPrice" type="number" formControlName="scrapPrice" class="df-input-field form-control" placeholder="Enter value" />
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 !mb-3">
+        <label for="effectiveDate" class="add-label form-label no-wrap has-icon">
+          <span class="label-text">Effective Date</span>
+          <span class="notification" placement="auto" popoverTitle="The date when the material price becomes effective.">
+            <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+          </span>
+        </label>
+        <div class="input-group relative df-date-picker">
+          <input id="effectiveDate" matInput [matDatepicker]="picker" placeholder="Select effective date" class="df-input-field form-control" formControlName="effectiveDate" />
+          <mat-datepicker-toggle matSuffix [for]="picker"><mat-icon matDatepickerToggleIcon svgIcon="calendar-icon"></mat-icon></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year" (monthSelected)="setMonthAndYear($event, picker)" panelClass="project-month-picker"></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-edit-toolbar [canUndo]="canUndo()" [canRedo]="canRedo()" [dirty]="isDirty()" (undo)="undo()" (redo)="redo()" (save)="save()" (discard)="discard()"></app-edit-toolbar>

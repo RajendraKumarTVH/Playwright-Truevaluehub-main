@@ -1,0 +1,164 @@
+<div class="modal-header flex items-center justify-between">
+  <h4 class="modal-title" id="modal-basic-title" (click)="tooltip.toggle()">Bill of Materials - Cost</h4>
+  <button
+    aria-label="Close modal"
+    title="Close Modal"
+    #tooltip="matTooltip"
+    matTooltip="Close"
+    matTooltipPosition="above"
+    class="modal-close flex items-center justify-center border-none bg-white"
+    (click)="dismissAll()">
+    <mat-icon class="close-icon">close_icon</mat-icon>
+  </button>
+</div>
+<div class="modal-body flex flex-col h-full min-h-0">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-2 graph-controls">
+      <button class="btn btn-outline-primary mb-2 me-2 flex items-center gap-2" (click)="expandCollapseLevel(true)" [disabled]="currentExpandedLevel >= maxLevel">
+        <mat-icon svgIcon="expand-step-icon"></mat-icon>
+        <span>Expand One Step</span>
+      </button>
+      <button class="btn btn-outline-primary mb-2 flex items-center gap-2" (click)="expandCollapseLevel(false)" [disabled]="currentExpandedLevel <= 0">
+        <mat-icon svgIcon="collapse-step-icon"></mat-icon>
+        <span>Collapse One Step</span>
+      </button>
+    </div>
+    <!-- {{ currentExpandedLevel }} Level / {{ maxLevel }} Max level -->
+    <div class="toggle-controls flex items-center ml-auto mb-2">
+      <button [ngClass]="{ active: isToggleNumeric() }" class="toggle-control numeric" (click)="changeViewType()" matTooltip="Numerical" matTooltipPosition="above">
+        <mat-icon class="cls-item-icon" svgIcon="number"></mat-icon>
+      </button>
+      <button [ngClass]="{ active: !isToggleNumeric() }" class="toggle-control graphic" (click)="changeViewType()" matTooltip="Graphical" matTooltipPosition="above">
+        <mat-icon class="cls-item-icon" svgIcon="graph"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="card bom-summary-treeview flex flex-col h-full min-h-0">
+    <p-treetable
+      [value]="treeViewDataS()"
+      [resizableColumns]="true"
+      [loading]="loadingS()"
+      [columns]="scrollableCols"
+      [frozenColumns]="frozenCols"
+      [scrollable]="true"
+      frozenWidth="250px"
+      (onNodeExpand)="expCollClick($event, 'expand')"
+      (onNodeCollapse)="expCollClick($event, 'collapse')">
+      <!-- <ng-template #colgroup let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" style="width: 250px" />
+        </colgroup>
+      </ng-template> -->
+      <ng-template #header let-columns>
+        <tr>
+          <th *ngFor="let col of columns" scope="row" [ngClass]="col.cssClass">
+            <span [ngClass]="col.header !== 'Graphical' ? 'grid-header overflow-hidden' : 'flex max-w-full min-w-0'" [matTooltip]="col.header" matTooltipPosition="above">
+              @if (col.header !== 'Graphical') {
+                {{ col.header }}
+              } @else {
+                <div class="flex items-center gap-2 max-w-full min-w-0">
+                  @for (item of costChartData; track item.label) {
+                    <div class="flex items-center gap-1 p-1 min-w-0">
+                      <span class="flex legend-marker" [style.backgroundColor]="item.color"></span>
+                      <span class="w-full max-w-full truncate" matTooltip="item.label" matTooltipPosition="above">{{ item.label }}</span>
+                    </div>
+                  }
+                </div>
+              }
+            </span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #frozenbody let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode" class="overflow-auto">
+          <td>
+            <div class="row-controls flex items-center gap-2">
+              @if (!(rowData.children?.length === 0 && rowData.level === 0)) {
+                <p-treetable-toggler [rowNode]="rowNode" />
+              }
+              <span class="flex h-4 w-4" role="presentation" [ngClass]="rowData.icon"></span>
+              {{ rowData.name }}
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+          <td *ngFor="let col of columns; let i = index" [ngClass]="col.cssClass">
+            @switch (col.field) {
+              @case ('thumbnailImage') {
+                <!-- <ng-container [ngSwitch]="col.field"> -->
+                <!-- <ng-container *ngSwitchCase="'thumbnailImage'"> -->
+                <ng-container *ngIf="rowData.thumbnailImage">
+                  <button class="thumb-wrap w-full h-full bg-white flex items-center justify-center" (click)="onPartThumbnailClick(rowData.partInfoId)">
+                    <img class="treeview-image bg-white w-full h-full" [src]="'data:image/jpeg;base64,' + rowData.thumbnailImage" alt="Thumbnail" />
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="!rowData.thumbnailImage">
+                  <!-- <div class="bt-spinners"></div> -->
+                  <img class="thumb-wrap treeview-image bg-white w-full h-full" [src]="'assets/images/no-image-available.png'" alt="Thumbnail" />
+                </ng-container>
+                <!-- </ng-container> -->
+              }
+              @case ('graphical') {
+                <div
+                  class="waterfall-row relative max-w-full"
+                  [style.width.%]="rowData.widthPercentage"
+                  [style.marginLeft.%]="rowData.offset"
+                  [ngStyle]="{
+                    '--connect-left':
+                      rowNode.node.children?.length > 0 && rowNode.node.expanded && rowNode.node.children[0].data.offset > 0
+                        ? ((rowNode.node.children[0].data.offset - rowData.offset + rowNode.node.children[0].data.widthPercentage) / rowData.widthPercentage) * 100 + '%'
+                        : 0,
+                  }"
+                  [ngClass]="{
+                    'connect-start':
+                      rowData.offset > 0 ||
+                      (rowNode.node.expanded && ((rowNode.node.children?.length === 0 && rowData.offset > 0) || (rowNode.node.children?.length > 0 && rowNode.node.children[0].data.offset > 0))),
+                    'connect-end': (rowData.offset > 0 || rowData.widthPercentage) && rowData.widthPercentage < 100,
+                  }">
+                  <!-- Children: {{ rowNode.node.children?.length > 0 ? rowNode.node.children[0].data.offset + '+' + rowNode.node.children[0].data.widthPercentage : 0 }} -->
+                  <div class="waterfall-bar-wrapper flex items-center flex-nowrap justify-between relative">
+                    @for (item of rowData?.chart; track item?.label) {
+                      <div class="waterfall-bar absolute" [style.width.%]="item.percent" [style.marginLeft.%]="item.offset" [style.backgroundColor]="item.color"></div>
+                    }
+                  </div>
+                </div>
+              }
+              @case ('dataCompletionPercentage') {
+                <!-- <ng-container *ngSwitchCase="'dataCompletionPercentage'"> -->
+                <ng-container *ngIf="rowData?.dataCompletionPercentage">
+                  <div class="flex items-center gap-2">
+                    <app-progress-bar
+                      class="flex items-center justify-center shrink-0 treeview-progress rounded-full h-5 w-5 bg-white p-0"
+                      [percentage]="rowData.dataCompletionPercentage"
+                      [mode]="'donut'"
+                      [showPercentageText]="true"></app-progress-bar>
+                    <!-- <span>{{ rowData.dataCompletionPercentage }}%</span> -->
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!rowData?.dataCompletionPercentage">
+                  <div class="flex items-center gap-2">
+                    <app-progress-bar
+                      class="flex items-center justify-center shrink-0 treeview-progress rounded-full h-5 w-5 bg-white p-0"
+                      [percentage]="0"
+                      [mode]="'donut'"
+                      [showPercentageText]="true"></app-progress-bar>
+                    <!-- <span>0%</span> -->
+                  </div>
+                </ng-container>
+                <!-- </ng-container> -->
+              }
+              @default {
+                <!-- <ng-container *ngSwitchDefault> -->
+                {{ typeof rowData?.[col.field] === 'number' ? (rowData[col.field] | number: '1.0-4') : rowData[col.field] }}
+                <!-- </ng-container> -->
+                <!-- </ng-container> -->
+              }
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-treetable>
+  </div>
+</div>

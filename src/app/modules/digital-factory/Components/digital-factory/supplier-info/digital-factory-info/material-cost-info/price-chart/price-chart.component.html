@@ -1,0 +1,30 @@
+<div class="flex w-full">
+  <div class="chart-container flex flex-col w-full">
+    <div class="text-xs text-black font-semibold mb-2">Historic values</div>
+    <div class="flex w-full gap-10">
+      <div class="chart-wrap w-full h-full flex-1">
+        <!-- dummy img -->
+        <app-chart [chartType]="stockChartType" [chartConstructor]="stockConstructor" [chartHeight]="200" [chartData]="stockData" class="pricing-chart-container"></app-chart>
+      </div>
+      <!-- Right: price / change-on list -->
+      <div class="price-list flex-shrink-0">
+        <div class="flex items-center gap-5 text-xs price-list-header">
+          <span class="price">Price</span>
+          <span class="min-w-20 changed-date !pr-5">Change on</span>
+        </div>
+
+        <div *ngIf="matPriceData?.length > 0" class="price-list-body">
+          <div *ngFor="let item of matPriceData; let index = index" class="price-item flex items-center gap-5 up">
+            <div class="price-meta">
+              <span class="status-dot manual"></span>
+              <span class="price-value font-semibold text-black text-sm">$ {{ item.price }}</span>
+              <span *ngIf="index < matPriceData.length && (matPriceData[index + 1]?.price ?? 0) < matPriceData[index].price"><mat-icon>arrow_upward</mat-icon></span>
+              <span *ngIf="index < matPriceData.length && (matPriceData[index + 1]?.price ?? 0) > matPriceData[index].price"><mat-icon style="color: red">arrow_downward</mat-icon></span>
+            </div>
+            <div class="price-date min-w-20 text-black text-sm text-left">{{ item.timeStamp | date }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

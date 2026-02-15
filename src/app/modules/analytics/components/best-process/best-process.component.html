@@ -1,0 +1,117 @@
+<div class="container-fluid analytics-container flex flex-col h-full bg-white">
+  <div class="page-header flex p-1 pt-3 w-full">
+    <h2 class="mb-0 text-base font-semibold">Best Process</h2>
+    <!-- Uncomment below code for breadcrumb -->
+    <!-- <div class="flex items-center gap-0 breadcrumb-wrap">
+      <a href="/analytics/simulation" class="text-xs text-black underline link">Best Region to Source</a>
+      <mat-icon class="play-icon !size-2 mx-[6px] shrink-0" svgIcon="play-filled-icon"></mat-icon>
+      <p class="mb-0 text-xs text-black">New Analysis</p>
+    </div> -->
+  </div>
+  <div class="tab-container bg-white flex form-group flex-col px-1 pt-10">
+    <mat-tab-group>
+      <mat-tab label="New">
+        <div class="flex flex-col content-wrap mt-3 p-3">
+          <div class="content-section container-fluid form-container flex flex-col !px-0 gap-0 !pb-5">
+            <div class="flex form-header items-center gap-2">
+              <h3 class="form-title font-semibold text-sm mb-0">New Analysis</h3>
+              <!-- Uncomment below code for edit button -->
+              <!-- <button class="text-xs border-none bg-transparent edit-btn p-0 m-0 shadow-none app-l-header-edit-btn">
+                <mat-icon class="text-sm shrink-0" svgIcon="editpen_icon"></mat-icon>
+              </button> -->
+            </div>
+            <!-- Uncomment for editable state of form header -->
+            <!-- <div class="flex items-center editable-header row pb-2">
+              <div class="col-4">
+                <input type="text" class="form-control" placeholder="Enter value" />
+              </div>
+              <div class="flex items-center gap-2 editable-header-controls col-4">
+                <button class="flex items-center justify-center btn btn-primary save">
+                  <mat-icon class="text-sm shrink-0" svgIcon="check-icon"></mat-icon>
+                </button>
+                <button class="flex items-center justify-center btn btn-outline-secondary">
+                  <mat-icon class="text-sm shrink-0" svgIcon="close_icon"></mat-icon>
+                </button>
+              </div>
+            </div> -->
+            <app-simulation-form
+              [simulationFormData]="simulationFormData"
+              [page]="pageEnum.BestProcess"
+              (partInfo)="partInfo = $event"
+              (selectedProcessesEmit)="selectProcesses($event)"
+              (runSimulationEmit)="prepareForSimulation($event)"
+              (getPrevioussimulationResultEmit)="getPreviousSimulationResult($event)"></app-simulation-form>
+
+            <app-simulation-calculation
+              [page]="pageEnum.BestProcess"
+              (simulationFormDataEmit)="simulationFormData = $event"
+              (totProcessListEmit)="compileFinalResult($event)"></app-simulation-calculation>
+          </div>
+          <!-- Graph Section -->
+          <div class="content-section container-fluid flex flex-col gap-2 !px-0 !pb-5" [ngClass]="{ 'd-none': !(bestProcessList && bestProcessList.length > 0) || simulationFormComponent.showLoader }">
+            <div class="flex form-header items-center gap-2">
+              <h3 class="form-title font-semibold text-sm mb-0">Best Process Graph</h3>
+            </div>
+            <app-best-process-graphical [data]="bestProcessList"></app-best-process-graphical>
+          </div>
+          <!-- Data Section -->
+          <div class="content-section container-fluid flex flex-col gap-2 !px-0" [ngClass]="{ 'd-none': !(bestProcessList && bestProcessList.length > 0) || simulationFormComponent.showLoader }">
+            <div class="flex form-header items-center gap-2">
+              <h3 class="form-title font-semibold text-sm mb-0">Best Process Data</h3>
+            </div>
+            <app-best-process-table [bestProcessList]="bestProcessList"></app-best-process-table>
+          </div>
+        </div>
+      </mat-tab>
+      <!-- Uncomment below code for Saved tab -->
+      <!-- <mat-tab label="Saved">
+        <app-saved-analysis></app-saved-analysis>
+      </mat-tab> -->
+    </mat-tab-group>
+  </div>
+  <!-- old implementation -->
+  <!-- 
+  <mat-accordion multi class="pt-4">
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2 class="text-xl mb-0">Simulate Costing by Process</h2>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="card mb-2">
+        <div class="card-body search-card">
+          <app-simulation-form
+            [simulationFormData]="simulationFormData"
+            [page]="pageEnum.BestProcess"
+            (partInfo)="partInfo = $event"
+            (selectedProcessesEmit)="selectProcesses($event)"
+            (runSimulationEmit)="prepareForSimulation($event)"
+            (getPrevioussimulationResultEmit)="getPreviousSimulationResult($event)"></app-simulation-form>
+        </div>
+      </div>
+      <app-simulation-calculation [page]="pageEnum.BestProcess" (simulationFormDataEmit)="simulationFormData = $event" (totProcessListEmit)="compileFinalResult($event)"></app-simulation-calculation>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true" [ngClass]="{ 'd-none': !(bestProcessList && bestProcessList.length > 0) || simulationFormComponent.showLoader }">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>
+            Best Process Graph -
+            <span *ngIf="partInfo">Part: {{ partInfo?.intPartNumber }}</span>
+          </h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-best-process-graphical [data]="bestProcessList"></app-best-process-graphical>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true" [ngClass]="{ 'd-none': !(bestProcessList && bestProcessList.length > 0) || simulationFormComponent.showLoader }">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>
+            Best Process Data -
+            <span *ngIf="partInfo">Part: {{ partInfo?.intPartNumber }}</span>
+          </h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-best-process-table [bestProcessList]="bestProcessList"></app-best-process-table>
+    </mat-expansion-panel>
+  </mat-accordion> -->
+</div>

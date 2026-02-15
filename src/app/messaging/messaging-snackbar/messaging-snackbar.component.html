@@ -1,0 +1,16 @@
+<div class="snack-bar">
+  <div class="alert" *ngIf="isAlert">
+    <mat-icon color="warn">warning</mat-icon>
+  </div>
+  <div>
+    <div class="message">{{ message }}</div>
+    <div class="sub-messages" *ngIf="showSubMessages">
+      <ul>
+        <li *ngFor="let subMessage of subMessages">
+          {{ subMessage }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <button mat-button color="primary" (click)="closeSnackBar()">{{ action }}</button>
+</div>

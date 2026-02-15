@@ -1,0 +1,63 @@
+.bt-spinners {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  margin-bottom: 160px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #222;
+  border-top-color: grey;
+  animation: 1s spin linear infinite;
+  z-index: 2;
+  margin-left: -300px;
+}
+
+.overlay {
+  left: 0;
+  top: 4%;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.loadingtext {
+  font-size: 1.3em;
+  color: #822c2c;
+  font-weight: bold;
+  margin-left: -300px;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes translateY {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+
+  80% {
+    transform: translateY(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

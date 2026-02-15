@@ -1,0 +1,24 @@
+<div class="home-project-listing-outer flex flex-col">
+  <!-- uncomment this and remove -mt-4 when integrate new folder ui -->
+  <div class="home-project-container -mt-4">
+    <!-- Remove this when integrate new folderui -->
+    <div class="create-new-project-button relative z-10 ml-auto w-1/2 -mb-10">
+      <button mat-stroked-button class="btn light-button flex items-center icon-16 !text-xs" (click)="onCreateNewProject()">
+        <mat-icon svgIcon="plus-add-icon" class="!ml-0 mr-1"></mat-icon>
+        Create Project
+      </button>
+    </div>
+    <!-- uncomment this and remove  relative material-tab-bordered-container  project-listing-tab mt-0 when integrate new folder ui -->
+    <!-- <div class="relative material-tab-bordered-container project-listing-tab mt-0"> -->
+    <div class="relative project-listing-tab mt-0">
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        <a class="nav-border-inactive custom-tab" mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+          {{ link.label }}
+        </a>
+      </nav>
+    </div>
+  </div>
+  <mat-tab-nav-panel #tabPanel class="flex-1 flex flex-col overflow-hidden">
+    <router-outlet></router-outlet>
+  </mat-tab-nav-panel>
+</div>

@@ -1,0 +1,384 @@
+<form [formGroup]="wiringHarnessForm" (ngSubmit)="onFormSubmit()" (change)="onFormValueChange()" autocomplete="off" class="common-table-container common-style-form bom-accordion-form">
+  <div class="common-table-inner-wrap">
+    <div class="table-container">
+      <p-table
+        [value]="boardComponents"
+        scrollable="true"
+        [scrollHeight]="'flex'"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        styleClass="p-datatable-striped"
+        [paginator]="boardComponents?.length > 0"
+        [scrollable]="false"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        class="custom-p-table"
+        [paginatorDropdownAppendTo]="'body'">
+        <ng-template pTemplate="header">
+          <tr>
+            <th id="number" class="text-right sticky-col sticky-left !pr-4">#</th>
+            <th id="mpn" class="min-w-44 sticky-col sticky-mpn">
+              <div class="flex flex-column">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  <span>MPN</span>
+                  <p-columnFilter field="mpn" matchMode="contains" display="row" placeholder="Search MPN"></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th id="partMatch" class="min-w-24">
+              <span>Part Match</span>
+              <p-columnFilter field="partMatch" matchMode="equals" display="row">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown
+                    [options]="bomStatus"
+                    optionLabel="name"
+                    optionValue="id"
+                    [ngModel]="value"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Select"
+                    (onChange)="filter($event.value)"
+                    appendTo="body"
+                    panelStyleClass="bom-table-dropdown"
+                    [showClear]="true"></p-dropdown>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th id="partImage" class="min-w-20 text-center !px-4">Part Image</th>
+            <th id="qty">Qty</th>
+            <th id="uom">UOM</th>
+            <th id="family">
+              <span>Family</span>
+              <p-columnFilter field="Family" matchMode="equals" display="row">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown
+                    [options]="subCommodityList"
+                    optionLabel="subCategoryName"
+                    optionValue="subCategoryId"
+                    [ngModel]="value"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Select"
+                    (onChange)="filter($event.value)"
+                    panelStyleClass="bom-table-dropdown"
+                    [appendTo]="'body'"
+                    [showClear]="true"></p-dropdown>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th id="type">
+              <span>Type</span>
+              <p-columnFilter field="standardOrCustom" matchMode="equals" display="row">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown
+                    [options]="standardCustomList"
+                    optionLabel="name"
+                    optionValue="name"
+                    [ngModel]="value"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Select"
+                    (onChange)="filter($event.value)"
+                    appendTo="body"
+                    panelStyleClass="bom-table-dropdown"
+                    [showClear]="true"></p-dropdown>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th id="status">
+              <span>Status</span>
+              <p-columnFilter field="partStatusName" matchMode="equals" display="row">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown
+                    [options]="partStatusList"
+                    optionLabel="name"
+                    optionValue="name"
+                    [ngModel]="value"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="Select"
+                    (onChange)="filter($event.value)"
+                    appendTo="body"
+                    panelStyleClass="bom-table-dropdown"
+                    [showClear]="true"></p-dropdown>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <th id="description" class="description-cell text-left">Description</th>
+            <th id="preferredDistributor" class="min-w-36">
+              <span>Preferred Distributor</span>
+              <p-columnFilter field="supplierName" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+            </th>
+            <th id="currentCost" pSortableColumn="currentCost" class="text-right min-w-16">
+              <div class="flex align-items-center justify-content-between">
+                <span>Unit Price($)</span>
+                <p-sortIcon field="currentCost"></p-sortIcon>
+              </div>
+            </th>
+            <th id="extendedCost" pSortableColumn="extendedCost" class="text-right min-w-16">
+              <div class="flex align-items-center justify-content-between">
+                <span>Extended Price($)</span>
+                <p-sortIcon field="extendedCost"></p-sortIcon>
+              </div>
+            </th>
+            <th id="currentUnitPrice" class="text-right">Current Unit Price</th>
+            <th id="savingOpp" class="text-right">Savings Opp./part</th>
+            <th id="annualSavingOpp" class="text-right">Annual Savings Opp./part</th>
+            <th id="partialMatchMpn" class="text-right">Partial Match Mpn</th>
+            <th id="action" class="min-w-14 text-center sticky-col sticky-right">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+          <tr [ngClass]="{ 'grid-bg-color': item.bomId === selectedBomId, 'grid-new-bg-color': item.isManuallyCreated }">
+            <td class="sticky-col sticky-left !pr-4">
+              <div class="flex align-items-center gap-0">
+                <label class="edit-radio flex items-center justify-center">
+                  <input type="radio" name="rowSelector" [value]="item.bomId" (click)="onEditRowClick(item)" [checked]="item.bomId === selectedBomId" />
+                </label>
+                <span class="ml-1">{{ i + 1 }}</span>
+              </div>
+            </td>
+            <td
+              class="min-w-44 sticky-col sticky-mpn"
+              [ngClass]="{
+                partial: item.partMatch === 2,
+                'no-match': item.partMatch === 3,
+              }"
+              (click)="onSelectedComponent(item)">
+              {{ item.mpn }}
+            </td>
+            <td
+              class="min-w-24"
+              [ngClass]="{
+                partial: item.partMatch === 2,
+                'no-match': item.partMatch === 3,
+              }">
+              {{ item.partMatch === 1 ? 'Direct' : item.partMatch === 2 ? 'Partial' : 'No Match' }}
+            </td>
+            <td class="min-w-20 text-center !px-4 relative">
+              <div class="img-div" (mouseenter)="onMouseEnter($event, item.image)" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+                <img [src]="item.image" (contextmenu)="onRightClick($event)" alt="Part image" width="50" height="50" (error)="item.image = 'assets/images/no-image-available-thumb.png'" />
+              </div>
+
+              <div class="zoom-popup" *ngIf="showZoom" [style.top.px]="zoomTop" [style.left.px]="zoomLeft">
+                <img [src]="zoomImage" alt="zoom image" />
+              </div>
+            </td>
+
+            <td>{{ item.partQty }}</td>
+            <td>
+              <span class="font-semibold">{{ item.unitOfMeasure }}</span>
+            </td>
+            <td matTooltip="{{ item.subCategoryName }}">{{ item.subCategoryName }}</td>
+            <td>{{ item.standardOrCustom }}</td>
+            <td>{{ item.partStatusName }}</td>
+            <td id="description" matTooltipClass="gray-tooltip" matTooltipPosition="below" [matTooltipShowDelay]="300" [matTooltip]="item.description">
+              {{ item.description }}
+            </td>
+            <td>{{ item.supplierName }}</td>
+            <td>{{ _shareService.isValidNumber(item.currentCost) }}</td>
+            <td>{{ _shareService.isValidNumber(item.extendedCost) }}</td>
+            <td>{{ _shareService.isValidNumber(item.targetCost) }}</td>
+            <td>{{ _shareService.isValidNumber(item.savingOpp) }}</td>
+            <td>{{ _shareService.isValidNumber(item.annualSavingOpp || item.annualSavings) }}</td>
+            <td>{{ item.partialMatchMpn }}</td>
+            <td class="min-w-14 text-center sticky-col sticky-right">
+              <button class="p-icon-delete" (click)="onDeleteClick(item.bomId)" title="Delete">
+                <mat-icon svgIcon="delete_icon"></mat-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="14" class="!py-10 !px-5">No components available</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="col-12 pe-3 flex justify-start gap-3 mt-2">
+    <button type="button" (click)="addBomMaterial()" class="btn material-table-btn btn-outline-primary flex items-center gap-2 leading-none">
+      <mat-icon svgIcon="plus-add-icon"></mat-icon>
+      <span>Add Material</span>
+    </button>
+    <!-- <button type="button" (click)="openDeleteMultipleModal()" class="btn material-table-btn btn-outline-primary flex items-center gap-2 leading-none">
+      <mat-icon svgIcon="delete_icon"></mat-icon>
+      <span>Delete Multiple</span>
+    </button> -->
+  </div>
+
+  <div class="card !mt-3 material-tab-bordered-container no-seperation" *ngIf="showFormForEdit">
+    <mat-tab-group class="bom-details-tab">
+      <mat-tab label="Cost Details">
+        <div class="container mt-3">
+          <div class="card">
+            <div class="card-header">Product Details</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">MPN:</span></label>
+                  <input type="text" class="form-control" formControlName="mpn" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Part Match</span></label>
+                  <div class="dropdown-wrap">
+                    <input type="text" placeholder="Select Part Match" class="form-control" matInput [matAutocomplete]="partMatchAuto" formControlName="partMatch" />
+                    <mat-autocomplete #partMatchAuto="matAutocomplete" [displayWith]="displayPartMatch" (optionSelected)="onFormValueChange()">
+                      <mat-option *ngFor="let status of bomStatus" [value]="status.id">{{ status.name }}</mat-option>
+                    </mat-autocomplete>
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Part Status</span></label>
+                  <div class="dropdown-wrap">
+                    <input type="text" placeholder="Select Part Status" class="form-control" matInput [matAutocomplete]="partStatusAuto" formControlName="partStatus" />
+                    <mat-autocomplete #partStatusAuto="matAutocomplete" [displayWith]="displayPartStatus" (optionSelected)="onFormValueChange()">
+                      <mat-option *ngFor="let status of partStatusList" [value]="status.id">{{ status.name }}</mat-option>
+                    </mat-autocomplete>
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Qty</span></label>
+                  <input type="number" class="form-control" formControlName="qty" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">UOM</span></label>
+                  <select class="form-control" formControlName="unitOfMeasure" (change)="onUomChange($event)">
+                    <option *ngFor="let unit of unitOfMeasureList" [value]="unit.value">{{ unit.label }}</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Description</span></label>
+                  <input type="text" class="form-control" formControlName="description" placeholder="Enter Description" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Family</span></label>
+                  <div class="dropdown-wrap">
+                    <input type="text" placeholder="Select Family" class="form-control" matInput [matAutocomplete]="familyAuto" formControlName="commodity" />
+                    <mat-autocomplete #familyAuto="matAutocomplete" [displayWith]="displayCategoryMatch" (optionSelected)="onFormValueChange()">
+                      <mat-option value="">Choose Family</mat-option>
+                      <mat-option *ngFor="let family of filteredFamilies$ | async" [value]="family.subCategoryId">{{ family.subCategoryName }}</mat-option>
+                    </mat-autocomplete>
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Standard/Custom</span></label>
+                  <div class="dropdown-wrap">
+                    <input type="text" formControlName="standardCustom" placeholder="Select Standard/Custom" matInput [matAutocomplete]="standardCustomAuto" class="form-control" />
+                    <mat-autocomplete #standardCustomAuto="matAutocomplete">
+                      <mat-option value="">Choose Status</mat-option>
+                      <mat-option *ngFor="let status of standardCustomList" [value]="status.name">{{ status.name }}</mat-option>
+                    </mat-autocomplete>
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                </div>
+
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Preferred Distributor</span></label>
+                  <input type="text" class="form-control" formControlName="supplierName" placeholder="Distributor Name" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Cost Details</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Unit Price</span></label>
+                  <input type="number" class="form-control" formControlName="currentCost" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Current Unit Price</span></label>
+                  <input type="number" class="form-control" formControlName="targetCost" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Extended Price</span></label>
+                  <input type="number" class="form-control" formControlName="extendedCost" [OnlyNumber]="true" min="0" readonly />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Saving Opp. /part</span></label>
+                  <input type="number" class="form-control" formControlName="savingsOpp" [OnlyNumber]="true" min="0" readonly />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Annual Savings Opp./part</span></label>
+                  <input type="number" class="form-control" formControlName="annualSavingOpp" [OnlyNumber]="true" min="0" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Product Attributes">
+        <div class="container mt-3">
+          <div class="card mb-3" *ngIf="productAttributes">
+            <div class="card-header">General Product Information</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Category:</span></label>
+                  <input type="text" class="form-control" [value]="productAttributes?.Main_Category || productAttributes?.category?.name" readonly />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Mfr:</span></label>
+                  <input type="text" class="form-control" [value]="productAttributes?.Mfr || productAttributes?.manufacturer?.name" readonly />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Series:</span></label>
+                  <input type="text" class="form-control" [value]="productAttributes?.Series || ''" readonly />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Packaging:</span></label>
+                  <input type="text" class="form-control" [value]="productAttributes?.Package_Cooled || ''" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3" *ngIf="!productAttributes">
+            <div class="card-header">General Product Information</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Category:</span></label>
+                  <input type="text" class="form-control" formControlName="categoryName" placeholder="Enter Category" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Mfr:</span></label>
+                  <input type="text" class="form-control" formControlName="mfrName" placeholder="Enter Mfr" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Series:</span></label>
+                  <input type="text" class="form-control" formControlName="series" placeholder="Enter Series" />
+                </div>
+                <div class="col-4">
+                  <label class="form-label no-wrap"><span class="label-text">Packaging:</span></label>
+                  <input type="text" class="form-control" formControlName="packagingType" placeholder="Enter Packaging" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3" *ngIf="additionalAttributes?.length > 0">
+            <div class="card-header">Other Information</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4" *ngFor="let attr of additionalAttributes">
+                  <label class="form-label no-wrap">
+                    <span class="label-text">{{ attr?.name }}:</span>
+                  </label>
+                  <input type="text" class="form-control" [value]="attr?.value" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</form>

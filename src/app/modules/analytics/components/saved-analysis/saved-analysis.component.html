@@ -1,0 +1,214 @@
+<div class="data-grid-container flex flex-col gap-2 pt-3 saved-analysis-table-wrap">
+  <!-- <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="analysisName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Analysis Name
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'analysisName')" placeholder="Search" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.analysisName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Project Name
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'projectName')" placeholder="Search" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.projectName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="scenario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Scenario
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'scenario')" placeholder="Search" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.scenario }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="partName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Part Name
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'partName')" placeholder="Search" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.partName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="partModel">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="flex flex-col gap-1 part-model-col-head">Part Model</div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="'assets/' + element.partModel" width="40" height="40" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Created By
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'createdBy')" placeholder="Search" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.createdBy }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="flex flex-col gap-1">
+            Created Date
+            <div class="mat-searchbox">
+              <mat-form-field appearance="outline">
+                <input matInput (keyup)="applyFilter($event, 'createdDate')" placeholder="Select" />
+              </mat-form-field>
+            </div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Edit</button>
+            <button mat-menu-item>Delete</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div> -->
+
+  <div class="table-wrap">
+    <p-table
+      [value]="analyses"
+      [paginator]="true"
+      [rows]="10"
+      [resizableColumns]="true"
+      [filterDelay]="300"
+      [globalFilterFields]="['analysisName', 'projectName', 'scenario', 'partName', 'createdBy', 'createdDate']"
+      class="custom-p-table">
+      <!-- Table Headers -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="analysisName" pResizableColumn pSortableColumn="analysisName" class="min-w-52">
+            <div class="flex no-wrap items-center gap-0">
+              <span>Analysis Name</span>
+              <p-sortIcon field="analysisName"></p-sortIcon>
+            </div>
+            <p-columnFilter field="analysisName" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+          </th>
+
+          <th id="projectName" pResizableColumn pSortableColumn="projectName">
+            <div class="flex no-wrap items-center gap-0">
+              <span class="whitespace-nowrap">Project Name</span>
+              <p-sortIcon field="projectName"></p-sortIcon>
+            </div>
+            <p-columnFilter field="projectName" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+          </th>
+
+          <th id="scenario" pResizableColumn pSortableColumn="scenario">
+            <div class="flex no-wrap items-center gap-0">
+              <span class="whitespace-nowrap">Scenario</span>
+              <p-sortIcon field="scenario"></p-sortIcon>
+            </div>
+            <p-columnFilter field="scenario" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+          </th>
+
+          <th id="partName" pResizableColumn pSortableColumn="partName">
+            <div class="flex no-wrap items-center gap-0">
+              <span class="whitespace-nowrap">Part Name</span>
+              <p-sortIcon field="partName"></p-sortIcon>
+            </div>
+            <p-columnFilter field="partName" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+          </th>
+
+          <th id="partModel" pResizableColumn>Part Model</th>
+
+          <th id="createdBy" pResizableColumn pSortableColumn="createdBy">
+            <div class="flex no-wrap items-center gap-0">
+              <span class="whitespace-nowrap">Created By</span>
+              <p-sortIcon field="createdBy"></p-sortIcon>
+            </div>
+            <p-columnFilter field="createdBy" matchMode="contains" display="row" placeholder="Search"></p-columnFilter>
+          </th>
+
+          <th id="createdDate" pResizableColumn pSortableColumn="createdDate">
+            <div class="flex no-wrap items-center gap-0">
+              <span class="whitespace-nowrap">Created Date</span>
+              <p-sortIcon field="createdDate"></p-sortIcon>
+            </div>
+            <p-columnFilter field="createdDate" matchMode="equals" display="row" placeholder="Search" type="date"></p-columnFilter>
+          </th>
+
+          <th id="stickyCol" class="sticky-col right-0 w-10 min-w-10"></th>
+        </tr>
+      </ng-template>
+
+      <!-- Table Body -->
+      <ng-template pTemplate="body" let-analysis>
+        <tr>
+          <td class="min-w-52">
+            <a href="javascript:void(0)" class="analysis-link" (click)="openAnalysis(analysis.bestRegionAnalyticsId!)">{{ analysis.analysisName }}</a>
+          </td>
+          <td>{{ analysis.projectName }}</td>
+          <td>{{ analysis.scenario }}</td>
+          <td>{{ analysis.partName }}</td>
+          <td>
+            <div class="part-icon-div"><img [src]="analysis.partModel" class="part-icon" alt="" /></div>
+          </td>
+          <td>{{ analysis.createdBy }}</td>
+          <td class="no-border-right">{{ analysis.createdDate }}</td>
+          <td class="sticky-col right-0 w-10 min-w-10">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="saved-analysis-action-menu">
+              <button mat-menu-item (click)="makeACopy(analysis.bestRegionAnalyticsId!)">
+                <mat-icon svgIcon="copy-icon" class="edit"></mat-icon>
+                <span>Make a Copy</span>
+              </button>
+              <button mat-menu-item (click)="deleteAnalysis(analysis.bestRegionAnalyticsId!, analysis.analysisName)">
+                <mat-icon svgIcon="delete_icon"></mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

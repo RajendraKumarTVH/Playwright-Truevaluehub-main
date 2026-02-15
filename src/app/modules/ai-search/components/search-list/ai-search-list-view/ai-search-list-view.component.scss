@@ -1,0 +1,43 @@
+.ai-search-body {
+  flex: 1;
+  overflow: auto;
+  max-height: calc(100% - 50px);
+}
+.ai-search-list-view {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - (56px + 1rem));
+}
+.similarity-panel {
+  /* fixed width when visible */
+  flex: 0 0 360px;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  transition:
+    flex-basis 350ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 350ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 200ms linear;
+  transform: translateX(0);
+  opacity: 1;
+  will-change: flex-basis, transform, opacity;
+}
+
+.similarity-panel.hidden {
+  opacity: 0;
+  flex-basis: 0;
+  pointer-events: none;
+  transform: translateX(-8px);
+}
+
+.list-center {
+  flex: 1 1 auto;
+  flex-basis: 100%;
+  transition: flex-basis 350ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  min-width: 0;
+  will-change: flex-basis;
+}
+
+.ai-search-body.panel-open .list-center {
+  flex-basis: calc(100% - 360px);
+}

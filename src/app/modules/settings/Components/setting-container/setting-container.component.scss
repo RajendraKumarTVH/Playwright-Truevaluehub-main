@@ -1,0 +1,22 @@
+.setting-container {
+  height: calc(100vh - 100px);
+}
+
+mat-sidenav-container {
+  margin-top: -21px;
+  min-height: calc(100vh - 100px);
+}
+
+mat-list-item {
+  cursor: pointer;
+}
+
+.is-active {
+  background: #f5f9ff;
+  color: #3f83f9;
+}
+
+.mat-list-base .mat-list-item .mat-list-icon,
+.mat-list-base .mat-list-option .mat-list-icon {
+  height: 32px;
+}

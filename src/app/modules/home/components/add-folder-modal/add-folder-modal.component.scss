@@ -1,0 +1,11 @@
+.modal-body {
+  input {
+    width: 100%;
+    border: 1px solid var(--input-border-color);
+  }
+  .btn-primary:disabled {
+    --bs-btn-disabled-bg: var(--table-head-cell-border);
+    --bs-btn-disabled-border-color: var(--table-head-cell-border);
+    --bs-btn-disabled-color: var(--label-shade);
+  }
+}

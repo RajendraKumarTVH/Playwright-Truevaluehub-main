@@ -1,0 +1,28 @@
+<div *ngIf="mode === 'determinate'">
+  <div class="col-md-6" class="progressbar-contianer col-md-6">
+    <mat-progress-bar mode="determinate" value="{{ percentage }}" [ngClass]="progressClass"></mat-progress-bar>
+  </div>
+  <div class="col-md-6" class="progressbar-text col-md-6">
+    <p class="mb-0">{{ percentage }}% Completed</p>
+  </div>
+</div>
+
+<div *ngIf="mode === 'donut'" class="donut-progress">
+  <circle-progress
+    class="h-full min-h-4 min-w-4 shrink-0 circle-progress"
+    [percent]="percentage"
+    [radius]="7"
+    [outerStrokeWidth]="3"
+    [innerStrokeWidth]="3"
+    [space]="-3"
+    [outerStrokeColor]="circleOuterColor"
+    [animation]="animation"
+    [animationDuration]="300"
+    [showTitle]="false"
+    [showUnits]="false"
+    [showSubtitle]="false"
+    [showInnerStroke]="true"
+    [innerStrokeColor]="'#e7e8ea'"
+    [startFromZero]="true"></circle-progress>
+  <span *ngIf="showPercentageText" class="donut-percentage-text">{{ percentage }}%</span>
+</div>

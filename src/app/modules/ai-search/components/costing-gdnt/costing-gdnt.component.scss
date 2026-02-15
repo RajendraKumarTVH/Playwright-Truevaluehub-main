@@ -1,0 +1,52 @@
+.gdnt-container {
+  height: 80vh;
+  overflow: auto;
+  padding: 5%;
+  flex-flow: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 4.2rem;
+
+  .gdnt-figure {
+    border: 1px solid;
+    height: max-content;
+  }
+}
+
+.bt-spinners {
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 350px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #222;
+  border-top-color: grey;
+  animation: 1s spin linear infinite;
+  z-index: 2;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 4%;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.gdnt-empty {
+  display: flex;
+  justify-content: center;
+  width: 180vh;
+}
+
+.btn-close {
+  position: absolute;
+  right: 5vh;
+  top: 5vh;
+}

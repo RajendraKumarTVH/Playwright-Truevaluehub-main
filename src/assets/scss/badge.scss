@@ -1,0 +1,11 @@
+.badge-group {
+  .badge-item {
+    border: solid 1px var(--badge-border);
+    border-radius: 100px;
+    background-color: var(--bs-white);
+    padding: 8px 12px 7px 12px;
+    color: var(--label-shade);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}

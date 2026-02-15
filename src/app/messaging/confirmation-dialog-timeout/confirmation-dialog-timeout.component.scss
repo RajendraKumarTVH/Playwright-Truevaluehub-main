@@ -1,0 +1,22 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  width: 400px;
+  max-height: 450px;
+
+  .content-holder {
+    .content {
+      word-wrap: break-word;
+    }
+  }
+
+  .actions-holder {
+    justify-content: flex-end;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+}

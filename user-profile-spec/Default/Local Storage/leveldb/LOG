@@ -1,0 +1,13 @@
+2026/02/14-22:40:31.926 4b50 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Local Storage\leveldb/MANIFEST-000001
+2026/02/14-22:40:31.939 4b50 Recovering log #446
+2026/02/14-22:40:31.955 4b50 Level-0 table #449: started
+2026/02/14-22:40:31.972 4b50 Level-0 table #449: 330021 bytes OK
+2026/02/14-22:40:31.980 4b50 Delete type=0 #446
+2026/02/14-22:41:32.018 4044 Level-0 table #452: started
+2026/02/14-22:41:32.033 4044 Level-0 table #452: 338440 bytes OK
+2026/02/14-22:41:32.036 4044 Delete type=0 #450
+2026/02/14-22:42:27.161 4044 Level-0 table #454: started
+2026/02/14-22:42:27.181 4044 Level-0 table #454: 329546 bytes OK
+2026/02/14-22:42:27.184 4044 Delete type=0 #451
+2026/02/14-22:42:27.186 4044 Compacting 4@0 + 1@1 files
+2026/02/14-22:42:27.233 4044 compacted to: files[ 4 1 1 0 0 0 0 ]

@@ -1,0 +1,164 @@
+<ng-container [formGroup]="formGroup">
+  <div class="card mt-3">
+    <div class="card-header">Material Cost Details</div>
+    <!-- <div class="card-header">Part Details</div> -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap no-wrap" [matTooltip]="'Tube Shape:'" matTooltipPosition="above" [matTooltipShowDelay]="300">Tube Shape:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockType'"></app-field-comment>
+          <select class="form-control" formControlName="stockType" (change)="calculateCost()">
+            <option value="1">Round</option>
+            <option value="2">Rectangle</option>
+          </select>
+        </div>
+        <div class="col-4 position-relative">
+          <label class="form-label no-wrap">
+            Part Volume
+            {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^3)' : '(mm^3)' }}
+            :
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Tube Net Weight (g):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{
+              'input-mandatory': f.netWeight.errors,
+              'input-valid': f.netWeight.valid && !f.netWeight.dirty,
+              'input-overridden': f.netWeight.dirty && f.netWeight.touched,
+            }"
+            placeholder="Enter weight"
+            formControlName="netWeight"
+            [OnlyNumber]="true"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 mt-3" *ngIf="f.stockType.value === 1">
+          <label class="form-label no-wrap">
+            Tube Diameter
+            {{ compVals.isEnableUnitConversion ? compVals.conversionValue : '(mm)' }}
+            :
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partOuterDiameter'"></app-field-comment>
+          <input type="number" class="form-control" placeholder="Enter Part Diameter" [OnlyNumber]="true" formControlName="partOuterDiameter" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3" *ngIf="f.stockType.value === 2">
+          <label class="form-label no-wrap">
+            Tube Width
+            {{ compVals.isEnableUnitConversion ? compVals.conversionValue : '(mm)' }}
+            :
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partWidth'"></app-field-comment>
+          <input type="number" class="form-control" placeholder="Enter Part Width" [OnlyNumber]="true" formControlName="partWidth" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3" *ngIf="f.stockType.value === 2">
+          <label class="form-label no-wrap">
+            Tube Height
+            {{ compVals.isEnableUnitConversion ? compVals.conversionValue : '(mm)' }}
+            :
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partHeight'"></app-field-comment>
+          <input type="number" class="form-control" placeholder="Enter Part Height" [OnlyNumber]="true" formControlName="partHeight" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Tube Thickness ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partTickness'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="partTickness" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">
+            Tube Length
+            {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}
+            :
+          </label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partLength'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="partLength" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3 position-relative">
+          <label class="form-label no-wrap">Additional Length of Edge Bending/Part ({{ compVals.isEnableUnitConversion ? compVals.conversionValue : 'mm' }}) :</label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'lengthAllowance'"></app-field-comment>
+          <input type="number" class="form-control" placeholder="Enter Edge bending per part" [OnlyNumber]="true" formControlName="lengthAllowance" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Cutting Loss:</label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="cuttingLoss" id="cuttingLoss" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Tube End Loss:</label>
+          <!-- <app-field-comment [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'scaleLoss'"></app-field-comment> -->
+          <input type="number" class="form-control" readonly="readonly" formControlName="scaleLoss" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Length of The Raw Material {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + ')' : '(mm)' }}:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sheetLength'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="sheetLength" placeholder="Enter length of the raw material" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">No of Parts Produced/Tube:</label>
+          <!-- <app-field-comment class="position-absolute right-top-comment"
+                        [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'noOfInserts'"></app-field-comment> -->
+          <input type="number" class="form-control" formControlName="noOfInserts" readonly="readonly" />
+        </div>
+        <!-- </div> -->
+        <!-- </div>
+    </div>
+    <div class="col-12 text-left mt-3">
+        <div>
+            <a class=" link-info" href="javascript:void(0)"
+                (click)="compVals.isMaterialDetailsDisplay = !compVals.isMaterialDetailsDisplay" id="_btnMatShow">
+                <i class="bx bx-plus"></i>{{compVals.isMaterialDetailsDisplay ? "Show Less" : "Show More" }}
+            </a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">Material Cost Details</div>
+        <div class="card-body"> -->
+        <!-- <div class="row" *ngIf="compVals.isMaterialDetailsDisplay"> -->
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Gross Weight/Part(g):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'grossWeight'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="grossWeight" placeholder="Enter Gross Weight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" id="grossWeight" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Material Scrap/Part(g):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Material Utilisation %:</label>
+          <!-- <app-field-comment [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'utilisation'"></app-field-comment> -->
+          <input type="number" class="form-control" formControlName="utilisation" [OnlyNumber]="true" readonly="readonly" min="0" />
+        </div>
+        <div class="col-4 mt-3 position-relative">
+          <label class="form-label no-wrap">Cost of Raw Material for Deployed Weight ($/part):</label>
+          <!-- <app-field-comment [formIdentifier]="compVals.formIdentifier"
+                        class="position-absolute right-top-comment"
+                        [fieldIdentifier]="'totalCostOfRawMaterials'"></app-field-comment> -->
+          <input type="number" class="form-control" readonly="readonly" formControlName="totalCostOfRawMaterials" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Scrap Recovery Cost/Part($):</label>
+          <input type="number" class="form-control" readonly="readonly" formControlName="scrapRecCost" />
+        </div>
+        <!-- </div> -->
+        <div
+          class="col-4 mt-3"
+          [ngClass]="{
+            'offset-4': f.stockType.value === 1,
+            'offset-0': f.stockType.value === 2,
+          }">
+          <label class="form-label no-wrap">Net Material Cost ($):</label>
+          <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

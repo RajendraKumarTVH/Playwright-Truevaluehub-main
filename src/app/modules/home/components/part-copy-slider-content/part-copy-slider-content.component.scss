@@ -1,0 +1,107 @@
+.parts-slider-header {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+.parts-slider-label-key {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.parts-slider-label-value {
+  font-weight: 500;
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+}
+
+.parts-copy-info-tag {
+  background-color: #fcf5e8;
+}
+
+.selection-dock-text {
+  font-weight: 500;
+  font-size: 14px;
+  color: #6c6c6d;
+}
+
+.col-completion {
+  app-progress-bar {
+    display: inline-block;
+  }
+
+  span {
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+
+.col-completion-grid-align {
+  display: flex;
+  justify-content: normal;
+  align-items: center;
+}
+
+.parts-slider-scrollable-table {
+  border: 1px solid #f2f2f2;
+
+  .p-datatable-tbody > tr > td {
+    border: 1px solid #f2f2f2;
+    padding: 10px;
+  }
+
+  .p-datatable-thead > tr > th {
+    background-color: #f5f6f9;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #f2f2f2;
+  }
+}
+
+.child-table {
+  margin-top: 1rem;
+
+  .p-datatable-thead > tr > th {
+    background-color: #f5f6f9;
+    font-weight: 500;
+    font-size: 13px;
+  }
+
+  .p-datatable-tbody > tr > td {
+    font-size: 13px;
+  }
+}
+
+.parts-slider-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; // Full height of the viewport
+  overflow: hidden;
+}
+
+.parts-slider-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.parts-slider-footer {
+  flex-shrink: 0;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  padding: 1rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.p-radiobutton .p-radiobutton-box {
+  border: 2px solid #555;
+  background-color: #f0f0f0;
+}
+
+.p-radiobutton .p-radiobutton-icon {
+  background-color: #333;
+}

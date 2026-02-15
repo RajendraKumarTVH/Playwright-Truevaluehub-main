@@ -1,0 +1,79 @@
+<p-sidebar [(visible)]="visible" position="right" [baseZIndex]="100" [modal]="false" [dismissible]="false" [closeOnEscape]="true" styleClass="app-notification-sidebar">
+  <div (click)="$event.stopPropagation()" class="h-full flex flex-col min-h-0">
+    <div class="notif-header flex items-center justify-between p-3">
+      <div class="notif-header-title flex items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Notifications</h3>
+      </div>
+      <button type="button" class="notif-close-btn btn icon-btn p-1 flex justify-center items-center" (click)="close()" title="Close">
+        <mat-icon svgIcon="close_icon"></mat-icon>
+      </button>
+    </div>
+    <div class="flex flex-col gap-3 h-full" *ngIf="filteredNotifications.length; else noNotifications">
+      <div class="tab-wrap flex items-center justify-between px-3">
+        <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabIndexChange($event)" class="notif-tabs flex items-center justify-start" mat-stretch-tabs>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <span>All</span>
+              <span class="tab-badge">{{ notifications.length }}</span>
+            </ng-template>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <span>Unread</span>
+              <span class="tab-badge">{{ unreadCount }}</span>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+        <button type="button" class="notif-mark-all ml-auto border-none bg-transparent text-xs font-medium" (click)="markAllAsRead()">Mark all as read</button>
+      </div>
+      <div class="notif-list">
+        <div class="notif-item" *ngFor="let item of filteredNotifications" [class.notif-item--unread]="item.unread">
+          <div class="notif-item-left">
+            <div class="notif-item-left-icon flex items-center justify-center">
+              <span class="notif-status-dot" *ngIf="item.unread"></span>
+              <div class="notif-icon">
+                <mat-icon svgIcon="folder_icon"></mat-icon>
+              </div>
+            </div>
+          </div>
+
+          <div class="notif-item-body flex-1">
+            <div class="notif-item-header flex items-center justify-between">
+              <h4 class="notif-title text-black text-sm font-semibold flex-1">{{ item.title }}</h4>
+              <button type="button" mat-icon-button class="notif-more-btn" [matMenuTriggerFor]="notifMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #notifMenu="matMenu" xPosition="before" class="notification-action-menu">
+                <button mat-menu-item (click)="markAsRead(item.id)">Mark as read</button>
+                <button mat-menu-item (click)="delete(item.id)">Delete</button>
+              </mat-menu>
+            </div>
+
+            <p class="notif-description text-black text-xs">
+              {{ item.description }}
+            </p>
+
+            <div class="notif-actions flex items-center gap-3 !mb-3">
+              <button type="button" class="btn btn-primary min-w-28">
+                {{ item.primaryAction }}
+              </button>
+              <button type="button" class="btn btn-light min-w-28">
+                {{ item.secondaryAction }}
+              </button>
+            </div>
+
+            <div class="notif-meta">
+              <span class="notif-time text-xs">{{ item.timeAgo }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noNotifications>
+      <div class="no-notifications flex flex-col items-center justify-center flex-1">
+        <mat-icon svgIcon="no-notification-icon"></mat-icon>
+        <h4 class="text-base font-medium text-black mt-3">No notifications</h4>
+      </div>
+    </ng-template>
+  </div>
+</p-sidebar>

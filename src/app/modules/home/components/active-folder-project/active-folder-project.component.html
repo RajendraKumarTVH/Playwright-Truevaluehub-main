@@ -1,0 +1,55 @@
+<div class="file-explorer-container">
+  <div class="file-explorer-header flex items-center justify-between !pt-3 pb-2 px-3">
+    <div>
+      <ng-container *ngIf="path.length === 0; else breadcrumbBlock">
+        <h3 class="text-lg font-semibold">Active Projects</h3>
+      </ng-container>
+      <ng-template #breadcrumbBlock>
+        <div class="breadcrumbs flex items-center">
+          <a class="breadcrumb-link" (click)="onBreadcrumbRootClick()">Projects</a>
+          <ng-container *ngFor="let folder of path; let i = index">
+            <mat-icon svgIcon="play-filled-icon" class="breadcrumb-icon mx-1"></mat-icon>
+            <a class="breadcrumb-link" (click)="onBreadcrumbClick(i)">{{ folder.name }}</a>
+          </ng-container>
+        </div>
+        <h3 class="text-lg font-semibold mt-1 mx-0 mb-0">{{ currentFolderName }}</h3>
+      </ng-template>
+    </div>
+    <div class="file-explorer-actions flex gap-2">
+      <button aria-label="Add folder" class="flex items-center justify-center btn btn-outline-primary gap-2 leading-none min-w-32" (click)="openAddFolderModal()" title="Add Folder">
+        <mat-icon svgIcon="plus-add-icon"></mat-icon>
+        Add Folder
+      </button>
+      <button aria-label="Create project" class="flex items-center btn btn-primary gap-2 leading-none min-w-32 justify-center" title="Create Project">
+        <mat-icon svgIcon="plus-add-icon"></mat-icon>
+        Create Project
+      </button>
+    </div>
+  </div>
+  <div class="file-explorer-body pt-0 px-3 pb-3">
+    <mat-accordion>
+      <mat-expansion-panel #panelFolder="matExpansionPanel" class="accordion-folder">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon svgIcon="folder_icon" class="folder">folders</mat-icon>
+            <div>Folders</div>
+            <div class="count">0</div>
+          </mat-panel-title>
+          <mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon" [class.expanded]="panelFolder.expanded"></mat-icon>
+        </mat-expansion-panel-header>
+        <app-active-folder-list [folders]="currentFolders" (folderClick)="onFolderClick($event)"></app-active-folder-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel #panelProjects="matExpansionPanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon svgIcon="file_icon" class="project">folder_open</mat-icon>
+            <div>Projects</div>
+            <div class="count">0</div>
+          </mat-panel-title>
+          <mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon" [class.expanded]="panelProjects.expanded"></mat-icon>
+        </mat-expansion-panel-header>
+        <app-active-projects></app-active-projects>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

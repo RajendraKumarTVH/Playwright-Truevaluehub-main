@@ -1,0 +1,126 @@
+<div class="container-fluid flex flex-col h-full sensitivity-analysis bg-white common-dropdown-container">
+  <div class="page-header flex p-1 pt-3 w-full">
+    <h2 class="mb-0 text-base font-semibold">Sensitivity Analysis</h2>
+
+    <!-- Uncomment below code for breadcrumb -->
+    <!-- <div class="flex items-center gap-0 breadcrumb-wrap">
+      <a href="/analytics/simulation" class="text-xs text-black underline link">Best Region to Source</a>
+      <mat-icon class="play-icon !size-2 mx-[6px] shrink-0" svgIcon="play-filled-icon"></mat-icon>
+      <p class="mb-0 text-xs text-black">New Analysis</p>
+    </div> -->
+  </div>
+  <div class="tab-container flex form-group flex-col flex-1 px-1 pt-10">
+    <mat-tab-group class="flex-1">
+      <mat-tab label="New">
+        <div class="flex flex-col content-wrap mt-3 p-3">
+          <div class="content-section container-fluid form-container flex flex-col !px-0 gap-0 !pb-5">
+            <div class="flex form-header align-items-center gap-1">
+              <h3 class="form-title font-semibold text-sm mb-0">New Analysis</h3>
+              <!-- Uncomment for edit action -->
+              <button class="text-xs border-none bg-transparent edit-btn p-0 m-0 shadow-none text-black app-l-header-edit-btn">
+                <mat-icon class="text-sm shrink-0" svgIcon="editpen_icon"></mat-icon>
+              </button>
+            </div>
+            <!-- Uncomment for editable state of form header -->
+            <!-- <div class="flex items-center editable-header row pb-2">
+              <div class="col-4">
+                <input type="text" class="form-control" placeholder="Enter value" />
+              </div>
+              <div class="flex items-center gap-2 editable-header-controls col-4">
+                <button class="flex items-center justify-center btn btn-primary save">
+                  <mat-icon class="text-sm shrink-0" svgIcon="check-icon"></mat-icon>
+                </button>
+                <button class="flex items-center justify-center btn btn-outline-secondary">
+                  <mat-icon class="text-sm shrink-0" svgIcon="close_icon"></mat-icon>
+                </button>
+              </div>
+            </div> -->
+
+            <form autocomplete="off" [formGroup]="simulationform" class="simulation-form">
+              <div class="form-group pt-1 mb-3 row">
+                <div class="col-sm-4">
+                  <label for="projectId" class="control-label">Project</label>
+                  <div class="dropdown-wrap">
+                    <input type="text" class="form-control" placeholder=" Select Project" [formControl]="projectControl" [matAutocomplete]="projectAuto" />
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                  <div class="category-input-dropdown mat-selectbox">
+                    <mat-autocomplete autoActiveFirstOption #projectAuto="matAutocomplete" [displayWith]="displayProject">
+                      <mat-option *ngFor="let project of filteredProjects$ | async" [value]="project">{{ project.projectName }} - {{ project.projectInfoId }}</mat-option>
+                    </mat-autocomplete>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="partId" class="control-label">Scenario</label>
+                  <div class="dropdown-wrap">
+                    <input type="text" class="form-control" placeholder="Select Scenario" [matAutocomplete]="scenarioAuto" [formControl]="scenarioControl" />
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                  <mat-autocomplete #scenarioAuto="matAutocomplete" [displayWith]="displayScenarioName">
+                    <mat-option *ngFor="let scenario of scenarioList" [value]="scenario">
+                      {{ scenario.scenarioName }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="partId" class="control-label">Part Name</label>
+                  <div class="dropdown-wrap">
+                    <input type="text" class="form-control" placeholder="Select Part" [formControl]="partControl" [matAutocomplete]="partAuto" />
+                    <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+                  </div>
+                  <div class="category-input-dropdown mat-selectbox">
+                    <mat-autocomplete #partAuto="matAutocomplete" [displayWith]="displayPartName">
+                      <mat-option *ngFor="let part of filteredParts$ | async" [value]="part">
+                        {{ part.intPartNumber }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-10 button-group flex gap-3">
+                  <button type="button" class="btn btn-primary" (click)="runSimulation()" [disabled]="!simulationform.valid">Run Analysis</button>
+                  <button type="button" class="btn btn-outline-primary" (click)="saveSimulationResult()" [ngClass]="saveNeeded ? 'dirty-button' : ''" [disabled]="!simulationform.valid">
+                    Save Result
+                  </button>
+                  <div class="flex shrink-0 items-center justify-center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="text-black menu-btn flex items-center justify-center">
+                      <mat-icon class="text-black text-base font-normal">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" class="new-analysis-action-menu">
+                      <button mat-menu-item>
+                        <mat-icon svgIcon="copy-icon" class="edit"></mat-icon>
+                        <span class="text-xs">Make a Copy</span>
+                      </button>
+                      <button mat-menu-item>
+                        <mat-icon svgIcon="delete_icon"></mat-icon>
+                        <span class="text-xs">Delete</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="content-section container-fluid form-container flex flex-col p-3 gap-3 mt-2">
+            <div class="flex form-header align-items-center gap-1">
+              <h3 class="form-title font-semibold text-sm mb-0">Sensitivity Analysis</h3>
+              <h3 class="form-title font-normal text-sm mb-0">: AA112234</h3>
+            </div>
+            <div class="flex flex-col w-100">
+              <!-- <app-grid-loader class="h-96 w-full"></app-grid-loader> -->
+              <app-sensitivity-analysis-grid></app-sensitivity-analysis-grid>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <!-- <mat-tab label="Saved">
+        <app-saved-analysis></app-saved-analysis>
+      </mat-tab> -->
+    </mat-tab-group>
+  </div>
+</div>

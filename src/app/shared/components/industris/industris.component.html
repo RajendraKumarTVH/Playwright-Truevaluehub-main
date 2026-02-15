@@ -1,0 +1,25 @@
+<div class="row p-t-1">
+  <div class="col">
+    <select class="form-control combo-box" [ngModel]="selectedToAdd" multiple name="myselecttsms2" (ngModelChange)="chosenIndustri($event)" [ngModelOptions]="{ standalone: true }">
+      <option *ngFor="let industri of industriTypeList" [ngValue]="industri">
+        {{ industri.indType }}
+      </option>
+    </select>
+  </div>
+  <div class="col-2 move-item">
+    <div>
+      <button mat-raised-button (click)="assigne()" type="button">ADD &gt;&gt;&gt;</button>
+    </div>
+    <div>
+      <button (click)="unassigne()" mat-raised-button type="button">&lt;&lt;&lt;&nbsp;REMOVE</button>
+    </div>
+  </div>
+  <div class="col">
+    <select class="form-control combo-box" [ngModel]="selectedToRemove" multiple name="myselecttsms" (ngModelChange)="chosenToRemove($event)" [ngModelOptions]="{ standalone: true }">
+      <option *ngFor="let item of selectedIndustris" [ngValue]="item">{{ item.indType }}</option>
+    </select>
+  </div>
+</div>
+<!-- <div>
+    {{industriTypeList | json}}
+</div> -->

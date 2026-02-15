@@ -1,0 +1,47 @@
+.home-create-project-container a {
+  width: 43px;
+  height: 34px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #211f27;
+  border-radius: 7px 7px 0px 0px;
+}
+
+// .home-create-project-container a:focus {
+//   background-color: #c7d8f9;
+// }
+
+.active {
+  color: var(--bs-link-hover-color);
+}
+
+.nav-tab {
+  .mat-mdc-tab-link {
+    padding: 16px 20px;
+    height: auto;
+  }
+}
+
+.mdc-button--outlined.light-button {
+  min-height: 53px;
+}
+
+.create-project-outer-container {
+  display: flex;
+  height: calc(100vh - (56px + 1rem));
+  background-color: var(--bs-gray-450);
+}
+.download-btn:active {
+  mat-icon {
+    color: var(--bs-white);
+    svg {
+      fill: var(--bs-white);
+    }
+  }
+}
+
+.create-project-tab {
+  max-height: calc(100% - 50px);
+}

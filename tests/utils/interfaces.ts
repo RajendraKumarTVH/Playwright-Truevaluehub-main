@@ -437,6 +437,44 @@ export interface MaterialESGInput {
 	esgImpactCO2KgScrap?: number // optional, for scrap
 }
 
+export interface ManufacturingInput {
+	machineHourRate: number
+	machineEfficiency: number
+	lowSkilledLaborRatePerHour: number
+	skilledLaborRatePerHour: number
+	noOfLowSkilledLabours: number
+	electricityUnitCost: number
+	powerConsumptionKW: number
+	yieldPercentage: number
+	annualVolume: number
+	setUpTime: number
+	qaInspectorRate: number
+	inspectionTime: number
+	samplingRate: number
+	netMaterialCost: number
+	CycleTime: number
+	totalWeldLength: number
+	cuttingLength: number
+	matWeldSize1: number
+	matWeldSize2: number
+	matWeldElementSize1: number
+	matWeldElementSize2: number
+	noOfWeldPasses: number
+	partProjectedArea: number
+	totalWeldCycleTime: number
+	travelSpeed: number
+	unloadingTime: number
+	machineType: number
+	netWeight: number
+	density: number
+	dryCycleTime: number
+	RequiredVoltage: number
+	RequiredCurrent: number
+	SelectedVoltage: number
+	SelectedCurrent: number
+	netProcessCost: number
+}
+
 export interface MaterialESGResult {
 	esgImpactCO2KgPart: number
 	esgAnnualVolumeKg: number
@@ -494,6 +532,21 @@ export interface MaterialDimensionsAndDensity {
 	density: number
 }
 
+export interface MaterialProcessProperties extends MaterialDimensionsAndDensity {
+	thermalDiffusivity: number
+	thermalConductivity: number
+	specificHeatCapacity: number
+	meltTemp: number
+	mouldTemp: number
+	ejectionTemp: number
+	clampingPressure: number
+	tensileStrength?: number
+	injectionRate: number
+	materialTypeId?: number
+	esgImpactCO2Kg?: number
+	esgImpactCO2KgScrap?: number
+}
+
 /** Verification configuration for UI value checking */
 export interface VerificationConfig {
 	locator: Locator
@@ -520,42 +573,244 @@ export interface SubProcessUIData {
 	weldLength: number
 	weldSide: string
 }
-export interface ManufacturingInputs {
+export interface ManufacturingInfo {
+	processType: ProcessType
+	machineEfficiency: number
+	density: number
+	netWeight: number
+	partVolume: number
+	eav: number
+	lotSize: number
+	cycleTime: number
+	loadingUnloadingTime: number
+	partReorientation: number
+	machineRatePerHour: number
+	laborRatePerHour: number
+	setupTime: number
+	powerConsumption: number
+	powerCostPerKwh: number
+	totalWeldLength: number
+	totalWeldMaterialWeight: number
+	weldBeadWeightWithWastage: number
+	inspectionRate: number
+	yieldRate: number
+	subProcesses: SubProcess[]
+	subProcessCycleTimes: number[]
+	processTypeID?: number | string
+	partComplexity?: number | string
+	machineMaster?: any
+	materialInfoList?: any[]
 
-	machineHourRate: number;
-	machineEfficiency: number;
-	lowSkilledLaborRatePerHour: number;
-	skilledLaborRatePerHour: number;
-	noOfLowSkilledLabours: number;
-	electricityUnitCost: number;
-	powerConsumptionKW: number;
-	yieldPercentage: number;
-	annualVolume: number;
-	setUpTime: number;
-	qaInspectorRate: number;
-	inspectionTime: number;
-	samplingRate: number;
-	netMaterialCost: number;
-	CycleTime: number;
-	totalWeldLength: number;
-	cuttingLength: number;
-	matWeldSize1: number;
-	matWeldSize2: number;
-	matWeldElementSize1: number;
-	matWeldElementSize2: number;
-	noOfWeldPasses: number;
-	partProjectedArea: number;
-	totalWeldCycleTime: number;
-	travelSpeed: number;
-	unloadingTime: number;
-	machineType: number;
-	netWeight: number;
-	density: number;
-	dryCycleTime: number;
-	RequiredVoltage: number;
-	RequiredCurrent: number;
-	SelectedVoltage: number;
-	SelectedCurrent: number;
-	netProcessCost: number;
+	// Cost fields
+	directMachineCost?: number
+	directLaborCost?: number
+	directSetUpCost?: number
+	inspectionCost?: number
+	yieldCost?: number
+	totalPowerCost?: number
+	directProcessCost?: number
+	netMaterialCost?: number
+}
 
+export interface IMouldingInputs {
+	machineName?: string;
+	machineDescription?: string;
+	machineId?: number;
+	bomQty?: number;
+	annualVolumeQty?: number;
+	lotSize?: number;
+	productLifeRemainingYrs?: number;
+	lifeTimeQtyRemainingNos?: number;
+	scrapPrice?: number;
+	materialPrice?: number;
+	volumePurchasingQtyNos?: number;
+	volDiscountPer?: number;
+	discountedMaterialPrice?: number;
+	partEnvelopeLength?: number;
+	partEnvelopeWidth?: number;
+	partEnvelopeHeight?: number;
+	maxWallThk?: number;
+	WallAvgThk?: number;
+	standardDeviation?: number;
+	partProjectedArea?: number;
+	partSurfaceArea?: number;
+	partVolume?: number;
+	PartNetWeight?: number;
+	noOfInserts?: number;
+	matUtilizationPer?: number;
+	ScrapRecPer?: number;
+	grossWeight?: number;
+	scrapWeight?: number;
+	ScrapRecoPer?: number;
+	GrossMaterialCost?: number;
+	scraprec?: number;
+	regrindPer?: number;
+	netMatCost?: number;
+	sheetThickness?: number;
+	//Cavity and Mold Type
+	NoOfCavities?: number;
+	NumberOfCavityLengthNos?: number;
+	NumberOfCavityWidth?: number;
+	RunnerDia?: number;
+	RunnerLength?: number;
+	NoOfExternalSideCores?: number;
+	NoOfInternalSideCores?: number;
+	UnscrewingUndercuts?: number;
+
+	// Material Details
+	density?: number;
+	clampPr?: number;
+	mouldTemp?: number;
+	TensileStrength?: number;
+	meltTemp?: number;
+	ejectionTemp?: number;
+	thermalDiffusivity?: number;
+	//============== Manufacturing Information ================================
+	recomTonnage?: number;
+	selectedTonnage?: number;
+	shotWeightRequired?: number;
+
+	//================== Cycle Time Details ============================
+	InsertsPlacement?: number;
+	DryCycleTime?: number;
+	InjectionTime?: number;
+	SideCoreMechanisms?: number;
+	CoolingTime?: number;
+	PartEjection?: number;
+	Others?: number;
+	PackAndHoldTime?: number;
+	TotalTime?: number;
+	//==================== Manufacturing Details costs ===================
+	samplingRate?: number;
+	lowSkilledLaborRate?: number;
+	SkilledLaborHours?: number;
+	noOfLowSkilledLabours?: number;
+	noOfSkilledLabours?: number;
+	qaInspectorRate?: number;
+	machineHourRate?: number;
+	directMachineCost?: number;
+	yieldPercentage?: number;
+	setUpTime?: number;
+	inspectionTime?: number;
+	cycleTime?: number;
+
+	yieldCost?: number;
+	yieldPer?: number;
+	directLaborCost?: number;
+	inspectionCost?: number;
+	directSetUpCost?: number;
+	directProcessCost?: number;
+	co2KwH?: number;
+	co2Part?: number;
+	insertsPlacement?: number;
+	newToolingCostAllocation?: number;
+	machineEfficiency?: number;
+	powerConsumptionKW?: number;
+	injectionRate?: number;
+	shotSize?: number;
+	platenSizeOfMachine?: string;
+	dryCycleTime?: number;
+	injectionTime?: number;
+	sideCoreMechanisms?: number;
+	coolingTime?: number;
+	partEjection?: number;
+	others?: number;
+	packAndHoldTime?: number;
+	totalTime?: number;
+	// sustainability
+	esgImpactCO2Kg?: number;
+	esgImpactCO2KgScrap?: number;
+	esgImpactCO2KgPart?: number;
+	powerESG?: number;
+	esgImpactAnnualKgCO2Part?: number;
+
+	// Packaging details
+	deliveryFrequency?: number;
+	partsPerContainer?: number;
+	qtyNeededPerShipment?: number;
+	costPerContainer?: number;
+	costPerUnit?: number;
+	packagingWeight?: number;
+	totalPackagingCost?: number;
+	totalPackagCostPerShipment?: number;
+	totalPackagCostPerUnit?: number;
+
+
+
+
+
+}
+export interface PlasticRubberVerificationOptions {
+	/** Enable cycle time validation */
+	verifyCycleTime?: boolean;
+
+	/** Expected process time inputs (seconds) */
+	expectedInputs?: {
+		insertsPlacement?: number;
+		dryCycleTime?: number;
+		injectionTime?: number;
+		coolingTime?: number;
+		sideCoreMechanisms?: number;
+		partEjection?: number;
+		others?: number;
+		packAndHoldTime?: number;
+		totalTime?: number;
+		cycleTime?: number;
+	};
+
+	/** Expected manufacturing & costing outputs */
+	expectedCosts?: {
+		/** Material-related */
+		materialCost?: number;
+		netMaterialCost?: number;
+		scrapRecovery?: number;
+
+		/** Manufacturing */
+		manufacturingCost?: number;
+		directMachineCost?: number;
+		directLaborCost?: number;
+		inspectionCost?: number;
+		directSetUpCost?: number;
+		yieldCost?: number;
+		directProcessCost?: number;
+
+		/** Commercial adders */
+		overheadAndProfit?: number;
+		packingCost?: number;
+		freightCost?: number;
+
+		/** Final */
+		partShouldCost?: number;
+		cycleTime?: number;
+		totalTime?: number;
+	};
+
+	/** Sustainability validation (optional) */
+	sustainability?: {
+		IMouldingInputs?: {
+			esgImpactCO2Kg?: number;
+			esgImpactCO2KgScrap?: number;
+			esgImpactCO2KgPart?: number;
+			totalAnnualCO2?: number;
+		};
+	};
+
+	/** Machine & labor validation */
+	manufacturingParams?: {
+		machineHourRate?: number;
+		machineEfficiency?: number;
+		noOfLowSkilledLabours?: number;
+		noOfSkilledLabours?: number;
+		lowSkilledLaborRate?: number;
+		skilledLaborRate?: number;
+	};
+
+	/** Volume & yield checks */
+	yieldAndVolume?: {
+		yieldPercentage?: number;
+		annualVolume?: number;
+		lotSize?: number;
+
+
+	};
 }

@@ -1,0 +1,29 @@
+:host {
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep .p-skeleton {
+  background-color: #f1f5f9 !important; /* Tailwind slate-100 */
+}
+
+.app-l-skeleton-loader {
+  table {
+    thead {
+      tr {
+        th {
+          background-color: var(--material-table-header-bg);
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          background-color: var(--bs-white);
+        }
+      }
+    }
+  }
+}

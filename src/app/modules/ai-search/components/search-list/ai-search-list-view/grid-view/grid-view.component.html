@@ -1,0 +1,235 @@
+<div class="ai-grid-view">
+  <div *ngIf="dataSource?.length">
+    <div class="mb-3 text-sm">
+      <span *ngIf="![1, 2].includes(currentAiSearchState)">Showing {{ pageFirst + 1 }}-{{ pageFirst + pageSize }} of</span>
+      {{ recordCount }} items
+    </div>
+    <div class="ai-grid">
+      <div class="ai-card" *ngFor="let item of dataSource; trackBy: trackById">
+        <div class="ai-card-media">
+          <!-- Carousel when both image + pdf thumbnails exist -->
+          <div *ngIf="item.imgThumbnailData && item.pdfThumbnailData" class="carousel-container">
+            <div class="flex justify-between items-center w-full carousel-inner-container">
+              <button class="nav-button prev-button icon-btn" (click)="onImageViewChange(item, 'prev')" aria-label="prev">
+                <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+              </button>
+              <div class="carousel-inner flex overflow-hidden justify-center items-center">
+                <div class="carousel-slides-container" [style.transform]="'translateX(' + (item.imageShowing === 'pdf' ? '-100%' : '0') + ')'">
+                  <div class="carousel-slide" (click)="open3DViewer(item)" onKeyPress="">
+                    <img src="data:image/png;base64,{{ item.imgThumbnailData }}" alt="{{ item.partId }}" class="img-fluid" />
+                  </div>
+                  <div class="carousel-slide" (click)="open3DViewer(item, 'pdf')" onKeyPress="">
+                    <img src="data:image/png;base64,{{ item.pdfThumbnailData }}" alt="pdf thumbnail" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+              <button class="nav-button next-button" (click)="onImageViewChange(item, 'next')" aria-label="next">
+                <mat-icon svgIcon="dropdown-down-icon"></mat-icon>
+              </button>
+            </div>
+            <ul class="dots-container">
+              <li class="dot-li" [class.active]="item.imageShowing === 'cad'" (click)="setImageView(item, 'cad')" onKeyPress="">
+                <button class="dot"></button>
+              </li>
+              <li class="dot-li" [class.active]="item.imageShowing === 'pdf'" (click)="setImageView(item, 'pdf')" onKeyPress="">
+                <button class="dot"></button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Single image -->
+          <div *ngIf="item.imgThumbnailData && !item.pdfThumbnailData" class="single-media" (click)="open3DViewer(item)" onKeyPress="">
+            <img src="data:image/png;base64,{{ item.imgThumbnailData }}" alt="part" class="img-fluid" />
+          </div>
+
+          <!-- Single pdf thumbnail -->
+          <div *ngIf="!item.imgThumbnailData && item.pdfThumbnailData" class="single-media" (click)="open3DViewer(item, 'pdf')" onKeyPress="">
+            <img src="data:image/png;base64,{{ item.pdfThumbnailData }}" alt="pdf thumbnail" class="img-fluid" />
+          </div>
+
+          <!-- fallback loading icon -->
+          <div *ngIf="!item.imgThumbnailData && !item.pdfThumbnailData" class="single-media image-loading-skeleton"></div>
+          <label class="ai-card-checkbox">
+            <input type="checkbox" class="form-check-input" (change)="onCheckboxChange($event, item)" />
+          </label>
+        </div>
+        <div class="ai-card-body">
+          <div class="ai-card-actions">
+            <button class="icon-btn" title="View similar parts" aria-label="View similar parts" (click)="aiSimilaritySearchClicked(item)">
+              <mat-icon svgIcon="search_icon"></mat-icon>
+            </button>
+            <button class="icon-btn" title="Open Properties" aria-label="Open Properties" (click)="openProperties(item)">
+              <mat-icon svgIcon="cube-light-icon"></mat-icon>
+            </button>
+            <button class="icon-btn" title="Go to costing" aria-label="Go to costing" (click)="goToCosting(item)">
+              <mat-icon svgIcon="currency-light-icon"></mat-icon>
+            </button>
+            <button class="icon-btn" title="More info" aria-label="More info" (click)="showDetails(item)">
+              <mat-icon svgIcon="info-icon-black"></mat-icon>
+            </button>
+          </div>
+          <div class="ai-card-title">
+            <div class="part-number mb-1 font-semibold text-sm text-black">{{ item.intPartNumber || '—' }}</div>
+            <div class="part-desc text-xs">{{ item.intPartDescription || 'No description' }}</div>
+          </div>
+          <div class="flex mt-3 justify-between">
+            <div class="ai-card-meta">
+              <div class="meta-row">
+                <span class="meta-label">Size (L*W*H)</span>
+                <span class="meta-value">{{ item.dimArea || '—' }}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Annual Volume</span>
+                <span class="meta-value">{{ item.annualVolume || '—' }} mm²</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Competitiveness Score</span>
+                <span class="meta-value value-increase">{{ item.competitivenessScore || '—' }}%</span>
+              </div>
+            </div>
+            <div class="ai-card-meta">
+              <div class="meta-row">
+                <span class="meta-label">Volume</span>
+                <span class="meta-value">{{ item.volume || '—' }} mm³</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Mfg Category</span>
+                <span class="meta-value">{{ item.manufacturingCategory || '—' }}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Complexity Score</span>
+                <span class="meta-value value-decrease">{{ item.complexityScore || '—' }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="selection-dock flex items-center p-2 bg-white" *ngIf="checkedCount > 1 || currentAiSearchState === 4">
+        <button class="btn icon-btn leading-none p-0 w-5 h-5 opacity-100 transition-opacity focus:opacity-100 hover:opacity-100 close-cta icon-12" title="Reset Comparison" (click)="resetCompare()">
+          <mat-icon svgIcon="close_icon" color="y-icon"></mat-icon>
+        </button>
+        <p class="mb-0 px-2 mx-2 selection-dock-text whitespace-nowrap">{{ checkedCount }} Selected</p>
+        <button
+          *ngIf="checkedCount === 2"
+          type="button"
+          class="btn btn-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2"
+          title="Compare"
+          (click)="compareWithSearched()">
+          <span>Compare Models</span>
+        </button>
+        <button type="button" class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Compare" (click)="compareParts()">
+          <span>Compare</span>
+        </button>
+
+        <button type="button" class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Clear" (click)="resetCompare()">
+          <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="delete_icon"></mat-icon>
+          <span>Clear</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid-paginator" *ngIf="recordCount > pageSize && currentAiSearchState !== 1">
+      <p-paginator
+        (onPageChange)="paginatorPageChanged($event)"
+        [first]="pageFirst"
+        [rows]="pageSize"
+        [rowsPerPageOptions]="rowsPerPageOptions"
+        [totalRecords]="recordCount"
+        [showCurrentPageReport]="true"
+        [showPageLinks]="true"
+        [showJumpToPageDropdown]="false"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"></p-paginator>
+    </div>
+  </div>
+</div>
+<!-- Right side details panel -->
+<p-sidebar [(visible)]="showInfoSidebar" position="right" [baseZIndex]="10000" styleClass="ai-info-sidebar" dismissible="false">
+  <ng-template pTemplate="header">
+    <div class="sidebar-header d-flex justify-between">
+      <div class="header-text">
+        <h3 class="font-semibold text-base text-black">Part Number: {{ selectedItem?.intPartNumber }}</h3>
+        <div class="text-xs">{{ selectedItem?.intPartDescription }}</div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-container *ngIf="selectedItem">
+    <div class="info-section">
+      <h4 class="section-title">Part Information</h4>
+      <div class="info-grid">
+        <div class="info-group">
+          <div class="more-info-label">Created By:</div>
+          <div class="more-info-value">{{ getUserName(selectedItem.createdUserId) }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Date Created:</div>
+          <div class="more-info-value">{{ selectedItem.createdDate | date: 'mediumDate' }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Project Number:</div>
+          <div class="more-info-value">{{ selectedItem.projectInfoId }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Supplier City:</div>
+          <div class="more-info-value">{{ supplierInfo[selectedItem.vendorId]?.city }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Supplier Country:</div>
+          <div class="more-info-value">{{ countryDataList[selectedItem.mfrCountryId]?.countryName }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Drawing Number:</div>
+          <div class="more-info-value">{{ selectedItem.drawingNumber }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="info-section">
+      <h4 class="section-title">Dimensions & Physical Data</h4>
+      <div class="info-grid">
+        <div class="info-group">
+          <div class="more-info-label">Size (L×W×H):</div>
+          <div class="more-info-value">{{ selectedItem?.dimArea }} mm</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Surface Area:</div>
+          <div class="more-info-value">{{ selectedItem?.surfaceArea }} mm²</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Volume:</div>
+          <div class="more-info-value">{{ selectedItem?.volume }} mm³</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Weight:</div>
+          <div class="more-info-value">{{ selectedItem.netWeight }}</div>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Annual Volume:</div>
+          <div class="more-info-value">{{ selectedItem.annualVolume }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="info-section">
+      <h4 class="section-title">Scores & Cost Insights</h4>
+      <div class="info-grid">
+        <div class="info-group">
+          <div class="more-info-label">Competitiveness Score:</div>
+          <span class="value-increase more-info-value">{{ selectedItem.competitivenessScore }}%</span>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Complexity Score:</div>
+          <span class="value-decrease more-info-value">{{ selectedItem.complexityScore }}%</span>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Annual Spend:</div>
+          <span class="more-info-value">${{ selectedItem.annualSpend }}</span>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Purchase Price:</div>
+          <span class="more-info-value">${{ selectedItem.purchasePrice }}</span>
+        </div>
+        <div class="info-group">
+          <div class="more-info-label">Should Cost:</div>
+          <span class="more-info-value">${{ selectedItem.shouldCost }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</p-sidebar>

@@ -1,0 +1,40 @@
+<div class="multi-select-dropdown">
+  <div class="input-container">
+    @for (item of shareItems(); track item.id) {
+      @if (item.isSelected) {
+        <div class="selected-item">
+          {{ item.name }}
+          <button (click)="removeItem(item, $event)">x</button>
+        </div>
+      }
+    }
+    <div class="container">
+      <input class="text" type="text" (focus)="showDropdown()" (input)="filterItems($event)" [placeholder]="isDropdownVisible ? '' : placeHolder" />
+      <mat-icon aria-label="Project locked" class="icon icon-size material-icons">arrow_drop_down</mat-icon>
+    </div>
+  </div>
+
+  @if (isDropdownVisible) {
+    <div class="dropdown-list">
+      @for (item of filteredItems(); track item.id) {
+        <div class="dropdown-item" (click)="toggleItem(item, $event)">
+          <span class="checkbox" [class.checked]="item.isSelected">
+            @if (item.isSelected) {
+              <span class="checkmark">✓</span>
+            }
+          </span>
+
+          <span>{{ item.name }}</span>
+          @if (item.email) {
+            <span>{{ item.email }}</span>
+          }
+          @if (item.role) {
+            <span>{{ item.role }}</span>
+          }
+        </div>
+      } @empty {
+        <h1>No users found!</h1>
+      }
+    </div>
+  }
+</div>

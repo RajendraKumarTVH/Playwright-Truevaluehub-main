@@ -1,0 +1,74 @@
+<div class="flex flex-col w-full gap-2 p-3">
+  <div class="search-bar">
+    <div class="search-icon-wrap absolute flex items-center justify-center border-none bg-white h-full">
+      <mat-icon class="search-icon" svgIcon="find-icon">find-icon</mat-icon>
+    </div>
+    <input type="text" pInputText placeholder="Search by keywords" [(ngModel)]="globalFilter" (input)="onSearch()" />
+    <button
+      *ngIf="globalFilter"
+      class="clear-search-cta absolute flex items-center justify-center border-none bg-white"
+      (click)="clearSearch()"
+      title="Clear search"
+      matTooltip="Clear"
+      matTooltipPosition="above"
+      aria-label="Clear search">
+      <mat-icon class="clear-icon" svgIcon="close_icon">close_icon</mat-icon>
+    </button>
+  </div>
+
+  <div class="pagination-text">
+    <p class="mb-0">Showing {{ skip + 1 }}-{{ skip + limit }} of {{ totalRecords }}</p>
+  </div>
+</div>
+<div class="table-wrapper flex flex-col h-full gap-2 p-0" [ngClass]="{ loading: loading }">
+  <p-table
+    [value]="data"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="limit"
+    [first]="skip"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    [globalFilterFields]="globalFilterFields"
+    [selectionMode]="selectable ? 'single' : null"
+    [(selection)]="selectedRow"
+    (onLazyLoad)="loadData($event)"
+    (onRowSelect)="handleRowSelect($event)"
+    [rowsPerPageOptions]="[10, 20, 50]"
+    [scrollable]="true"
+    [scrollHeight]="'100%'"
+    responsiveLayout="scroll"
+    [dataKey]="dataKey">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of columns" scope="col">{{ col.header }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody">
+      <tr>
+        <td [attr.colspan]="columns.length" class="custom-loading-container">
+          <div class="custom-loading-overlay">
+            <span class="loading-text">Loading..</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData>
+      <tr [pSelectableRow]="selectable ? rowData : null">
+        <td *ngFor="let col of columns" [innerHTML]="highlight(rowData[col.field])"></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="columns.length" class="text-center py-3">No records found</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p class="mb-0 pagination-text">Showing {{ skip + 1 }}-{{ skip + limit }} of {{ totalRecords }}</p>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p class="mb-0 pagination-text">items per page</p>
+    </ng-template>
+  </p-table>
+</div>

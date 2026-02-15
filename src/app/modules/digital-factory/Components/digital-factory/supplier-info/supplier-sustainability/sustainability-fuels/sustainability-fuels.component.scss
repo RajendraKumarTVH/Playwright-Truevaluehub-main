@@ -1,0 +1,72 @@
+.card {
+  border: none;
+}
+.mat-mdc-cell {
+  vertical-align: top;
+  background: var(--table-head-row-bg);
+}
+.category-dropdown {
+  display: flex;
+  max-height: 50px;
+  position: relative;
+  border-radius: 6px;
+  align-items: center;
+  background: var(--bs-white);
+  border: 1px solid var(--bs-border-color);
+
+  mat-icon {
+    position: absolute;
+    top: 50%;
+    left: auto;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    z-index: 1;
+    cursor: pointer;
+    // margin-left: -24px;
+    pointer-events: none;
+    color: var(--bs-black);
+    transform: translateY(-50%);
+  }
+}
+.sustainability-fuels-table {
+  .mat-column-annualVolume {
+    max-width: 156px;
+    width: 156px;
+  }
+
+  .mat-column-unit {
+    max-width: 130px;
+    width: 130px;
+  }
+
+  .mat-column-action {
+    max-width: 58px;
+    width: 58px;
+    text-align: center;
+  }
+  .btn-delete {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    &:hover {
+      background-color: var(--icon-btn-hover);
+    }
+    &:active {
+      border: 1px solid var(--badge-border);
+    }
+    mat-icon {
+      width: 12px;
+      font-size: 12px;
+    }
+  }
+}
+.field-error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-dark-red);
+}
+.df-add-icon {
+  width: 8px;
+  height: 8px;
+}

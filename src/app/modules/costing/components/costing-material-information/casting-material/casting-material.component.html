@@ -1,0 +1,993 @@
+<div [formGroup]="formGroup">
+  <!-- Pouring or HPDC-->
+  <ng-container *ngIf="tab === 'Material Info'">
+    <div
+      id="_matmoredetailsPour"
+      *ngIf="
+        ((castingVals.processFlag.IsProcessNoBakeCasting ||
+          castingVals.processFlag.IsProcessShellCasting ||
+          castingVals.processFlag.IsProcessInvestmentCasting ||
+          castingVals.processFlag.IsProcessGreenCasting ||
+          castingVals.processFlag.IsProcessGDCCasting ||
+          castingVals.processFlag.IsProcessLPDCCasting) &&
+          castingVals.processFlag.IsProcessTypePouring) ||
+        castingVals.processFlag.IsProcessHPDCCasting
+      "
+      class="mt-3">
+      <div class="card">
+        <div class="card-header">Part Details</div>
+        <div class="card-body">
+          <div class="row mt-3">
+            <div class="col position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Part Envelope Length (' + castingVals.conversionValue + ')' : 'Part Envelope Length (mm)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Envelope_Length_mm')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'length'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.length.errors,
+                  'input-valid': f.length.valid,
+                }"
+                class="form-control"
+                formControlName="length"
+                [OnlyNumber]="true"
+                placeholder="Length"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+            <div class="col position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Part Envelope Width (' + castingVals.conversionValue + ')' : 'Part Envelope Width (mm)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Part_Envelope_Width')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'width'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.width.errors,
+                  'input-valid': f.width.valid,
+                }"
+                class="form-control"
+                formControlName="width"
+                [OnlyNumber]="true"
+                placeholder="Width"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+            <div class="col position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Part Envelope Height (' + castingVals.conversionValue + ')' : 'Part Envelope Height (mm)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Envelope_Height_mm')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'height'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.height.errors,
+                  'input-valid': f.height.valid,
+                }"
+                class="form-control"
+                formControlName="height"
+                [OnlyNumber]="true"
+                placeholder="Height"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+
+            <!-- <div class="col position-relative mt-3">
+            <label class="form-label no-wrap">Part Thickness - Max. ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue : 'mm' }}) :</label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'maxWallthick'"></app-field-comment>
+            <input type="number" class="form-control" placeholder="Enter Max. Thickness" formControlName="maxWallthick" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col position-relative">
+            <label class="form-label no-wrap">Part Thickness - Avg. ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue : 'mm' }}) :</label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'wallAverageThickness'"></app-field-comment>
+            <input type="number" class="form-control" placeholder="Enter Avg. Thickness" formControlName="wallAverageThickness" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+
+          <div class="col position-relative">
+            <label class="form-label no-wrap">Standard Thickness ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue : 'mm' }}) :</label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'standardDeviation'"></app-field-comment>
+            <input type="number" class="form-control" placeholder="Enter Standard Thickness" formControlName="standardDeviation" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div> -->
+
+            <!-- <div class="col mt-3" *ngIf="castingVals.processFlag.IsProcessHPDCCasting">
+            <label class="form-label no-wrap">Projected Area ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue + '^2' : 'mm^2' }}) :</label>
+            <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'projectedArea'"></app-field-comment>
+            <input type="number" class="form-control" placeholder="Enter Projected Area" formControlName="projectedArea" (blur)="calculateCost()" />
+          </div> -->
+          </div>
+
+          <div class="row mt-3">
+            <div
+              class="col-4 position-relative"
+              *ngIf="
+                castingVals.processFlag.IsProcessHPDCCasting ||
+                castingVals.processFlag.IsProcessLPDCCasting ||
+                castingVals.processFlag.IsProcessGDCCasting ||
+                castingVals.processFlag.IsProcessInvestmentCasting ||
+                castingVals.processFlag.IsProcessNoBakeCasting ||
+                castingVals.processFlag.IsProcessShellCasting ||
+                castingVals.processFlag.IsProcessGreenCasting
+              ">
+              <label
+                class="form-label no-wrap has-icon"
+                *ngIf="
+                  castingVals.processFlag.IsProcessHPDCCasting ||
+                  castingVals.processFlag.IsProcessLPDCCasting ||
+                  castingVals.processFlag.IsProcessGDCCasting ||
+                  castingVals.processFlag.IsProcessNoBakeCasting ||
+                  castingVals.processFlag.IsProcessShellCasting ||
+                  castingVals.processFlag.IsProcessGreenCasting
+                ">
+                <span class="label-text">Min. Wall Thickness ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue : 'mm' }})</span>
+                <app-info-tooltip
+                  [infoId]="
+                    castingVals.processFlag.IsProcessHPDCCasting || castingVals.processFlag.IsProcessGDCCasting ? 'Min_Wall_Thickness_HPDC_GDC' : 'Min_Wall_Thickness_Green_Semi_Auto_No_Bake_Sand'
+                  "></app-info-tooltip>
+              </label>
+              <label class="form-label no-wrap" *ngIf="castingVals.processFlag.IsProcessInvestmentCasting">
+                Part Thickness ({{ castingVals.isEnableUnitConversion ? castingVals.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partTickness'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.partTickness.errors,
+                  'input-valid': f.partTickness.valid,
+                }"
+                class="form-control"
+                formControlName="partTickness"
+                [OnlyNumber]="true"
+                placeholder="Part Thickness"
+                (blur)="calculateCost('partTickness')"
+                min="0" />
+            </div>
+            <div class="col-4 position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  Part Surface Area
+                  {{ castingVals.isEnableUnitConversion ? '(' + castingVals.conversionValue + '^2)' : '(mm^3)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Surface_Area')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partSurfaceArea'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="partSurfaceArea" (blur)="calculateCost()" />
+            </div>
+            <div class="col-4 position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  Part Volume
+                  {{ castingVals.isEnableUnitConversion ? '(' + castingVals.conversionValue + '^3)' : '(mm^3)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Casting_Part_Volume')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+              <input type="number" class="form-control" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" />
+            </div>
+            <div
+              class="col-4 position-relative"
+              *ngIf="
+                castingVals.processFlag.IsProcessHPDCCasting ||
+                castingVals.processFlag.IsProcessLPDCCasting ||
+                castingVals.processFlag.IsProcessInvestmentCasting ||
+                castingVals.processFlag.IsProcessGDCCasting ||
+                castingVals.processFlag.IsProcessNoBakeCasting ||
+                castingVals.processFlag.IsProcessShellCasting ||
+                castingVals.processFlag.IsProcessGreenCasting
+              ">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  Part Projected Area
+                  {{ castingVals.isEnableUnitConversion ? '(' + castingVals.conversionValue + '^2)' : '(mm^2)' }}
+                </span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" popoverTitle="Description" (click)="showinfo('Part_Projected_Area')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.partProjectArea.errors,
+                  'input-valid': f.partProjectArea.valid,
+                }"
+                class="form-control"
+                placeholder="Enter Area"
+                [OnlyNumber]="true"
+                formControlName="partProjectArea"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+            <div class="col-4 position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Part Net Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                <app-info-tooltip [infoId]="'Casting_Part_Net_Weight'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'moldSandWeight'"></app-field-comment>
+              <input
+                type="number"
+                class="form-control"
+                [ngClass]="{
+                  'input-mandatory': f.moldSandWeight.errors,
+                  'input-valid': f.moldSandWeight.valid,
+                }"
+                placeholder="Enter weight"
+                formControlName="moldSandWeight"
+                [OnlyNumber]="true"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Metal Cost Details</div>
+        <div class="card-body">
+          <div class="row mt-3">
+            <!-- <div class="col-4">
+                <label class="form-label no-wrap">Net Casting Weight (%):</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'netWeightPercentage'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="netWeightPercentage" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+              </div> -->
+            <div class="row mt-3">
+              <div class="col-4">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Machining Stock (%)</span>
+                  <app-info-tooltip [infoId]="'Machining_Stock'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'netWeightPercentage'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="netWeightPercentage" [OnlyNumber]="true" (blur)="calculateCost('netWeightPercentage')" min="0" />
+              </div>
+              <div class="col-4">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Part Casting Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Net_Casting_Weight')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.netWeight.errors,
+                    'input-valid': f.netWeight.valid,
+                  }"
+                  class="form-control"
+                  formControlName="netWeight"
+                  [OnlyNumber]="true"
+                  (blur)="calculateCost()"
+                  min="0" />
+              </div>
+            </div>
+            <!-- <div class="col-4">
+            <label class="form-label no-wrap">Net Finish Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }}):</label>
+            <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'moldSandWeight'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.moldSandWeight.errors,
+                'input-valid': f.moldSandWeight.valid,
+              }"
+              class="form-control"
+              formControlName="moldSandWeight"
+              [OnlyNumber]="true"
+              (blur)="calculateCost()"
+              min="0" />
+            </div> -->
+            <!-- <div class="col-4">
+            <div class="form-group">
+              <label class="form-label no-wrap">No of Cavity:</label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'noOfCavities'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="noOfCavities" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+            </div>
+            </div> -->
+
+            <!-- <div class="row mt-3"> -->
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Sprue, Runner & Raiser (%)</span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Runner_Riser_Sprue_And_Overflow')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'runnerRiserPercentage'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="runnerRiserPercentage" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group position-relative">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Irretrieval loss (Melting loss) (%)</span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Irretrieval_Loss_Percentage')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'oxidationLossWeightPercentage'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="oxidationLossWeightPercentage" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group position-relative">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Overflow and Spillage loss (%)</span>
+                  <app-info-tooltip [infoId]="'Casting_Overflow_And_Spillage_Loss_Percentage'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'sandRecoveryPercentage'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="sandRecoveryPercentage" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Sprue, Runner and Raiser Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <app-info-tooltip [infoId]="castingVals.processFlag.IsProcessHPDCCasting ? 'Casting_Runner_Riser_Weight_HPDC' : 'Casting_Runner_Riser_Weight'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'runnerRiser'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="runnerRiser" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group position-relative">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Irretrieval Loss (Melting Loss) Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <app-info-tooltip [infoId]="castingVals.processFlag.IsProcessHPDCCasting ? 'Casting_Irretrieval_Loss_Weight_HPDC' : 'Casting_Irretrieval_Loss_Weight'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'oxidationLossWeight'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="oxidationLossWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group position-relative">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Overflow and Spillage loss weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <app-info-tooltip [infoId]="castingVals.processFlag.IsProcessHPDCCasting ? 'Casting_Overflow_And_Spillage_Weight_HPDC' : 'Casting_Overflow_And_Spillage_Weight'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'sandRecovery'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="sandRecovery" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <!-- <div class="row mt-3"> -->
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Part Melting Shot Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <app-info-tooltip [infoId]="castingVals.processFlag.IsProcessHPDCCasting ? 'Casting_Part_Melting_Shot_Weight_HPDC' : 'Casting_Part_Melting_Shot_Weight'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'pouringWeight'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="pouringWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Part Gross Material Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                <app-info-tooltip [infoId]="'Casting_Gross_Material_Weight_Per_Part'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'grossWeight'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="grossWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">
+                    Total Melting Shot Weight/{{ castingVals.processFlag.IsProcessInvestmentCasting ? 'Part' : 'Mold' }} ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})
+                  </span>
+                  <app-info-tooltip
+                    [infoId]="castingVals.processFlag.IsProcessHPDCCasting ? 'Casting_Total_Melting_Shot_Weight_Per_Mold_HPDC' : 'Casting_Total_Melting_Shot_Weight_Per_Mold'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'totalPouringWeight'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="totalPouringWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Part Machining Scrap Weight ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }})</span>
+                  <app-info-tooltip [infoId]="'Casting_Machining_Scrap_Weight_Per_Part'"></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" readonly />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Machining Scrap Recovery (%)</span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Scrap_Recovery_Rate')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'scrapRecovery'"></app-field-comment>
+                <input type="number" class="form-control" formControlName="scrapRecovery" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+              </div>
+            </div>
+            <!-- </div> -->
+            <!-- <div class="row mt-3"> -->
+            <!-- <div class="col-4" *ngIf="!castingVals.processFlag.IsProcessGDCCasting">
+                  <div class="form-group">
+                    <label class="form-label no-wrap">
+                      Total Melting Shot Weight/
+                      {{ castingVals.processFlag.IsProcessInvestmentCasting ? 'Part' : 'Mold' }}
+                      ({{ castingVals.processFlag.IsProcessHPDCCasting ? 'g' : 'Kg' }}):
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'totalPouringWeight'"></app-field-comment>
+                    <input type="number" class="form-control" formControlName="totalPouringWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+                  </div>
+                </div> -->
+            <!-- <div class="col-4">
+                <label class="form-label no-wrap">Machining Scrap Price ($/Kg):</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'machiningScrapPrice'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.machiningScrapPrice.errors,
+                    'input-valid': f.machiningScrapPrice.valid,
+                  }"
+                  formControlName="machiningScrapPrice"
+                  [OnlyNumber]="true"
+                  class="form-control"
+                  (blur)="calculateCost()"
+                  min="0" />
+                </div> -->
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">
+                    {{ castingVals.processFlag.IsProcessHPDCCasting || castingVals.processFlag.IsProcessLPDCCasting || castingVals.processFlag.IsProcessGreenCasting ? 'Machining ' : '' }}Scrap
+                    Recovery Cost ($)
+                  </span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Scrap_Recovery_Cost')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <input type="number" class="form-control" formControlName="scrapRecCost" readonly />
+              </div>
+            </div>
+            <div class="col-4 offset-4">
+              <div class="form-group">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">Part Gross Material Cost ($)</span>
+                  <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Gross_Material_Cost_Per_Part')">
+                    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                  </span>
+                </label>
+                <input type="number" class="form-control" formControlName="grossMaterialCost" id="grossMaterialCost" readonly />
+              </div>
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Net {{ castingVals.processFlag.IsProcessHPDCCasting ? 'Material' : 'Metal' }} Cost ($)</span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Net_Material_Cost')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="_matmoredetailsSlurry"
+      *ngIf="castingVals.processFlag.IsProcessInvestmentCasting && (castingVals.processFlag.IsProcessTypeSlurryCost || castingVals.processFlag.IsProcessTypeZirconSand)"
+      class="mt-3">
+      <div class="card">
+        <div class="card-header">Material Cost Details</div>
+        <div class="card-body">
+          <div class="row mt-3">
+            <div class="col-4 position-relative">
+              <label class="form-label no-wrap">
+                {{ castingVals.processFlag.IsProcessTypeSlurryCost ? 'Slurry' : 'Sand Layer' }} Thickness {{ castingVals.isEnableUnitConversion ? '(' + castingVals.conversionValue + ')' : '(mm)' }}:
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partTickness'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.partTickness.errors,
+                  'input-valid': f.partTickness.valid,
+                }"
+                class="form-control"
+                formControlName="partTickness"
+                [OnlyNumber]="true"
+                placeholder="Part Thickness"
+                (blur)="calculateCost('partTickness')"
+                min="0" />
+            </div>
+            <div class="col-4 position-relative" *ngIf="castingVals.processFlag.IsProcessTypeSlurryCost">
+              <label class="form-label no-wrap">
+                Surface Area
+                {{ castingVals.isEnableUnitConversion ? '(' + castingVals.conversionValue + '^2)' : '(mm^2)' }}
+              </label>
+              <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'partSurfaceArea'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.partSurfaceArea.errors,
+                  'input-valid': f.partSurfaceArea.valid,
+                }"
+                class="form-control"
+                placeholder="Enter Area"
+                [OnlyNumber]="true"
+                formControlName="partSurfaceArea"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap">{{ castingVals.processFlag.IsProcessTypeSlurryCost ? 'Slurry' : 'Sand' }} Weight (g)</label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+              <input
+                type="number"
+                [ngClass]="{
+                  'input-mandatory': f.netWeight.errors,
+                  'input-valid': f.netWeight.valid,
+                }"
+                class="form-control"
+                formControlName="netWeight"
+                [OnlyNumber]="true"
+                (blur)="calculateCost()"
+                min="0" />
+            </div>
+          </div>
+
+          @if (castingVals.processFlag.IsProcessTypeSlurryCost) {
+            <div class="row mt-3">
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">Primary Slurry Cost ($/Kg)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'primaryPrice'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.primaryPrice.errors,
+                    'input-valid': f.primaryPrice.valid,
+                  }"
+                  class="form-control"
+                  formControlName="primaryPrice"
+                  [OnlyNumber]="true"
+                  placeholder="Primary Cost"
+                  (blur)="calculateCost('primaryPrice')"
+                  min="0" />
+              </div>
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">No. of Primary Coat (No.)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'primaryCount'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.primaryCount.errors,
+                    'input-valid': f.primaryCount.valid,
+                  }"
+                  class="form-control"
+                  formControlName="primaryCount"
+                  [OnlyNumber]="true"
+                  placeholder="Primary Count"
+                  (blur)="calculateCost('primaryCount')"
+                  min="0" />
+              </div>
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">Primary Slurry Coat Weight (g)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'primaryWeight'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.primaryWeight.errors,
+                    'input-valid': f.primaryWeight.valid,
+                  }"
+                  class="form-control"
+                  formControlName="primaryWeight"
+                  [OnlyNumber]="true"
+                  placeholder="Primary Weight"
+                  (blur)="calculateCost('primaryWeight')"
+                  min="0" />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">Secondary Slurry Cost ($/Kg)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'secondaryPrice'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.secondaryPrice.errors,
+                    'input-valid': f.secondaryPrice.valid,
+                  }"
+                  class="form-control"
+                  formControlName="secondaryPrice"
+                  [OnlyNumber]="true"
+                  placeholder="Secondary Cost"
+                  (blur)="calculateCost('secondaryPrice')"
+                  min="0" />
+              </div>
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">No. of Secondary Coat (No.)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'secondaryCount'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.secondaryCount.errors,
+                    'input-valid': f.secondaryCount.valid,
+                  }"
+                  class="form-control"
+                  formControlName="secondaryCount"
+                  [OnlyNumber]="true"
+                  placeholder="Secondary Count"
+                  (blur)="calculateCost('secondaryCount')"
+                  min="0" />
+              </div>
+              <div class="col-4 position-relative">
+                <label class="form-label no-wrap">Secondary Slurry Coat Weight (g)</label>
+                <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'secondaryWeight'"></app-field-comment>
+                <input
+                  type="number"
+                  [ngClass]="{
+                    'input-mandatory': f.secondaryWeight.errors,
+                    'input-valid': f.secondaryWeight.valid,
+                  }"
+                  class="form-control"
+                  formControlName="secondaryWeight"
+                  [OnlyNumber]="true"
+                  placeholder="Secondary Weight"
+                  (blur)="calculateCost('secondaryWeight')"
+                  min="0" />
+              </div>
+            </div>
+          }
+
+          <div class="row mt-3">
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Net Material Cost ($)</span>
+                <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Net_Material_Cost')">
+                  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+                </span>
+              </label>
+              <input class="form-control" formControlName="netMaterialCost" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sand for Mold -->
+    <div id="_matmoredetailsMold" *ngIf="castingVals.processFlag.IsProcessTypeSandForMold" class="mt-3">
+      <div class="card">
+        <div class="card-header">Mold Details</div>
+        <div class="card-body">
+          <div class="row mt-3">
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Mold Box Length (' + castingVals.conversionValue + ')' : 'Mold Box Length (mm)' }}
+                </span>
+                <app-info-tooltip [infoId]="'Casting_Mold_Box_Length'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'moldBoxLength'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="moldBoxLength" [OnlyNumber]="true" placeholder="Length" (blur)="calculateCost()" min="0" />
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Mold Box Width (' + castingVals.conversionValue + ')' : 'Mold Box Width (mm)' }}
+                </span>
+                <app-info-tooltip [infoId]="'Casting_Mold_Box_Width'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'moldBoxWidth'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="moldBoxWidth" [OnlyNumber]="true" placeholder="Width" (blur)="calculateCost()" min="0" />
+            </div>
+
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ castingVals.isEnableUnitConversion ? 'Mold Box Height (' + castingVals.conversionValue + ')' : 'Mold Box Height (mm)' }}
+                </span>
+                <app-info-tooltip [infoId]="'Casting_Mold_Box_Height'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'moldBoxHeight'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="moldBoxHeight" [OnlyNumber]="true" placeholder="Height" (blur)="calculateCost()" min="0" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-4 position-relative">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Mold Sand Weight (Kg)</span>
+                <app-info-tooltip [infoId]="'Casting_Mold_Sand_Weight'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'moldSandWeight'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="moldSandWeight" [OnlyNumber]="true" placeholder="MoldSandWeight" (blur)="calculateCost()" min="0" />
+            </div>
+            <div
+              class="col-4 position-relative"
+              *ngIf="castingVals.processFlag.IsProcessGreenCasting || castingVals.processFlag.IsProcessNoBakeCasting || castingVals.processFlag.IsProcessShellCasting">
+              <label class="form-label no-wrap has-icon" *ngIf="castingVals.processFlag.IsProcessGreenCasting">
+                <span class="label-text">New Sand Weight (10% of Part Weight)</span>
+                <app-info-tooltip [infoId]="'Casting_New_Sand_Weight'"></app-info-tooltip>
+              </label>
+              <label class="form-label no-wrap has-icon" *ngIf="castingVals.processFlag.IsProcessNoBakeCasting || castingVals.processFlag.IsProcessShellCasting">
+                <span class="label-text">New Sand Weight (30% of Replenishment)</span>
+                <app-info-tooltip [infoId]="'Casting_New_Sand_Weight_30_Replenishment'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'sandWeightAfterRecovery'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="sandWeightAfterRecovery" [OnlyNumber]="true" placeholder="New Sand Weight" (blur)="calculateCost()" min="0" />
+            </div>
+            <div
+              class="col-4 position-relative"
+              *ngIf="castingVals.processFlag.IsProcessGreenCasting || castingVals.processFlag.IsProcessNoBakeCasting || castingVals.processFlag.IsProcessShellCasting">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Metal to Sand Ratio</span>
+                <app-info-tooltip [infoId]="'Casting_Metal_to_Sand_Ratio'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'sandMetalRatio'"></app-field-comment>
+              <input type="text" class="form-control" formControlName="sandMetalRatio" [OnlyNumber]="true" placeholder="Sand to Metal Ratio" (blur)="calculateCost()" min="0" readonly />
+            </div>
+            <!-- <div class="col-4 offset-4 position-relative" *ngIf="castingVals.processFlag.IsProcessGreenCasting || castingVals.processFlag.IsProcessNoBakeCasting">
+              <label class="form-label no-wrap">Mold Sand price ($/Kg)</label>
+              <app-field-comment [formIdentifier]="castingVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'matPrice'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="matPrice" [OnlyNumber]="true" placeholder="Mold Sand price" (blur)="calculateCost()" min="0" />
+            </div> -->
+            <!-- <div class="col-4" *ngIf="castingVals.processFlag.IsProcessNoBakeCasting"></div> -->
+
+            <!--<div class="col-4">
+            <label class="form-label no-wrap">
+              Sand Recovery %:</label>
+            <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'sandRecovery'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="sandRecovery" [OnlyNumber]="true"
+              placeholder="SandRecovery" (blur)="calculateCost()" min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap">
+              Mould sand wt per Cavity After Recovery (g):</label>
+            <app-field-comment [formIdentifier]="castingVals.formIdentifier"
+              [fieldIdentifier]="'sandWeightAfterRecovery'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="sandWeightAfterRecovery" [OnlyNumber]="true"
+              placeholder="SandWeightAfterRecovery" (blur)="calculateCost()" min="0" />
+          </div>
+
+        </div>
+        <div class="row p-2">
+          <div class="col-4">
+            <label class="form-label no-wrap">
+              Esg Impact CO2 Kg:</label>
+            <app-field-comment [formIdentifier]="castingVals.formIdentifier"
+              [fieldIdentifier]="'esgImpactCO2Kg'"></app-field-comment>
+            <input type="number"
+              [ngClass]="{'input-mandatory':f.esgImpactCO2Kg.errors,'input-valid': f.esgImpactCO2Kg.valid}"
+              formControlName="esgImpactCO2Kg" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()"
+              min="0" />
+          </div>-->
+
+            <div class="col-4 offset-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Net Mold Sand Cost ($)</span>
+                <app-info-tooltip [infoId]="'Casting_Net_Mold_Sand_Cost'"></app-info-tooltip>
+              </label>
+              <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-12 text-left mt-3" *ngIf="castingVals.processFlag.IsProcessTypeSandForMold">
+      <div>
+        <a class="link-info" href="javascript:void(0)" (click)="isMoldCostDisplay = !isMoldCostDisplay"
+          id="_btnMatShow">
+          <i class="bx bx-plus"></i>{{ isMoldCostDisplay ? "Show Less" : "Show More" }}
+        </a>
+      </div>
+      </div> -->
+    </div>
+
+    <!-- Sand For Core -->
+    <div id="_matmoredetailsCore" *ngIf="castingVals.processFlag.IsProcessTypeSandForCore" class="mt-3">
+      <div class="card">
+        <div class="card-header">Core Cost Details</div>
+        <div class="card-body">
+          <ng-container formArrayName="materialPkgs" *ngIf="castingVals.processFlag.IsProcessTypeSandForCore">
+            <ng-container *ngFor="let materialprocessForm of sandForCoreFormArray.controls; let index = index">
+              <div [formGroupName]="index">
+                <div class="row p-t-1">
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">Core Shape</span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Shape'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreShape'"></app-field-comment>
+                    <select formControlName="coreShape" class="form-control" (change)="calculateCost('coreShape', index)">
+                      <option value="" selected>-------Select Core Shape--------</option>
+                      <option value="1">Rectangle</option>
+                      <option value="2">Round</option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">No of Core's (Nos.)</span>
+                      <app-info-tooltip [infoId]="'Casting_No_Of_Cores'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'noOfCore'"></app-field-comment>
+                    <input type="number" formControlName="noOfCore" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost('coreNos', index)" />
+                  </div>
+                  <div class="col-4 icon-btn d-flex align-items-center justify-content-between">
+                    <!-- <h6>Core {{ index + 1 }}</h6> -->
+                    <div class="flex-grow-1 me-2">
+                      <div class="fs-6 fw-medium">
+                        {{ materialprocessForm.value.coreName }}
+                      </div>
+                      <!-- <label class="form-label no-wrap has-icon">
+                        <span class="label-text">Core Name</span>
+                      </label> -->
+                      <input type="text" formControlName="coreName" class="form-control d-none" readonly />
+                    </div>
+                    <a mat-icon-button class="cursor-pointer" (click)="onDeleteSubCore(index)" matTooltip="Delete Core" matTooltipPosition="above">
+                      <mat-icon class="warn !text-black !w-4 !h-4" svgIcon="delete_icon"></mat-icon>
+                    </a>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">
+                        {{ castingVals.isEnableUnitConversion ? 'Core Length (' + castingVals.conversionValue + ')' : 'Core Length (mm)' }}
+                      </span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Length'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreLength'"></app-field-comment>
+                    <input type="number" formControlName="coreLength" (blur)="calculateCost('coreLength', index)" class="form-control" [OnlyNumber]="true" min="0" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">
+                        {{ castingVals.isEnableUnitConversion ? 'Core Width (' + castingVals.conversionValue + ')' : 'Core Width (mm)' }}
+                      </span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Width'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreWidth'"></app-field-comment>
+                    <input type="number" formControlName="coreWidth" (blur)="calculateCost('coreWidth', index)" class="form-control" [OnlyNumber]="true" min="0" />
+                  </div>
+
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">
+                        {{ castingVals.isEnableUnitConversion ? 'Core Height (' + castingVals.conversionValue + ')' : 'Core Height (mm)' }}
+                      </span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Height'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreHeight'"></app-field-comment>
+                    <input type="number" formControlName="coreHeight" (blur)="calculateCost('coreHeight', index)" class="form-control" [OnlyNumber]="true" min="0" />
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">
+                        {{ castingVals.isEnableUnitConversion ? 'Core Volume (' + castingVals.conversionValue + '^3)' : 'Core Volume (mm^3)' }}
+                      </span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Volume'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreVolume'"></app-field-comment>
+                    <input type="number" formControlName="coreVolume" (blur)="calculateCost('coreVolume', index)" class="form-control" [OnlyNumber]="true" min="0" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">
+                        {{ castingVals.isEnableUnitConversion ? 'Core Area (' + castingVals.conversionValue + '^2)' : 'Core Area (mm^2)' }}
+                      </span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Area'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreArea'"></app-field-comment>
+                    <input type="number" formControlName="coreArea" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label no-wrap has-icon">
+                      <span class="label-text">Core Weight (Kg)</span>
+                      <app-info-tooltip [infoId]="'Casting_Core_Weight'"></app-info-tooltip>
+                    </label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreWeight'"></app-field-comment>
+                    <input type="number" formControlName="coreWeight" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" readonly="readonly" />
+                  </div>
+                  <!-- <div class="col-4">
+                    <label class="form-label no-wrap">Core Sand Price ($/Kg)</label>
+                    <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'coreSandPrice'"></app-field-comment>
+                    <input type="number" formControlName="coreSandPrice" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" readonly="readonly" />
+                  </div> -->
+                </div>
+                <!-- <hr class="er" /> -->
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-12 links-block" style="justify-content: end" *ngIf="castingVals.processFlag.IsProcessTypeSandForCore">
+            <a href="javascript:void(0)" (click)="addMoreCore()">Add Core</a>
+          </div>
+          <div class="row mt-2">
+            <!-- <div class="col-4">
+            <label class="form-label no-wrap">{{ castingVals.isEnableUnitConversion ? 'Total Core Volume (' + castingVals.conversionValue + '^2)' : 'Core Area (mm^2)' }}:</label>
+            <input type="number" class="form-control" formControlName="totalSandVolume" readonly />
+          </div> -->
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Total Core Weight (Kg)</span>
+                <app-info-tooltip [infoId]="'Casting_Total_Core_Weight'"></app-info-tooltip>
+              </label>
+              <input type="number" class="form-control" formControlName="totalCoreWeight" readonly />
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Net Core Sand Cost($)</span>
+                <app-info-tooltip [infoId]="'Casting_Net_Core_Sand_Cost'"></app-info-tooltip>
+              </label>
+              <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Material Cost-->
+    <div
+      *ngIf="
+        castingVals.processFlag.IsProcessNoBakeCasting ||
+        castingVals.processFlag.IsProcessShellCasting ||
+        castingVals.processFlag.IsProcessInvestmentCasting ||
+        castingVals.processFlag.IsProcessGreenCasting ||
+        castingVals.processFlag.IsProcessLPDCCasting ||
+        castingVals.processFlag.IsProcessGDCCasting
+      "
+      class="mt-3">
+      <div class="row">
+        <div class="offset-4 col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text font-medium">Total Material Cost ($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Casting_Total_Material_Cost')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control text-base font-semibold" readonly formControlName="totalMaterialCost" />
+        </div>
+      </div>
+    </div>
+
+    <!-- </div>
+  </div> -->
+  </ng-container>
+  <!-- <ng-container *ngIf="tab === 'Cavity and Mold Type'"> -->
+  <!-- <div class="card mt-3">
+      <div class="card-header">Cavity Layout</div>
+      <div class="card-body">-->
+  <!-- <div class="row mt-3"> -->
+  <!-- <div class="col-4" *ngIf="castingVals.processFlag.IsProcessHPDCCasting || castingVals.processFlag.IsProcessLPDCCasting || castingVals.processFlag.IsProcessGreenCasting">
+        <label class="form-label no-wrap">Machining Stock (%)</label>
+        <app-field-comment [formIdentifier]="castingVals.formIdentifier" [fieldIdentifier]="'netWeightPercentage'"></app-field-comment>
+        <input type="number" class="form-control" formControlName="netWeightPercentage" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+      </div> -->
+  <!-- </div> -->
+  <!-- </div>
+    </div> -->
+  <!-- </ng-container> -->
+  <ng-template #popContent>
+    <div [innerHTML]="popupName"></div>
+    <div class="div-img" *ngIf="popupUrl">
+      <img alt="" class="img-class" [src]="popupUrl" />
+    </div>
+  </ng-template>
+</div>

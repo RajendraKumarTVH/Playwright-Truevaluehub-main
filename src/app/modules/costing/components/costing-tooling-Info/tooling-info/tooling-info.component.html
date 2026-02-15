@@ -1,0 +1,346 @@
+<ng-container [formGroup]="formGroup">
+  <app-tooling-table
+    [compVals]="processedCompVals"
+    [canUpdate]="canUpdate"
+    (addToolingInfo)="addTooling()"
+    (editToolingInfo)="onEditToolInfo($event)"
+    (deleteToolingInfo)="onDeleteToolClick($event)"></app-tooling-table>
+  <div class="card mt-3">
+    <div class="card-header">{{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Mold' }} Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Tooling Name</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Name' : 'Tooling_Name'"></app-info-tooltip>
+          </label>
+          <select formControlName="toolingNameId" class="form-control" (change)="changeToolingName($event)">
+            <option value="0" selected>-------Select Tooling Name---------</option>
+            <option *ngFor="let option of compVals.toolNamesList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+
+        <div class="col-4">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Source Country</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Source_Country' : 'Source_Country'"></app-info-tooltip>
+          </label>
+          <input type="text" placeholder="Select Manufacturing Country" aria-label="Number" formControlName="sourceCountryId" class="form-control" [matAutocomplete]="countryAuto" />
+          <mat-autocomplete (optionSelected)="onSourceCountryChange($event)" autoActiveFirstOption #countryAuto="matAutocomplete" [displayWith]="sourceCountry">
+            <mat-option *ngFor="let country of compVals.filteredMfrCountryList$ | async" [value]="country">
+              {{ country?.countryName }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <div class="col-4">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Tool life in number of shots</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Life_No_Of_Shots' : 'Tool_Life_No_Of_Shots'"></app-info-tooltip>
+          </label>
+          <select formControlName="toolLifeNoOfShots" class="form-control" (change)="changeLifeShort($event)">
+            <option value="0" selected>-------Select Tooling No Of Shot---------</option>
+            <option *ngFor="let option of toolingNoOfShot" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No of shots needed from the tool</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_No_Of_Shots_Needed' : 'No_Of_Shots_Needed_From_The_Tool'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="toolLifeInParts" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" readonly />
+        </div>
+      </div>
+      <div class="row" *ngIf="_toolConfig.commodity.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">No of Die/Stages</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_No_Of_Die_Stages'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfDieStages" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" [readonly]="compVals.selectedToolingNameId === 4" />
+        </div>
+        <div
+          class="col-4 mt-3"
+          *ngIf="!(_toolConfig.commodity?.isSheetMetal && (compVals.selectedToolingNameId === 1 || compVals.selectedToolingNameId === 2 || compVals.selectedToolingNameId === 6))">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Number of Stages - Along (Nos)</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_No_Of_Stages_Along'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfStagesAlong" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" [readonly]="compVals.selectedToolingNameId === 4" />
+        </div>
+        <div
+          class="col-4 mt-3"
+          *ngIf="!(_toolConfig.commodity?.isSheetMetal && (compVals.selectedToolingNameId === 1 || compVals.selectedToolingNameId === 2 || compVals.selectedToolingNameId === 6))">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Number of Stages - Across (Nos)</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_No_Of_Stages_Across'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfStagesAcross" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" [readonly]="compVals.selectedToolingNameId === 4" />
+        </div>
+      </div>
+      <div class="row" *ngIf="_toolConfig.commodity.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Die size length</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_Die_Size_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="dieSizeLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Die size width</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_Die_Size_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="dieSizeWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+      </div>
+      <div class="row" *ngIf="_toolConfig.commodity.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Die set size length</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_Die_Set_Size_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="dieSetSizeLength" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Die set size width</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_Die_Set_Size_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="dieSetSizeWidth" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Die set size height</span>
+            <app-info-tooltip [infoId]="'Sheetmetal_Tooling_Die_Set_Size_Height'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="dieSetSizeHeight" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Total number of tools (Nos):</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Total_Number_Of_Tools' : 'Total_Number_Of_Tools'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfTool" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Number of new tools (Nos)</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Number_Of_New_Tools' : 'Number_Of_New_Tools'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfNewTool" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Number of subsequent tools (Nos)</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Number_Of_Subsequent_Tools' : 'Number_Of_Subsequent_Tools'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfSubsequentTool" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" readonly />
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!_toolConfig.commodity.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Number of Cavity (Nos)</span>
+            <app-info-tooltip [infoId]="'Number_Of_Cavity'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfCavity" class="form-control" [OnlyNumber]="true" min="0" readonly (blur)="calculateMoldCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No of Copper electrodes/cavity (Nos)</span>
+            <app-info-tooltip [infoId]="'No_Of_Copper_Electrodes'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfCopperElectrodes" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No of Graphite electrodes/cavity (Nos)</span>
+            <app-info-tooltip [infoId]="'No_Of_Graphite_Electrodes'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="noOfGraphiteElectrodes" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateMoldCost()" />
+        </div>
+      </div>
+      <div class="row" *ngIf="!_toolConfig.commodity?.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No of Cavity Length (Nos)</span>
+            <app-info-tooltip [infoId]="'No_Of_Cavity_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="cavityMaxLength" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">No of Cavity Width (Nos)</span>
+            <app-info-tooltip [infoId]="'No_Of_Cavity_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="cavityMaxWidth" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!_toolConfig.commodity.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Mould Type</span>
+            <app-info-tooltip [infoId]="'Mould_Type'"></app-info-tooltip>
+          </label>
+          <select formControlName="mouldTypeId" class="form-control" (change)="changeMouldtype($event)">
+            <option value="" selected>-------Select Mould Criticality---------</option>
+            <option *ngFor="let option of MouldTypeList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="compVals.isHotRunner">
+          <label class="form-label">Mould Sub Type</label>
+          <select formControlName="mouldSubTypeId" class="form-control" (change)="changeMouldSubtype($event)">
+            <option value="" selected>-------Select Mould SubType---------</option>
+            <option *ngFor="let option of MouldSubTypeList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="compVals.isDropSelected && compVals.isHotRunner">
+          <label class="form-label">No of Drop</label>
+          <input type="number" class="form-control" formControlName="noOfDrop" [OnlyNumber]="true" (blur)="calculateMoldCost()" min="0" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Mould Criticality</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Mould_Criticality' : 'Mould_Criticality'"></app-info-tooltip>
+          </label>
+          <select formControlName="mouldCriticality" class="form-control" (change)="changeComplexity($event)">
+            <option value="" selected>-------Select Mould Criticality---------</option>
+            <option *ngFor="let option of mouldCriticalityList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="!_toolConfig.commodity.isSheetMetal">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Surface Finish</span>
+            <app-info-tooltip [infoId]="'Surface_Finish'"></app-info-tooltip>
+          </label>
+          <select formControlName="surfaceFinish" class="form-control" (change)="changeSurface($event)">
+            <option value="" selected>-------Select Surface Finish--------</option>
+            <option *ngFor="let option of SurfaceFinishList" [value]="option.id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="!_toolConfig.commodity.isSheetMetal">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">Texture grade</span>
+            <app-info-tooltip [infoId]="'Texture_Grade'"></app-info-tooltip>
+          </label>
+          <input type="text" formControlName="textureGrade" class="form-control" readonly />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Part' }} {{ isEnableUnitConversion ? 'Envelope Length/Part(' + conversionValue + ')' : 'Envelope Length/Part(mm)' }}
+            </span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Envelope_Length_Per_Part' : 'Part_Envelope_Length_Per_Part'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="envelopLength" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">
+              {{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Part' }} {{ isEnableUnitConversion ? 'Envelope Width/Part(' + conversionValue + ')' : 'Envelope Width/Part(mm)' }}
+            </span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Envelope_Width_Per_Part' : 'Part_Envelope_Width_Per_Part'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="envelopWidth" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">
+              {{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Part' }} {{ isEnableUnitConversion ? 'Envelope Height/Part(' + conversionValue + ')' : 'Envelope Height/Part(mm)' }}
+            </span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Envelope_Height_Per_Part' : 'Part_Envelope_Height_Per_Part'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="envelopHeight" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Runner Gap Length(' + conversionValue + ')' : 'Runner Gap Length(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Runner_Gap_Length' : 'Runner_Gap_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="runnerGapLength" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label has-icon no-wrap">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Runner Gap Width(' + conversionValue + ')' : 'Runner Gap Width(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Runner_Gap_Width' : 'Runner_Gap_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="runnerGapWidth" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Side Gap Length(' + conversionValue + ')' : 'Side Gap Length(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Side_Gap_Length' : 'Side_Gap_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="sideGapLength" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ isEnableUnitConversion ? 'Side Gap Width(' + conversionValue + ')' : 'Side Gap Width(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Side_Gap_Width' : 'Side_Gap_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="sideGapWidth" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Mold' }} {{ isEnableUnitConversion ? ' Base Length(' + conversionValue + ')' : ' Base Length(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Base_Length' : 'Mold_Base_Length'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="moldBaseLength" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Mold' }} {{ isEnableUnitConversion ? ' Base Width(' + conversionValue + ')' : ' Base Width(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Base_Width' : 'Mold_Base_Width'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="moldBaseWidth" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">{{ _toolConfig.commodity.isSheetMetal ? 'Tool' : 'Mold' }} {{ isEnableUnitConversion ? 'Base Height(' + conversionValue + ')' : ' Base Height(mm)' }}</span>
+            <app-info-tooltip [infoId]="_toolConfig.commodity.isSheetMetal ? 'Sheetmetal_Tooling_Base_Height' : 'Mold_Base_Height'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="moldBaseHeight" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" readonly />
+        </div>
+      </div>
+      <div class="row" *ngIf="!_toolConfig.commodity?.isSheetMetal">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts External Side cores (Nos)</span>
+            <app-info-tooltip [infoId]="'Undercuts_Side_Cores'"></app-info-tooltip>
+          </label>
+          <input type="number" class="form-control" formControlName="undercutsSideCores" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts Internal Angular Slides (Nos)</span>
+            <app-info-tooltip [infoId]="'Undercuts_Angular_Slides'"></app-info-tooltip>
+          </label>
+          <input type="number" formControlName="undercutsAngularSlides" (blur)="calculateMoldCost()" class="form-control" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 mt-3" *ngIf="!_toolConfig.commodity?.isCasting">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Undercuts Unscrewing (Nos)</span>
+            <app-info-tooltip [infoId]="'Undercuts_Unscrewing'"></app-info-tooltip>
+          </label>
+          <input type="number" class="form-control" formControlName="undercutsUnscrewing" [OnlyNumber]="true" (blur)="calculateMaterialCost()" min="0" />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

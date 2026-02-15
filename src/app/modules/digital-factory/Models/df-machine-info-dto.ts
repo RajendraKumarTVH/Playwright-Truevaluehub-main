@@ -1,0 +1,36 @@
+export interface DfMachineInfoDto {
+  digitalFactoryMachineInfoId?: number;
+  digitalFactoryId?: number;
+  machineMasterId?: number;
+  processName?: string;
+  processMasterId?: number;
+  manufacturingCategory?: string;
+  processTypeId?: number;
+  machineName?: string;
+  investmentCost?: number;
+  age?: number;
+  utilization?: number;
+  efficiency?: number;
+  installationFactor?: number;
+  supplies?: number;
+  depreciation?: number;
+  interest?: number;
+  rentAndOverhead?: number;
+  power?: number;
+  maintainance?: number;
+  lowSkilledLaborersNeeded?: number;
+  semiSkilledLaborersNeeded?: number;
+  highSkilledLaborersNeeded?: number;
+  specialSkilledLaborersNeeded?: number;
+  ratedPower?: number;
+  powerUtilization?: number;
+  averageMachineUtilization?: number;
+  averageMachineAvailability?: number;
+  powerCost?: number;
+  rentRate?: number;
+  interestRate?: number;
+  suppliesCost?: number;
+  machineOverhead?: number;
+  maxLength?: number;
+  maxWidth?: number;
+}

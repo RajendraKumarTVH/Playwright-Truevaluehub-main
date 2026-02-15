@@ -1,0 +1,19 @@
+<div class="app-l-skeleton-loader overflow-x-auto h-full flex flex-col min-h-0">
+  <table class="min-w-full border-collapse border border-gray-200">
+    <caption></caption>
+    <thead>
+      <tr>
+        <th *ngFor="let col of cols; let last = last" class="px-3 py-2 text-left border-b" [class.border-r]="!last" [class.border-gray-200]="!last">
+          <p-skeleton height="20px" width="80%" class="rounded-md"></p-skeleton>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td *ngFor="let col of cols; let last = last" class="px-3 py-2 border-b-0 border-t-0" [class.border-r]="!last" [class.border-gray-200]="!last">
+          <p-skeleton height="18px" width="70%" class="rounded-md"></p-skeleton>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

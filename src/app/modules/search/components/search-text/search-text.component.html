@@ -1,0 +1,14 @@
+<div class="container">
+  <div *ngFor="let view of searchViewList">
+    <h1>{{ view.category }}</h1>
+    <p>Matches count of "{{ view.searchText }}" : {{ view.matchesCount }}</p>
+    <p></p>
+    <ng-container *ngIf="view.textLink && view.textLink.length > 0">
+      <div *ngFor="let obj of view.textLink">
+        <a href="javascript:void(0)" (click)="onSelect(obj)">
+          <span>{{ obj.name }}</span>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
+}
+
+.progressbar-contianer {
+  float: left;
+  padding: 10px;
+}
+
+.progressbar-text {
+  float: right;
+  font-weight: bold;
+}
+
+.progress-bar-green {
+  .mat-progress-bar-fill::after {
+    background-color: #669a13;
+  }
+
+  .mdc-linear-progress__bar-inner {
+    border-color: #669a13;
+  }
+}
+
+.progress-bar-yellow {
+  .mat-progress-bar-fill::after {
+    background-color: #fdb900;
+  }
+
+  .mdc-linear-progress__bar-inner {
+    border-color: #fdb900;
+  }
+}
+
+.progress-bar-red {
+  .mat-progress-bar-fill::after {
+    background-color: #ff6347;
+  }
+
+  .mdc-linear-progress__bar-inner {
+    border-color: #ff6347;
+  }
+}
+
+.donut-progress {
+  gap: 4px;
+  display: flex;
+  min-width: 64px;
+  align-items: center;
+  .donut-percentage-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--label-text);
+  }
+}

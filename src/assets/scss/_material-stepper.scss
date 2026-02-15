@@ -1,0 +1,186 @@
+.mat-stepper-vertical-line,
+.mat-stepper-vertical-line::before {
+  display: none !important;
+}
+mat-step-header[aria-selected='false'] ~ .mat-stepper-vertical-line::before {
+  border-left-style: solid !important;
+  border-left-width: 2px !important;
+}
+.mat-step-header:hover,
+.mat-step-header.cdk-focused,
+.mat-step-header.cdk-mouse-focused {
+  background-color: transparent !important;
+}
+.mat-step {
+  .mat-step-header {
+    z-index: 1;
+    overflow: visible !important;
+    display: flex;
+    min-height: 33px;
+    box-sizing: border-box;
+    height: auto !important;
+    padding: 10px 6px 10px 31px !important;
+    align-items: flex-start !important;
+    position: relative;
+
+    .mat-step-icon {
+      top: 13px;
+      left: 5px;
+      right: auto;
+      bottom: auto;
+      position: absolute;
+      width: 14px !important;
+      height: 100% !important;
+      font-size: 14px !important;
+      color: var(--bs-white) !important;
+      background-color: transparent !important;
+
+      &::before {
+        width: 0;
+        top: 16px;
+        left: 50%;
+        bottom: 4px;
+        content: '';
+        position: absolute;
+        border-left: 1px solid currentColor;
+        transform: translate(-50%, 0) !important;
+      }
+      &::after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        display: block;
+        border-radius: 50%;
+        color: var(--bs-white) !important;
+        background-color: var(--component-border) !important;
+      }
+      mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10px !important;
+        height: 7px !important;
+        font-size: 8px !important;
+      }
+      &.mat-step-icon-state-done {
+        &::before {
+          border-color: var(--success-green-bg) !important;
+        }
+        &::after {
+          background-color: var(--success-green-bg) !important;
+        }
+      }
+      &.mat-step-icon-state-edit {
+        background-color: transparent !important;
+        &::before {
+          border: 1px dashed var(--stepper-dashed-border);
+          background-color: var(--bs-white) !important;
+        }
+        &::after {
+          border: 1px solid var(--component-border);
+          background-color: var(--bs-white) !important;
+        }
+        .custom-edit-icon {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: var(--primary-shade);
+        }
+      }
+      &.mat-step-icon-state-number {
+        &::before {
+          border: 1px dashed var(--stepper-dashed-border);
+        }
+        mat-icon {
+          width: 7px !important;
+          height: 7px !important;
+        }
+      }
+      .mat-step-icon-content {
+        top: 3.5px;
+        position: absolute;
+        transform: translate(-50%, 0) !important;
+      }
+    }
+    &:hover:not([aria-disabled]) {
+      border-radius: 8px;
+    }
+  }
+  &:last-child {
+    .mat-step-header {
+      .mat-step-icon::before {
+        display: none;
+      }
+    }
+  }
+}
+
+.mat-step-header[aria-selected='true'] {
+  background: var(--table-head-row-bg);
+  border-color: var(--primary-shade);
+  border-radius: 8px;
+  border-width: 1px;
+  font-weight: normal;
+  align-items: center !important;
+  z-index: 0;
+  .mat-step-label {
+    width: 100%;
+    .workflow-step {
+      gap: 20px;
+    }
+  }
+}
+.mat-step-header[aria-disabled='true'] {
+  opacity: 0.4;
+}
+
+.mat-vertical-content-container {
+  padding-left: 6px;
+  margin-left: 0px !important;
+  &::before {
+    left: 12px !important;
+    border-color: currentColor;
+  }
+}
+.workflow-status-label {
+  min-width: 77px;
+  padding: 2px 8px;
+  width: fit-content;
+  line-height: 150%;
+  border: 1px solid;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  mat-icon {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    margin-right: 2px;
+    color: currentColor !important;
+    svg {
+      fill: currentColor !important;
+    }
+  }
+}
+
+.Costing {
+  color: var(--grid-highlight-text);
+  background-color: var(--button-light-bg);
+  border-color: var(--material-table-border);
+}
+
+.Negotiation {
+  background-color: var(--purple-bg);
+  border-color: var(--purple-border);
+  color: var(--status-negotiation) !important;
+}
+.Completed {
+  color: var(--text-dark-green);
+  background-color: var(--bg-light-green);
+  border-color: var(--status-green-border);
+}
+.Archived {
+  color: var(--sub-heading-text);
+  border-color: var(--archive-grey);
+  background-color: var(--bs-border-color);
+}

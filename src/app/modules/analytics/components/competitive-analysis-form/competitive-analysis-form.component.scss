@@ -1,0 +1,199 @@
+::ng-deep {
+  .competitive-analysis {
+    .mat-mdc-form-field {
+      .mat-mdc-form-field-flex {
+        .mdc-notched-outline {
+          .mat-mdc-notch-piece {
+            --mdc-outlined-text-field-outline-color: var(--bs-border-color);
+            --mdc-outlined-text-field-error-hover-outline-color: var(--bs-border-color);
+            --mdc-outlined-text-field-error-outline-color: var(--bs-border-color);
+          }
+          .mdc-notched-outline__leading,
+          .mdc-notched-outline__trailing {
+            --mdc-outlined-text-field-container-shape: 6px;
+          }
+        }
+        .mat-mdc-form-field-infix {
+          --mat-form-field-container-vertical-padding: 4px;
+          --mat-form-field-container-height: 34px;
+
+          .mat-mdc-select {
+            --mat-select-trigger-text-size: 0.75rem;
+            --mat-select-trigger-text-weight: 500;
+            --mat-select-trigger-text-line-height: 1.2;
+          }
+        }
+      }
+
+      .mdc-text-field--outlined {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      &.input-mandate {
+        .mat-mdc-form-field-flex {
+          .mdc-notched-outline {
+            .mdc-notched-outline__leading {
+              border-left-color: var(--bs-red);
+              border-left-width: 3px;
+            }
+          }
+        }
+      }
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+  }
+  .custom-mat-select .mat-select-trigger {
+    padding: 4px 8px; // reduces selected item padding
+    min-height: 32px; // dropdown trigger height
+    line-height: 32px;
+    font-size: 13px;
+  }
+
+  .mat-select-panel {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .mat-option {
+    height: 32px !important; // reduce each option height
+    font-size: 13px;
+    line-height: 32px;
+    padding: 0 12px;
+  }
+
+  .select-field-panel {
+    &.mat-mdc-select-panel {
+      .mat-mdc-option {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        min-width: 0px;
+
+        .mdc-list-item__primary-text {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+select.form-control option {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 300px !important;
+}
+
+.custom-select-field {
+  width: 300px; /* or any fixed width */
+}
+
+.ellipsis-option {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-mat-select {
+  background-color: white;
+}
+
+.custom-mat-select .mat-form-field-outline {
+  border-radius: 5px;
+}
+
+.custom-mat-select .mat-select {
+  text-align: left;
+}
+
+.ellipsis-option {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .competitive-analysis-form .mat-mdc-select-arrow {
+  display: none !important;
+}
+
+::ng-deep .competitive-analysis-form .mat-mdc-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+::ng-deep .competitive-analysis-form .mat-mdc-select-trigger::after {
+  content: url('/assets/icons/down-arrow-icon.svg');
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.competitive-analysis-form {
+  .form-label {
+    margin-bottom: 4px;
+  }
+
+  .dropdown-wrap {
+    position: relative;
+
+    .dropdown-arrow {
+      top: 50%;
+      z-index: 1;
+      right: 8px;
+      width: 24px;
+      left: auto;
+      position: absolute;
+      padding-left: 8px;
+      color: var(--black);
+      pointer-events: none;
+      height: calc(100% - 3px);
+      transform: translateY(-50%);
+      background-color: var(--bs-white);
+    }
+  }
+  .row {
+    &.with-separator {
+      position: relative;
+      margin-bottom: 16px;
+      &::after {
+        content: '';
+        margin: auto;
+        display: block;
+        padding-top: 12px;
+        width: calc(100% - 16px);
+        border-bottom: 1px dashed transparent;
+        border-image: repeating-linear-gradient(to right, var(--material-table-border) 0 4px, transparent 4px 8px);
+        border-image-slice: 1;
+      }
+    }
+  }
+  ::ng-deep .add-price-link {
+    width: fit-content;
+    color: var(--primary-shade) !important;
+    mat-icon {
+      display: flex;
+      align-items: center;
+      color: currentColor;
+      justify-content: center;
+      svg {
+        width: 8px !important;
+        height: 8px !important;
+      }
+    }
+  }
+  .btn-primary {
+    background: var(--primary-shade);
+    border-color: var(--primary-shade);
+  }
+}

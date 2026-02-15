@@ -1,0 +1,173 @@
+<div class="card !p-0 border-none">
+  <div class="df-tab-table-container common-table-container">
+    <div class="common-table-inner-wrap">
+      <div class="table-container">
+        <table class="mat-table waste-generated-table" aria-describedby="">
+          <thead>
+            <tr>
+              <th class="col-description" rowspan="2" scope="col">Description</th>
+              <th class="col-annual-volume" rowspan="2" scope="col">Annual Volume</th>
+              <th colspan="6" scope="col">Disposal Method by Volume (%)</th>
+            </tr>
+            <tr>
+              <th>Landfilled</th>
+              <th scope="col">Recycled</th>
+              <th scope="col">Composted</th>
+              <th scope="col">Incinerated</th>
+              <th scope="col">Reused</th>
+              <th class="col-total" scope="col">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <ng-container *ngFor="let g of groups">
+              <!-- multi-item group: show header row then list of children -->
+              <ng-container *ngIf="g.items.length > 1; else singleItemRow">
+                <tr class="group-row">
+                  <td class="group-header" colspan="8">
+                    <div class="group-header-text">
+                      {{ g.group }}
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngFor="let item of g.items" class="item-row">
+                  <td>
+                    <ul class="desc-tree">
+                      <li>{{ item.description }}</li>
+                    </ul>
+                  </td>
+
+                  <td>
+                    <div class="value-unit annual-volume">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.annualVolume" placeholder="-" />
+                      <span class="unit">{{ item.unit }}</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.landfilled" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.recycled" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.composted" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.incinerated" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="item.reused" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td class="error">
+                    <div class="value-unit readonly">
+                      <div class="text-sm">
+                        <ng-container *ngIf="getTotal(item) !== null; else dash">
+                          {{ getTotal(item) }}
+                          <span class="!ml-1">%</span>
+                        </ng-container>
+                        <ng-template #dash>-</ng-template>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <!-- single-item group: render as a normal table row (no separate group header) -->
+              <ng-template #singleItemRow>
+                <tr class="">
+                  <td>{{ g.items[0].description }}</td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].annualVolume" placeholder="-" />
+                      <span class="unit">{{ g.items[0].unit }}</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].landfilled" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].recycled" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].composted" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].incinerated" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="value-unit">
+                      <input type="number" class="input text-left form-control" [(ngModel)]="g.items[0].reused" placeholder="-" />
+                      <span class="unit">%</span>
+                    </div>
+                  </td>
+
+                  <td class="error">
+                    <div class="value-unit readonly">
+                      <span class="text-left">
+                        {{ getTotal(g.items[0]) ?? '-' }}
+                      </span>
+                      <span class="unit !ml-1" *ngIf="getTotal(g.items[0]) !== null">%</span>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modify classes based on BG color -->
+<div class="yellow-banner flex justify-center items-center px-3 py-2 toast-banner">
+  <p class="text-xs mb-0">
+    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+    <span>You’ve made changes. The charts will update once you save your changes</span>
+  </p>
+</div>
+<div class="red-banner flex justify-center items-center px-3 py-3 toast-banner">
+  <p class="text-xs mb-0 flex">
+    <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+    <span>There are some errors that need to be fixed</span>
+  </p>
+</div>

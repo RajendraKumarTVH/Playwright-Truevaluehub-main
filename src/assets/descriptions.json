@@ -1,0 +1,3020 @@
+[
+  {
+    "id": "Internal_Part_Number",
+    "descriptions": "A unique identity number assigned at the time of part creation"
+  },
+  {
+    "id": "Part_Description",
+    "descriptions": "A short description that helps in the identification of the part"
+  },
+  {
+    "id": "Revision_Level",
+    "descriptions": "If the company follows revision control, then the revision level for the part. Default value: 0"
+  },
+  {
+    "id": "BOM_Qty",
+    "descriptions": "<div> If costing an assembly or sub-assembly:\nQty of the parts needed for the assembly or sub-assembly. </div> \n\nIf costing an individual part or component:\nValue: 1"
+  },
+  {
+    "id": "Commodity",
+    "descriptions": "Manufacturing process or technology used to manufacture the part"
+  },
+  {
+    "id": "Supply_Chain_Model",
+    "descriptions": "Manufactured inhouse or outsourced with a supplier"
+  },
+  {
+    "id": "Part_Complexity",
+    "descriptions": "The complexity associated with the part geometry, manufacturing process, and steps"
+  },
+  {
+    "id": "Supplier_Name",
+    "descriptions": "Current or target supplier or region for the part"
+  },
+  {
+    "id": "Supplier_Revenue",
+    "descriptions": "Current or target supplier revenue for the part"
+  },
+  {
+    "id": "Manufacturing_City",
+    "descriptions": "City or Address where the part is manufactured"
+  },
+  {
+    "id": "Manufacturing_Country",
+    "descriptions": "Country where the part is manufactured"
+  },
+  {
+    "id": "Delivery_Site_Name",
+    "descriptions": "Plant or warehouse where the part is to be delivered"
+  },
+  {
+    "id": "Delivery_City",
+    "descriptions": "City where the part is to be delivered"
+  },
+  {
+    "id": "Delivery_Country",
+    "descriptions": "Country where the part is to be delivered"
+  },
+  {
+    "id": "Inco_Terms",
+    "descriptions": "Inco terms specify the ownership and transfer of freight cost, title/inventory, and risk/insurance between the supplier and the buyer"
+  },
+  {
+    "id": "Annual_Volume_Nos",
+    "descriptions": "Projected quantity to be manufactured in a calendar year"
+  },
+  {
+    "id": "Lot Size_Nos",
+    "descriptions": "Quantity manufactured in a single production run"
+  },
+  {
+    "id": "Delivery_Frequency_days",
+    "descriptions": "Approximate interval between consecutive delivery schedules"
+  },
+  {
+    "id": "Packing_Type",
+    "descriptions": "Specifies the method used to package the product."
+  },
+  {
+    "id": "Product_life_remaining_Years",
+    "descriptions": "Approximate number of years until product end of life(EOL) or discontinuation; \n\n if no EOL is available, default value = 10 years."
+  },
+  {
+    "id": "Life_time_quantity_remaining_Nos",
+    "descriptions": "<div>Approximate quantity to be manufactured until product end of life(EOL) or discontinuation; </div> <div class=\"tooltip-formula\"> <p>Default value </p> <span> Annual Volume </span>  × <span> Product Life </span> Remaining (in years)</div>"
+  },
+  {
+    "id": "New_tooling_required",
+    "descriptions": "Is capital investment needed for a new mold to manufacture the part at the supplier"
+  },
+  {
+    "id": "Payment_Terms_days",
+    "descriptions": "Agreed on terms when the buyer pays the suppliers for the goods or services provided."
+  },
+  {
+    "id": "HS_Code",
+    "descriptions": "Identification codes given to goods for use in international trade."
+  },
+  {
+    "id": "Envelope_Length_mm",
+    "descriptions": "Longest measurement of a part when contained in a Rectangular Prism"
+  },
+  {
+    "id": "Envelope_Width_mm",
+    "descriptions": "Middle measurement of a part when contained in a Rectangular Prism"
+  },
+  {
+    "id": "Envelope_Height_mm",
+    "descriptions": "Shortest measurement of a part when contained in a Rectangular Prism"
+  },
+  {
+    "id": "Drawing_Number",
+    "descriptions": "Unique identifier assigned to a specific Engineering drawing or PDF."
+  },
+  {
+    "id": "Category",
+    "descriptions": "Classification of Material Type (Ferrous, Non-Ferrous, Plastics, Rubber, etc.)"
+  },
+  {
+    "id": "Family",
+    "descriptions": "It defines Sub-group of material type w.r.t base elements or polymers of raw material."
+  },
+  {
+    "id": "Description",
+    "descriptions": "Specific Material Grade or Alloy Composition as per Global Standards"
+  },
+  {
+    "id": "Stock_Form",
+    "descriptions": "Standardzied shape and sizes that raw material are manufactured and sold."
+  },
+  {
+    "id": "Volume_Purchased",
+    "descriptions": "Volume purchase refers to the quantity or amount of raw material a business buys over a specific period."
+  },
+  {
+    "id": "Raw_material_Price",
+    "descriptions": "Material price refers to the cost it incurs to acqire the physical goods or raw substance used in its operations."
+  },
+  {
+    "id": "Scrap_Price",
+    "descriptions": "Scrap price is the price a buyer pays for discarded or obsolete materials that can be processed and reused."
+  },
+  {
+    "id": "Volume_Discount",
+    "descriptions": "Volume discount is also known as quantity discount or bulk discount where seller offers a reduced price to the customer who purchases goods in large quantity."
+  },
+  {
+    "id": "Discounted_Material_Price",
+    "descriptions": " <div>Final Cost of Raw Material after volume discount </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Material price($/kg) </span> - <span>Volume Discount(%)</span>)</div>"
+  },
+  {
+    "id": "Min_Wall_Thickness",
+    "descriptions": "Minimum wall thickness of the part."
+  },
+  {
+    "id": "Max_Wall_Thickness",
+    "descriptions": "Maximum wallthickness is the greatest dimension a wall or feature of a part can have without compromising on the design structural integrity."
+  },
+  {
+    "id": "Avg_Wall_Thickness",
+    "descriptions": "Average wallthickness is the average dimension a wall or feature of a part can have without compromising on the design structural integrity."
+  },
+  {
+    "id": "Standard_Deviation",
+    "descriptions": "Standard deviation is a statical measure that quantfies variation in wall thickness measurements."
+  },
+  {
+    "id": "Part_Projected_Area",
+    "descriptions": "Part projected area is the two-dimensional area of a three-dimensional object, calculated by projecting its silhouette onto a specific flat plane."
+  },
+  {
+    "id": "Part_Surface_Area",
+    "descriptions": "Part surface area is the measure of the total area of the outer boundary of a three-dimensional object."
+  },
+  {
+    "id": "Part_Volume",
+    "descriptions": "Part volume is the measure of the three-dimensional space occupied by a solid object."
+  },
+  {
+    "id": "Part_Net_Weight",
+    "descriptions": "<div> The weight of the finished part, excluding all scrap. </div> <div class=\"tooltip-formula\"> <p>Calculation </p>  ( <span> Part volume(mm^3)</span>  × <span> density(g/cm^3)</span>)</div>"
+  },
+  {
+    "id": "Material_Utilisation",
+    "descriptions": "Material utilization refers to the efficiency with which raw materials are converted into finished product in a manufacturing process."
+  },
+  {
+    "id": "Net_Material_Cost",
+    "descriptions": "<div> Total cost of material used for the part after accounting for utilization. </div> <div class=\"tooltip-formula\"> <p>Calculation </p> (( <span> Part gross weight(g) </span> × <span> material price($/kg) </span> ÷ 1000) - ( <span> Part Scrap weight(g) </span> × <span> Scrap Price($/kg) </span> ÷ 1000)</div>"
+  },
+  {
+    "id": "Part_Gross_Weight",
+    "descriptions": "<div>Total material weight per part before accounting for scrap recovery.</div> <div class=\"tooltip-formula\"> <p> Calculation</p> ( <span>Part Net weight(g)</span> + <span>Part Scrap weight(g)</span>)</div>"
+  },
+  {
+    "id": "Part_Scrap_Weight",
+    "descriptions": "<div>Value recovered from recyclable scrap material generated per part during manufacturing.</div> <div class=\"tooltip-formula\"> <p>Calculation </p> ( <span>Volume of runner (mm³)</span> × <span>Density (g/cm³)</span>) ÷ 1000)</div>"
+  },
+  {
+    "id": "Part_Scrap_Recovery_Percentage",
+    "descriptions": "Percentage of scrap material that can be recovered."
+  },
+  {
+    "id": "Part_Scrap_Recovery_Cost",
+    "descriptions": "Cost recovered per part from recyclable scrap."
+  },
+  {
+    "id": "Part_Regrind",
+    "descriptions": "A percentage of the plastic scrap material generated during the molding process is re-introduced into the manufacturing process as regrind."
+  },
+  {
+    "id": "Part_Gross_Material_Cost",
+    "descriptions": "<div>Total material cost including scrap. </div>  <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Part gross weight(g)</span>  × <span>material cost($/kg)</span>  ÷  <span>1000</span>)</div>"
+  },
+  {
+    "id": "Manufacture_Process_Group",
+    "descriptions": "Process Group is a logical grouping of different Manufacturing process."
+  },
+  {
+    "id": "Recommended_Tonnage",
+    "descriptions": "It is the theoretical calculated force suggested to securely hold the tool, die, or mold, ensuring stability and preventing damage during operation."
+  },
+  {
+    "id": "Selected_Tonnage",
+    "descriptions": "It is the available tonnage machine as per the market, chosen to meet or exceed the recommended tonnage, ensuring safe, reliable, and consistent performance. This value is typically higher than the recommended tonnage."
+  },
+
+  {
+    "id": "Required_Tonnage",
+    "descriptions": "Refers to the amount of force or load needed to perform cleaning operations on a casting."
+  },
+  {
+    "id": "Required_Platen_Size",
+    "descriptions": "Minimum mold mounting plate size needed for the tool, in length × width (mm)."
+  },
+
+  {
+    "id": "Platen_Size_Of_Machine",
+    "descriptions": "Actual platen dimensions of the selected injection molding machine."
+  },
+  {
+    "id": "Shot_Weight_Required",
+    "descriptions": "Mass of material needed to be injected per shot, in grams."
+  },
+  {
+    "id": "Shot_Weight_Of_Machine_Selected",
+    "descriptions": "Maximum mass of material that can be injected by selected machine per shot, in grams."
+  },
+  {
+    "id": "Machine_Name",
+    "descriptions": "Specific name or identifier of the machine along with basic machine spec."
+  },
+  {
+    "id": "Machine_Description",
+    "descriptions": "A brief description of the machine's capabilities and key features."
+  },
+  {
+    "id": "Automation_Level",
+    "descriptions": "The level of automation: manual, semi-automatic, or fully automatic."
+  },
+  {
+    "id": "Sampling_Plan",
+    "descriptions": "How many parts are checked for quality."
+  },
+  {
+    "id": "Criticality_Level",
+    "descriptions": "Accuracy of manufacturing process required to achieve part requirements."
+  },
+  {
+    "id": "Machine_Efficiency",
+    "descriptions": "<div>Represents the real achievable productivity of the machine considering automation level, idle losses, operator dependency, and speed reduction during actual operations</div> <div>Manual: Higher operator dependency → Lower efficiency</div> <div>Semi-Automatic: Balanced operator involvement → Moderate efficiency</div> <div>Fully Automatic: Minimal manual intervention → Higher efficiency</div> <div class=\"tooltip-formula\"><span>Machine Efficiency </span> = (<span>Actual Output </span> ÷ <span>Theoretical Output</span>) × <span>100</span></div>"
+  },
+  {
+    "id": "Net_Process_Cost",
+    "descriptions": "<div>Total cost of the manufacturing process for the part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p>  (<span>Yield cost/Part($) </span> + <span> Labor cost/Part($) </span> + <span>Setup cost/Part($)</span> + <span>Machine cost/Part($)</span> + <span>QA cost/Part($)</span>)</div>"
+  },
+  {
+    "id": "Inserts_Placement_Time",
+    "descriptions": "Time required to place inserts (if any) into the mold."
+  },
+  {
+    "id": "Ejection_Unloading_Time",
+    "descriptions": "Time required to eject and unload the part from the mold."
+  },
+  {
+    "id": "Cooling_Time",
+    "descriptions": "Time required for cooling the part inside the mold."
+  },
+  {
+    "id": "Slider_Lifter_Movement_Time",
+    "descriptions": "Time required for moving of sliders or lifters into position inside the mold."
+  },
+  {
+    "id": "Mold_Close_Open_Time",
+    "descriptions": "Dry run time of the machine (calculated as the total time required by the machine to open and close the mold)"
+  },
+  {
+    "id": "Injection_Time",
+    "descriptions": "Time required for injecting the shot weight required per cycle into the mold. (total shot weight / injection rate of machine)"
+  },
+  {
+    "id": "Miscellaneous_Time",
+    "descriptions": "Time allocated for miscellaneous molding operations."
+  },
+
+  {
+    "id": "Cycle_Time_Per_Shot",
+    "descriptions": "Time taken to complete one full mold cycle."
+  },
+  {
+    "id": "Sampling_Rate",
+    "descriptions": "<div>Percentage of total parts selected for inspection. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Inspected Parts</span> ÷ <span>Total Parts</span>) x 100 </div>"
+  },
+  {
+    "id": "Yield",
+    "descriptions": "<div>Percentage of defect-free parts produced. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Good Parts</span> ÷ <span>Total Parts</span>) × 100 </div>"
+  },
+  {
+    "id": "Yield_Cost",
+    "descriptions": "<div>Cost impact of yield loss per part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Scrap/Rework Cost</span> ÷ <span>Net Good Parts</span>)</div>"
+  },
+  {
+    "id": "Direct_Labor_Rate",
+    "descriptions": "Hourly wage rate of direct labour resources."
+  },
+  {
+    "id": "#_of_Direct_Labors",
+    "descriptions": "Number of operators/workers directly engaged in production."
+  },
+  {
+    "id": "Labor_Cost_Part",
+    "descriptions": "<div>Direct labour cost distributed per part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Direct Labor Rate</span> × <span># Laborers</span> × <span>Cycle Time</span>) ÷ <span>Parts Produced</span></div>"
+  },
+  {
+    "id": "Skilled_Labor_Rate",
+    "descriptions": "Hourly wage rate for skilled or specialized operators."
+  },
+  {
+    "id": "Machine_Setup_Time",
+    "descriptions": "Time required to prepare and configure machine per batch."
+  },
+  {
+    "id": "Setup_Cost_Part",
+    "descriptions": "<div>Setup cost spread across all parts in the batch. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> (<span>Setup Time </span> × <span>Labor/Machine Rate</span>) ÷ <span>Parts per Batch</span></div>"
+  },
+  {
+    "id": "QA_Inspector_Rate",
+    "descriptions": "Hourly wage rate of quality inspectors."
+  },
+  {
+    "id": "QA_Inspection_Time_Part",
+    "descriptions": "Average inspection time required per part."
+  },
+  {
+    "id": "QA_Inspection_Cost_Part",
+    "descriptions": "<div>Inspection cost distributed per part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Inspector Rate</span> × <span>Inspection Time</span>) ÷ 60 </div>"
+  },
+  {
+    "id": "Machine_Hour_Rate",
+    "descriptions": "Effective hourly cost of running the machine  (includes depreciation, utilities, overhead)."
+  },
+  {
+    "id": "Total_Cycle_Time_Shot",
+    "descriptions": "<div>Total process time consumed per part. </div> <div class=\"tooltip-formula\" >  (<span>Process Time </span> + <span>Handling Time</span> + <span>Inspection Time</span>)</div>"
+  },
+  {
+    "id": "Machine_Cost_Part",
+
+    "descriptions": "<div>Machine operating cost per part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Machine Hour Rate</span> × <span>Total Time</span>) ÷ 3600</div>"
+  },
+  {
+    "id": "Number_Of_Cavity",
+    "descriptions": "Number of parts formed in one manufacturing cycle."
+  },
+  {
+    "id": "Number_Of_Cavity_Length",
+    "descriptions": "Number of cavities arranged along the length direction (X-axis)."
+  },
+  {
+    "id": "Number_Of_Cavity_Width",
+    "descriptions": "Number of cavities arranged along the width direction(Y-axis)."
+  },
+  {
+    "id": "Runner_Gap_Length",
+    "descriptions": "The runner length in injection molding refers to the linear distance from the sprue to the gate, representing the path through which the molten plastic travels to reach the mold cavity."
+  },
+  {
+    "id": "Runner_Gap_Width",
+    "descriptions": "The runner diameter in injection molding refers to the cross-sectional diameter of the channel  that conveys the molten plastic to mold cavity."
+  },
+  {
+    "id": "No_Of_External_Side_Cores",
+    "descriptions": "The number of side cores refers to the count of movable mold components (often called sliders or side pulls) incorporated into an injection mold to form features like undercuts, holes, or recesses that are perpendicular or at an angle to the main mold opening direction."
+  },
+  {
+    "id": "No_Of_Internal_Side_Cores",
+    "descriptions": "The number of internal side cores refers to the count of movable core components used within an injection mold to form internal undercut features in the plastic part."
+  },
+  {
+    "id": "Unscrewing_Undercuts",
+    "descriptions": "An unscrewing mechanism is a specialized system built into an injection mold that uses rotation to remove threaded plastic parts from the mold core after they have solidified."
+  },
+
+  {
+    "id": "Number_Of_Inserts",
+    "descriptions": "Total number of pre-manufactured components (inserts) embedded or assembled into each individual part during or after molding."
+  },
+  {
+    "id": "Runner_Type",
+    "descriptions": "Type of runner system used for delivering molten plastic material into the cavities (eg. cold or hot runner)."
+  },
+
+  {
+    "id": "Tooling_Name",
+    "descriptions": "The designated name or identifier for the specific tooling or mold used in production."
+  },
+  {
+    "id": "Source_Country",
+    "descriptions": "The country where the tooling or mold is manufactured or sourced."
+  },
+  {
+    "id": "Tool_Life",
+    "descriptions": "The expected operational lifespan of the tool, measured by the total number of injection shots it can produce before replacement or refurbishment."
+  },
+  {
+    "id": "No_Of_Shots_Needed_From_The_Tool",
+    "descriptions": "The total planned or required number of shots to be produced from the tool during its lifecycle."
+  },
+  {
+    "id": "Total_Number_Of_Tools",
+    "descriptions": "The overall quantity of tools needed or planned for the production process to fulfill total lifetime of production."
+  },
+  {
+    "id": "Number_Of_New_Tools",
+    "descriptions": "Count of new tools needed for complete lifetime of production."
+  },
+  {
+    "id": "Number_Of_Subsequent_Tools",
+    "descriptions": "Number of additional tools planned for total lifetime of production after initial tool."
+  },
+  {
+    "id": "Tool_Life_No_Of_Shots",
+    "descriptions": "The expected operational lifespan of the tool, measured by the total number of injection shots it can produce before replacement or refurbishment."
+  },
+  {
+    "id": "No_Of_Cavity_Length",
+    "descriptions": "Number of cavities arranged along the length direction (X-axis)."
+  },
+  {
+    "id": "No_Of_Cavity_Width",
+    "descriptions": "Number of cavities arranged along the width direction (Y-axis)."
+  },
+  {
+    "id": "No_Of_Copper_Electrodes",
+    "descriptions": "Number of copper electrodes needed per cavity for machining injection moulding tool (for EDM operations)."
+  },
+  {
+    "id": "No_Of_Graphite_Electrodes",
+    "descriptions": "Number of graphite electrodes needed per cavity for machining injection moulding tool (for EDM operations)."
+  },
+  {
+    "id": "Mould_Type",
+    "descriptions": "The classification of the mold with respect to cavities and runner type (e.g., single cavity, multi-cavity, hot runner, cold runner)."
+  },
+  {
+    "id": "Mould_Criticality",
+    "descriptions": "Accuracy of tooling process to achieve the tolerance the part needs."
+  },
+  {
+    "id": "Surface_Finish",
+    "descriptions": "The specified smoothness needed on mold surface."
+  },
+  {
+    "id": "Texture_Grade",
+    "descriptions": "The texture grade or standard applied to the mold surface, linked to aesthetic or functional requirements."
+  },
+  {
+    "id": "Part_Envelope_Length_Per_Part",
+    "descriptions": "Envelope Length is the maximum overall dimension of the smallest bounding box that fully encloses the object."
+  },
+  {
+    "id": "Part_Envelope_Width_Per_Part",
+    "descriptions": "Envelope Width is the maximum overall dimension of the smallest rectangular prism (or bounding box) that completely encloses the object, specifically measured along the width axis."
+  },
+  {
+    "id": "Part_Envelope_Height_Per_Part",
+    "descriptions": "Envelope Height is the maximum overall vertical dimension of the smallest rectangular prism (or bounding box) that completely encloses the object."
+  },
+  {
+    "id": "Runner_Gap_Length",
+    "descriptions": "Runner gap length is the molten plastic travel distance between cavities."
+  },
+  {
+    "id": "Runner_Gap_Width",
+    "descriptions": "Runner gap width is the molten plastic travel distance between cavities."
+  },
+  {
+    "id": "Side_Gap_Length",
+    "descriptions": "The distance between the cavity to cavity or the edge of the mold along X-direction, measured in millimeters."
+  },
+  {
+    "id": "Side_Gap_Width",
+    "descriptions": "The distance between the cavity to cavity or the edge of the mold along Y-direction, measured in millimeters."
+  },
+  {
+    "id": "Mold_Base_Length",
+    "descriptions": "Mold base length is the horizontal dimension of the mold base from end to end along X-axis."
+  },
+  {
+    "id": "Mold_Base_Width",
+    "descriptions": "Mold base width is the horizontal measurement across the shorter side of the mold base, perpendicular to its length."
+  },
+  {
+    "id": "Mold_Base_Height",
+    "descriptions": "Mold base height is the total distance from top clamping plate to bottom clamping plate of the mold base."
+  },
+  {
+    "id": "Undercuts_Side_Cores",
+    "descriptions": "The number of side cores refers to the count of movable mold components (often called sliders or side pulls) incorporated into an injection mold to form features like undercuts, holes, or recesses that are perpendicular or at an angle to the main mold opening direction."
+  },
+  {
+    "id": "Undercuts_Angular_Slides",
+    "descriptions": "The number of internal side cores refers to the count of movable core components used within an injection mold to form internal undercut features in the plastic part."
+  },
+  {
+    "id": "Undercuts_Unscrewing",
+    "descriptions": "An unscrewing mechanism is a specialized system built into an injection mold that uses rotation to remove threaded plastic parts from the mold core after they have solidified."
+  },
+
+  {
+    "id": "Tooling_Mold_Item_Description",
+    "descriptions": "A brief name or identifier for the molded part or component."
+  },
+  {
+    "id": "Tooling_Mold_Category",
+    "descriptions": "Classification of material type (Ferrous, Non-Ferrous, Plastics, Rubber, etc.)."
+  },
+  {
+    "id": "Tooling_Mold_Family",
+    "descriptions": "A sub-category or group that the item belongs to, often based on function or geometry."
+  },
+  {
+    "id": "Tooling_Mold_Description_Grade",
+    "descriptions": "Detailed material description or specific grade of the polymer or metal used."
+  },
+  {
+    "id": "Tooling_Volume_Purchased",
+    "descriptions": "Volume purchase refers to the quantity or amount of raw material a business buys over a specific period."
+  },
+  {
+    "id": "Tooling_Material_Price",
+    "descriptions": "Material price refers to the cost incurred to acquire the physical goods or raw substances used in operations."
+  },
+  {
+    "id": "Tooling_Scrap_Price",
+    "descriptions": "Scrap price is the price paid for discarded or obsolete materials that can be processed and reused."
+  },
+  {
+    "id": "Tooling_Material_Density",
+    "descriptions": "Density is the mass per unit volume expressed in grams per cubic centimetre (g/cc)."
+  },
+  {
+    "id": "Tooling_Envelope_Length_Per_Part",
+    "descriptions": "Envelope Length is the maximum overall dimension of the smallest bounding box that fully encloses the object."
+  },
+  {
+    "id": "Tooling_Envelope_Width_Per_Part",
+    "descriptions": "Envelope Width is the maximum overall dimension of the smallest rectangular prism (or bounding box) that completely encloses the object, specifically measured along the width axis."
+  },
+  {
+    "id": "Tooling_Envelope_Height_Per_Part",
+    "descriptions": "Envelope Height is the maximum overall vertical dimension of the smallest rectangular prism (or bounding box) that completely encloses the object."
+  },
+  {
+    "id": "Tooling_Quantity",
+    "descriptions": "Total number of parts or units to be manufactured."
+  },
+  {
+    "id": "Tooling_Material_Cutting_Allowance",
+    "descriptions": "Extra material added (as a percentage) to account for trimming, machining, or waste."
+  },
+  {
+    "id": "Tooling_Net_Weight",
+    "descriptions": "Total weight of the finished tool, excluding all scrap."
+  },
+  {
+    "id": "Tooling_Total_Net_Weight",
+    "descriptions": "The combined net weight of all units in the specified quantity."
+  },
+  {
+    "id": "Tooling_Total_Material_Cost",
+    "descriptions": "The overall cost of the material required for production."
+  },
+  {
+    "id": "Tooling_Process_Group",
+    "descriptions": "Classifies the primary process type and drives machine or tool selection in costing."
+  },
+  {
+    "id": "Tooling_Hour_Rate",
+    "descriptions": "Represents the machine or toolroom hourly rate applied for tool manufacturing. Includes labor, machine depreciation, overheads, and utilities. Used as a base for calculating total tooling cost."
+  },
+  {
+    "id": "Tooling_Total_No_Hours",
+    "descriptions": "Total manufacturing hours required to produce the tool, including machining, fitting, assembly, and trial hours. Derived from the tool complexity and operation sequence."
+  },
+  {
+    "id": "Tooling_Total_Process_Cost",
+    "descriptions": "<div> The overall cost to manufacture the tool, calculated as: </div> <div class=\"tooltip-formula\"> <p>Calculation</p> Total Process Cost = <span> Hour Rate </span> × <span> Total No. of Hours </span> <div> Represents the direct tool fabrication cost. </div></div>"
+  },
+  {
+    "id": "Tooling_BOP_Item_Description",
+    "descriptions": "Describes the bought-out or standard part used in the tool assembly — such as guide pillars, bushes, springs, fasteners, or sensors. Provides traceability for cost and procurement reference."
+  },
+  {
+    "id": "Tooling_Total_BOP_Cost",
+    "descriptions": "<div> Represents the total cost of all bought-out or standard components used in tool manufacturing. Calculated as: </div> <div class=\"tooltip-formula\"> <p>Calculation</p> Total BOP Cost = Σ ( <span>Unit Cost</span> × <span>Quantity</span> ). </div> <div> Includes all vendor-supplied items that are not fabricated in-house. </div>"
+  },
+
+  { "id": "Purchase_Part_Name", "descriptions": "The designated name or title of the specific component or part." },
+  { "id": "Purchase_Reference_Part_No", "descriptions": "A unique identifier or code assigned to the part for tracking and reference purposes." },
+  { "id": "Purchase_Part_Description", "descriptions": "A detailed explanation of the part’s characteristics, function, and specifications." },
+  { "id": "Purchase_Part_Unit_Cost", "descriptions": "The cost of a single unit of the part, expressed in U.S. dollars." },
+  { "id": "Purchase_Qty", "descriptions": "The quantity or number of units of the part required or used." },
+  { "id": "Purchase_Extended_Cost", "descriptions": "The total cost calculated by multiplying the unit cost by the quantity, representing the overall expense for the part." },
+  { "id": "Overhead_Cost", "descriptions": "General indirect costs incurred in production that are not directly traceable to specific products." },
+  { "id": "Material_Overhead", "descriptions": "Indirect raw material costs associated with production (such as inward inspection, material handling & storage, etc.)" },
+  { "id": "Factory_Overhead", "descriptions": "All indirect manufacturing costs including utilities, maintenance, and factory labor not directly tied to production." },
+  { "id": "SG_And_A", "descriptions": "Expenses related to selling, marketing, and administrative functions of the business." },
+  { "id": "Profit", "descriptions": "The overall financial gain after subtracting total costs (material, manufacturing, overheads) from total revenue." },
+  { "id": "Overhead_Material", "descriptions": "The profit margin specifically on the materials used." },
+  { "id": "Overhead_Manufacturing", "descriptions": "The profit margin specifically on the Manufacturing done." },
+  { "id": "Overhead_Cost_Of_Capital", "descriptions": "The expense associated with financing production, typically interest or opportunity cost of invested funds." },
+  { "id": "Overhead_Inventory_Carrying", "descriptions": "Costs related to storing and managing inventory, including warehousing and insurance." },
+  { "id": "Overhead_Raw_Materials", "descriptions": "Basic unprocessed materials used as inputs for manufacturing." },
+  { "id": "Overhead_Finish_Goods", "descriptions": "Completed products ready for sale or shipment." },
+  { "id": "Overhead_Payment_Terms", "descriptions": "Conditions agreed upon for payment between buyer and seller, such as net 30 days or cash on delivery." },
+  {
+    "id": "Part_Allowances",
+    "imageUrl": "assets/images/DescriptionImage/allowance.png",
+    "descriptions": "Clearance space maintained between adjacent parts during nesting to avoid overlap or thermal distortion. \n\n <strong>Hard Tooling:</strong> Single value representing all spacing considerations, including bridge thickness, web, spacing between parts, and front/back scrap. It ensures proper clearance and material handling without requiring separate inputs."
+  },
+  {
+    "id": "Edge_Allowances_MM",
+    "imageUrl": "assets/images/DescriptionImage/allowance.png",
+    "descriptions": "Scrap margin left along sheet or coil edges to ensure usable cutting area. \n\n <strong>Hard Tooling:</strong> Single value representing all sheet/coil boundary margins, including edge allowance, pitch notch, guide allowance, and margin scrap. Ensures proper clearance, tool guidance, and scrap management.\n"
+  },
+  {
+    "id": "Edge_Allowances",
+    "imageUrl": "assets/images/DescriptionImage/allowance.png",
+    "descriptions": "Indicates whether scrap margins along sheet edges are considered during nesting (Applicable/Not Applicable)."
+  },
+  {
+    "id": "Part_Allowances_staging_progressive",
+    "imageUrl": "assets/images/DescriptionImage/part-allowance-staging_and_progressive.png",
+    "descriptions": "Minimum spacing maintained between parts to ensure accurate cutting and separation."
+  },
+  {
+    "id": "Edge_Allowances_staging_progressive",
+    "imageUrl": "assets/images/DescriptionImage/part-allowance-staging_and_progressive.png",
+    "descriptions": "Material margin trimmed from sheet boundaries to define usable cutting area."
+  },
+  {
+    "id": "Clamping_Allowances",
+    "imageUrl": "assets/images/DescriptionImage/allowance.png",
+    "descriptions": "Additional margin reserved to securely clamp the sheet during processing."
+  },
+  {
+    "id": "Thickness",
+
+    "descriptions": "Material thickness used for the part"
+  },
+  {
+    "id": "Part_Volume_sheet_metal",
+
+    "descriptions": "Part volume is the measure of the three-dimensional space occupied by a solid object."
+  },
+  {
+    "id": "Net_Weight_Sheet_Metal",
+
+    "descriptions": "Weight of finished part without scrap"
+  },
+  {
+    "id": "Material_Utilisation_Sheet_Metal",
+
+    "descriptions": "<div> Indicates how efficiently the raw material sheet or coil is used to produce finished parts, minimizing waste during nesting or cutting.</div><div class=\"tooltip-formula\"> <p>Calculation</p> <span>Material Utilization (%) </span> = (<span>Total Part Area</span> ÷ <span>Sheet/Coil Area</span>) × 100 </div></div>"
+  },
+  {
+    "id": "Pipe_Outer_Diameter",
+
+    "descriptions": "Total external diameter of the pipe measured across its outside surface."
+  },
+  {
+    "id": "Pipe_Inner_Diameter",
+
+    "descriptions": "Internal diameter of the pipe measured across its inner surface."
+  },
+  {
+    "id": "Pipe_Thickness",
+
+    "descriptions": "Thickness of the part's wall in millimeters."
+  },
+  {
+    "id": "Part_Volume_plastic-tube",
+
+    "descriptions": "Part volume is the measure of the three-dimensional space occupied by a solid object."
+  },
+  {
+    "id": "Part_Weight_plastic-tube",
+
+    "descriptions": "Final weight of the finished part in grams."
+  },
+  {
+    "id": "Material_Utilisation_Plastic_Tube",
+
+    "descriptions": "Material utilization refers to the efficiency with which raw materials are converted into finished product in a manufacturing process."
+  },
+  {
+    "id": "Gross_Material_Cost_Plastic_Tube",
+
+    "descriptions": "<div> Total material cost including scrap. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> ( <span>Part gross weight(g)</span> x <span>material cost($/kg)</span> ÷ 1000)</div>"
+  },
+  {
+    "id": "Scrap_Recovery_Cost_Plastic_Tube",
+
+    "descriptions": "Cost recovered per part from recyclable scrap."
+  },
+  {
+    "id": "Regrind_Percentage_Plastic_Tube",
+
+    "descriptions": "A percentage of the plastic scrap material generated during the molding process is re-introduced into the manufacturing process as regrind."
+  },
+  {
+    "id": "Required_Extrusion_Rate_Plastic_Tube",
+
+    "descriptions": "Calculated mass flow rate needed from the extruder to meet the desired production output or line speed for a specific product."
+  },
+  {
+    "id": "machine_Extrusion_Rate_Plastic_Tube",
+
+    "descriptions": "Actual mass of polymer the extrusion machine delivers per hour under current operating conditions."
+  },
+  {
+    "id": "Maximum_Output_Rate_Machine_Plastic_Tube",
+
+    "descriptions": "The highest theoretical mass of product the machine can produce in one hour under ideal conditions."
+  },
+  {
+    "id": "Machine_Output_Efficiency_Plastic_Tube",
+
+    "descriptions": "The ratio of actual output to the machine's maximum output, expressed as a percentage."
+  },
+  {
+    "id": "Machine_Output_Rate_Plastic_Tube",
+
+    "descriptions": "The proportion of the maximum output that is being achieved under current operating conditions."
+  },
+  {
+    "id": "Machine_Operation_Rate_Plastic_Tube",
+
+    "descriptions": "The speed at which the machine processes material or product during active operation."
+  },
+  {
+    "id": "Cycle_Time_Per_Part_Plastic_Tube",
+
+    "descriptions": "The total time required to complete one full cycle and produce one part (or unit) from start to finish."
+  },
+
+  {
+    "id": "Casting_Process_Group",
+
+    "descriptions": "The classification of a manufacturing method or production technique used to convert raw materials into finished components."
+  },
+  {
+    "id": "Casting_Sub_Process",
+
+    "descriptions": "Specific subprocess involved in manufacturing."
+  },
+  {
+    "id": "Casting_Category",
+
+    "descriptions": "Broad classification of materials based on their composition or nature."
+  },
+  {
+    "id": "Casting_Family",
+
+    "descriptions": "A subgroup within the material category that shares similar base elements or alloying systems."
+  },
+  {
+    "id": "Casting_Part_Envelope_Length",
+    "descriptions": "Smallest imaginary boundary inside which the part’s length can fit"
+  },
+  {
+    "id": "Casting_Part_Envelope_Width",
+    "descriptions": "Smallest imaginary boundary inside which the part’s width can fit"
+  },
+  {
+    "id": "Casting_Part_Envelope_Height",
+    "descriptions": "Smallest imaginary boundary inside which the part’s height can fit"
+  },
+  {
+    "id": "Casting_Part_Volume",
+    "descriptions": "The total volume of part in cubic millimeters"
+  },
+  {
+    "id": "Casting_Net_Casting_Weight",
+    "descriptions": "<div>The weight of the Cast part, excluding all scrap.</div> <div class=\"tooltip-formula\"><p>Calculation</p> (<span>Casting  volume(mm^3) </span>  x <span>density(g/cm^3)</span>)</div>"
+  },
+  {
+    "id": "Casting_Net_Finish_Weight",
+    "descriptions": "The weight of the cast part after any secondary process"
+  },
+  {
+    "id": "Casting_No_Of_Cavity",
+    "descriptions": "The number of identical parts produced per mold"
+  },
+  {
+    "id": "Casting_Runner_Riser_Sprue_And_Overflow",
+    "descriptions": "Percentage refers to the amount of Sprue, runner, and riser are parts of the gating system in the  casting relative to the total metal poured"
+  },
+  {
+    "id": "Casting_Runner_Riser_Weight",
+    "descriptions": "<div>Weight to key components of the gating system of casting part , which are crucial for ensuring a defect-free casting.</div> <div class=\"tooltip-formula\"><p>Calculation</p><span>(User Specific Percentage)%</span> x <span>(Net Casting Weight (kg))</span></div>"
+  },
+  {
+    "id": "Casting_Runner_Riser_Weight_HPDC",
+    "descriptions": "<div>Weight to key components of the gating system of casting part , which are crucial for ensuring a defect-free casting.</div> <div class=\"tooltip-formula\"><p>Calculation</p><span>(User Specific Percentage)%</span> x <span>(Net Casting Weight (g))</span></div>"
+  },
+  {
+    "id": "Casting_Irretrieval_Loss_Weight",
+    "descriptions": "<div>Irretrieval Loss in metal casting  refers to the portion of the metal charge that is permanently lost and cannot be recovered or recycled into a usable metallic form.</div><div class=\"tooltip-formula\"><p>Calculation</p> <span>(User Specific Percentage) % </span> x <span>(Net Finish Weight (kg))</span> + <span>(Runner, Riser, Sprue and Overflow)</span></div>"
+  },
+  {
+    "id": "Casting_Irretrieval_Loss_Weight_HPDC",
+    "descriptions": "<div>Irretrieval Loss in metal casting  refers to the portion of the metal charge that is permanently lost and cannot be recovered or recycled into a usable metallic form.</div><div class=\"tooltip-formula\"><p>Calculation</p> <span>(User Specific Percentage) % </span> x <span>(Net Finish Weight (g))</span> + <span>(Runner, Riser, Sprue and Overflow)</span></div>"
+  },
+  {
+    "id": "Casting_Irretrieval_Loss_Percentage",
+    "descriptions": "Percentage refers to the loss of metal that occurs during the melting process, which cannot be recovered."
+  },
+  {
+    "id": "Casting_Overflow_And_Spillage_Loss_Percentage",
+    "descriptions": "Percentage refers to  loss occurs when molten metal overflows or spills during pouring or handlingloss occurs when molten metal overflows or spills during pouring or handling"
+  },
+  {
+    "id": "Casting_Overflow_And_Spillage_Loss_Weight",
+    "descriptions": "<div>Recovery Loss in casting refers to the amount of scrap  metal that can recovered from from Gating system  and overflow </div> <div class=\"tooltip-formula\"><p>Calculation</p> <span>(User Specific Percentage)% x ( Wt. of Runner,Riser.Spruce andOverflow(kg))</span></div>"
+  },
+  {
+    "id": "Casting_Recovery_Loss_Runner_Riser_Sprue_And_Overflow",
+    "descriptions": "The portion of auxiliary metal that cannot be recovered or reused after cutting off from the casting, often due to contamination or inefficiency in recycling."
+  },
+  {
+    "id": "Casting_Machining_Scrap_Weight_Per_Part",
+    "descriptions": "<div>Scrap weight is the reusable weight of scrap materials generated during a Machining process.</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span> (Volume of Scrap(mm^3) </span> x <span> Density(g/cm^3)/1000) </span></div>"
+  },
+  {
+    "id": "Casting_Melting_Shot_Weight_Per_Part",
+    "descriptions": "The total metal weight required to produce one complete casting shot (including the part and its runners, risers, losses, etc.)."
+  },
+  {
+    "id": "Casting_Gross_Material_Weight_Per_Part",
+    "descriptions": "The total material weight consumed per part, accounting for all losses, mold filling paths, and machining scrap. This reflects the true material input needed for finished part"
+  },
+  {
+    "id": "Casting_Total_Melting_Shot_Weight_Per_Mold",
+    "descriptions": "<div>Total melting shot weight refers to the total amount of molten metal poured into the no of cavities per  mold during one casting cycle.</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span>Melting Shot Weight/Part (kg)</span> × <span>Number of Cavities</span></div>"
+  },
+  {
+    "id": "Casting_Total_Melting_Shot_Weight_Per_Mold_HPDC",
+    "descriptions": "<div>Total melting shot weight refers to the total amount of molten metal poured into the no of cavities per  mold during one casting cycle.</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span>Melting Shot Weight/Part (g)</span> × <span>Number of Cavities</span></div>"
+  },
+  {
+    "id": "Casting_Machining_Scrap_Price",
+    "descriptions": "The recovery value or resale price of scrap metal generated from machining operations"
+  },
+  {
+    "id": "Casting_Gross_Material_Cost_Per_Part",
+    "descriptions": "The cost of all material input per part before accounting for any scrap recovery."
+  },
+  {
+    "id": "Casting_Scrap_Recovery_Rate",
+    "descriptions": "The percentage of scrap metal (from runners, risers, machining, etc.) that can be recovered and reused"
+  },
+  {
+    "id": "Casting_Scrap_Recovery_Cost",
+    "descriptions": "The monetary value gained from recovering and reselling the scrap metal."
+  },
+  {
+    "id": "Casting_Max_Flask_Weight",
+    "descriptions": "This indicates the maximum weight of the loaded flask (including sand, mold, and molten metal) that the system or equipment can safely handle during the pouring process."
+  },
+
+  {
+    "id": "Casting_Net_Material_Cost",
+    "descriptions": "The effective cost of material per part after subtracting the recovered scrap value from the gross material cost"
+  },
+
+  {
+    "id": "Casting_Overflow_And_Spillage_Weight",
+
+    "descriptions": "<div>Recovery Loss in casting refers to the amount of scrap  metal that can recovered from from Gating system  and overflow</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span> (User Specific Percentage)% </span> x <span> ( Wt. of Runner,Riser.Spruce andOverflow(kg)) </span></div>"
+  },
+  {
+    "id": "Casting_Overflow_And_Spillage_Weight_HPDC",
+
+    "descriptions": "<div>Recovery Loss in casting refers to the amount of scrap  metal that can recovered from from Gating system  and overflow</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span> (User Specific Percentage)% </span> x <span> ( Wt. of Runner,Riser.Spruce andOverflow(g)) </span></div>"
+  },
+  {
+    "id": "Casting_Part_Melting_Shot_Weight",
+
+    "descriptions": "<div>Melting Shot Weight per Part refers to the total weight of molten metal poured into the mold during a Produce one part, including both the Casting  part weight ,gating system ,recoverable and irretriabale losses</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span> (Net Casting Weight (kg) </span> + <span> Weight of Recovery Loss(kg) </span> + <span> Weight of Irretrivalble Loss(kg) </span> + <span> Weight of (Runner,Riser, Spruce+overflow(kg))</span></div>"
+  },
+  {
+    "id": "Casting_Part_Melting_Shot_Weight_HPDC",
+
+    "descriptions": "<div>Melting Shot Weight per Part refers to the total weight of molten metal poured into the mold during a Produce one part, including both the Casting  part weight ,gating system ,recoverable and irretriabale losses</div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span> (Net Casting Weight (g) </span> + <span> Weight of Recovery Loss(g) </span> + <span> Weight of Irretrivalble Loss(g) </span> + <span> Weight of (Runner,Riser, Spruce+overflow(g))</span></div>"
+  },
+  {
+    "id": "Casting_No_Of_Parts_Per_Hour",
+
+    "descriptions": "Represents the production rate or the number of castings that can be produced per hour under normal operating conditions."
+  },
+  {
+    "id": "Casting_Tonnage",
+
+    "descriptions": "<div>Refers to the clamping force capacity of the HPDC machine, expressed in tons. It indicates the maximum force that can be applied to keep the die halves securely closed during metal injection</div>"
+  },
+  {
+    "id": "Unfolded_Length_Sheet_Metal",
+    "descriptions": "Flat length of the part before bending/forming."
+  },
+  {
+    "id": "Unfolded_Width_Sheet_Metal",
+    "descriptions": "Flat width of the part before bending/forming."
+  },
+  {
+    "id": "Thickness_Sheet_Metal",
+    "descriptions": "Part material thickness."
+  },
+  {
+    "id": "Sheet_Coil_Length",
+    "descriptions": "<div><strong>For sheets:</strong> Standard length of the sheet as supplied by the mill. Can be adjusted for cut-to-size requirements.</div> \n<div><strong>For coils:</strong> Effective length of the coil available for cutting, calculated as <div class=\"tooltip-formula\"> <p>Calculation</p>  ( <span>Coil Weight </span> ÷ [<span>Width</span> × <span>Thickness </span> × <span>Density</span>]) </div></div>"
+  },
+  {
+    "id": "Sheet_Coil_Width",
+    "descriptions": "<div><strong>For sheets:</strong> Standard width of the sheet as supplied by the mill. Can be adjusted for cut-to-size requirements.</div> \n<div><strong>For coils:</strong> Effective width of the coil used for part nesting, calculated based on part size, scrap margin, and guiding allowance.</div>"
+  },
+  {
+    "id": "Parts_Per_Sheet_Coil",
+    "descriptions": "<div>Total number of parts nested on one sheet or coil length.<div> <div class=\"tooltip-formula\"> <p>Calculation</p> (<span> Usable Sheet Area </span> ÷ <span> Part Area</span>) × <span>Nesting Efficiency</span></div>"
+  },
+  {
+    "id": "Gross_Weight_Per_Part_Plastic_Tube",
+    "descriptions": "<div>Part Gross weight is the total weight including the finished part and scrap.</div> <div class=\"tooltip-formula\"> <p>Default Value Calculation</p>  (<span>Part Net weight(g) </span> + <span>Part Scrap weight(g)</span>)</div>"
+  },
+  {
+    "id": "Scrap_Weight_Per_Part_Plastic_Tube",
+    "descriptions": "<div>Scrap weight is the reusable weight of materials generated during a manufacturing process.</div> <div class=\"tooltip-formula\"> <p>Calculation</p>  (Volume of runner(mm^3)  x Density(g/cm^3) ÷ 1000)</div>"
+  },
+  {
+    "id": "Scrap_Recovery_Percentage_Plastic_Tube",
+    "descriptions": "Cost recovered per part from recyclable scrap."
+  },
+  {
+    "id": "Casting_Recommended_Platen_Size",
+    "descriptions": "Specifies the platen dimensions  to achieve optimal mold mounting, uniform clamping force distribution, and structural stability during operation."
+  },
+  {
+    "id": "Casting_Selected_Platen_Size",
+    "descriptions": "Refers to the actual platen dimensions chosen for the specific application.The selected size should match the mold requirements and remain within the machine’s recommended range."
+  },
+  {
+    "id": "Casting_Slider_Required",
+    "descriptions": "Indicates whether a side-action slider is necessary in the die to create features such as undercuts or side holes."
+  },
+  {
+    "id": "Casting_Net_Process_Cost",
+    "descriptions": "<div>Total cost of the manufacturing process for the part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p>  (<span>Yield cost/Part($) </span> + <span> Labor cost/Part($) </span> + <span>Setup cost/Part($)</span> + <span>Machine cost/Part($)</span> + <span>QA cost/Part($)</span>)</div>"
+  },
+  {
+    "id": "Cycle_Time_Per_Part",
+    "descriptions": "<div>Total process time consumed per part. </div> <div class=\"tooltip-formula\" >  (<span>Process Time </span> + <span>Handling Time</span> + <span>Inspection Time</span>)</div>"
+  },
+  {
+    "id": "Forging_No_Of_Parts_Cut",
+    "descriptions": "Total number of parts cut in this process."
+  },
+  {
+    "id": "Forging_Total_Weight_Of_The_Rod/Tube",
+    "descriptions": "The total mass of the raw material rod or tube before any cutting or machining operations."
+  },
+  {
+    "id": "Forging_Cross_Section",
+    "descriptions": "Shape or type of cross-section being cut."
+  },
+  {
+    "id": "Forging_Cutting_Area",
+    "descriptions": "The cross-sectional area of material that is removed or engaged by a cutting tool during a machining or cutting operation."
+  },
+  {
+    "id": "Forging_Process_Cycle_Time",
+    "descriptions": "The total time required to complete one full cycle of a manufacturing process"
+  },
+  {
+    "id": "Forging_Part_Loading_Time",
+    "descriptions": "The time required to position and secure a raw material or workpiece into a machine."
+  },
+  {
+    "id": "Forging_Part_Unloading_Time",
+    "descriptions": "The time required to remove a finished or semi-finished part from a machine"
+  },
+  {
+    "id": "Forging_Cutting_Length",
+    "descriptions": "The cutting length refers to the total linear distance along which a cutting tool engages the workpiece."
+  },
+  {
+    "id": "Forging_Process_Type",
+    "descriptions": "Specific type of operation performed."
+  },
+  {
+    "id": "Material_Process_Group",
+    "descriptions": "Process Group is a logical grouping of different Manufacturing process."
+  },
+  {
+    "id": "Material_Description",
+
+    "descriptions": "Specific Material Grade / Alloy Composition as per Global Standards"
+  },
+  {
+    "id": "Region",
+
+    "descriptions": "The geographical area or manufacturing location where the material is sourced."
+  },
+  {
+    "id": "Density",
+
+    "descriptions": "Density is the mass per unit volume expressed in grams per centimetre square"
+  },
+  {
+    "id": "Clamping_Pressure",
+
+    "descriptions": "Force per unit area (kgf/cm²) applied to keep the mold tightly closed during injection."
+  },
+  {
+    "id": "Melt_Temperature",
+
+    "descriptions": "Temperature of the material when it is in its molten state and ready to be poured into the mold."
+  },
+  {
+    "id": "Mold_Temperature",
+
+    "descriptions": "The temperature of the mold itself during the pouring process. Proper mold temperature ensures optimal part quality and reduces warping or shrinkage."
+  },
+  {
+    "id": "Ejection_Temperature",
+
+    "descriptions": "Temperature at which the solidified casting is removed from the mold without causing damage."
+  },
+  {
+    "id": "Chemical_Composition",
+
+    "descriptions": "Breakdown of the material's chemical elements or compounds."
+  },
+  {
+    "id": "Rubber_Weight_Processed_Per_Batch",
+
+    "descriptions": "Precise mass of raw rubber material introduced and processed by the preparation equipment for each discrete batch"
+  },
+  {
+    "id": "Processing_Time_Per_Batch",
+
+    "descriptions": "Total elapsed time required to complete the processing cycle of a single batch of rubber material."
+  },
+  {
+    "id": "No_Of_Parts_Handled_Per_Batch",
+
+    "descriptions": "Exact count of finished or semi-finished rubber components produced or managed within a single batch processing operation."
+  },
+  {
+    "id": "Material_Loading_Time",
+
+    "descriptions": "Time taken to load raw material into the machine or mold."
+  },
+  {
+    "id": "Insert_Loading",
+
+    "descriptions": "Time required to place inserts or components into the mold before processing."
+  },
+  {
+    "id": "Breathing",
+
+    "descriptions": "Dwell time allowing trapped gases to escape before full compression."
+  },
+  {
+    "id": "Compression_Curing",
+
+    "descriptions": "Time for compressing the material and allowing it to cure or harden."
+  },
+  {
+    "id": "Unloading_Cleaning",
+
+    "descriptions": "Time to remove finished parts and clean the mold or tooling."
+  },
+  {
+    "id": "Total_Processing_Time",
+
+    "descriptions": "Sum of all processing steps from loading to cleaning per cycle."
+  },
+  {
+    "id": "No_Of_Parts_Processed_Per_Batch",
+
+    "descriptions": "Total number of parts produced in one complete processing cycle."
+  },
+  {
+    "id": "Capacity_Utilization_Factor",
+
+    "descriptions": " It is the percentage ratio of actual production to the maximum possible production under ideal conditions."
+  },
+  {
+    "id": "Rubber_Weight_Per_Batch",
+
+    "descriptions": "Precise mass of raw rubber material introduced and processed by the preparation equipment for each discrete batch"
+  },
+  {
+    "id": "RE_Cycle_Time_Per_Batch",
+
+    "descriptions": "Total elapsed time required to complete the processing cycle of a single batch of rubber material."
+  },
+  {
+    "id": "RE_No_Of_Parts_Processed",
+
+    "descriptions": "Exact count of finished rubber parts produced within a single batch processing operation."
+  },
+  {
+    "id": "RE_Machine_Efficiency",
+
+    "descriptions": "Ratio of total run time of machine to total shift time."
+  },
+  {
+    "id": "RE_Net_Process_Cost_Rubber",
+
+    "descriptions": "<div>Total cost of the manufacturing process for the part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p>  (<span>Yield cost/Part($) </span> + <span> Labor cost/Part($) </span> + <span>Setup cost/Part($)</span> + <span>Machine cost/Part($)</span> + <span>QA cost/Part($)</span>)</div>"
+  },
+  {
+    "id": "Machine_Cutting_Speed",
+
+    "descriptions": "Linear rate at which the cutting tool moves through the material."
+  },
+  {
+    "id": "Cutting_Time",
+
+    "descriptions": "Time taken to complete the actual cutting operation on a single part."
+  },
+  {
+    "id": "Loading_Unloading_Time",
+
+    "descriptions": "Combined time required to position the part for trimming and remove the finished part from the machine."
+  },
+  {
+    "id": "Total_Processing_Time_Cutting",
+
+    "descriptions": "Total time per part, including cutting, loading, and unloading, required to complete one full cutting cycle."
+  },
+  {
+    "id": "No_Of_Parts_Processed_Per_Batch",
+
+    "descriptions": "Exact count of finished rubber Parts produced within a single batch processing operation."
+  },
+  {
+    "id": "Machine_Efficiency_Percentage",
+
+    "descriptions": "Ratio of total run time of machine to total shift time."
+  },
+  {
+    "id": "Net_Process_Cost_USD",
+
+    "descriptions": "<div>Total cost of the manufacturing process for the part. </div> <div class=\"tooltip-formula\"> <p>Calculation</p>  (<span>Yield cost/Part($) </span> + <span> Labor cost/Part($) </span> + <span>Setup cost/Part($)</span> + <span>Machine cost/Part($)</span> + <span>QA cost/Part($)</span>)</div>"
+  },
+  {
+    "id": "Material_Placement",
+
+    "descriptions": "Time to load and position the plastic sheet onto the machine before heating."
+  },
+  {
+    "id": "Close_Mold",
+
+    "descriptions": "Time to close and clamp the mold halves or platen securely for forming."
+  },
+  {
+    "id": "Heating_Time_For_Sheet",
+
+    "descriptions": "Duration to heat the plastic sheet until it reaches the forming temperature."
+  },
+  {
+    "id": "Time_For_Thermoforming_Process",
+
+    "descriptions": "Time taken to shape the heated sheet into the mold cavity using vacuum, pressure, or mechanical means."
+  },
+  {
+    "id": "Time_For_Cooling_Of_Part",
+
+    "descriptions": "Time allowed for the formed part to cool and solidify in the mold before removal."
+  },
+  {
+    "id": "Open_Mold_Time",
+
+    "descriptions": "Time to open the mold or platen after forming is complete."
+  },
+  {
+    "id": "Time_For_Loading_Of_Charge",
+
+    "descriptions": "Time required to place the pre-measured thermoset material into the transfer pot before the mold closes."
+  },
+  {
+    "id": "Time_For_Closing_Of_Mold",
+
+    "descriptions": "Duration needed to close the mold and apply clamping force to ensure a sealed cavity for molding."
+  },
+  {
+    "id": "Time_For_Injection",
+
+    "descriptions": "Time during which the charge is forced from the transfer pot into the mold cavity."
+  },
+  {
+    "id": "Time_For_Cooling_Curing_Of_Part",
+
+    "descriptions": "Time required for the thermosetting material to undergo cross-linking (curing) under heat and pressure within the mold."
+  },
+  {
+    "id": "Time_For_Opening_Of_Mold",
+
+    "descriptions": "Duration needed to release the mold and separate the mold halves after curing is complete."
+  },
+  {
+    "id": "Time_For_Part_Unload",
+
+    "descriptions": "Time taken to remove the molded part from the cavity, either manually or with ejector mechanisms."
+  },
+  {
+    "id": "Total_Processing_Time_Transfer_Molding",
+
+    "descriptions": "Total cycle time encompassing loading, closing, transferring, curing, mold opening, and part removal."
+  },
+  {
+    "id": "Packaging_Parts_Per_Shipment",
+
+    "descriptions": "The total number of individual units or components included in a single shipment. Calculated based on the Annual Volume Qty and Delivery Frequency."
+  },
+  {
+    "id": "Packaging_Weight_Per_Shipment",
+
+    "descriptions": "The total mass of all items in a shipment."
+  },
+  {
+    "id": "Packaging_Volume_Per_Shipment",
+
+    "descriptions": "The total three-dimensional volume occupied by the entire shipment."
+  },
+  {
+    "id": "Packaging_Material_Finish",
+
+    "descriptions": "Any special surface treatment or texture applied to a material or part that requires special packaging, such as specialty paint, polishing, anodizing, or coating."
+  },
+  {
+    "id": "Packaging_Fragile_or_Speciality_Product",
+
+    "descriptions": "Indicates whether the shipment contains delicate, high-value, or sensitive items that require special handling, packaging, or transportation conditions."
+  },
+  {
+    "id": "Packaging_Freight",
+
+    "descriptions": "The transportation type used for transporting this item - via Land, Sea, and/or Air."
+  },
+  {
+    "id": "Packaging_Type",
+
+    "descriptions": "The level of packaging, defined as Primary (the layer that directly contacts the product, e.g. a bag or bubble wrap), Secondary (the layer that groups multiple Primary packages, e.g. a box or carton), or Tertiary (the layer that groups multiple Secondary packages, such as a pallet)."
+  },
+  {
+    "id": "Packaging_Material",
+
+    "descriptions": "The material and form of the packaging item (e.g., Bubble Wrap, Cardboard Box, Wood Pallet)."
+  },
+  {
+    "id": "Packaging_Description",
+
+    "descriptions": "A brief description of the size, structure, and other key features of the packaging item."
+  },
+  {
+    "id": "Packaging_Weight",
+
+    "descriptions": "The weight of the empty selected packaging item."
+  },
+  {
+    "id": "Packaging_Max_Capacity",
+
+    "descriptions": "The maximum weight the selected packaging item can safely hold (not pertinent for all materials)."
+  },
+  {
+    "id": "Packaging_Max_Volume",
+
+    "descriptions": "The maximum volume the selected packaging item can safely hold (not pertinent for all materials)."
+  },
+  {
+    "id": "Packaging_Labor_Required_Per_Package",
+
+    "descriptions": "Time needed to assemble and fill one of the selected packaging items."
+  },
+  {
+    "id": "Packaging_Direct_Labor_Rate",
+
+    "descriptions": "Cost of direct labor per hour."
+  },
+  {
+    "id": "Packaging_Labor_Cost_Per_Part",
+
+    "descriptions": "Labor cost allocated to a single part or unit."
+  },
+  {
+    "id": "Packaging_Parts_Per_Container",
+
+    "descriptions": "Number of parts that can be included in a single container of the selected packaging item, based on the maximum weight and volume capacity of the part."
+  },
+  {
+    "id": "Packaging_Quantity_Needed_Per_Shipment",
+
+    "descriptions": "Total number of the selected packaging items required to package all units in a single shipment."
+  },
+  {
+    "id": "Packaging_Cost_Per_Container",
+
+    "descriptions": "Cost of one empty selected packaging item."
+  },
+  {
+    "id": "Packaging_Cost_Per_Unit",
+
+    "descriptions": "Packaging cost assigned to each individual unit."
+  },
+  {
+    "id": "Packaging_CO2_Per_Unit",
+
+    "descriptions": "Carbon footprint associated with one unit, in kg of CO₂ equivalent."
+  },
+  {
+    "id": "Logistics_Mode_of_Transport",
+
+    "descriptions": "The primary mode used to ship goods (e.g., Surface, Air, Sea)."
+  },
+  {
+    "id": "Logistics_Shipment_Type",
+
+    "descriptions": "The shipment classification, such as FCL or LCL."
+  },
+  {
+    "id": "Logistics_Container_Type",
+
+    "descriptions": "The type or size of shipping container used."
+  },
+  {
+    "id": "Logistics_Full_Container_Cost",
+
+    "descriptions": "Cost to ship a fully loaded container."
+  },
+  {
+    "id": "Logistics_Percentage_Of_Container_Needed",
+
+    "descriptions": "Percentage of a container’s capacity used by the shipment. Values above 100 indicate multiple containers required."
+  },
+  {
+    "id": "Logistics_Freight_Cost_Per_Shipment",
+
+    "descriptions": "Total cost of transporting one shipment."
+  },
+  {
+    "id": "Logistics_Freight_Cost_Per_Unit",
+
+    "descriptions": "Freight cost allocated to each unit in the shipment."
+  },
+  {
+    "id": "Hts_Code",
+    "descriptions": "A standardized 10-digit code used to classify traded goods for customs purposes. Based on the Harmonized System (HS), it determines applicable duties and tariffs."
+  },
+  {
+    "id": "Hts_Section",
+    "descriptions": "A broad category in the Harmonized System that groups related chapters. Each section covers a major industry or type of product."
+  },
+  {
+    "id": "Hts_Chapter",
+    "descriptions": "The first 2 digits of the HTS code (00xx.xx.xx.xx), representing a high-level classification of goods (e.g., Chapter 64: Footwear). There are 99 chapters in total."
+  },
+  {
+    "id": "Hts_Heading",
+    "descriptions": "The next 2 digits of the HTS code (xx00.xx.xx.xx). It narrows down the product classification within a chapter to a specific type of product."
+  },
+  {
+    "id": "Hts_Sub_Heading",
+    "descriptions": "The first subsection of the HTS code (xxxx.00.xx.xx) that further refines the product classification within a heading. This level is harmonized globally under the HS system."
+  },
+  {
+    "id": "Hts_Sub_Heading1",
+    "descriptions": "The second subsection of the HTS code (xxxx.xx.00.xx) that adds national detail to the global HS code, used to determine specific tariffs and trade data within a specific country (when relevant)."
+  },
+  {
+    "id": "Hts_Sub_Heading2",
+    "descriptions": "The first subsection of the HTS code (xxxx.xx.xx.00), also called Statistical Suffix, that provides the most specific level of country-unique classification for customs and statistical purposes (when relevant)."
+  },
+  {
+    "id": "Hts_Country_of_Origin",
+    "descriptions": "The country where the goods were manufactured, produced, or substantially transformed. Used to determine duty rates and trade eligibility."
+  },
+  {
+    "id": "Hts_Delivery_Country",
+    "descriptions": "The destination country where the goods are being shipped. It affects duty assessment, import compliance, and trade agreements."
+  },
+  {
+    "id": "Tariff_Type",
+    "descriptions": "Specifies the kind of tariff applied to the product, such as Most Favored Nation (MFN), Preferential, Anti-Dumping, or Safeguard duties."
+  },
+  {
+    "id": "Tariff_Applies_To",
+    "descriptions": "Indicates the part costs utilized by the tariff for calculation (e.g. Total Ex-Works Cost, Material Cost, Assembly Cost)."
+  },
+  {
+    "id": "Tariff_Percentage",
+    "descriptions": "The percentage rate of duty applied to the customs value of the imported goods. Calculated as a percentage of the product's dutiable value."
+  },
+  {
+    "id": "Tariff_Amount",
+    "descriptions": "A fixed amount of duty assessed per unit of goods (e.g., $0.05 per kg), or the actual duty amount in dollars, depending on context."
+  },
+  {
+    "id": "Tariff_Comments",
+    "descriptions": "Additional notes or explanations related to the tariff, such as exemptions, conditions, trade agreement details, or regulatory references."
+  },
+  {
+    "id": "Tooling_Type",
+    "descriptions": "Specifies whether the process uses general-purpose (soft) tooling or part-specific (dedicated) tooling. \n <strong> Soft Tooling: </strong> Adjustable, reusable for multiple parts; lower initial cost, longer setup. \n <strong> Dedicated Tooling: </strong> Custom-made for a specific part; higher upfront cost, faster cycle time, consistent quality."
+  },
+  {
+    "id": "New_Tooling_Type",
+
+    "descriptions": "Specifies the kind of tooling used in the operation, affecting setup, cycle time, and compatibility with the part. \n <strong>Simple:</strong> Single-function tooling for one operation. \n <strong>Compound:</strong> Performs multiple similar operations in a single stroke. \n <strong>Combination:</strong> Performs different types of operations (e.g., punching a hole + forming a loupe + bending) in a single setup or stroke."
+  },
+  {
+    "id": "New_Tooling_Cost_Allocation",
+
+    "descriptions": "Indicates if new hard tooling is needed for the operation, affecting part cost calculation.\n <strong>Yes - Amortized:</strong> Tooling cost is distributed across total production quantity.\n<strong>One-Time Cost:</strong> Full tooling cost is applied to the total production quantity without distributing to individual parts.\n<strong>No:</strong> No new tooling required; no additional cost applied."
+  },
+  {
+    "id": "Sheetmetal_Part_Gross_Weight_Per_Part",
+    "descriptions": "<div>Total weight of the material consumed to produce the part, including both finished part weight and associated scrap or trim loss.</div> <div class=\"tooltip-formula\"> <p>Calculation</p>(<span>Part Net weight(g)</span> + <span>Part Scrap weight(g)</span>)</div>"
+  },
+  {
+    "id": "Sheetmetal_Part_Scrap_Weight_Per_Part",
+    "descriptions": "<div>Reusable or recyclable portion of material generated as waste during the manufacturing process.</div> <div class=\"tooltip-formula\"> <p> Calculation</p>  <span>Scrap Weight </span> = <span> Gross Weight </span> − <span> Net Part Weight </span></div>"
+  },
+  {
+    "id": "Sheetmetal_Scrap_Recovery_Per_Part_Percentage",
+    "descriptions": "Indicates the percentage of scrap material that can be reclaimed or recycled from the total generated scrap."
+  },
+  {
+    "id": "Sheetmetal_Gross_Material_Cost_Per_Part",
+    "descriptions": "<div>Total material cost per part before accounting for scrap recovery, based on the gross material weight consumed. </div><div class=\"tooltip-formula\"> <p>Calculation</p> <span>Gross Material Cost/Part </span> = <span>Gross Material Weight </span> × <span>Material Rate</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Part_Scrap_Recovery_Cost",
+    "descriptions": "<div>Value recovered from recyclable scrap material generated per part during manufacturing.</div><div class=\"tooltip-formula\"> <p>Calculation</p> <span>Part Scrap Recovery Cost </span>= <span>Scrap Weight </span> × <span> Scrap Recovery (%) </span> × <span>Scrap Rate</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Regrind_Per_Part_Percentage",
+    "descriptions": "A percentage of the plastic scrap material generated during the molding process is re-introduced into the manufacturing process as regrind."
+  },
+  {
+    "id": "Sheetmetal_Net_Material_Cost",
+    "descriptions": "<div>Actual material cost per part after accounting for scrap recovery or reusable material.</div><div class=\"tooltip-formula\"> <p>Calculation</p> <span>Net Material Cost</span> = <span>Gross Material Cost </span> − <span>Part Scrap Recovery Cost</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Sustainability",
+    "descriptions": "Indicator of environmental impact and resource efficiency, reflecting CO₂ footprint, material utilization, and scrap recovery performance."
+  },
+  {
+    "id": "Sheetmetal_CO2_Per_Kg_Material",
+    "descriptions": "Carbon footprint associated with producing 1 kg of the selected raw material, representing its embodied carbon value. Defined by material database / LCA source (e.g., kg CO₂ per kg material)."
+  },
+  {
+    "id": "Sheetmetal_CO2_Per_Scrap",
+    "descriptions": "Carbon emission attributed to the scrap material generated per part, before recycling or recovery. CO₂ (Scrap) = Scrap Weight × CO₂ (kg/kg – Material)"
+  },
+  {
+    "id": "Sheetmetal_CO2_Per_Part",
+    "descriptions": "Total carbon emission per finished part, considering both material consumption and process energy. CO₂ (Part) = Gross Material Weight × CO₂ (kg/kg – Material) − Scrap Recovery Impact"
+  },
+  {
+    "id": "Sheetmetal_Bottom_Clamping",
+    "descriptions": "Unusable margin along sheet bottom held by clamps."
+  },
+  {
+    "id": "Sheetmetal_Bottom_Clamping",
+    "descriptions": "Unusable margin along sheet’s left edge for clamp movement or sheet reference."
+  },
+  {
+    "id": "Sheetmetal_Strip_Layout",
+    "descriptions": "Defines the part orientation arrangement within the strip during progressive or stage tool layout. \n <strong> Single: </strong>All parts oriented in the same direction. \n <strong>Mirror:</strong> Alternate parts are flipped to optimize coil width utilization and balance strip layout. "
+  },
+  {
+    "id": "Yield_Strength",
+    "descriptions": "Stress at which material begins to deform permanently under load."
+  },
+  {
+    "id": "Tensile_Strength",
+    "descriptions": "Maximum stress a material can withstand before fracture under tension."
+  },
+  {
+    "id": "Shearing_Strength",
+    "descriptions": "Maximum stress a material can withstand before failing in shear (sliding one layer over another)."
+  },
+  {
+    "id": "Pricing_Information",
+    "descriptions": "Shows the recent movement of the material cost over a selected period, indicating whether prices are rising, falling, or stable."
+  },
+  {
+    "id": "Key_Index",
+    "descriptions": "Reference market index or benchmark used to track and compare material price movements."
+  },
+  {
+    "id": "Historical_Pricing_Trend",
+    "descriptions": "Graphical or tabular representation of material prices over time, useful for cost forecasting and budgeting."
+  },
+  {
+    "id": "Sheetmetal_Machine_Name",
+    "descriptions": "Standard reference for the selected machine, combining key specifications (e.g., tonnage, bed size, power/current, machine type, origin) for costing and traceability."
+  },
+  {
+    "id": "Sheetmetal_Machine_Description",
+    "descriptions": "Defines the technical specifications of the selected machine, including make, model, and key operational features."
+  },
+  {
+    "id": "Sheetmetal_Machine_Automation",
+    "descriptions": "Specifies the machine’s mode of operation—manual, semi-automatic, or automatic, which influences manpower, efficiency, machine hour rate, and cycle time."
+  },
+  {
+    "id": "Sheetmetal_Min_Wattage_Required",
+    "descriptions": "Minimum laser power needed to cut the given material and thickness effectively."
+  },
+  {
+    "id": "Sheetmetal_Recommended_Bed_Size",
+    "descriptions": "Minimum die seating area required for safe tool mounting. <div class=\"tooltip-formula\"> <p>Calculation</p> <span>Determined from die length </span> × <span>die width with clearance</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Recommended_Bed_Length",
+    "descriptions": "Minimum machine bed length required to bend the maximum part length, including tooling clearance/tolerances."
+  },
+  {
+    "id": "Sheetmetal_Selected_Wattage",
+    "descriptions": "Actual power rating of the chosen laser machine, selected as the equal or higher wattage that ensures optimal cutting performance and cost efficiency."
+  },
+  {
+    "id": "Sheetmetal_Cutting_Speed",
+    "descriptions": "Rate at which the laser moves through the material while cutting."
+  },
+  {
+    "id": "Sheetmetal_Min_Current",
+    "descriptions": "Minimum electrical current required to cut the material thickness effectively."
+  },
+  {
+    "id": "Sheetmetal_Selected_Current",
+    "descriptions": "Actual current setting of the chosen machine for the operation. Selected as the nearest equal or higher current that ensures stable cutting and optimal cost."
+  },
+  {
+    "id": "Sheetmetal_Plasma_Cutting_Speed",
+    "descriptions": "The linear speed at which the cutting beam/torch cuts through the material. Determined by material type, thickness, machine power/current, and part geometry."
+  },
+  {
+    "id": "Sheetmetal_Max_Tonnage_Required_Per_Stroke",
+    "descriptions": "Maximum punching force needed for the largest feature. Calculated from material thickness, shear strength, and punch size"
+  },
+  {
+    "id": "Sheetmetal_Selected_SPM",
+    "descriptions": "Selected strokes per minute of the turret punch machine."
+  },
+  {
+    "id": "Sheetmetal_Criticality_Level",
+    "descriptions": "Defines the percentage and frequency of quality inspection based on manufacturability risk, functional importance, and production scale. Ensures the right level of quality control for each part.\n\n None - 0% \n\n Level 1 – Routine Sampling: Standard inspection frequency for stable, low-risk parts in regular production.\n\n Level 2 – Tightened Sampling: Increased inspection for important or moderate-risk parts where quality variation has higher impact.\n\n Level 3 – Critical Sampling: Highest inspection rigor for safety-critical or functional-critical parts; failure not acceptable"
+  },
+
+  {
+    "id": "Sheetmetal_Selected_Bed_Size",
+    "descriptions": "Denotes the bed size of the selected press, which must be equal to or greater than the recommended bed size to accommodate the tool safely."
+  },
+  {
+    "id": "Sheetmetal_Selected_Bed_Length",
+    "descriptions": "The actual bed length of the chosen machine. It must be equal to or greater than the recommended length to safely accommodate the part and tooling setup"
+  },
+  {
+    "id": "Sheetmetal_Laser_Plasma_TPP_Selected_Bed_Size",
+    "descriptions": "Minimum bed area required to fit the selected sheet layout during cutting. Based on nesting layout dimensions (Length × Width)."
+  },
+  {
+    "id": "Sheetmetal_Selected_Shut_Height",
+    "descriptions": "Indicates the maximum shut height of the selected press, which must be equal to or greater than the recommended shut height to properly fit the die."
+  },
+  {
+    "id": "Sheetmetal_M/C_Strokes",
+    "descriptions": "Machine speed in strokes per minute; indicates the operating cycle rate of the press."
+  },
+  {
+    "id": "Sheetmetal_Selected_SPM",
+    "descriptions": "Selected strokes per minute of the turret punch machine."
+  },
+  {
+    "id": "Sheetmetal_Process_Time",
+    "descriptions": "<div>Total time required to complete the cutting operation.</div> <div class=\"tooltip-formula\"> <p>Calculation</p>(<span>Length of Cut </span> ÷ <span>Cutting Speed</span>) + (<span>Piercing Time</span> × <span>No. of Starts</span>) + <span>Rapid Transfer Time</span>, <span>Dwell Time</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Handling_Time",
+    "descriptions": "Time required to load, position the sheet before cutting and unload parts after cutting.\n Based on Sheet Size, part size, thickness, and machine automation level (manual/semi-auto/auto)."
+  },
+  {
+    "id": "Sheetmetal_Length_Of_Cut_External",
+    "descriptions": "Total linear distance of external contours to be punched."
+  },
+  {
+    "id": "Sheetmetal_Length_Of_Cut_Internal",
+    "descriptions": "Total linear distance of internal larger features (holes, slots, cutouts having perimeter > 50 mm)"
+  },
+  {
+    "id": "Sheetmetal_No_Of_Holes",
+    "descriptions": "Total number of holes or cut features to be punched (holes, slots, cutouts having perimeter ≤ 50 mm)"
+  },
+  {
+    "id": "Sheetmetal_No_Of_Strokes",
+    "descriptions": "Total machine strokes required for all punching operations. Calculated from part features, punches per stroke, and turret operations."
+  },
+  {
+    "id": "Sheetmetal_No_Of_Impressions",
+    "descriptions": "Number of operations or parts performed in a single press stroke. <div class=\"tooltip-formula\"><span>Process Time/Part</span> = <span> No. of Impressions </span> ÷ <span>Machine SPM </span>× 60 (sec)</span></div>"
+  },
+  {
+    "id": "Sheetmetal_No_Of_Starts",
+    "descriptions": "Total number of pierce points required to initiate cutting. Each closed profile, internal hole, or separate cut region requires a start point, which directly increases cycle time, energy usage, and cost."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Name",
+    "descriptions": "Name or unique identifier assigned to the specific tool or die used for a given operation — such as blanking, piercing, forming, trimming, or coining. \n Helps in tool tracking, costing, and maintenance documentation throughout the production lifecycle."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Source_Country",
+    "descriptions": "The country where the tooling or Tool is manufactured or sourced."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Life_No_Of_Shots",
+    "descriptions": "Indicates the total number of press strokes (hits) a tool can perform before it requires reconditioning or replacement. Used to determine tool amortization and replacement planning."
+  },
+  {
+    "id": "Sheetmetal_Tooling_No_Of_Shots_Needed",
+    "descriptions": "<div>Represents the total production hits required to meet the planned quantity, based on parts produced per stroke (impressions). </div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span>No. of Shots </span> = <span>Total Production Quantity</span> ÷ <span>Parts per Stroke(Impressions)</span></div>"
+  },
+  {
+    "id": "Sheetmetal_Tooling_No_Of_Die_Stages",
+    "descriptions": "Total number of individual die operations or stages integrated within a single progressive or stage tool. Defines the tool complexity and layout length."
+  },
+  {
+    "id": "Sheetmetal_Tooling_No_Of_Stages_Along",
+    "descriptions": "Refers to the count of stages arranged lengthwise along the strip feed direction. Used in calculating strip length and press bed requirement."
+  },
+  {
+    "id": "Sheetmetal_Tooling_No_Of_Stages_Across",
+    "descriptions": "Refers to the count of stages or part layouts arranged widthwise across the strip feed. Impacts coil width utilization and press capacity."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Die_Size_Length",
+    "descriptions": "Overall length of the die block required to accommodate the part profile and cutting/forming stations. Used for press bed size validation and tool cost estimation."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Die_Size_Width",
+    "descriptions": "Overall width of the die block, ensuring proper layout of stages and die components within the press bed."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Die_Set_Size_Length",
+    "descriptions": "Total length of the die set assembly, including guide pillars, plates, and backing components. Must fit within press bed limits."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Die_Set_Size_Width",
+    "descriptions": "Total width of the die set assembly. Used to verify press compatibility and tool handling feasibility."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Die_Set_Size_Height",
+    "descriptions": "Combined height of the upper and lower die sets, determining shut height and press selection."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Total_Number_Of_Tools",
+    "descriptions": "Represents the total count of tools required to meet the planned production volume. Calculated based on tool life and number of hits per part, ensuring adequate tooling availability throughout production."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Number_Of_New_Tools",
+    "descriptions": "Indicates the count of new tools to be manufactured or procured for this project. Derived from total tool quantity minus any reusable tools from previous runs. Used to determine new tooling investment cost."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Number_Of_Subsequent_Tools",
+    "descriptions": "Refers to the replacement tools required during production once the initial tools reach end-of-life. Calculated from total hits ÷ tool life. Impacts recurring tooling cost in long-run production."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Mould_Criticality",
+    "descriptions": "Indicates part complexity or risk due to tooling constraints."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Envelope_Length_Per_Part",
+    "descriptions": "Overall length space occupied by one tool/part within the press area or die set envelope, used for layout and coil width validation."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Envelope_Width_Per_Part",
+    "descriptions": "Overall width footprint per part/tool, ensuring adequate spacing between tool cavities or stations."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Envelope_Height_Per_Part",
+    "descriptions": "Total vertical envelope of the tool assembly per part, used to check against shut height and press stroke."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Runner_Gap_Length",
+    "descriptions": "Lengthwise clearance between die elements (or guide rails) allowing smooth material flow and scrap discharge."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Runner_Gap_Width",
+    "descriptions": "Widthwise clearance in the runner path for proper strip progression and part ejection."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Side_Gap_Length",
+    "descriptions": "Longitudinal side clearance between die block and tool base or between adjacent dies, ensuring free material movement."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Side_Gap_Width",
+    "descriptions": "Transverse side clearance allowing lateral strip positioning and die protection. The distance between the cavity to cavity or the edge of the Tool along Y-direction, measured in millimeters."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Base_Length",
+    "descriptions": "Length of the die shoe or tool base plate that supports the die assembly. Impacts tool rigidity and base material cost."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Base_Width",
+    "descriptions": "Width of the die shoe or base plate providing stability for cutting/forming operations."
+  },
+  {
+    "id": "Sheetmetal_Tooling_Base_Height",
+    "descriptions": "Thickness or height of the base plate, contributing to die stiffness and total tool height."
+  },
+  {
+    "id": "Sheetmetal_No_Of_Stages",
+    "descriptions": "Total number of sequential stations in a progressive stamping die required to form the part completely."
+  },
+
+  {
+    "id": "Sheetmetal_Recommended_Shut_Height",
+    "descriptions": "Minimum shut height requirement of the die."
+  },
+  {
+    "id": "Sheetmetal_Form_Perimeter",
+    "descriptions": "Total length around the formed edges of the part."
+  },
+  {
+    "id": "Sheetmetal_Form_Area",
+    "descriptions": "Two-dimensional area of a 3D part obtained by projecting its geometry onto a flat reference plane."
+  },
+  {
+    "id": "Sheetmetal_Cut_Speed",
+    "descriptions": "Speed at which the shear blade or ram moves to perform the cutting operation."
+  },
+  {
+    "id": "Sheetmetal_Total_Bend_Length",
+    "descriptions": "Sum of all bend lines in the part, used to estimate bending tonnage."
+  },
+  {
+    "id": "Sheetmetal_Min_Current(Amps)",
+    "descriptions": "Minimum electrical current required to cut the material thickness effectively."
+  },
+  {
+    "id": "Sheetmetal_Left_Clamping",
+    "descriptions": "Unusable margin along sheet’s left edge for clamp movement or sheet reference."
+  },
+
+  {
+    "id": "Machining_Stock",
+    "descriptions": "Percentage  refers to the extra material intentionally added to the surfaces of a casting,  for final machining and finishing processes"
+  },
+  {
+    "id": "Min_Wall_Thickness_Green_Semi_Auto_No_Bake_Sand",
+
+    "descriptions": "Minimum wall thickness refers to the thinnest section of a part or product that can be successfully casted and it is a critical Parameter."
+  },
+  {
+    "id": "Min_Wall_Thickness_HPDC_GDC",
+
+    "descriptions": "Minimum wall thickness is a critical design and process parameter in die casting.Maintaining an appropriate minimum wall thickness ensures that molten metal fills the die cavity completely before solidification occurs,"
+  },
+  {
+    "id": "Part_Casting_Weight",
+
+    "descriptions": "<div>The weight of the Cast part, excluding all scrap.</div> <div class=\"tooltip-formula\"><p>Calculation</p> (<span>Casting volume(mm^3) </span>  * <span>density(g/cm^3)</span>)</div>"
+  },
+  {
+    "id": "Casting_Part_Net_Weight",
+
+    "descriptions": "<div> The weight of the Machined cast part, exluding all scrap. </div> <div class=\"tooltip-formula\"> <p>Calculation </p> <span>Finished part volume(mm^3) </span> * <span> density(g/cm^3))</span> </div>"
+  },
+  {
+    "id": "Casting_Core_Shape",
+    "descriptions": "Geometric shape of the core used."
+  },
+  {
+    "id": "Casting_Core_Length",
+    "descriptions": "Longest measurement of a Core when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Core_Width",
+    "descriptions": "Middle measurement of a core when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Core_Height",
+    "descriptions": "Shortest measurement of a Core when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Core_Volume",
+    "descriptions": "Core volume is the measure of the three-dimensional space occupied by a solid object."
+  },
+  {
+    "id": "Casting_Core_Weight",
+    "descriptions": "<div>The mass of the mold’s core component.</div> <div class=\"tooltip-formula\"><p>Calculation </p><span> Core part volume </span> × <span> density.</span></div>"
+  },
+  {
+    "id": "Casting_Core_Area",
+    "descriptions": "Measurement of the surface area of the core."
+  },
+  {
+    "id": "Casting_No_Of_Cores",
+    "descriptions": "Number of Cores refers to the total count of cores used in a single casting mold."
+  },
+  {
+    "id": "Casting_Total_Core_Weight",
+    "descriptions": "Total Core Weight refers to the combined weight of all cores used in a casting mold for a single casting cycle."
+  },
+  {
+    "id": "Casting_Net_Core_Sand_Cost",
+    "descriptions": "<div>Total Cost of Core Sand refers to the cost of sand material used to make the number of cores per mold.</div> <div class=\"tooltip-formula\"><p>Calculation</p> <span>Total core weight </span> × <span> Cost of core sand per unit weight.</span></div>"
+  },
+  {
+    "id": "Casting_Total_Material_Cost",
+    "descriptions": "<div>Total Material Cost in casting refers to the overall cost of all materials consumed to produce the cast parts, including both the raw metal, any additional material, and losses during the process.</div> <div class=\"tooltip-formula\"><p>Calculation</p> <span>Net material cost</span> + <span>Total Cost Mold Sand</span> + <span>Total Cost Core Sand.</span></div>"
+  },
+  {
+    "id": "Casting_Mold_Box_Length",
+    "descriptions": "Longest measurement of a Mold box when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Mold_Box_Width",
+    "descriptions": "Middle measurement of Mold Box when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Mold_Box_Height",
+    "descriptions": "Shortest measurement of a Mold box when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Mold_Sand_Weight",
+    "descriptions": "<div>The weight of the finished part, excluding all scrap. </div> <div class=\"tooltip-formula\"> <p>Calculation</p> <span>(Part volume(mm^3) </span> * <span> density(g/cm^3) </span>)</div>"
+  },
+  {
+    "id": "Casting_New_Sand_Weight",
+    "descriptions": "The description of Mold Sand Weight (kg) with 10% replenishment refers to the total mass of molding sand used in a foundry process, specifically accounting for the addition of new sand due to loss,burn and contamination"
+  },
+  {
+    "id": "Casting_New_Sand_Weight_30_Replenishment",
+    "descriptions": "The description of Mold Sand Weight (kg) with 30% replenishment refers to the total mass of molding sand used in a foundry process, specifically accounting for the addition of new sand due to loss,burn and contamination."
+  },
+  {
+    "id": "Casting_Metal_To_Sand_Ratio",
+    "descriptions": "Metal to Sand Ratio is the ratio between the weight (kgs)of molding sand and the weight of Liquid shot metal (kgs)being cast in a single mold."
+  },
+  {
+    "id": "Casting_Net_Mold_Sand_Cost",
+    "descriptions": "<div>it is the cost of new sand added in  the  old sand </div> <div class=\"tooltip-formula\"> <p> Calculation </p> <span>10% of New sand weight(kgs) <span>* <span> cost of sand </span></span></div>"
+  },
+  {
+    "id": "Casting_Total_Material_Cost",
+    "descriptions": "<div>Total Material Cost in casting refers to the overall cost of all materials consumed to produce the cast parts, including both the raw metal, any additional material and losses during the process.</div> <div class=\"tooltip-formula\"> <p>Calculation</p>(<span> Net material cost($) </span> + <span>Total Cost Mold Sand ($) </span> + <span>Total Cost Core Sand ($)</span>)</div>"
+  },
+  {
+    "id": "Casting_Recommended_Flask_Size",
+    "descriptions": "Represent the optimal flask dimensions suggested for the casting process. These are typically determined based on factors such as  pattern size and no of molds"
+  },
+  {
+    "id": "Casting_Selected_Flask_Size",
+    "descriptions": "Actual flask dimensions currently being used in production"
+  },
+  {
+    "id": "Casting_Efficiency",
+    "descriptions": "Process Efficiency (expressed as a percentage) refers to how effectively a manufacturing or production process converts inputs (materials, time, energy, labor) into valuable, defect-free outputs"
+  },
+  {
+    "id": "Casting_Mold_Hour",
+    "descriptions": "Number of molds produced per hour by machine."
+  },
+  {
+    "id": "Casting_Max_Flask_Length",
+    "descriptions": "Longest measurement of a moulding flask when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Max_Flask_Width",
+    "descriptions": "Middle measurement of a molding flask when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Max_Flask_Height",
+    "descriptions": "Shortest measurement of a molding flask when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Max_Core_Box_Length",
+    "descriptions": "Longest measurement of core box when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Max_Core_Box_Width",
+    "descriptions": "Middle measurement of a molding flask when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Max_Core_Box_Height",
+    "descriptions": "Shortest measurement of a molding flask when contained in a Rectangular Prism."
+  },
+  {
+    "id": "Casting_Machine_Tonnage",
+    "descriptions": "Indicates the capacity of the core making machine, which can produce a certain quantity of core sand per hour, typically measured in tons per hour."
+  },
+  {
+    "id": "Casting_Max_Core_Weight",
+    "descriptions": "Refers to the heaviest individual sand core that the machine can produce."
+  },
+  {
+    "id": "Casting_Furnace_Capacity",
+    "descriptions": "Internal volume of the melting furnace, measured in cubic meters (m³). It indicates the physical space available inside the furnace to hold the charge material during the melting process."
+  },
+  {
+    "id": "Casting_Furnace_Tonnage_Capacity",
+    "descriptions": "Tonnage capacity of the furnace specifies the maximum weight of metal (in tons) that the furnace can melt in a single batch."
+  },
+  {
+    "id": "Casting_Rated_Power",
+    "descriptions": "It represents the maximum electrical power (in kilowatts) that the furnace is designed to operate at. It reflects the furnace’s energy demand during full-capacity melting."
+  },
+  {
+    "id": "Casting_Power_Utilization",
+    "descriptions": "Indicates the percentage of the rated power that is actually used during furnace operation."
+  },
+
+  {
+    "id": "Casting_Recommended_Ladle_Size",
+    "descriptions": "The calculated weight of molten metal needed to pour all molds in one batch."
+  },
+  {
+    "id": "Casting_Selected_Ladle_Size",
+    "descriptions": "The actual ladle capacity chosen for the pouring operation, based on available sizes."
+  },
+  {
+    "id": "Casting_Ladle_Capacity",
+    "descriptions": "This refers to the maximum amount of molten metal, measured in kilograms, that the ladle can hold and transport safely for pouring into molds."
+  },
+  {
+    "id": "Casting_No_Of_Molds_Poured",
+    "descriptions": "This indicates the total number of molds that are filled with molten metal in a single pouring operation or batch\nShot weight(kgs)/Selected ladle capacity(kgs)"
+  },
+  {
+    "id": "Casting_Sprue_Diameter",
+    "descriptions": "Sprue is the channel through which molten metal flows from the ladle into the mold cavity. The sprue diameter(mm) affects the flow rate and speed of the metal during pouring"
+  },
+  {
+    "id": "Casting_Machine_Automation",
+    "descriptions": "The level of automation: manual, semi-automatic, or fully automatic."
+  },
+  {
+    "id": "Casting_Max_Flask_Size",
+    "descriptions": "This specifies the maximum length and width(mm) of the molding flask that can be accommodated. It ensures the flask fits within the operational limits of the pouring station"
+  },
+  {
+    "id": "Casting_Cutting_Rate",
+    "descriptions": "This refers to the speed at which the gating system is cut or removed during the degating process, measured in square millimeters per second"
+  },
+  {
+    "id": "Casting_Force",
+    "descriptions": "This is the amount of force, measured in tons, applied during the degating operation to separate the casting from the gating system"
+  },
+  {
+    "id": "Casting_Machine_Type",
+    "descriptions": "Machines are categorized according to their operating type or working principle."
+  },
+  {
+    "id": "Casting_Fettling_Rate",
+    "descriptions": "Speed at which excess material like flash or burrs is removed from castings or molded parts, measured in millimeters per second."
+  },
+  {
+    "id": "Casting_Recommended_Capacity",
+    "descriptions": "Suggested weight capacity for efficient and safe shot blasting based on casting specifications"
+  },
+  {
+    "id": "Casting_Selected_Capacity",
+    "descriptions": "The actual weight capacity chosen for the shot blasting operation"
+  },
+  {
+    "id": "Casting_Machine_Table_Size",
+
+    "descriptions": "This indicates the dimensions of the rotating or stationary table, measured in millimeters (length × width or diameter). It defines the maximum footprint of components that can be placed on the table for blasting."
+  },
+  {
+    "id": "Casting_Max_Load_Capacity",
+
+    "descriptions": "Maximum internal capacity of the shot blasting machine’s chamber, indicating the largest size or number of components that can be processed in one cycle."
+  },
+  {
+    "id": "Casting_Max_Load_Volume",
+
+    "descriptions": "Maximum internal capacity (Cu.ft) of the shot blasting machine’s chamber, indicating the largest size or number of components that can be processed in one cycle."
+  },
+  {
+    "id": "Casting_Process_Details",
+
+    "descriptions": "Refer to the comprehensive information outlining the step-by-step procedures, parameters, and conditions involved in manufacturing a  casting "
+  },
+  {
+    "id": "Casting_Region",
+
+    "descriptions": "Refers to the specific area or location where the casting is manufactured."
+  },
+  {
+    "id": "Casting_Clamping_Pressure",
+
+    "descriptions": "Force applied by the machine to keep the mold halves closed during the molding process."
+  },
+  {
+    "id": "Casting_Max_Clamping_Pressure",
+
+    "descriptions": "The Maximum Clamping Pressure refers to the highest force that the die casting machine can apply to hold the two halves of the die (mold) tightly closed during the casting process."
+  },
+  {
+    "id": "Casting_Max_Mold_Weight",
+
+    "descriptions": "Maximum Mold Weight indicates the heaviest mold that the die casting machine can safely accommodate and operate with. This includes both halves of the mold assembly. It defines the structural capacity of the machine to support"
+  },
+  {
+    "id": "Sheetmetal_Envelope_Length_mm",
+
+    "descriptions": "Largest overall length of the part's bounding box, used to validate machine, packaging, and handling fit."
+  },
+  {
+    "id": "Sheetmetal_Envelope_Width_mm",
+
+    "descriptions": "Largest overall width of the part's bounding box, important for layout and equipment feasibility."
+  },
+  {
+    "id": "Sheetmetal_Envelope_Height_mm",
+
+    "descriptions": "Maximum height or depth of the part's bounding box, ensuring proper clearance during manufacturing and transport."
+  },
+  {
+    "id": "Sheetmetal_Length_Of_Cut",
+
+    "descriptions": "Total linear cutting distance of the part profile including all internal and external contours.Calculated from CAD geometry or flat pattern data."
+  },
+  {
+    "id": "Sheetmetal_Bend_Radius",
+
+    "descriptions": "Radius of the inside curve of the bend."
+  },
+  {
+    "id": "Sheetmetal_Bend_Length",
+
+    "descriptions": ""
+  },
+  {
+    "id": "Sheetmetal_No_Of_Bends",
+
+    "descriptions": "Total number of bends in the part, categorized according to different bend radii."
+  },
+  {
+    "id": "Costing_Material_CO2KgMaterial",
+
+    "descriptions": "Carbon footprint associated with producing 1 kg of the selected raw material, representing its embodied carbon value. \n Defined by material database / LCA source (e.g., kg CO₂ per kg material)."
+  },
+  {
+    "id": "Costing_Material_CO2KgScrap",
+
+    "descriptions": "<div>Carbon emission attributed to the scrap material generated per part, before recycling or recovery. </div> <div class=\"tooltip-formula\"><p>Calculation</p><span> CO₂ (Scrap)</span> = <span>Scrap Weight</span> × <span>CO₂ (kg/kg – Material)</span></div>"
+  },
+  {
+    "id": "Costing_Material_CO2KgPart",
+
+    "descriptions": "<div>Total carbon emission per finished part, considering both material consumption and process energy.</div> <div class=\"tooltip-formula\"> <p>Calculation </p> <span> CO₂ (Part) </span> = <span>Gross Material Weight </span> × <span> CO₂ (kg/kg – Material) </span> − <span> Scrap Recovery Impact</span></div>"
+  },
+  {
+    "id": "Costing_Material_Sustainability",
+
+    "descriptions": "Indicator of environmental impact and resource efficiency, reflecting CO₂ footprint, material utilization, and scrap recovery performance."
+  },
+  {
+    "id": "Sheetmetal_Max_Bend_Length",
+
+    "descriptions": "Represents the longest continuous bending length in the part."
+  },
+  {
+    "id": "Processing_Time_Per_Shot",
+
+    "descriptions": "Time taken to complete one full mold cycle."
+  },
+  {
+    "id": "Unloading_Time_Per_Shot",
+
+    "descriptions": "Total number of identical parts produced in one molding cycle from a single die or mold setup."
+  },
+  {
+    "id": "Forging_weight_per_part",
+
+    "descriptions": "<div>The forged weight (net) per part refers to the actual mass of the finished forged component.</div> <div class=\"tooltip-formula\"><span>Net Forged Weight</span> = <span>Final Part Volume</span> x <span>Material Density</span></div>"
+  },
+
+  {
+    "id": "Forging_part_volume",
+
+    "descriptions": "Part volume is the measure of the three-dimensional space occupied by a solid object."
+  },
+  {
+    "id": "Forging_part_length",
+
+    "descriptions": "Part Length is the maximum overall dimension of the smallest bounding box that fully encloses the object."
+  },
+  {
+    "id": "Part_Width",
+
+    "descriptions": "Part Width is the maximum overall dimension of the smallest rectangular prism (or bounding box) that completely encloses the object, specifically measured along the width axis."
+  },
+  {
+    "id": "Forging_part_height",
+
+    "descriptions": "Part Height is the maximum overall vertical dimension of the smallest rectangular prism (or bounding box) that completely encloses the object."
+  },
+  {
+    "id": "Forging_stock_length",
+
+    "descriptions": "<div>Stock Length refers to the length of the raw material (bar, rod, billet, or wire).</div> <div class=\"tooltip-formula\"><span>Stock Length (mm)</span> = <span>Net Forged Weight (g)</span> / <span>(Material Density (g/mm³)</span> x <span>Cross-Sectional Area (mm²))</span></div>"
+  },
+  {
+    "id": "Forging_gross_weight",
+
+    "descriptions": "<div>Part Gross weight is the total weight including the finished part and scrap.</div> <div class=\"tooltip-formula\"> <span>Part Net weight(g)</span> + <span>Part Scrap weight(g)</span></div>"
+  },
+  {
+    "id": "Forging_material_scrap_per_part",
+
+    "descriptions": "Scrap weight is the reuseable weight of materials generated during a manufacturing process."
+  },
+
+  {
+    "id": "Forging_material_utilization_ratio",
+
+    "descriptions": "<div>The Material Utilization Ratio is the ratio of the net weight of the forged part to the total input (gross) material weight</div><div class=\"tooltip-formula\"><span>Material Utilization Ratio (%)</span> = (<span>Net Forged Weight</span> / <span>Gross Forged Weight</span>) x 100 </div>"
+  },
+  {
+    "id": "Forging_perimeter",
+
+    "descriptions": "The Perimeter is the total length of the boundary or outer edge of a two-dimensional shape or cross-section of a part"
+  },
+  {
+    "id": "Forging_flash_volume",
+
+    "descriptions": "<div>Flash Volume refers to the volume of excess material that flows out between the die parting surfaces during the forging process.</div><div class=\"tooltip-formula\"><span>Flash Volume (mm³)</span> = <span>Perimeter (mm)</span> × <span>Flash Land Width (mm)</span> × <span>Flash Thickness (mm)</span></div>"
+  },
+  {
+    "id": "Forging_scale_loss",
+
+    "descriptions": "Scale Loss refers to the volume of material lost due to oxidation on the surface of the workpiece during heating in the forging process."
+  },
+  {
+    "id": "Forging_material_yield",
+
+    "descriptions": "Material Yield (Utilisation)% represents the efficiency with which raw materials are converted into finished products in a manufacturing process."
+  },
+  {
+    "id": "Forging_cost_of_raw_material_for_deployed_weight",
+
+    "descriptions": "The Cost of Raw Material for Deployed Weight represents the total material cost per part based on the gross (deployed) weight of the raw material. Cost ($ / part)"
+  },
+  {
+    "id": "Forging_part_surface_area",
+
+    "descriptions": "Part Surface Area is the measure of the total area of the outer boundary of a three-dimensional object."
+  },
+  {
+    "id": "Forging_stock_outer_diameter",
+
+    "descriptions": "Stock Outer Diameter refers to the external diameter of the raw material (bar, rod, billet, or tube) used before the forging process."
+  },
+  {
+    "id": "Forging_cutting_loss_per_part",
+
+    "descriptions": "Cutting Loss Per Part refers to the volume of material removed during the raw material (bar, rod, billet, or tube) cutting operation."
+  },
+  {
+    "id": "Forging_net_material_cost",
+
+    "descriptions": "<div>Total cost of material used for the part after accounting for utilization.</div><div class=\"tooltip-formula\">((<span>Part gross weight(g)</span> * <span>material price($/kg)</span> / 1000) - (<span>Part Scrap weight(g)</span> * <span>Scrap Price($/kg)</span> / 1000).</div>"
+  },
+  {
+    "id": "Stamping_Sub_Process",
+
+    "descriptions": "Specifies the type of stamping operation performed in a particular stage."
+  },
+  {
+    "id": "Sheetmetal_Machine_SPM",
+
+    "descriptions": "Machine speed in strokes per minute; indicates the operating cycle rate of the press."
+  },
+  {
+    "id": "Sheetmetal_Process_Time_Bend",
+
+    "descriptions": "Time required to perform a single bend. Calculated based on machine speed, bend length, and material thickness."
+  },
+  {
+    "id": "Stamping_Handling_Time",
+    "descriptions": "Time required for loading/unloading, aligning, and rotation per part."
+  },
+  {
+    "id": "Sheetmetal_Return_Speed",
+    "descriptions": "Speed at which the shear blade or ram returns to its starting position after completing a cut."
+  },
+  {
+    "id": "Sheetmetal_Process_Time_Part_Per_Sec",
+    "descriptions": "Time taken by the press to complete the process."
+  },
+  {
+    "id": "Welding_Min_Current_Required",
+    "descriptions": "Minimum welding current required for proper metal fusion based on material type, thickness, and joint design. Used to determine machine suitability."
+  },
+  {
+    "id": "Welding_Min_Welding_Voltage",
+    "descriptions": "Minimum voltage setting necessary to maintain a stable arc and desired penetration. Dependent on wire diameter and shielding gas type."
+  },
+  {
+    "id": "Welding_Selected_Current",
+    "descriptions": "Actual welding current chosen for the operation. Typically selected as the nearest higher machine setting to ensure adequate fusion and productivity."
+  },
+  {
+    "id": "Welding_Selected_Welding_Voltage",
+    "descriptions": "Actual voltage selected for stable arc characteristics and weld bead profile. Impacts heat input and bead quality."
+  },
+  {
+    "id": "Welding_Loading_Unloading_Time",
+    "descriptions": "Time taken for positioning and removing the part or weldment on the fixture. Added to total weld cycle time."
+  },
+  {
+    "id": "Welding_Part_Weldment_Reorientation",
+    "descriptions": "Indicates if the part requires repositioning or flipping during welding. Affects total handling time."
+  },
+  {
+    "id": "Welding_Total_Weld_Cycle_Time",
+    "descriptions": "Combined time for welding, reorientation, loading/unloading, and any intermediate pauses per weldment."
+  },
+  {
+    "id": "Welding_Weld_Type",
+    "descriptions": "Specifies the joint configuration or groove geometry used for welding, depending on part design and accessibility. Used for determining weld preparation effort, filler material volume, and total weld cost."
+  },
+  {
+    "id": "Welding_Weld_Position",
+    "descriptions": "Indicates the orientation of the weld joint during welding, which affects operator skill level, deposition rate, and overall weld time."
+  },
+  {
+    "id": "Welding_Travel_Speed",
+    "descriptions": "<div>Linear speed of the torch during welding. Used to calculate weld time:</div><div class=\"tooltip-formula\"> <span> Weld Time </span> = <span> Weld Length </span> ÷ <span> Travel Speed </span></div>"
+  },
+  {
+    "id": "Welding_Tack_Welds",
+    "descriptions": "Number of temporary weld points used for initial joint alignment before final welding. Adds to total weld count and time."
+  },
+  {
+    "id": "Welding_Intermediate_Start_Stops",
+    "descriptions": "Number of times the arc is stopped and restarted during continuous welding. Affects weld quality and total cycle time."
+  },
+  {
+    "id": "Welding_Weld_Cycle_Time",
+    "descriptions": "Active welding time per weld segment, excluding handling. Derived from weld length, position and travel speed."
+  },
+  {
+    "id": "Welding_Weld_Size",
+    "descriptions": "Leg or throat dimension of the weld bead, defining strength and required filler volume."
+  },
+  {
+    "id": "Welding_Wire_Dia",
+    "descriptions": "Diameter of the filler wire used. Influences current setting, deposition rate, and bead shape."
+  },
+  {
+    "id": "Welding_Weld_Element_Size",
+    "descriptions": "Cross-sectional area of the weld bead, derived from weld size and geometry (e.g., fillet or butt)."
+  },
+  {
+    "id": "Welding_No_Of_Weld_Passes",
+    "descriptions": "Total number of layered passes needed to complete the weld. Determined by weld size and required penetration."
+  },
+  {
+    "id": "Welding_Weld_Length",
+    "descriptions": "Linear distance of a single weld bead or weld segment. Used to calculate material and time per weld."
+  },
+  {
+    "id": "Welding_Weld_Side",
+    "descriptions": "Indicates whether welding is performed on one side or both sides of the joint. Doubles material and time if both-sided."
+  },
+  {
+    "id": "Welding_Weld_Places",
+    "descriptions": "Total number of individual weld locations or seams on the part/weldment."
+  },
+  {
+    "id": "Welding_Total_Weld_Length_Per_Weld",
+    "descriptions": "Cumulative weld length per joint or weld seam, used to calculate filler consumption and weld time."
+  },
+  {
+    "id": "Welding_Weld_Volume",
+    "descriptions": "<div>Total filler volume of the weld bead(s).</div> <div class=\"tooltip-formula\"> <p>Logic:</p> <span>Volume </span> = <span> Weld Cross-Section Area </span> × <span> Total Weld Length.</span></div>"
+  },
+  {
+    "id": "Welding_Total_Weld_Length",
+    "descriptions": "Summation of all weld lengths on the component. Basis for total cycle time and filler cost."
+  },
+  {
+    "id": "Welding_Total_Weld_Material_Weight",
+    "descriptions": "Weight of deposited filler material without considering wastage. Derived from weld volume and wire density."
+  },
+  {
+    "id": "Welding_Weld_Bead_Weight_With_Wastage",
+    "descriptions": "Final filler material consumption including process losses (spatter, trimming)."
+  },
+  {
+    "id": "Welding_Power_Unit_Cost",
+    "descriptions": "Cost of electrical energy consumed per kilowatt-hour (kWh). Usually derived from plant utility rates or local electricity tariffs."
+  },
+  {
+    "id": "Welding_Power_Consumption",
+    "descriptions": "<div>Total electrical energy used by the machine or process during operation. </div> <div class=\"tooltip-formula\"><p>Calculation</p> <span>Power Consumption</span> = (<span>Machine Rated Power </span> × <span>Operating Time </span> × <span>Machine Efficiency Factor</span>)</div>"
+  },
+  {
+    "id": "Welding_Total_Power_Cost",
+    "descriptions": "<div>Total cost of electrical energy consumed during the process or cycle.</div> <div class=\"tooltip-formula\"><p> Calculation </p><span>Total Power Cost </span> = <span> Power Consumption </span> × Power Unit Cost</span></p></div>"
+  },
+  {
+    "id": "Forging_Number_Of_Inserts",
+    "descriptions": "Number of Inserts per Part refers to the total count of individual die inserts or modular components used in the die set to form a single forged part."
+  },
+  {
+    "id": "Forging_Mold_Temperature",
+    "descriptions": "Temperature at which the material becomes flowable for molding."
+  },
+  {
+    "id": "Forging_Melt_Temperature",
+    "descriptions": "Temperature at which the material becomes flowable for molding"
+  },
+  {
+    "id": "Forging_Ejection_Temperature",
+    "descriptions": "Temperature at which the part will be ejected from the mold."
+  },
+  {
+    "id": "Forging_Type_Of_Operation",
+    "descriptions": "The type of operation in shot blasting refers to the specific blasting method or setup."
+  },
+
+  {
+    "id": "Forging_Criticality_Level",
+    "descriptions": "Accuracy of manufacturing process required to achive part requirements."
+  },
+  {
+    "id": "Casting_LPDC_Tonnage",
+    "descriptions": "<div>Refers to the clamping force capacity of the LPDC machine, expressed in tons. It indicates the maximum force that can be applied to keep the die halves securely closed during metal injection</div>"
+  },
+  {
+    "id": "IM_Curing_Time",
+    "descriptions": "Time required for the material to undergo cross-linking (curing) under heat and pressure within the mold."
+  },
+  {
+    "id": "IM_Holding_Time",
+    "descriptions": "It is the period after the mold is filled during which pressure is maintained to pack the rubber and compensate for shrinkage."
+  },
+  {
+    "id": "Thermo/Vaccum_Sheet_Length",
+    "descriptions": "Sheet length is the standardized linear dimension of a sheet measured along its longest edge."
+  },
+  {
+    "id": "Thermo/Vaccum_Sheet_Width",
+    "descriptions": "Sheet width is the standardized linear dimension of a sheet measured perpendicular to its length."
+  },
+  {
+    "id": "Thermo/Vaccum_Sheet_Thickness",
+    "descriptions": "Sheet thickness is the standardized distance between the two faces of a sheet."
+  },
+  {
+    "id": "Thermo/Vaccum_Total_Cycle_Time",
+    "descriptions": "Total cycle time is the duration required to complete one full production cycle from start to finish."
+  },
+  {
+    "id": "Thermo/Vaccum_No_of_Parts_per_Sheet",
+    "descriptions": "Number of parts per sheet is the total count of usable components that can be produced from one sheet."
+  },
+  {
+    "id": "Forging_Furnace_Efficiency",
+    "descriptions": "Furnace efficiency represents the ratio of useful heat energy absorbed by the material to the total heat energy supplied to the furnace"
+  },
+  {
+    "id": "Forging_Initial_Temperature",
+    "descriptions": "The initial temperature refers to the starting temperature of the material or furnace before the heating, forging, or process begins."
+  },
+  {
+    "id": "Forging_Final_Temperature",
+    "descriptions": "The final temperature refers to the target or achieved temperature of the material at the end of the heating process."
+  },
+  {
+    "id": "Forging_Soaking_Time",
+    "descriptions": "The soaking time is the duration for which a material is held at the desired final (or uniform) temperature during a heating process."
+  },
+  {
+    "id": "Forging_Muffle_Length",
+    "descriptions": "The muffle length refers to the internal length of the muffle chamber inside a furnace."
+  },
+  {
+    "id": "Forging_Muffle_Width",
+    "descriptions": "The muffle width refers to the internal width of the muffle chamber inside a furnace."
+  },
+  {
+    "id": "Forging_Total_Parts_In_Muffle",
+    "descriptions": "The total parts in muffle refers to the number of individual workpieces placed inside the muffle chamber of a furnace during a single heating cycle."
+  },
+  {
+    "id": "Forging_Muffle_Quantity",
+    "descriptions": "The muffle quantity refers to the number of muffle chambers present in a furnace"
+  },
+  {
+    "id": "Forging_Setup_Time",
+    "descriptions": "Setup time refers to the time required to prepare a machine, furnace, or process for production of a batch."
+  },
+  {
+    "id": "Forging_Batch_Heating_Time",
+    "descriptions": "Batch heating time refers to the total duration required to heat a complete batch of workpieces in a furnace."
+  },
+  {
+    "id": "Forging_Part_Loading",
+    "descriptions": "The time required to position and secure a raw material or workpiece into a machine"
+  },
+  {
+    "id": "Forging_Part_Unloading",
+    "descriptions": "The time required to remove a finished or semi-finished part from a machine"
+  },
+  {
+    "id": "Forging_Rated_Power",
+    "descriptions": "Rated power refers to the maximum continuous electrical or mechanical power that a machine can safely deliver or consume."
+  },
+  {
+    "id": "Forging_Specific_Heat",
+    "descriptions": "Specific heat is the amount of heat energy required to raise the temperature of 1 kilogram of a material by 1 Kelvin (or 1°C)."
+  },
+  {
+    "id": "Forging_Efficiency",
+    "descriptions": "Ratio of total run time of machine to total shift time."
+  },
+  {
+    "id": "Forging_Theoretical_Tonnage",
+    "descriptions": "Theoretical tonnage refers to the calculated maximum forging or pressing force required to shape a workpiece."
+  },
+
+  {
+    "id": "Forging_Final_Height_of_Stock",
+    "descriptions": "The final height of stock refers to the vertical dimension of a workpiece after forging operations."
+  },
+  {
+    "id": "Forging_Initial_Height_of_Stock",
+    "descriptions": "The initial height of stock refers to the original vertical dimension of a workpiece before any forging are performed."
+  },
+  {
+    "id": "Forging_Flash_Area",
+    "descriptions": "The flash area refers to the cross-sectional area of the excess material (flash) that is expelled from the die cavity during forging."
+  },
+  {
+    "id": "Forging_Shape_Factor",
+    "descriptions": "The shape factor is a dimensionless ratio that represents the complexity and geometry of a forged part."
+  },
+
+  {
+    "id": "Forging_Factor_of_Safety",
+    "descriptions": "The factor of safety is a design parameter that provides a margin of safety between the maximum load a component can withstand and the actual working load applied."
+  },
+  {
+    "id": "Forging_Strength_Coefficient",
+    "descriptions": "The strength coefficient (K) is a material constant that represents the stress level required to produce a unit plastic strain in the material."
+  },
+  {
+    "id": "Forging_Strain_Hardening_Exponent",
+    "descriptions": "The strain hardening exponent (n) is a dimensionless material constant that indicates how a material strengthens (hardens)"
+  },
+
+  {
+    "id": "Forging_Deformation_Type",
+    "descriptions": "Deformation type refers to the mode or manner in which a material changes shape under applied forces."
+  },
+  {
+    "id": "Forging_Flash_Thickness",
+    "descriptions": "Flash thickness refers to the thickness of the excess material (flash) that is squeezed out of the die cavity during forging"
+  },
+  {
+    "id": "Forging_Shear_Strength_of_Material",
+    "descriptions": "Shear strength is the maximum stress a material can withstand when subjected to shearing forces before it fails or fractures."
+  },
+  {
+    "id": "Forging_Theoretical_Force",
+    "descriptions": "Theoretical Force refers to the calculated maximum forging or pressing force required to shape a workpiece."
+  },
+  {
+    "id": "Forging_Type_Of_Operation",
+    "descriptions": "The type of operation in shot blasting refers to the specific blasting method or setup."
+  },
+  {
+    "id": "Forging_Chamber_Length",
+    "descriptions": "Chamber length refers to the internal longitudinal dimension of the furnace or blasting chamber."
+  },
+  {
+    "id": "Forging_Chamber_Width",
+    "descriptions": "Chamber width refers to the internal horizontal dimension of a furnace or blasting chamber."
+  },
+  {
+    "id": "Forging_No_of_Parts_in_Chamber_Based_on_Volume",
+    "descriptions": "The number of parts in chamber based on volume refers to the maximum quantity of workpieces that can fit inside a blasting chamber considering their combined volume."
+  },
+  {
+    "id": "Forging_Max_Weight_Machine_Chamber_Can_Hold",
+    "descriptions": "The maximum weight a machine chamber can hold refers to the heaviest total load of workpieces that a chamber can safely accommodate."
+  },
+  {
+    "id": "Forging_Stacking_Efficiency",
+    "descriptions": "Stacking efficiency is the ratio of the effective volume occupied by workpieces to the total available chamber volume."
+  },
+  {
+    "id": "Forging_No_of_Parts_in_Chamber_Based_on_Weight",
+    "descriptions": "The number of parts in chamber based on weight refers to the maximum count of workpieces that can be loaded into a chamber without exceeding its weight capacity."
+  },
+  {
+    "id": "Forging_Total_Parts_in_Chamber",
+    "descriptions": "It refers to the maximum number of workpieces that can be loaded into a chamber, determined by both the chamber's weight capacity and volume capacity."
+  },
+  {
+    "id": "Forging_Chamber_Height",
+    "descriptions": "Chamber height refers to the internal vertical dimension of the heating chamber in which the workpieces are placed for heating."
+  },
+
+  {
+    "id": "Forging_Material_Handling_Time",
+    "descriptions": "Material handling time refers to the duration required to move, position, or transport raw materials, workpieces, or finished parts."
+  },
+  {
+    "id": "Forging_Setup_Time",
+    "descriptions": "Setup time refers to the time required to prepare a machine, furnace, or process for production of a batch."
+  },
+  {
+    "id": "Forging_Part_Loading_Time",
+    "descriptions": "The time required to position and secure a raw material or workpiece into a machine"
+  },
+  {
+    "id": "Forging_Part_Unloading_Time",
+    "descriptions": "The time required to remove a finished or semi-finished part from a machine"
+  },
+  {
+    "id": "Forging_No_of_Manufacturing_Lot_per_Batch",
+    "descriptions": "The number of manufacturing lots per batch refers to the count of discrete production lots included in a single furnace batch or production run."
+  },
+  {
+    "id": "Forging_Number_Of_Parts_In_CT",
+    "descriptions": "The number of parts in a CT refers to the total count of workpieces that can be accommodated in a Cooling Tank (CT) during a single batch."
+  },
+  {
+    "id": "Forging_Part_Stacking_Efficiency",
+    "descriptions": "Part stacking efficiency refers to the ratio of the actual volume occupied by the stacked parts to the total available chamber volume."
+  },
+  {
+    "id": "Forging_Min_Chamber_Length_Required",
+    "descriptions": "The minimum chamber length required refers to the least internal length of a furnace or chamber needed to accommodate all the parts in a single batch."
+  },
+  {
+    "id": "Forging_Min_Chamber_Width_Required",
+    "descriptions": "The minimum chamber width required refers to the least internal width of a furnace or chamber necessary to accommodate all parts in a batch."
+  },
+  {
+    "id": "Forging_Min_Chamber_Height_Required",
+    "descriptions": "The minimum chamber height required refers to the least internal vertical space that a furnace or chamber must have to accommodate a full batch of parts."
+  },
+  {
+    "id": "Forging_Chamber_Length_Selected",
+    "descriptions": "The chamber length selected refers to the actual internal length of the furnace or processing chamber chosen for a specific operation."
+  },
+  {
+    "id": "Forging_Chamber_Width_Selected",
+    "descriptions": "The chamber width selected refers to the actual internal width of the furnace, oven, or processing chamber chosen for a specific operation"
+  },
+  {
+    "id": "Forging_Chamber_Height_Selected",
+    "descriptions": "The chamber height selected refers to the actual internal height of a furnace, oven, or processing chamber chosen for a particular operation"
+  },
+  {
+    "id": "Forging_Max_Weight_Machine_Chamber_Can_Hold",
+    "descriptions": "The maximum weight a machine chamber can hold refers to the heaviest total load of parts that a furnace or processing chamber can safely accommodate"
+  },
+  {
+    "id": "Forging_Total_Parts_in_Chamber_Per_Batch",
+    "descriptions": "This refers to the maximum number of parts that can be loaded into a machine or furnace chamber for a single batch, based on both weight and volume constraints."
+  },
+  {
+    "id": "Forging_Loading_Unloading_Time_Per_Batch",
+    "descriptions": "Loading & unloading time per batch refers to the total time required to place all parts into a machine, furnace, or chamber and remove them after processing."
+  },
+  {
+    "id": "Forging_Utilization",
+    "descriptions": "Utilization refers to the percentage of actual productive time or capacity used compared to the total available time or capacity."
+  },
+  {
+    "id": "Forging_Sampling_Plan",
+    "descriptions": "Sampling plan refers to the defined procedure for selecting a specific number of parts or units from a production lot to inspect or test."
+  },
+  {
+    "id": "Forging_Process_Cycle_Time_Per_Batch",
+    "descriptions": "Process Cycle Time per Batch refers to the total time required to complete one full production cycle for a single batch of parts."
+  },
+  {
+    "id": "Forging_Density_Of_Raw_Material",
+    "descriptions": "Density is the mass per unit volume expressed in grams per cubic centimetre (g/cm³)."
+  },
+  {
+    "id": "Forging_Stock_Length",
+    "descriptions": "<div>Stock Length refers to the length of the raw material (bar, rod, billet, or wire).</div> <div class=\"tooltip-formula\"> <p>Calculation </p> <span>Stock Length (mm) </span> = <span> Net Forged Weight (g) </span> / ( <span>  Material Density (g/mm³) </span> × <span> Cross-Sectional Area (mm²)</span>)</div>."
+  },
+  {
+    "id": "Stock_Width",
+    "descriptions": "The stock width refers to the initial lateral dimension (width) of a raw material or workpiece."
+  },
+  {
+    "id": "Stock_Height_Thickness",
+    "descriptions": "The stock height refers to the initial vertical dimension (height) of a raw material or workpiece"
+  },
+  {
+    "id": "Forging_Stock_Diameter",
+    "descriptions": "Stock diameter refers to the initial diameter of the raw material (rod, bar, or wire) before any forging, machining, or forming operation."
+  },
+  {
+    "id": "Forging_Gross_Volume",
+    "descriptions": "Gross volume refers to the total volume of a raw material piece or part before any processing."
+  },
+  {
+    "id": "Forging_Initial_Height_Of_Blank_Billet",
+    "descriptions": "The initial height of a blank or billet refers to the longitudinal dimension (height or length along the axis) of the raw material before any forging operation."
+  },
+  {
+    "id": "Forging_Machining_Stock_Area",
+    "descriptions": "Machining stock area refers to the cross-sectional area of material that must be removed during machining operations to achieve the final part dimensions."
+  },
+  {
+    "id": "Forging_Part_Area",
+    "descriptions": "Part area refers to the cross-sectional area of a component or part."
+  },
+  {
+    "id": "Forging_No_of_Parts_Produced_per_Coil",
+    "descriptions": "The number of parts produced per coil refers to the total quantity of finished parts that can be manufactured from a single raw material coil."
+  },
+  {
+    "id": "Forging_Raw_Material_Diameter",
+    "descriptions": "Raw Material Diameter refers to the outer diameter of the bar, rod, or wire used as the input material for the forging process."
+  },
+  {
+    "id": "Forging_Coil_End_Loss",
+    "descriptions": "Coil end loss refers to the total weight of material wasted at the start and end of a coil during feeding, cutting, or handling."
+  },
+  {
+    "id": "Forging_Coil_End_Loss_Per_Part",
+    "descriptions": "Coil end loss per part refers to the amount of raw material wasted at the start or end of a coil when cutting or feeding material for a single part."
+  },
+  {
+    "id": "Forging_No_Of_Hits_Required",
+    "descriptions": "The number of hits required refers to the total count of strikes that a forging operation must deliver to shape a workpiece to its desired dimensions and geometry."
+  },
+  {
+    "id": "Forging_Initial_Dia_of_head_D0",
+    "descriptions": "The initial diameter of the head refers to the starting diameter of a part’s head section before any forging or upsetting operation."
+  },
+  {
+    "id": "Forging_Final_Dia_of_head_Df",
+    "descriptions": "The final diameter of the head refers to the target diameter of a part’s head section after forging or upsetting operations."
+  },
+  {
+    "id": "Forging_Final_Length_of_Head_Hf",
+    "descriptions": "The final length of the head refers to the desired axial height or thickness of a part’s head section after forging or upsetting operations."
+  },
+  {
+    "id": "Forging_Initial_Height_Ho",
+    "descriptions": "The initial height refers to the starting vertical dimension of a part before any forging or upsetting operation."
+  },
+  {
+    "id": "Forging_Area_Before_Forming_A0",
+    "descriptions": "The area before forming refers to the cross-sectional area of a workpiece at a specific section before any forging or upsetting operation."
+  },
+  {
+    "id": "Forging_Area_After_Forming_A1",
+    "descriptions": "The area after forming refers to the cross-sectional area of a workpiece at a specific section after a forging or upsetting operation."
+  },
+  {
+    "id": "Forging_Cross_Sectional_Area",
+    "descriptions": "The cross-sectional area refers to the area of a part’s profile or section perpendicular to its axis."
+  },
+  {
+    "id": "Forging_Tensile_Strength",
+    "descriptions": "Tensile strength refers to the maximum stress that a material can withstand while being stretched or pulled before breaking"
+  },
+  {
+    "id": "Forging_Equivalent_Strain",
+    "descriptions": "The equivalent strain (έ), also known as effective strain, is a scalar measure of the total plastic deformation experienced by a material during forging."
+  },
+  {
+    "id": "Forging_Factor_of_Safety",
+    "descriptions": "The factor of safety is a design parameter that provides a margin of safety between the maximum load a component can withstand and the actual working load applied."
+  },
+  {
+    "id": "Forging_Forging_Force",
+    "descriptions": "The forging force is the maximum compressive load required to plastically deform the workpiece during the forging process."
+  },
+  {
+    "id": "Forging_Deformation_Efficiency",
+    "descriptions": "Deformation Efficiency (ηF) represents the effectiveness with which the input energy during forging is utilized for actual plastic deformation."
+  },
+  {
+    "id": "Forging_Flow_Stress",
+    "descriptions": "Flow stress is the stress required to continue plastic deformation of a material at a given strain, strain rate, and temperature."
+  },
+  {
+    "id": "Sub_Process_Group",
+    "descriptions": "A sub process group refers to a logical grouping of related operations within a larger manufacturing process."
+  },
+  {
+    "id": "Machining_Tooling_Cost_Per_Part",
+    "descriptions": "Cost of worn-out tools (e.g., inserts) required to make one part."
+  },
+  {
+    "id": "Machining_Loading_Unloading_Time",
+    "descriptions": "Time to place the raw part and remove the finished part, in seconds."
+  },
+  {
+    "id": "Machining_Operation_Type",
+    "descriptions": "The general action performed on the part (e.g., Turning)"
+  },
+  {
+    "id": "Machining_Operation_Name",
+    "descriptions": "The specific, named step in the manufacturing plan.(e.g.,Facing,Turning)"
+  },
+  {
+    "id": "Machining_Workpiece_Initial_Diameter",
+    "descriptions": "Diameter of the part before this operation, in mm."
+  },
+  {
+    "id": "Machining_Workpiece_Final_Diameter",
+    "descriptions": "Diameter of the part after this operation, in mm."
+  },
+  {
+    "id": "Machining_Length_of_Cut",
+    "descriptions": "The distance the tool travels across the material, in mm."
+  },
+  {
+    "id": "Machining_Total_Depth_of_Cut",
+    "descriptions": "The total radial material removed across all passes, in mm."
+  },
+  {
+    "id": "Machining_Cutting_Speed_Vc",
+    "descriptions": "The linear speed at the circumference of the rotating workpiece where the cutting tool engages the material."
+  },
+  {
+    "id": "Machining_Feed",
+    "descriptions": "The tool's advance for every one revolution of the spindle, in (mm/rev)"
+  },
+  {
+    "id": "Machining_Feed_Per_Tooth",
+    "descriptions": "The tool's advance for every one revolution of the spindle, in (mm/rev)"
+  },
+  {
+    "id": "Machining_Depth_of_Cut_Per_Pass",
+    "descriptions": "The axial material removed in one single movement of the tool across the surface, in mm."
+  },
+  {
+    "id": "Machining_Cut_Time",
+    "descriptions": "The time the tool is actively removing material, in seconds."
+  },
+  {
+    "id": "Machining_Cycle_Time",
+    "descriptions": "The total time from raw part in to finished part out, in seconds."
+  },
+  {
+    "id": "Machining_Depth_Of_Hole_Bore",
+    "descriptions": "The total axial distance from the surface to the bottom of the hole, in mm."
+  },
+  {
+    "id": "Machining_Slot_Height",
+    "descriptions": "The total vertical depth of the entire T-slot feature, in mm."
+  },
+  {
+    "id": "Machining_Insert_Width",
+    "descriptions": "The width of the cutting tool's edge."
+  },
+  {
+    "id": "Machining_Width_Of_Cut",
+    "descriptions": "The amount of cutter width engaged with the material, perpendicular to the travel direction, in mm."
+  },
+  {
+    "id": "Machining_Pitch",
+    "descriptions": "The axial distance between one thread and the next thread, in mm."
+  },
+  {
+    "id": "Machining_Knurl_Diameter",
+    "descriptions": "The final diameter of the part after the knurled pattern is formed, in mm."
+  },
+  {
+    "id": "Machining_Drill_Diameter",
+    "descriptions": "The size of the hole the drill is designed to make, in mm."
+  },
+  {
+    "id": "Machining_Thread_Major_Diameter",
+    "descriptions": "The largest diameter of the thread form (crest-to-crest on external, root-to-root on internal), in mm."
+  },
+  {
+    "id": "Machining_Reamer_Diameter",
+    "descriptions": "The final, accurate size of the hole to be achieved, in mm."
+  },
+  {
+    "id": "Machining_Tap_Diameter",
+    "descriptions": "The final size of the internal thread to be created, in mm."
+  },
+  {
+    "id": "Machining_Hole_Diameter",
+    "descriptions": "The final intended diameter of the pocket, in mm."
+  },
+  {
+    "id": "Machining_Width_Of_Cut",
+    "descriptions": "The amount of cutter diameter engaged with the material, in mm."
+  },
+  {
+    "id": "Machining_Pocket_Width",
+    "descriptions": "The shortest intended dimension of the finished pocket, in mm."
+  },
+  {
+    "id": "Machining_Cutter_Diameter",
+    "descriptions": "The diameter of the cutter's shank that fits through the slot opening, in mm."
+  },
+  {
+    "id": "Machining_No_Of_Places",
+    "descriptions": "The count of identical features to be milled."
+  },
+  {
+    "id": "Machining_Pre_Drill_Size",
+    "descriptions": "The size of the hole that exists before pocket milling begins, in mm."
+  },
+  {
+    "id": "Machining_Radial_Depth_Of_Cut",
+    "descriptions": "The radial portion of the cutter's diameter engaged with the material, specified as a percentage of the total diameter (in mm)."
+  },
+  {
+    "id": "Machining_Surface_Area",
+    "descriptions": "The total area of the pocket or profile to be roughed on the surface, in (mm^2)"
+  },
+  {
+    "id": "Machining_Volume",
+    "descriptions": "The total quantity of material to be removed from the part, in (mm^3)."
+  },
+  {
+    "id": "Machining_Min_Corner_Radius",
+    "descriptions": "The tightest radius in the finished profile, which limits the size of the cutter, in mm."
+  },
+  {
+    "id": "Machining_Tool_Width",
+    "descriptions": "The width of the cutting part of the tool that defines the base of the 'T' shape, in mm."
+  },
+  {
+    "id": "Machining_No_of_Slots",
+    "descriptions": "The height of the cutting part of the tool that defines the vertical section of the 'T' shape, in mm."
+  },
+  {
+    "id": "Machining_No_of_Holes",
+    "descriptions": "The count of individual circular features to be produced."
+  },
+
+  {
+    "id": "Machining_Diameter_Spot_Drill_Bore",
+    "descriptions": "The largest final diameter of the conical or beveled edge, in mm."
+  },
+  {
+    "id": "Machining_Tool_Changing_Cycle_Time",
+    "descriptions": "Time to swap one tool for another on the machine, in seconds."
+  },
+  {
+    "id": "Machining_Slot_Depth",
+    "descriptions": "The perpendicular distance from the top edge (surface) of a slot/groove down to its bottom."
+  },
+  {
+    "id": "Machining_MRR",
+    "descriptions": "Volume of material removed from the workpiece per minute (mm³/min)."
+  },
+  {
+    "id": "Part_Outer_Diameter",
+    "descriptions": "The external diameter of the finished cylindrical part (OD)."
+  },
+  {
+    "id": "Part_Length",
+    "descriptions": "The overall axial length of the finished part."
+  },
+  {
+    "id": "Machining_Stock_Diameter",
+    "descriptions": "Diameter of the raw material (bar/stock) from which the part is machined."
+  },
+  {
+    "id": "Machining_Stock_Length",
+    "descriptions": "Raw material's length before machining starts."
+  },
+  {
+    "id": "Machining_Standard_Bar_Length",
+    "descriptions": "Typical supplier-supplied length of the raw bar-stock before cutting or use."
+  },
+  {
+    "id": "Machining_End_Scrap_Length",
+    "descriptions": "Leftover scrap length remaining from a bar after maximum possible parts are cut — the unusable remainder."
+  },
+  {
+    "id": "Machining_Parts_Per_Stock_Bar",
+    "descriptions": "Number of finished parts obtainable from a single stock/bar before leftover scrap."
+  },
+  {
+    "id": "Machining_Pocket_Length",
+    "descriptions": "The longest intended dimension of the finished pocket, in mm"
+  },
+  {
+    "id": "Milling_Operation_Name",
+    "descriptions": "The specific, named step in the manufacturing plan.(e.g.,Facing,Sloting,)"
+  },
+  {
+    "id": "Milling_Operation_Type",
+    "descriptions": "The general action performed on the part (e.g., Turning,Milling,Drilling)"
+  },
+  {
+    "id": "Milling_Length_Of_Cut",
+    "descriptions": "The distance the cutter travels across the surface during material removal, in mm."
+  },
+  {
+    "id": "Milling_Total_Depth_Of_Cut",
+    "descriptions": "The total axial material removed to reach the final surface height, in mm."
+  },
+  {
+    "id": "Milling_Cutting_Speed_Vc",
+    "descriptions": " The linear speed of the cutting edge relative to the workpiece surface, expressed in meters per minute (m/min)."
+  },
+  {
+    "id": "Milling_Slot_Length",
+    "descriptions": "The longest intended dimension of the finished slot, in mm."
+  },
+  {
+    "id": "Milling_Slot_Width",
+    "descriptions": "The intended distance between the walls of the finished slot, in mm."
+  },
+  { "id": "Machining_Initial_Boss_Diameter", "descriptions": "The diameter of the raw material surrounding the final boss feature, in mm." },
+  {
+    "id": "Machining_Final_Boss_Diameter",
+    "descriptions": "The final intended diameter of the cylindrical boss feature, in mm."
+  },
+  {
+    "id": "Machining_Thread_Length",
+    "descriptions": "The axial distance over which the threads must be created, in mm."
+  },
+  {
+    "id": "Milling_Diameter_Spot_Drill_Bore",
+    "descriptions": "The final intended size of the hole feature, in mm."
+  },
+  {
+    "id": "Spot_Face_Milling_Diameter_Spot_Drill_Bore",
+    "descriptions": "The final diameter of the flat spot face created around the hole, in mm."
+  },
+  {
+    "id": "Machining_Total_Depth",
+    "descriptions": "The total vertical depth of the feature to be created, in mm."
+  },
+  {
+    "id": "Volumetric_Radial_Depthg_Of_Cut",
+    "descriptions": "The width of the cutter engaged with the material, often expressed as a percentage of the cutter diameter, in mm."
+  },
+  {
+    "id": "Milling_Depth_of_Cut_Per_Pass",
+    "descriptions": "The vertical amount of material removed in one single cutting movement of the T-slot cutter, in mm."
+  },
+  {
+    "id": "Drilling_Depth_Of_Drill",
+    "descriptions": "The depth the drill bit must penetrate to make the hole, in mm."
+  },
+  {
+    "id": "Casting_Core_Name",
+    "descriptions": "Sand Core Name"
+  },
+  {
+    "id": "Casting_Gate_Shape",
+    "descriptions": "Degating Gate Shape"
+  },
+  {
+    "id": "Casting_Gate_Diameter",
+    "descriptions": "Degating Gate Diameter"
+  },
+  {
+    "id": "Casting_No_Of_Gates",
+    "descriptions": "Number of gates in the degating process."
+  },
+  {
+    "id": "Casting_Gate_Thick",
+    "descriptions": "Degating Gate Thickness."
+  },
+  {
+    "id": "No_Of_Cavities",
+    "descriptions": "Number of parts formed in one manufacturing cycle."
+  },
+  {
+    "id": "Gross_Weight_Per_Part",
+    "descriptions": "<div>Total material cost per part before accounting for scrap recovery, based on the gross material weight consumed.</div> <div class=\"tooltip-formula\"> <p>Calculation</p>(<span>Part Net weight(g)</span> + <span>Part Scrap weight(g)</span>)</div>"
+  }
+]

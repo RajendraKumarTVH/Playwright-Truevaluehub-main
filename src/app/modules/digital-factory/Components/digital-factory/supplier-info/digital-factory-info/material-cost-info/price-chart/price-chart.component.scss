@@ -1,0 +1,84 @@
+.chart-wrap {
+  border-radius: 4px;
+}
+
+.price-list {
+  flex: 0 0 280px;
+  max-height: 536px;
+  overflow: auto;
+}
+
+.price-list-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-bottom: 9px;
+  color: var(--label-shade);
+  justify-content: space-between;
+  background-color: var(--table-head-row-bg);
+
+  .price {
+    min-width: 104px;
+    padding-left: 24px;
+  }
+}
+
+.price-list-body {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-item {
+  font-size: 12px;
+  padding: 4px 20px 4px 0;
+  justify-content: space-between;
+
+  &.up {
+    mat-icon {
+      color: var(--esg-border);
+    }
+  }
+
+  &.down {
+    mat-icon {
+      color: var(--stock-red-text);
+    }
+  }
+
+  mat-icon {
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.price-meta {
+  flex: 1;
+  gap: 19px;
+  display: flex;
+  align-items: center;
+}
+
+.price-value {
+  min-width: 36px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  border: 1px solid;
+  background-color: #d1d5db;
+
+  &.manual {
+    background-color: #abbfe4a6;
+    border-color: var(--primary-shade);
+  }
+
+  &.synced {
+    background-color: #ffa987a6;
+    border-color: #ffa987;
+  }
+}

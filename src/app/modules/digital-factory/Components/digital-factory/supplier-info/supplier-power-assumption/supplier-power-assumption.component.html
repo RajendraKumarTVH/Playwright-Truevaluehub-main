@@ -1,0 +1,119 @@
+<form [formGroup]="form" class="flex flex-col gap-3">
+  <div class="flex px-2 gap-3">
+    <div class="left-chart flex flex-col grow gap-3 power-src-dist">
+      <div class="flex flex-col px-3 py-3">
+        <h2 class="chart-header text-sm font-semibold">Power Source Distribution</h2>
+        <div class="flex justify-center items-center w-full p-2 gap-5">
+          <div class="block chart-wrap">
+            <p-chart type="doughnut" [data]="chartData" [options]="chartOptions" class="w-full chart-container"></p-chart>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-label-container">
+              <span class="legend-item">
+                <span class="legend-header text-xs">Power Source</span>
+                <div class="flex w-40">
+                  <span class="legend-header text-xs">% of power supply</span>
+                </div>
+              </span>
+              <div class="legend-item" *ngFor="let legend of chartLegends">
+                <div class="marker-icon-wrap flex items-center gap-2">
+                  <!-- style.background-color should be assigned the value 'var(--bs-border-color)' if there is no available legend.color, 
+                  this also applies in the case of zero or null -->
+                  <span class="legend-marker shrink-0" [style.background-color]="legend.color"></span>
+
+                  <!-- Conditional rendering of mat-icon based on legend.name -->
+                  <mat-icon class="legend-icon" svgIcon="coal-icon" *ngIf="legend.name === 'Coal'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="wind-icon" *ngIf="legend.name === 'Wind'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="nat-gas-icon" *ngIf="legend.name === 'Natural Gas'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="nuclear-icon" *ngIf="legend.name === 'Nuclear'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="geothermal-icon" *ngIf="legend.name === 'Geothermal'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="nonrenew-icon" *ngIf="legend.name === 'Other Non Renewable'"></mat-icon>
+                  <mat-icon class="legend-icon" svgIcon="renewable-icon" *ngIf="legend.name === 'Other Renewable'"></mat-icon>
+
+                  {{ legend.name }}
+                </div>
+                <!-- <span>{{ legend.value }}%</span> -->
+                <input class="form-control category-input-dropdown max-w-40" placeholder="Enter value" formControlName="{{ legend.key }}" />
+              </div>
+              <span class="legend-item total">
+                <span class="legend-header text-xs">Total</span>
+                <div class="flex w-40">
+                  <!-- Apply the class 'red-text' below based on appropriate condition -->
+                  <span class="legend-header red-text text-xs">{{ totalPortion }}</span>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modify classes based on BG color -->
+      <div *ngIf="validationError === 1" class="red-banner flex justify-center items-center px-3 py-3">
+        <p class="text-xs mb-0">The % values must add to 100</p>
+      </div>
+      <div *ngIf="validationError === 0" class="yellow-banner flex justify-center items-center px-3 py-3">
+        <p class="text-xs mb-0">Enter the % share of each power source. The charts will appear once you save your entries.</p>
+      </div>
+    </div>
+    <div class="right-chart flex flex-col px-3 py-3">
+      <h2 class="chart-header text-sm font-semibold">Power Source Distribution</h2>
+      <div class="form-chart flex flex-col gap-4">
+        <div class="flex flex-col">
+          <label class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Total Power Cost ($/kWH)</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+        </div>
+        <div class="speedo-chart flex justify-center items-center flex-col">
+          <label class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Market Comparison (Cost)</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+
+          <!-- Use chart widget as per requirement for below images -->
+          <img class="w-32 h-24 object-contain img-fluid" alt="" src="../../../../../../../assets/images/high-reading.svg" />
+        </div>
+      </div>
+      <div class="form-chart flex flex-col gap-4">
+        <div class="flex flex-col">
+          <label class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Total Carbon Impact (kgCO2/kWh)</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+        </div>
+        <div class="speedo-chart flex justify-center items-center flex-col">
+          <label class="add-label form-label no-wrap has-icon">
+            <span class="label-text">Market Comparison (Cost)</span>
+            <span class="notification" placement="auto">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+
+          <!-- Use chart widget as per requirement for below images -->
+          <img class="w-32 h-24 object-contain img-fluid" alt="" src="../../../../../../../assets/images/low-reading.svg" />
+          <!-- <img class="w-32 h-24 object-contain img-fluid" alt="" src="../../../../../../../assets/images/zero-reading.svg" /> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="supplier-profile-buttons" *ngIf="isSaveEnabled">
+      <span class="unsaved-changes-text" *ngIf="isSaveEnabled">You have unsaved changes</span>
+      <button pButton type="submit" class="btn btn-outline-primary ml-2 digital-factory-btn p-button-rounded p-button-text" (click)="onProfileDetailsCancel()">Discard Changes</button>
+      <button
+        [disabled]="!isSaveEnabled"
+        pButton
+        type="submit"
+        class="btn btn-primary ml-2 digital-factory-btn p-button-rounded p-button-text"
+        [ngClass]="{ 'unsaved-highlight': isSaveEnabled }"
+        (click)="onProfileDetailsSave()">
+        Save Changes
+      </button>
+    </div> -->
+  </div>
+</form>
+<app-edit-toolbar [canUndo]="canUndo()" [canRedo]="canRedo()" [dirty]="isDirty()" (undo)="undo()" (redo)="redo()" (save)="save()" (discard)="discard()"></app-edit-toolbar>

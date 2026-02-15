@@ -1,0 +1,10 @@
+<div class="dialog-container">
+  <div class="content-holder">
+    <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+    <mat-dialog-content class="content" [innerHtml]="dialogMessage"></mat-dialog-content>
+  </div>
+  <mat-dialog-actions class="actions-holder">
+    <button class="btn btn-secondary" (click)="closeDialog()">Logout</button>
+    <button class="btn btn-primary" cdkFocusInitial (click)="onConfirmButtonClicked()">Continue Session</button>
+  </mat-dialog-actions>
+</div>

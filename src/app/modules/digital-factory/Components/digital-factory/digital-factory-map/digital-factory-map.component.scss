@@ -1,0 +1,27 @@
+.df-map-container {
+  width: 100%;
+  margin-top: 10px;
+
+  agm-map {
+    height: 30vh;
+    width: 100%;
+  }
+
+  .custom-marker-label {
+    font-size: 104px;
+    font-weight: bold;
+  }
+
+  .info-window-name {
+    font-weight: 600;
+  }
+
+  .info-window-view-supplier-btn {
+    color: #3f83f9;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

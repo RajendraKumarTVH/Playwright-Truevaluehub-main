@@ -1,0 +1,46 @@
+<div class="modal-header flex items-center justify-between">
+  <h4 class="modal-title" id="modal-basic-title">Edit Scenario</h4>
+  <button aria-label="Close modal" title="Close Modal" class="modal-close flex items-center justify-center border-none bg-white">
+    <mat-icon class="close-icon" matTooltip="Close" matTooltipPosition="above" (click)="dismissAll()">close_icon</mat-icon>
+  </button>
+</div>
+<form [formGroup]="editScenarioform" (ngSubmit)="addScenarioClicked()" autocomplete="off">
+  <div class="modal-body flex flex-col gap-3" oncontextmenu="return false;">
+    <div class="row">
+      <!-- <div class="col">
+                <label class="form-label" for="inputDefault">Project Name</label>
+                <input [ngClass]="{'input-mandatory':f.projectName.errors,'input-valid': f.projectName.valid}"
+                    type="text" class="form-control" placeholder="Project Name" formControlName="projectName"
+                    name="projectName" readonly="readonly">
+            </div> -->
+      <div class="col">
+        <label class="form-label font-normal" for="inputDefault">Scenario Name</label>
+        <input
+          [ngClass]="{ 'input-mandatory': f.scenarioName.errors, 'input-valid': f.scenarioName.valid }"
+          type="text"
+          class="form-control"
+          placeholder="Scenario Name"
+          formControlName="scenarioName"
+          name="scenarioName"
+          maxlength="200" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label class="form-label font-normal" for="inputDefault">Scenario Description</label>
+        <textarea
+          [ngClass]="{ 'input-mandatory': f.scenarioDescription.errors, 'input-valid': f.scenarioDescription.valid }"
+          class="form-control"
+          rows="4"
+          formControlName="scenarioDescription"
+          id="scenarioDescription"
+          maxlength="300"></textarea>
+      </div>
+    </div>
+    <div class="mt-1 default-option"><mat-slide-toggle formControlName="isDefault">Make Default!</mat-slide-toggle></div>
+  </div>
+  <div class="modal-footer modalfooter flex items-center justify-end gap-2 mt-2">
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="dismissAll()">Cancel</button>
+    <button type="submit" class="btn btn-sm btn-primary" [disabled]="!editScenarioform.valid">Update Scenario</button>
+  </div>
+</form>

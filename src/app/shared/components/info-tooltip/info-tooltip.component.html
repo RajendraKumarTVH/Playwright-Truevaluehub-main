@@ -1,0 +1,17 @@
+<span
+  class="notification"
+  [ngbPopover]="popContent"
+  [popoverClass]="'custom-popover' + (popoverClass ? ' ' + popoverClass : '')"
+  placement="auto"
+  (click)="showinfo()"
+  #popoverHook="ngbPopover"
+  [triggers]="'manual'"
+  [container]="'body'">
+  <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+</span>
+<ng-template #popContent>
+  <div [innerHTML]="popupName"></div>
+  <div class="div-img" *ngIf="popupUrl">
+    <img alt="" class="img-class" [src]="popupUrl" />
+  </div>
+</ng-template>

@@ -1,0 +1,340 @@
+<div [formGroup]="formGroup">
+  <div class="card m-1">
+    <div class="card-header">Mounting Information</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Mounting Technology:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'typeOfCable'"></app-field-comment>
+          <select formControlName="typeOfCable" class="form-control">
+            <option value="" selected>-------Select Mounting Technology---------</option>
+            <option *ngFor="let mount of mountingTechnology" value="{{ mount.id }}">
+              {{ mount.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Mounting sides (Nos.):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'typeOfConductor'"></app-field-comment>
+          <select formControlName="typeOfConductor" class="form-control" (change)="calculateCost()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap">Application:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'noOfCables'"></app-field-comment>
+          <select formControlName="noOfCables" class="form-control">
+            <option value="" selected>-------Select Application---------</option>
+            <option *ngFor="let app of applicationList" value="{{ app.id }}">
+              {{ app.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card m-1">
+    <div class="card-header">Project Search</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field appearance="fill" class="custom-mat-select w-100">
+            <mat-label>Choose a Project</mat-label>
+            <input type="text" matInput formControlName="widthAllowance" [matAutocomplete]="auto" placeholder="Project Name/Number" aria-label="Project Name/Number" />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="projectOptionSelected($event)">
+              <mat-option *ngFor="let proj of filteredProjects$ | async" [value]="proj">{{ proj.projectName }} - {{ proj.projectInfoId }}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card m-1">
+    <div class="card-header">PCB Dimensions :</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">PCB Length(mm):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'sheetLength'"></app-field-comment>
+          <input type="number" formControlName="sheetLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">PCB Width(mm):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'sheetWidth'"></app-field-comment>
+          <input type="number" formControlName="sheetWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Panel Length(mm):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'sheetThickness'"></app-field-comment>
+          <input type="number" formControlName="sheetThickness" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Panel Width (mm) :</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'inputBilletWidth'"></app-field-comment>
+          <input type="number" formControlName="inputBilletWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">PCB Area (mm2):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'inputBilletHeight'"></app-field-comment>
+          <input type="number" formControlName="inputBilletHeight" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" readonly />
+        </div>
+
+        <div class="col-4">
+          <label class="form-label no-wrap">No. of PCBs in a panel (Nos.) :</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'totalCableLength'"></app-field-comment>
+          <input type="number" formControlName="totalCableLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Total No.of components/PCB(Nos):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'flashVolume'"></app-field-comment>
+          <input type="number" formControlName="flashVolume" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-1">
+    <div class="card-header">Coating & Potting</div>
+    <div class="card-body">
+      <!-- <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Solder Paste Material:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'yeildUtilization'"></app-field-comment>
+          <select formControlName="yeildUtilization" class="form-control" (change)="setForm()">
+            <option value="" selected>-------Select Solder Paste Material---------</option>
+            <option *ngFor="let item of SolderPasteMaterialList" value="{{ item.id }}">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Conformal Coating Material:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'grossVolumne'"></app-field-comment>
+          <select formControlName="grossVolumne" class="form-control" (change)="setForm()">
+            <option value="" selected>-------Select Conformal Coating Material---------</option>
+            <option *ngFor="let item of ConformalCoatingMaterialList" value="{{ item.id }}">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Adhesive Potting Material:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'scaleLoss'"></app-field-comment>
+          <select formControlName="scaleLoss" class="form-control" (change)="setForm()">
+            <option value="" selected>-------Select Adhesive Potting Material---------</option>
+            <option *ngFor="let item of AdhesivePottingMaterialList" value="{{ item.id }}">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Adhesive potting:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'coolingTime'"></app-field-comment>
+          <select formControlName="coolingTime" class="form-control" (change)="setForm()">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="flags.AdhesivePotting">
+          <label class="form-label no-wrap">Potting Sides(Nos.):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'coilWeight'"></app-field-comment>
+          <select formControlName="coilWeight" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="flags.AdhesivePotting">
+          <label class="form-label no-wrap">Potting Area/PCB(%)</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'partOuterDiameter'"></app-field-comment>
+          <select formControlName="partOuterDiameter" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>0 %</option>
+            <option value="25">25 %</option>
+            <option value="50">50 %</option>
+            <option value="75">75 %</option>
+            <option value="100">100 %</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 mt-3">
+          <label class="form-label no-wrap">Conformal Coating:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'holdingTime'"></app-field-comment>
+          <select formControlName="holdingTime" class="form-control" (change)="setForm()">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+
+        <div class="col-4 mt-3" *ngIf="flags.Coating">
+          <label class="form-label no-wrap">Coating sides(Nos.):</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'coilLength'"></app-field-comment>
+          <select formControlName="coilLength" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div class="col-4 mt-3" *ngIf="flags.Coating">
+          <label class="form-label no-wrap">Coating area/PCB(%)</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'partsPerCoil'"></app-field-comment>
+          <select formControlName="partsPerCoil" class="form-control" (change)="calculateCost()">
+            <option value="0" selected>0 %</option>
+            <option value="25">25 %</option>
+            <option value="50">50 %</option>
+            <option value="75">75 %</option>
+            <option value="100">100 %</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-1">
+    <div class="card-header">Automation Inputs</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap">Through Hole Components :</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'closingTime'"></app-field-comment>
+          <select formControlName="closingTime" class="form-control" (change)="setForm()">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">SMT Components:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'injectionTime'"></app-field-comment>
+          <select formControlName="injectionTime" class="form-control" (change)="setForm()">
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Depanaling method:</label>
+          <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'ejectionTime'"></app-field-comment>
+          <select formControlName="ejectionTime" class="form-control">
+            <option value="1">Routing</option>
+            <option value="2">Scoring</option>
+          </select>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="row" *ngIf="flags.ThroughHoleLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of TH components/Panel(Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'noOfCablesWithSameDia'"></app-field-comment>
+            <input type="number" formControlName="noOfCablesWithSameDia" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of TH components/PCB(Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'mainInsulatorID'"></app-field-comment>
+            <input type="number" formControlName="mainInsulatorID" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of Radial TH components/PCB(Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'mainInsulatorOD'"></app-field-comment>
+            <input type="number" formControlName="mainInsulatorOD" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+
+        <div class="row" *ngIf="flags.ThroughHoleLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No. of Axial TH components/PCB (Nos.) :</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'mainCableSheathingMaterial'"></app-field-comment>
+            <input type="number" formControlName="mainCableSheathingMaterial" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of Spl TH Components(More than 14 TH pins,ICs)(Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'pickPlaceTime'"></app-field-comment>
+            <input type="number" formControlName="pickPlaceTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+
+        <div class="row" *ngIf="flags.ThroughHoleLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of Spl TH components pin count/PCB(Nos):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'openingTime'"></app-field-comment>
+            <input type="number" formControlName="openingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No.Of Pressfit components/PCB(Nos):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'coilWidth'"></app-field-comment>
+            <input type="number" formControlName="coilWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+
+        <div class="row" *ngIf="flags.SMTLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components less than 6 Pins on Top side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'partInnerDiameter'"></app-field-comment>
+            <input type="number" formControlName="partInnerDiameter" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components more than 6 and less than 14 Pins on Top side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'runnerRiser'"></app-field-comment>
+            <input type="number" formControlName="runnerRiser" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components more than 14 Pins on Top side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'oxidationLossWeight'"></app-field-comment>
+            <input type="number" formControlName="oxidationLossWeight" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+        <div class="row" *ngIf="flags.SMTLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components less than 6 Pins on Bot side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'pouringWeight'"></app-field-comment>
+            <input type="number" formControlName="pouringWeight" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components more than 6 and less than 14 Pins on Bot side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'cavityArrangementLength'"></app-field-comment>
+            <input type="number" formControlName="cavityArrangementLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">SMD components more than 14 Pins on Bot side (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'cavityArrangementWidth'"></app-field-comment>
+            <input type="number" formControlName="cavityArrangementWidth" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+        <div class="row" *ngIf="flags.SMTLine">
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">Programmale Ics per PCB (Nos.) :</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'moldBoxLength'"></app-field-comment>
+            <input type="number" formControlName="moldBoxLength" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4 mt-3">
+            <label class="form-label no-wrap">No. of Complex components (More than 14 smd pins/Ball Grid Arrays, FBGA, PBGA, CBGA, LGA, FCBGA) (Nos.):</label>
+            <app-field-comment [formIdentifier]="electroVals.formIdentifier" [fieldIdentifier]="'moldBoxHeight'"></app-field-comment>
+            <input type="number" formControlName="moldBoxHeight" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #popContent>
+    <div [innerHTML]="popupName"></div>
+    <div class="div-img" *ngIf="popupUrl">
+      <img alt="" class="img-class" [src]="popupUrl" />
+    </div>
+  </ng-template>
+</div>

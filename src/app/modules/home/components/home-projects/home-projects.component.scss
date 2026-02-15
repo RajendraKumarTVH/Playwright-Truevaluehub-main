@@ -1,0 +1,34 @@
+.create-new-project-button {
+  padding: 1rem;
+  text-align: right;
+  button {
+    padding: 11px;
+    font-size: 0.75rem;
+    .mat-icon {
+      max-width: 8px;
+      max-height: 8px;
+      font-size: 8px;
+    }
+  }
+}
+
+.mat-mdc-tab-link.mdc-tab {
+  flex-grow: 0 !important;
+  height: 32px;
+  border-radius: 7px 7px 0 0;
+}
+
+.home-project-listing-outer {
+  min-height: calc(100vh - 72px);
+}
+mat-tab-nav-panel {
+  display: flex;
+  flex-direction: column;
+  //uncomment this and remove white background color when integrate new ui
+  // background-color: var(--table-head-row-bg);
+  background-color: var(--bs-white);
+}
+
+.custom-tab.mat-mdc-tab-link {
+  min-width: 79px;
+}

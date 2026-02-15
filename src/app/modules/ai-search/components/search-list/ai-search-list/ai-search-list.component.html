@@ -1,0 +1,434 @@
+<div class="d-flex flex-column w-100 min-w-0">
+  <app-ai-search-header (imageUpload)="onImageSimilarityUpload($event)"></app-ai-search-header>
+  <div class="d-flex w-100 min-w-0">
+    <div class="d-flex flex-column searched-card overflow-y-auto" *ngIf="aiSearchImage.isSearched && !enablePagination">
+      <div class="searched-img-header d-flex align-items-center justify-content-between py-1">
+        <h3 class="mb-0">New Search</h3>
+        <button type="button" [matMenuTriggerFor]="searchDropdownMenu" class="btn btn-link p-0 border-0 text-dark">
+          <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="ellipses_icon"></mat-icon>
+        </button>
+      </div>
+
+      <!-- Uncomment the below code to get user selectable criteria section -->
+      <!-- <div class="d-flex flex-column chip-group">
+        <div class="d-flex align-items-center data-chip flex-wrap">
+          <label for="" class="chip-header"> Vendor </label>
+          <div class="d-flex align-items-center chip">
+            <label for="" class="chip-label my-1"> Vendor </label>
+            <button
+              type="button"
+              class="btn btn-link btn-sm text-dark close-btn icon-12"
+            >
+              <mat-icon
+                class="d-flex align-items-center justify-content-center ml-auto text-dark"
+                svgIcon="close_icon"
+              ></mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="d-flex align-items-center data-chip flex-wrap">
+          <label for="" class="chip-header"> Vendor </label>
+          <div class="d-flex align-items-center chip">
+            <label for="" class="chip-label my-1"> Vendor </label>
+            <button
+              type="button"
+              class="btn btn-link btn-sm text-dark close-btn icon-12"
+            >
+              <mat-icon
+                class="d-flex align-items-center justify-content-center ml-auto text-dark"
+                svgIcon="close_icon"
+              ></mat-icon>
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="d-flex flex-row similarity-search search-filter mt-2 gap-2" *ngIf="this.aiSearchImage?.isSearched && selectedFilterType && searchedText">
+        <label class="similarity-search-header filter-type-header my-1">{{ selectedFilterDisplayText }}</label>
+        <div class="d-flex flex-row-reverse similar-search-card filter-card">
+          <div class="d-flex justify-content-end w-100">
+            <button type="button" title="Remove" (click)="removeSimilaritySearchImage()" class="btn btn-link btn-sm text-dark close-btn icon-12 filter-remove-button">
+              <mat-icon class="d-flex align-items-center justify-content-center text-dark" svgIcon="close_icon"></mat-icon>
+            </button>
+          </div>
+          <div class="d-flex flex-column">{{ searchedText }}</div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column similarity-search mt-2 gap-2" *ngIf="this.aiSearchImage?.isSearched">
+        <label class="similarity-search-header my-1">Similarity Search</label>
+        <div class="d-flex flex-column mt-1 similar-search-card">
+          <div class="d-flex justify-content-end w-100 mb-1">
+            <button type="button" title="Remove" (click)="removeSimilaritySearchImage()" class="btn btn-link btn-sm text-dark close-btn icon-12">
+              <mat-icon class="d-flex align-items-center justify-content-center text-dark" svgIcon="close_icon"></mat-icon>
+            </button>
+          </div>
+
+          <!-- <a href="">{{mat.partId}}</a> -->
+          <div class="similarity-img mb-2">
+            <img
+              src="data:image/png;base64,{{ aiSearchImage.imageUrl }}"
+              class="similarity-search-img"
+              title="{{ aiSearchImage.manufacturingCategory }}"
+              alt="{{ aiSearchImage.partId }}"
+              width="300px;"
+              height="150px;" />
+          </div>
+          <div class="similarity-body d-flex flex-column">
+            <div class="combine-block">
+              <div>
+                <label class="card-text">Project Id:</label>
+                <label class="card-heading">{{ aiSearchImage.projectInfoId }}</label>
+              </div>
+              <div>
+                <label class="card-text">Part Id:</label>
+                <label class="card-heading">{{ aiSearchImage.partId }}</label>
+              </div>
+            </div>
+            <!-- <label class="similarity-card-label mb-1">{{ aiSearchImage.partId }}</label> -->
+            <label class="similarity-card-label mb-1">{{ aiSearchImage.partNumber }}</label>
+            <label class="similarity-card-content">
+              {{ aiSearchImage.partDescription }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-listing relative w-100 bg-white h-min min-w-0">
+      <ng-container>
+        <div class="search-list-header d-flex align-items-center w-100 justify-content-between">
+          <div class="flex items-center gap-2">
+            <label class="ai-search-record-count-label">{{ recordCount }} results</label>
+
+            <button class="btn btn-link card-expand-link" (click)="expanded = !expanded">
+              {{ expanded ? 'Collapse all' : 'Expand all' }}
+            </button>
+            <!-- <button *ngIf="currentAiSearchState !== 0" class="btn btn-link card-expand-link" (click)="removeSimilaritySearchImage()">Back to Search List</button> -->
+          </div>
+          <div>
+            <button class="btn btn-link card-expand-link" *ngIf="totalTimeOfCosmos > 0 || totalTimeOfSql > 0 || timeDetails" mat-raised-button color="primary" [matMenuTriggerFor]="menu">Stats</button>
+
+            <mat-menu #menu="matMenu">
+              <div class="similarity-stats">
+                <!-- <div *ngIf="totalTimeOfCosmos > 0" class="menu-item">
+                  <span>
+                    AI time:
+                    <b>{{ totalTimeOfCosmos }}</b>
+                    sec,
+                  </span>
+                </div> -->
+                <div *ngIf="totalTimeOfSql > 0" class="menu-item">
+                  <span>
+                    SQL Query time:
+                    <b>{{ totalTimeOfSql }}</b>
+                    sec,
+                  </span>
+                </div>
+                <!-- <mat-divider></mat-divider> -->
+                <div *ngIf="totalTimeOfImages > 0" class="menu-item">
+                  <span>
+                    Images load time:
+                    <b>{{ totalTimeOfImages }}</b>
+                    sec
+                  </span>
+                </div>
+                <div *ngIf="timeDetails" class="menu-item">
+                  <span class="menu-item-detail">
+                    Image decoding rotation:
+                    <b>{{ timeDetails?.image_decoding_rotation }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Model selection:
+                    <b>{{ timeDetails?.model_selection }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Result processing:
+                    <b>{{ timeDetails?.result_processing }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Similarity search:
+                    <b>{{ timeDetails?.similarity_search }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Token validation:
+                    <b>{{ timeDetails?.token_validation }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Total time:
+                    <b>{{ timeDetails?.total_time }}</b>
+                    sec
+                  </span>
+                  <span class="menu-item-detail">
+                    Vector DB connection:
+                    <b>{{ timeDetails?.vector_db_connection }}</b>
+                    sec
+                  </span>
+                  <span>
+                    Vector query time:
+                    <b>{{ timeDetails?.vector_query_time }}</b>
+                    sec
+                  </span>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+          <!-- <label class="similarity-search-header similarity-stats">
+            <span *ngIf="totalTimeOfCosmos > 0">
+              AI time:
+              <b>{{ totalTimeOfCosmos }}</b>
+              sec,
+            </span>
+            <span *ngIf="totalTimeOfSql > 0">
+              Query time:
+              <b>{{ totalTimeOfSql }}</b>
+              sec,
+            </span>
+            <span *ngIf="totalTimeOfImages > 0">
+              Images load time:
+              <b>{{ totalTimeOfImages }}</b>
+              sec
+            </span>
+          </label> -->
+        </div>
+        <div class="search-results-block" [ngClass]="{ 'similarity-results-block': !enablePagination }">
+          <ng-container *ngIf="!dataSource || dataSource?.length === 0">
+            <div class="search-result d-flex flex-column" *ngFor="let mat of unloadedTiles">
+              <div class="result-image">
+                <img src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" alt="Loading" />
+              </div>
+              <div class="search-result-content d-flex flex-column gap-1 h-full min-h-0">
+                <img src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" alt="Loading" />
+                <img src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" alt="Loading" />
+              </div>
+            </div>
+          </ng-container>
+          <div class="search-result d-flex flex-column" *ngFor="let mat of dataSource" id="{{ mat.partId }}">
+            <div *ngIf="mat.imgThumbnailData && mat.pdfThumbnailData" class="carousel-container">
+              <button (click)="onImageViewChange(mat)" class="nav-button prev-button">❮</button>
+              <div>
+                <div
+                  *ngIf="mat.imageShowing === 'cad'"
+                  class="result-image"
+                  title="{{ mat.manufacturingCategory }}"
+                  [ngClass]="mat.imageShowing === 'cad' ? 'carousel-image visible' : 'carousel-image'">
+                  <img
+                    *ngIf="mat.imgThumbnailData; else noImageAvailable"
+                    src="data:image/png;base64,{{ mat.imgThumbnailData }}"
+                    alt="{{ mat.partId }}"
+                    class="img-fluid"
+                    (click)="open3DViewer(mat)" />
+                </div>
+                <div
+                  *ngIf="mat.imageShowing === 'pdf'"
+                  class="result-image"
+                  title="{{ mat.manufacturingCategory }}"
+                  [ngClass]="mat.imageShowing === 'pdf' ? 'carousel-image visible' : 'carousel-image'">
+                  <img
+                    *ngIf="mat.pdfThumbnailData; else noImageAvailable"
+                    src="data:image/png;base64,{{ mat.pdfThumbnailData }}"
+                    alt="{{ mat.partId }}"
+                    class="img-fluid"
+                    (click)="open3DViewer(mat, 'pdf')" />
+                </div>
+              </div>
+              <button (click)="onImageViewChange(mat)" class="nav-button next-button">❯</button>
+              <div class="dots-container">
+                <div [class.active]="mat.imageShowing === 'cad'" class="dot" (click)="onImageViewChange(mat)"></div>
+                <div [class.active]="mat.imageShowing === 'pdf'" class="dot" (click)="onImageViewChange(mat)"></div>
+              </div>
+            </div>
+            <div *ngIf="mat.imgThumbnailData && !mat.pdfThumbnailData" class="result-image" title="{{ mat.manufacturingCategory }}">
+              <img *ngIf="mat.imgThumbnailData; else loadingImage" src="data:image/png;base64,{{ mat.imgThumbnailData }}" alt="{{ mat.partId }}" class="img-fluid" (click)="open3DViewer(mat)" />
+            </div>
+
+            <div *ngIf="!mat.imgThumbnailData && mat.pdfThumbnailData" class="result-image" title="{{ mat.manufacturingCategory }}">
+              <img *ngIf="mat.pdfThumbnailData; else loadingImage" src="data:image/png;base64,{{ mat.pdfThumbnailData }}" alt="{{ mat.partId }}" class="img-fluid" (click)="open3DViewer(mat, 'pdf')" />
+            </div>
+            <div *ngIf="!mat.imgThumbnailData && !mat.pdfThumbnailData" class="result-image" title="{{ mat.manufacturingCategory }}">
+              <img alt="" src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" />
+            </div>
+            <div class="search-result-content d-flex flex-column gap-1 h-full min-h-0">
+              <div class="combine-block">
+                <div>
+                  <label class="card-text">Project Id:</label>
+                  <label class="card-heading">{{ mat.projectInfoId }}</label>
+                </div>
+                <div>
+                  <label class="card-text">Part Id:</label>
+                  <label class="card-heading">{{ mat.partId }}</label>
+                </div>
+              </div>
+
+              <div>
+                <label class="card-text">Part Number:</label>
+                <label class="card-heading">{{ mat.intPartNumber }}</label>
+              </div>
+              <div *ngIf="mat.intPartDescription">
+                <label class="card-text">Part Description:</label>
+                <label class="card-description">{{ mat.intPartDescription }}</label>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-auto pt-2">
+                <div class="search-result-card-actions d-flex align-items-center">
+                  <button type="button" (click)="aiIdSearch(mat)" title="Find Similar" class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                    <mat-icon svgIcon="search_icon"></mat-icon>
+                  </button>
+                  <button type="button" (click)="goToCosting(mat)" title="Go to Costing page" class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                    <mat-icon svgIcon="fileDollar_icon"></mat-icon>
+                  </button>
+                  <button type="button" title="View Properties" (click)="addScenario(mat)" class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                    <mat-icon svgIcon="cube_icon" aria-hidden="false"></mat-icon>
+                  </button>
+                  <button
+                    *ngIf="currentAiSearchState === 1 && similaritySearchOrigin !== 'pdf'"
+                    type="button"
+                    title="Compare"
+                    (click)="compareWithSearched(mat)"
+                    class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                    <mat-icon svgIcon="compare_icon" aria-hidden="false"></mat-icon>
+                  </button>
+                </div>
+                <div class="right-icons">
+                  <app-progress-bar [percentage]="mat.completionPercentage" [mode]="'donut'"></app-progress-bar>
+                  <div class="result-check">
+                    <input class="form-check-input" type="checkbox" (change)="onCheckboxChange($event, mat)" />
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-column result-info mt-4" *ngIf="expanded">
+                <div class="d-flex flex-column result-label-value">
+                  <hr class="my-2" />
+                  <label class="card-text">
+                    Added by :
+                    <b>{{ getUserName(mat.createdUserId) }}</b>
+                  </label>
+                  <label class="card-text">
+                    Project name :
+                    <b>{{ mat.projectName }}</b>
+                  </label>
+                  <label class="card-text">
+                    Tag :
+                    <b>{{ mat.tag }}</b>
+                  </label>
+                  <div>
+                    <label class="card-time">{{ mat.createdDate | date: 'mediumDate' }}</label>
+                  </div>
+                  <label for="" class="result-label">Manufacturing Category</label>
+                  <p class="result value">{{ mat.manufacturingCategory }}</p>
+                  <label for="" class="result-label" *ngIf="this.aiSearchImage?.isSearched && mat.similarityScore">Cost function score</label>
+                  <p class="result value" *ngIf="this.aiSearchImage?.isSearched">
+                    {{ mat.similarityScore }}
+                  </p>
+                  <label for="" class="result-label" *ngIf="this.aiSearchImage?.isSearched && mat.maxValue">Maximum similarity score</label>
+                  <p class="result value" *ngIf="this.aiSearchImage?.isSearched">
+                    {{ mat.maxValue }}
+                  </p>
+                  <label for="" class="result-label" *ngIf="this.aiSearchImage?.isSearched && mat.avgValue">Average similarity score</label>
+                  <p class="result value" *ngIf="this.aiSearchImage?.isSearched">
+                    {{ mat.avgValue }}
+                  </p>
+
+                  <div *ngIf="mat.pdfCostSummaryInfo?.deburr">
+                    <label for="" class="result-label">Deburr</label>
+                    <p class="result value">{{ mat.pdfCostSummaryInfo?.deburr }}</p>
+                  </div>
+                  <div *ngIf="mat.pdfCostSummaryInfo?.surfaceFinish">
+                    <label for="" class="result-label">Surface finish painting</label>
+                    <p class="result value">{{ mat.pdfCostSummaryInfo?.surfaceFinish }}</p>
+                  </div>
+
+                  <div *ngIf="mat.pdfCostSummaryInfo?.cleaning">
+                    <label for="" class="result-label">Cleaning</label>
+                    <p class="result value">{{ mat.pdfCostSummaryInfo?.cleaning }}</p>
+                  </div>
+                  <div *ngIf="mat.pdfCostSummaryInfo?.welding">
+                    <label for="" class="result-label">Welding</label>
+                    <p class="result value">{{ mat.pdfCostSummaryInfo?.welding }}</p>
+                  </div>
+                </div>
+                <span *ngIf="currentAiSearchState === 1">
+                  <label for="" class="result-label" *ngIf="this.aiSearchImage?.isSearched">Volume</label>
+                  <p class="result value" *ngIf="this.aiSearchImage?.isSearched">
+                    {{ mat.extractionInfoDto?.volume }}
+                  </p>
+                  <label for="" class="result-label" *ngIf="this.aiSearchImage?.isSearched">Surface Area</label>
+                  <p class="result value" *ngIf="this.aiSearchImage?.isSearched">
+                    {{ mat.extractionInfoDto?.surfaceArea }}
+                  </p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="enablePagination" class="row ai-paginator">
+          <p-paginator
+            (onPageChange)="paginatorPageChanged($event)"
+            [first]="pageFirst"
+            [rows]="pageSize"
+            [rowsPerPageOptions]="[20, 30, 50, 70, 100]"
+            [totalRecords]="recordCount"
+            [showCurrentPageReport]="true"
+            [showPageLinks]="true"
+            [showJumpToPageDropdown]="false"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"></p-paginator>
+        </div>
+      </ng-container>
+      <!-- <ng-container *ngIf="(!dataSource || dataSource?.length === 0) && currentAiSearchState === 3">
+        <div class="part-not-found">Part Not found...</div>
+      </ng-container> -->
+    </div>
+  </div>
+  <div class="selection-dock flex items-center p-2 bg-white" *ngIf="checkedCount > 1 || currentAiSearchState === 4">
+    <button class="btn leading-none p-0 opacity-60 transition-opacity focus:opacity-100 hover:opacity-100 close-cta icon-12" title="Reset Comparison" (click)="resetCompare()">
+      <mat-icon svgIcon="close_icon" color="y-icon"></mat-icon>
+    </button>
+    <p class="mb-0 px-2 mx-2 selection-dock-text">{{ checkedCount }} Selected</p>
+    <button type="button" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Compare" (click)="compareParts()">
+      <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="compare_icon"></mat-icon>
+      <span>Compare</span>
+    </button>
+    <button
+      *ngIf="checkedCount === 2"
+      type="button"
+      class="btn btn-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2"
+      title="Compare"
+      (click)="compareWithSearched()">
+      <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="compare_icon"></mat-icon>
+      <span>Compare Models</span>
+    </button>
+    <button type="button" class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Clear" (click)="resetCompare()">
+      <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="delete_icon"></mat-icon>
+      <span>Clear</span>
+    </button>
+  </div>
+</div>
+
+<mat-menu class="profile-dropdown" #searchDropdownMenu x-position="after">
+  <button mat-menu-item>
+    <span>Deselect All</span>
+  </button>
+  <button mat-menu-item>
+    <span>Select All</span>
+  </button>
+</mat-menu>
+
+<mat-menu class="profile-dropdown" #similarityDropdownMenu x-position="after">
+  <button mat-menu-item>
+    <span>sample</span>
+  </button>
+  <button mat-menu-item>
+    <span>Select</span>
+  </button>
+</mat-menu>
+
+<ng-template #noImageAvailable>
+  <img alt="" src="../../../../../../assets/images/no-image-available.png" class="img-fluid" />
+</ng-template>
+
+<ng-template #loadingImage>
+  <img alt="" src="../../../../../../assets/icons/loading-bar.svg" class="img-fluid" />
+</ng-template>

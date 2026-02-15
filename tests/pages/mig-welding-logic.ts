@@ -10,7 +10,7 @@ import {
 	TotalCycleTimeInput,
 	ProcessInfoDto,
 	MaterialESGInput,
-	ManufacturingInputs
+	ManufacturingInput,
 } from '../utils/interfaces'
 import { ProcessType, PrimaryProcessType } from '../utils/constants'
 
@@ -1456,7 +1456,8 @@ export class MigWeldingLogic {
 			`✔ Material CO2 per Part verified. UI: ${uiCO2PerPart}, Calculated: ${calculated.esgImpactCO2KgPart}`
 		)
 	}
-	private async readManufacturingInputs(): Promise<ManufacturingInputs> {
+
+	private async readManufacturingInputs(): Promise<ManufacturingInput> {
 		const n = (locator: Locator) => this.page.safeGetNumber(locator)
 
 		return {

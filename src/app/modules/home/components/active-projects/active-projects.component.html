@@ -1,0 +1,470 @@
+<div class="col-12">
+  <p-table
+    #dt
+    dataKey="projectInfoId"
+    [value]="gridData"
+    responsiveLayout="scroll"
+    [rows]="rows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [paginator]="true"
+    [scrollable]="true"
+    scrollHeight="flex"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+    [columns]="selectedColumns"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    [multiSortMeta]="multiSortMeta"
+    sortMode="multiple"
+    [totalRecords]="totalRecords"
+    [lazy]="true"
+    (onLazyLoad)="getProjectDetails($event)"
+    [first]="first"
+    [style]="{ width: '100%' }"
+    [showCurrentPageReport]="true"
+    rowGroupMode="subheader"
+    groupRowsBy="groupName"
+    [expandedRowKeys]="expandedRows"
+    class="active-projects-grid flex">
+    <ng-template pTemplate="caption">
+      <div class="flex items-baseline justify-between w-full">
+        <app-search-bar [previousSearch]="appliedSearchModel" [searchKeys]="searchKeys" (searchApply)="onSearchApply($event)"></app-search-bar>
+
+        <div class="flex gap-2 items-center">
+          <!-- Filter Toggle Button -->
+          <button
+            pButton
+            type="button"
+            [icon]="showFilters ? 'pi pi-filter-slash' : 'pi pi-filter'"
+            [label]="showFilters ? 'Hide Filters' : 'Show Filters'"
+            class="p-button-outlined text-xs font-medium filter-btn"
+            (click)="toggleFilters()"></button>
+
+          <!-- Clear All Filters Button -->
+          <!-- <button 
+            pButton 
+            type="button" 
+            icon="pi pi-filter-slash" 
+            label="Clear Filters"
+            class="p-button-outlined p-button-sm p-button-danger"
+            (click)="clearAllFilters(dt)"
+            [disabled]="!hasActiveFilters">
+          </button> -->
+
+          <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" placeholder="" display="chip" panelStyleClass="column-panel" styleClass="configure-style">
+            <ng-template let-selectedItems pTemplate="selectedItems">
+              <div class="flex items-center gap-2">
+                <mat-icon class="!w-4 !h-4" svgIcon="configure"></mat-icon>
+                <span class="font-medium text-xs">Configure</span>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <!-- uncomment this when integrate new folder ui  -->
+        <!-- <th id="headerCol" class="active-projects-grid-col-header-background" scope="col"></th> -->
+        <th id="headerCol" class="active-projects-grid-col-header-background col-pinned" scope="col"></th>
+        <th
+          id="header"
+          class="active-projects-grid-col-header-background"
+          scope="col"
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.sortable ? col.field : ''"
+          [ngClass]="{
+            'fixed-width-100': ['partThumbnails'].includes(col.field),
+            'min-w-60': col.field === 'commodityTypes' || col.field === 'projectName',
+            'min-w-40': col.field === 'lastModifiedUser' || col.field === 'createdUser' || col.field === 'projectStatus',
+            'min-w-32': col.field === 'tag',
+          }">
+          {{ col.header }}
+          <p-sortIcon [field]="col.field" *ngIf="col.sortable"></p-sortIcon>
+        </th>
+        <th id="headerEnd" class="active-projects-grid-col-header-background sticky-col sticky-right" scope="col"></th>
+      </tr>
+
+      <tr *ngIf="showFilters">
+        <!-- uncomment this when integrate new folder ui  -->
+        <!-- <th id="filterRow" class="filter-row"></th> -->
+        <th class="filter-row col-pinned" scope="col"></th>
+        <!-- pinned filter placeholder -->
+        <th
+          id="filterColumns"
+          *ngFor="let col of columns"
+          class="filter-row"
+          [ngClass]="{
+            'fixed-width-100': ['partThumbnails'].includes(col.field),
+            'min-w-60': col.field === 'commodityTypes' || col.field === 'projectName',
+            'min-w-40': col.field === 'lastModifiedUser' || col.field === 'createdUser' || col.field === 'projectStatus',
+            'min-w-32': col.field === 'tag',
+          }">
+          <!-- Text Filter -->
+          <div *ngIf="col.filter && !col.isDropDownFilter && !col.isDateFilter" class="filter-container">
+            <input pInputText type="text" [placeholder]="'Search'" class="filter-input" [value]="getFilterValue(col.field)" (input)="onFilterChange($event, col.field, 'contains', dt)" />
+            <i class="pi pi-times filter-clear-icon" *ngIf="getFilterValue(col.field)" (click)="clearFilter(col.field, dt)"></i>
+          </div>
+
+          <!-- Dropdown Filter -->
+          <div *ngIf="col.filter && col.isDropDownFilter" class="filter-container">
+            <p-dropdown
+              [options]="getDropdownOptions(col.field)"
+              [placeholder]="'Select '"
+              [showClear]="true"
+              optionLabel="name"
+              optionValue="id"
+              class="filter-dropdown"
+              [ngModel]="getFilterValue(col.field)"
+              (ngModelChange)="onDropdownFilterChange($event, col.field, dt)"></p-dropdown>
+          </div>
+
+          <!-- Date Range Filter -->
+          <div *ngIf="col.filter && col.isDateFilter" class="filter-container flex flex-col gap-1">
+            <p-datePicker
+              appendTo="body"
+              [placeholder]="'Select '"
+              [showClear]="true"
+              class="filter-datepicker"
+              selectionMode="range"
+              [(ngModel)]="rangeModel[col.field]"
+              (ngModelChange)="onDateRangeChange($event, col.field)"
+              [title]="getDateRangeTooltip(col.field)"></p-datePicker>
+            <em class="clsred errorMessage" *ngIf="dateRangeInvalid[col.field]">{{ dateRangeInvalid[col.field] }}</em>
+          </div>
+
+          <!-- Multi-select Filter (if needed) -->
+          <div *ngIf="col.filter && col.isMultiSelectFilter" class="filter-container">
+            <p-multiSelect
+              [options]="getDropdownOptions(col.field)"
+              [placeholder]="'Select'"
+              [showClear]="true"
+              optionLabel="name"
+              optionValue="id"
+              class="filter-multiselect"
+              [ngModel]="getFilterValue(col.field)"
+              (ngModelChange)="onMultiSelectFilterChange($event, col.field, dt)"></p-multiSelect>
+          </div>
+        </th>
+        <th id="endFilterRow" class="filter-row sticky-col sticky-right"></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="groupheader" let-rowData let-rowIndex="rowIndex" let-expanded="expanded">
+      <tr class="group-row">
+        <td colspan="13" class="group-row">
+          <button
+            type="button"
+            [ngClass]="['btn', 'icon-btn', 'dropdown-btn']"
+            pButton
+            pRipple
+            [pRowToggler]="rowData"
+            text
+            rounded
+            plain
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          <span class="ml-2 font-medium text-xs">{{ rowData.groupName }}</span>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="expandedrow" let-rowData let-index="rowIndex">
+      <tr>
+        <!-- uncomment this when integrate new folder ui  -->
+        <!-- <td class="active-projects-grid-col-data-border">
+          <p-checkbox [(ngModel)]="rowData.selected" (ngModelChange)="updateFloatingBar()" [binary]="true" class="project-list-checkbox"></p-checkbox>
+        </td> -->
+        <td class="active-projects-grid-col-data-border col-pinned">
+          <button pButton type="button" (click)="toggleFreeze(rowData, false)" class="btn icon-btn" *ngIf="rowData.groupName !== 'Pinned Projects'">
+            <mat-icon class="pin-icon" svgIcon="pin-outlined"></mat-icon>
+          </button>
+          <button pButton type="button" (click)="toggleFreeze(rowData, true)" class="btn icon-btn" *ngIf="rowData.groupName !== 'Projects'">
+            <mat-icon class="pin-icon" svgIcon="pin-filled"></mat-icon>
+          </button>
+          <ng-template #disablePin>
+            <button pButton type="button" class="btn icon-btn">
+              <mat-icon class="pin-icon" svgIcon="pin-filled"></mat-icon>
+            </button>
+          </ng-template>
+        </td>
+        <td class="active-projects-grid-col-data-border" *ngIf="columnVisibility.projectInfoId">
+          <button
+            pButton
+            type="button"
+            class="p-button-link active-projects-font-fourteen p-2"
+            [disabled]="
+              rowData.projectStatusId === projectStatusEnum.DataExtractionInprogress ||
+              rowData.projectStatusId === projectStatusEnum.DataExtractionReprocessing ||
+              rowData.projectStatusId === projectStatusEnum.NeedsReview
+            "
+            (click)="selectedRowData = rowData; onEdit()">
+            @if (!rowData.canShowLock) {
+              <div class="container p-0">
+                <span class="text">{{ rowData.projectInfoId }}</span>
+              </div>
+            } @else {
+              <div class="container">
+                <span class="text">{{ rowData.projectInfoId }}</span>
+                <mat-icon matTooltip="{{ 'This project is locked by ' + getUserName(rowData.createdUserId) }}" aria-label="Project locked" class="icon material-icons">lock_person</mat-icon>
+              </div>
+            }
+          </button>
+        </td>
+        <td class="active-projects-grid-col-data-border px-1" *ngIf="columnVisibility.projectName">
+          <button
+            pButton
+            type="button"
+            [label]="rowData.projectName"
+            class="p-button-link text-align-left active-projects-font-fourteen !py-1 !px-3"
+            [disabled]="
+              rowData.projectStatusId === projectStatusEnum.DataExtractionInprogress ||
+              rowData.projectStatusId === projectStatusEnum.DataExtractionReprocessing ||
+              rowData.projectStatusId === projectStatusEnum.NeedsReview
+            "
+            (click)="selectedRowData = rowData; onEdit()"></button>
+        </td>
+
+        <td class="active-projects-grid-col-data-border" *ngIf="columnVisibility.partThumbnails">
+          <!-- Show spinner when no thumbnails are loaded yet -->
+          <div class="thumbnail-wrapper">
+            <div class="thumbnail-loading" *ngIf="rowData.partThumbnails.length === 0 && !isThumbnailLoaded">
+              <div class="spinner"></div>
+            </div>
+            <!-- Show thumbnails when they exist -->
+            <div class="thumbnail-preview" *ngIf="rowData.partThumbnails.length > 0">
+              <ng-container *ngFor="let thumbnail of rowData.partThumbnails">
+                <img [src]="'data:image/jpeg;base64,' + thumbnail.thumbnailImage" class="part-thumbnail" (click)="onPartThumbnailClick(thumbnail.partInfoId)" alt="" />
+              </ng-container>
+
+              <span *ngIf="rowData.partThumbnailCount > 0" class="thumbnail-count" (click)="openThumbnailPopup(rowData)">+{{ rowData.partThumbnailCount }}</span>
+            </div>
+          </div>
+        </td>
+
+        <td class="active-projects-grid-col-data-border text-align-left active-projects-font-fourteen" *ngIf="columnVisibility.commodityTypes">
+          {{ rowData.commodityTypes }}
+        </td>
+        <td class="active-projects-grid-col-data-border text-align-left" *ngIf="columnVisibility.tag">
+          <span *ngIf="rowData.tag" class="active-projects-tag">
+            {{ rowData.tag }}
+          </span>
+        </td>
+
+        <td class="active-projects-grid-col-data-border" *ngIf="columnVisibility.projectStatus">
+          <div class="status-row">
+            <div class="status-pill" [ngClass]="getStatusConfig(rowData.projectStatusId).class">
+              <i class="status-icon" [ngClass]="getStatusConfig(rowData.projectStatusId).class + ' ' + getStatusConfig(rowData.projectStatusId).icon"></i>
+              <span class="status-text" [ngClass]="getStatusConfig(rowData.projectStatusId).class">
+                {{ getStatusConfig(rowData.projectStatusId).text }}
+              </span>
+            </div>
+
+            <button
+              *ngIf="getStatusConfig(rowData.projectStatusId).showView"
+              class="status-view-btn-blue"
+              [ngClass]="getStatusConfig(rowData.projectStatusId).class"
+              (click)="selectedRowData = rowData; onViewPart()">
+              View
+            </button>
+          </div>
+        </td>
+
+        <td class="active-projects-grid-col-data-border" *ngIf="columnVisibility.totalPercentage">
+          <span class="col-completion col-completion-grid-align">
+            <app-progress-bar [percentage]="rowData.totalPercentage" [mode]="'donut'"></app-progress-bar>
+            <span class="active-projects-font-twelve font-semibold">{{ rowData.totalPercentage }}%</span>
+          </span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-font-fourteen" *ngIf="columnVisibility.shouldCostSpend">
+          <span>
+            {{ rowData.shouldCostSpend }}
+          </span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-font-fourteen" *ngIf="columnVisibility.createDate">
+          <span>{{ rowData.createDate | date: 'mediumDate' }}</span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-font-fourteen" *ngIf="columnVisibility.lastModifiedDate">
+          <span>{{ rowData.lastModifiedDate | date: 'mediumDate' }}</span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-font-fourteen" *ngIf="columnVisibility.lastModifiedUser">
+          <span>
+            {{ getUserName(rowData.lastModifiedUserId) }}
+          </span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-font-fourteen" *ngIf="columnVisibility.createdUser">
+          <span>
+            {{ getUserName(rowData.createdUserId) }}
+          </span>
+        </td>
+        <td class="no-border-right" *ngIf="columnVisibility.refresh">
+          <span *ngIf="rowData.projectStatusId !== projectStatusEnum.Costing">
+            <button mat-button (click)="onRefreshIconClick(rowData.projectInfoId)" *ngIf="!loading" class="btn icon-btn flex items-center justify-center refresh-btn">
+              <mat-icon id="{{ rowData.projectInfoId }}">refresh</mat-icon>
+            </button>
+            <span *ngIf="loading && refreshProjectId === rowData.projectInfoId">Refreshing...</span>
+          </span>
+        </td>
+        <td class="active-projects-grid-col-data-border active-projects-menu-button sticky-col sticky-right">
+          <button type="button" pButton pRipple icon="pi pi-ellipsis-h" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="mainMenuButton" (click)="selectedRowData = rowData"></button>
+          <mat-menu #mainMenuButton="matMenu">
+            <ng-container>
+              @for (item of getMenuItems(); track item.id) {
+                @if (item.label === 'Edit' && rowData.projectStatusId !== projectStatusEnum.DataExtractionInprogress && rowData.projectStatusId !== projectStatusEnum.NeedsReview) {
+                  <ng-container *ngTemplateOutlet="menu; context: { item }"></ng-container>
+                } @else if ((item.label === 'Share' || item.label === 'Delete' || item.label === 'Archive') && (rowData?.createdUserId === currentUserId || isAdmin)) {
+                  <ng-container *ngTemplateOutlet="menu; context: { item }"></ng-container>
+                } @else if (item.label === 'Retry' && rowData?.isRefreshRequired) {
+                  <ng-container *ngTemplateOutlet="menu; context: { item }"></ng-container>
+                }
+              }
+            </ng-container>
+          </mat-menu>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns let-frozen="frozen">
+      <tr *ngIf="!frozen && !dataLoading && gridData?.length === 0 && frozenGridData?.length === 0">
+        <td [attr.colspan]="columns.length + 2">No records found</td>
+      </tr>
+      <tr *ngIf="!frozen && dataLoading">
+        <td [attr.colspan]="columns.length + 2">Data is loading...</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-rowData>
+      <tr>
+        <td colspan="12">
+          <p-table [value]="rowData.partDetails" dataKey="partInfoId">
+            <ng-template pTemplate="header">
+              <tr>
+                <th id="partInfoId" class="active-projects-grid-col-header-background" scope="col" [pSortableColumn]="'partInfoId'">
+                  Part #
+                  <p-sortIcon [field]="'partInfoId'"></p-sortIcon>
+                </th>
+                <th id="intPartNumber" class="active-projects-grid-col-header-background" scope="col" [pSortableColumn]="'intPartNumber'">
+                  Part Name
+                  <p-sortIcon [field]="'intPartNumber'"></p-sortIcon>
+                </th>
+                <th id="extraction" class="active-projects-grid-col-header-background" scope="col">% Extraction Completed</th>
+                <th id="timeRemaining" class="active-projects-grid-col-header-background" scope="col">Time Remaining</th>
+                <th id="drawing" class="active-projects-grid-col-header-background" scope="col">Drawing</th>
+                <th id="extractionStatus" class="active-projects-grid-col-header-background" scope="col">Extraction Status</th>
+                <th id="reasonForFailure" class="active-projects-grid-col-header-background" scope="col">Reason For Failure</th>
+                <th id="backgroundCol" class="active-projects-grid-col-header-background" scope="col"></th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td class="active-projects-grid-col-data-border">
+                  {{ item.partInfoId }}
+                </td>
+                <td class="active-projects-grid-col-data-border">
+                  {{ item.intPartNumber }}
+                </td>
+                <td class="active-projects-grid-col-data-border">
+                  <div class="flex-td">
+                    <app-progress-bar [percentage]="item.dataExtractionPercentage" [mode]="'donut'"></app-progress-bar>
+                    <span [innerText]="item.dataExtractionPercentage"></span>
+                    %
+                  </div>
+                </td>
+                <td class="active-projects-grid-col-data-border">
+                  <div class="flex-td">
+                    <app-progress-bar [percentage]="item.dataExtractionTimeRemaining" [mode]="'donut'"></app-progress-bar>
+                    <span [innerText]="item.dataExtractionTimeRemaining"></span>
+                  </div>
+                </td>
+                <td class="active-projects-grid-col-data-border">
+                  {{ item.docName }}
+                </td>
+                <td
+                  class="active-projects-grid-col-data-border"
+                  [style.color]="item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2 ? '#C1272D' : item.dataExtractionStatus === 1 ? '#8D5704' : '#144F37'">
+                  <span
+                    *ngIf="item.partExtractionStatus"
+                    class="part-data-extraction-status"
+                    [innerText]="item.partExtractionStatus"
+                    [style.background-color]="item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2 ? '#FBE8ED' : item.dataExtractionStatus === 1 ? '#FCF5E8' : '#E6F6EA'"></span>
+                </td>
+                <td class="active-projects-grid-col-data-border" [style.color]="'red'">
+                  {{ item.reasonForFailure }}
+                </td>
+                <td class="col-proj-200 active-projects-grid-col-data-border">
+                  <p-fileUpload
+                    mode="basic"
+                    chooseLabel="Choose"
+                    name="File"
+                    *ngIf="item.documentRecordId && (item.dataExtractionStatus === 5 || item.dataExtractionStatus === 2)"
+                    (onSelect)="updateNewDocumentForFailedRecord($event, item.partInfoId, item.documentRecordId, rowData)"
+                    [showUploadButton]="false">
+                    <ng-template pTemplate="content" *ngIf="uploadedPartFilesCount > 0">
+                      <div class="py-3">Upload {{ uploadedPartFilesCount }} Files</div>
+                    </ng-template>
+                  </p-fileUpload>
+                  <button type="button" pButton pRipple icon="pi pi-trash" class="remove-btn" (click)="removeBomClick(item.projectInfoId, item.bomId, item.scenarioId, rowData)"></button>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6">There are no parts in project.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template #menu let-item="item">
+    <button mat-menu-item (click)="item.command()">
+      <i class="{{ item.icon }}"></i>
+      &nbsp;
+      <span>{{ item.label }}</span>
+    </button>
+  </ng-template>
+
+  <p-dialog header="Part Models" [(visible)]="thumbnailDialogVisible" [modal]="true" [style]="{ width: '40vw' }">
+    <div class="thumbnail-grid">
+      <img *ngFor="let thumb of thumbnailList" [src]="'data:image/jpeg;base64,' + thumb.thumbnailImage" class="part-thumbnail-modal" (click)="onPartThumbnailClick(+thumb.partInfoId)" alt="" />
+    </div>
+  </p-dialog>
+
+  <app-project-parts-slider
+    *ngIf="
+      isSliderVisible &&
+      (selectedRowData?.projectStatusId === projectStatusEnum.DataExtractionInprogress ||
+        selectedRowData?.projectStatusId === projectStatusEnum.DataExtractionReprocessing ||
+        selectedRowData?.projectStatusId === projectStatusEnum.NeedsReview)
+    "
+    [rowData]="selectedRowData"
+    [userData]="users"
+    [isAdmin]="isAdmin"
+    [currentUserId]="currentUserId"
+    (close)="isSliderVisible = false"></app-project-parts-slider>
+</div>
+<div class="floating-action-bar flex" *ngIf="showFloatingBar">
+  <div class="floating-action-bar-content flex items-center justify-center gap-2">
+    <span class="selected-count text-sm font-semibold text-black whitespace-nowrap">2 Selected</span>
+    <div class="btn-container flex items-center justify-center">
+      <button type="button" class="btn btn-outline-primary mr-2 flex items-center justify-center gap-1 cursor-pointer m-0" title="Move" (click)="openMoveDialog()">
+        <mat-icon svgIcon="folder-move" class="!w-4 !h-4"></mat-icon>
+        <span>Move</span>
+      </button>
+      <button type="button" class="btn btn-outline-primary mr-2 flex items-center justify-center gap-1 cursor-pointer m-0" title="Archive">
+        <mat-icon svgIcon="archive_blue_icon" class="!w-4 !h-4"></mat-icon>
+        <span>Archive</span>
+      </button>
+      <button type="button" class="btn btn-outline-primary flex items-center justify-center gap-1 cursor-pointer m-0" title="Share">
+        <mat-icon svgIcon="share" class="!w-4 !h-4"></mat-icon>
+        <span>Share</span>
+      </button>
+    </div>
+    <button type="button" class="icon-btn btn m-0 flex items-center justify-center !w-6 !h-6 p-0" aria-label="Close" title="Close">
+      <mat-icon svgIcon="close_icon" class="!w-3 !h-3"></mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Document Viewer</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body" oncontextmenu="return false;">
+  <div class="img-container" #imageViewerContainer>
+    <image-drawing [src]="documentUrl" outputMimeType="'image/jpeg'" (save)="save($event)" (cancel)="close()"></image-drawing>
+  </div>
+</div>

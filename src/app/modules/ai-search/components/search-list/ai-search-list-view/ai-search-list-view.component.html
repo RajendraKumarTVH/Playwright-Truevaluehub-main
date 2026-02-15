@@ -1,0 +1,21 @@
+<div class="ai-search-list-view">
+  <div class="d-flex flex-column h-full">
+    <!-- top header -->
+    <app-ai-search-header (imageUpload)="onImageUploadSearch($event)"></app-ai-search-header>
+
+    <div class="ai-search-body flex overflow-y-auto">
+      <!-- left similarity panel -->
+      <aside class="similarity-panel overflow-y-auto" [class.hidden]="!similaritySearchPart">
+        <app-similarity-search [similaritySearchPart]="similaritySearchPart" [users]="users" (closeSimilaritySearchEvent)="closeSimilaritySearch()"></app-similarity-search>
+      </aside>
+      <main class="list-center overflow-y-auto">
+        <app-grid-view *ngIf="currentViewMode === 'grid'" (openPropertiesEvent)="openProperties($event)" (gotoCostingEvent)="goToCosting($event)"></app-grid-view>
+        <app-table-view *ngIf="currentViewMode === 'table'" (openPropertiesEvent)="openProperties($event)" (gotoCostingEvent)="goToCosting($event)"></app-table-view>
+        <app-column-view *ngIf="currentViewMode === 'column'"></app-column-view>
+
+        <!-- new: chart view -->
+        <app-competitive-analysis-view *ngIf="currentViewMode === 'chart'"></app-competitive-analysis-view>
+      </main>
+    </div>
+  </div>
+</div>

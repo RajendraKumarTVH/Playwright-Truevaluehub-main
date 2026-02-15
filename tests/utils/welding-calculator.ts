@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 import Logger from '../lib/LoggerUtil'
 import { normalizeEfficiency } from './helpers'
-import { CostingConfig } from './costingConfig'
+import { CostingConfig, costingConfig } from './costing-config'
 import { WeldingConfigService } from './weldingConfig'
 import {
 	TotalCycleTimeInput,
@@ -10,7 +10,6 @@ import {
 	ProcessInfoDto,
 	SubProcessInfo
 } from './interfaces'
-import { costingConfig } from './costing-config'
 import {
 	PartComplexity,
 	ProcessType,
@@ -143,7 +142,7 @@ export class WeldingCalculator {
 		this.weldingPreCalc(manufactureInfo, fieldColorsList, manufacturingObj)
 
 		const materialInfo = manufactureInfo.materialInfoList.find(
-			x => x.processId === PrimaryProcessType.SeamWelding
+			(x: any) => x.processId === PrimaryProcessType.SeamWelding
 		)
 		manufactureInfo.netMaterialCost = materialInfo?.netMatCost
 		manufactureInfo.netPartWeight = materialInfo?.netWeight
@@ -153,11 +152,11 @@ export class WeldingCalculator {
 
 		const weldingPartHandlingValues = this._costingConfig
 			.weldingValuesForPartHandling('seamWelding')
-			.find(x => x.toPartWeight >= Number(manufactureInfo.meltingWeight) / 1000)
+			.find((x: any) => x.toPartWeight >= Number(manufactureInfo.meltingWeight) / 1000)
 		const machineValues = this._costingConfig
 			.weldingMachineValuesForSeamWelding()
 			.find(
-				x =>
+				(x: any) =>
 					manufactureInfo.machineMaster.machineDescription.indexOf(x.machine) >=
 					0
 			)
@@ -200,8 +199,8 @@ export class WeldingCalculator {
 		} else {
 			let cycleTime = this.shareService.isValidNumber(
 				Number(manufactureInfo.unloadingTime) +
-					Number(manufactureInfo.cuttingLength) /
-						Number(manufactureInfo.cuttingSpeed)
+				Number(manufactureInfo.cuttingLength) /
+				Number(manufactureInfo.cuttingSpeed)
 			)
 			if (manufactureInfo.cycleTime) {
 				cycleTime = this.shareService.checkDirtyProperty(
@@ -252,7 +251,7 @@ export class WeldingCalculator {
 		if (weldingValues) {
 			manufactureInfo.requiredCurrent =
 				(weldingValues.weldCurrent as Record<number, number>)[
-					Number(materialInfo?.wireDiameter)
+				Number(materialInfo?.wireDiameter)
 				] || 0
 			manufactureInfo.requiredWeldingVoltage = weldingValues.openCircuitVoltage
 			const holdTime = weldingValues?.holdTime / 60 / 0.75
@@ -264,7 +263,7 @@ export class WeldingCalculator {
 
 			const calculatedUnloadingTime =
 				Number(manufactureInfo?.noOfWeldPasses) *
-					(weldingPartHandlingValues?.loading || 0) +
+				(weldingPartHandlingValues?.loading || 0) +
 				(weldingPartHandlingValues?.unloading || 0)
 
 			manufactureInfo.unloadingTime = this.resolveField<number>(
@@ -314,7 +313,7 @@ export class WeldingCalculator {
 			((Number(manufactureInfo.dryCycleTime) / 3600) *
 				Number(manufactureInfo.powerConsumptionKW) *
 				Number(manufactureInfo.electricityUnitCost)) /
-				(Number(manufactureInfo.efficiency || 100) / 100)
+			(Number(manufactureInfo.efficiency || 100) / 100)
 		)
 		logger.info(
 			`weldingCommonCalc Total Power Cost: dryCycleTime: ${Number(manufactureInfo.dryCycleTime) / 3600}, powerConsumptionKW: ${Number(manufactureInfo.powerConsumptionKW)}, electricityUnitCost: ${Number(manufactureInfo.electricityUnitCost)}, efficiency: ${Number(manufactureInfo.efficiency) / 100}= totalPowerCost: ${manufactureInfo.totalPowerCost}`
@@ -396,27 +395,27 @@ export class WeldingCalculator {
 			// stick/arc welding
 			this.weldingMode = 'stickWelding'
 			materialInfo = manufactureInfo.materialInfoList.find(
-				x => x.processId === PrimaryProcessType.StickWelding
+				(x: any) => x.processId === PrimaryProcessType.StickWelding
 			)
 			len = materialInfo?.dimX || 0
 			const partTickness = Number(materialInfo?.partTickness) || 0
 			weldingValues = this._costingConfig
 				.weldingValuesForStickWelding()
-				.find(x => x.ToPartThickness >= partTickness)
+				.find((x: any) => x.ToPartThickness >= partTickness)
 			noOfTackWeld = this._costingConfig.noOfTrackWeld(len)
 		} else if (
 			Number(manufactureInfo.processTypeID) === ProcessType.TigWelding
 		) {
 			this.weldingMode = 'tigWelding'
 			materialInfo = manufactureInfo.materialInfoList.find(
-				x => x.processId === PrimaryProcessType.TigWelding
+				(x: any) => x.processId === PrimaryProcessType.TigWelding
 			)
 			len = materialInfo?.dimX || 0
 			const partTickness = Number(materialInfo?.partTickness) || 0
 			weldingValues = this._costingConfig
 				.tigWeldingValuesForMachineType()
 				.find(
-					x =>
+					(x: any) =>
 						x.id === Number(manufactureInfo.semiAutoOrAuto) &&
 						x.ToPartThickness >= partTickness
 				)
@@ -426,14 +425,14 @@ export class WeldingCalculator {
 		) {
 			this.weldingMode = 'migWelding'
 			materialInfo = manufactureInfo.materialInfoList.find(
-				x => x.processId === PrimaryProcessType.MigWelding
+				(x: any) => x.processId === PrimaryProcessType.MigWelding
 			)
 			len = materialInfo?.dimX || 0
 			const partTickness = Number(materialInfo?.partTickness) || 0
 			weldingValues = this._costingConfig
 				.weldingValuesForMachineType()
 				.find(
-					x =>
+					(x: any) =>
 						x.id === Number(manufactureInfo.semiAutoOrAuto) &&
 						x.ToPartThickness >= Number(partTickness)
 				)
@@ -445,11 +444,11 @@ export class WeldingCalculator {
 
 		const materialType = this._smConfig.mapMaterial(
 			materialInfo?.materialMasterData?.materialType?.materialTypeName ||
-				(materialInfo?.materialDescriptionList &&
+			(materialInfo?.materialDescriptionList &&
 				materialInfo?.materialDescriptionList.length > 0
-					? materialInfo?.materialDescriptionList[0]?.materialTypeName
-					: null) ||
-				manufactureInfo?.materialmasterDatas?.materialTypeName
+				? materialInfo?.materialDescriptionList[0]?.materialTypeName
+				: null) ||
+			manufactureInfo?.materialmasterDatas?.materialTypeName
 		)
 
 		if (
@@ -490,12 +489,12 @@ export class WeldingCalculator {
 						let travelSpeed =
 							manufactureInfo.semiAutoOrAuto === 1
 								? this.shareService.isValidNumber(
-										((weldingData?.TravelSpeed_mm_per_sec ?? 0) / 0.8) *
-											efficiency || 0
-									)
+									((weldingData?.TravelSpeed_mm_per_sec ?? 0) / 0.8) *
+									efficiency || 0
+								)
 								: this.shareService.isValidNumber(
-										(weldingData?.TravelSpeed_mm_per_sec ?? 0) * efficiency || 0
-									)
+									(weldingData?.TravelSpeed_mm_per_sec ?? 0) * efficiency || 0
+								)
 						logger.info(`Travel Speed: ${travelSpeed}`)
 
 						if (!!subProcessInfo.formHeight) {
@@ -532,8 +531,8 @@ export class WeldingCalculator {
 					// totalWeldLength = Length * Places * SideFactor
 					const totalWeldLength = this.shareService.isValidNumber(
 						(subProcessInfo.blankArea || 0) *
-							(subProcessInfo.noOfHoles || 1) *
-							(subProcessInfo.formingForce || 1)
+						(subProcessInfo.noOfHoles || 1) *
+						(subProcessInfo.formingForce || 1)
 					)
 					logger.info(
 						`Total Weld Length: Length=${subProcessInfo.blankArea}, Places=${subProcessInfo.noOfHoles}, Sides=${subProcessInfo.formingForce} → Total=${totalWeldLength}`
@@ -544,7 +543,7 @@ export class WeldingCalculator {
 						if (subProcessInfo.noOfBends > 100) {
 							subProcessInfo.hlFactor = this.shareService.isValidNumber(
 								Math.round(subProcessInfo.noOfBends / 100) *
-									subProcessInfo.noOfHoles
+								subProcessInfo.noOfHoles
 							)
 							logger.info(
 								`HL Factor: ${subProcessInfo.noOfBends} noOfHoles ${subProcessInfo.noOfHoles} hlFactor ${subProcessInfo.hlFactor}`
@@ -563,8 +562,8 @@ export class WeldingCalculator {
 					// weld cycle time
 					subProcessInfo.recommendTonnage = this.shareService.isValidNumber(
 						totalWeldLength / subProcessInfo.formHeight +
-							cycleTimeForIntermediateStops +
-							cycleTimeForTackWeld
+						cycleTimeForIntermediateStops +
+						cycleTimeForTackWeld
 					)
 
 					if (lengthOfCut === 4) {
@@ -574,23 +573,23 @@ export class WeldingCalculator {
 					}
 
 					totalWeldCycleTime += subProcessInfo.recommendTonnage
-					;(manufactureInfo.subProcessFormArray.controls as any[])[
-						i
-					].patchValue({
-						subProcessTypeID: Number(manufactureInfo.processTypeID)
-					})
-					;(manufactureInfo.subProcessFormArray.controls as any[])[
-						i
-					].patchValue({ formPerimeter: subProcessInfo.formPerimeter })
-					;(manufactureInfo.subProcessFormArray.controls as any[])[
-						i
-					].patchValue({ formHeight: subProcessInfo.formHeight })
-					;(manufactureInfo.subProcessFormArray.controls as any[])[
-						i
-					].patchValue({ hlFactor: subProcessInfo.hlFactor })
-					;(manufactureInfo.subProcessFormArray.controls as any[])[
-						i
-					].patchValue({ recommendTonnage: subProcessInfo.recommendTonnage })
+						; (manufactureInfo.subProcessFormArray.controls as any[])[
+							i
+						].patchValue({
+							subProcessTypeID: Number(manufactureInfo.processTypeID)
+						})
+						; (manufactureInfo.subProcessFormArray.controls as any[])[
+							i
+						].patchValue({ formPerimeter: subProcessInfo.formPerimeter })
+						; (manufactureInfo.subProcessFormArray.controls as any[])[
+							i
+						].patchValue({ formHeight: subProcessInfo.formHeight })
+						; (manufactureInfo.subProcessFormArray.controls as any[])[
+							i
+						].patchValue({ hlFactor: subProcessInfo.hlFactor })
+						; (manufactureInfo.subProcessFormArray.controls as any[])[
+							i
+						].patchValue({ recommendTonnage: subProcessInfo.recommendTonnage })
 					subProcessInfo.subProcessTypeID = manufactureInfo.processTypeID
 					if (manufactureInfo.subProcessTypeInfos?.[i]) {
 						manufactureInfo.subProcessTypeInfos[i] = subProcessInfo
@@ -642,12 +641,12 @@ export class WeldingCalculator {
 						let travelSpeed =
 							manufactureInfo.semiAutoOrAuto === 1
 								? this.shareService.isValidNumber(
-										((weldingData?.TravelSpeed_mm_per_sec || 0) / 0.8) *
-											efficiency || 0
-									)
+									((weldingData?.TravelSpeed_mm_per_sec || 0) / 0.8) *
+									efficiency || 0
+								)
 								: this.shareService.isValidNumber(
-										(weldingData?.TravelSpeed_mm_per_sec || 0) * efficiency || 0
-									)
+									(weldingData?.TravelSpeed_mm_per_sec || 0) * efficiency || 0
+								)
 
 						subProcessInfo.formHeight = travelSpeed
 					}
@@ -656,8 +655,8 @@ export class WeldingCalculator {
 					// totalWeldLength = Length * Places * SideFactor
 					const totalWeldLength = this.shareService.isValidNumber(
 						(subProcessInfo.blankArea || 0) *
-							(subProcessInfo.noOfHoles || 1) *
-							(subProcessInfo.formingForce || 1)
+						(subProcessInfo.noOfHoles || 1) *
+						(subProcessInfo.formingForce || 1)
 					)
 
 					const cycleTimeForIntermediateStops = subProcessInfo.formPerimeter * 5
@@ -666,8 +665,8 @@ export class WeldingCalculator {
 					// Calculate subprocess cycle time
 					subProcessInfo.recommendTonnage = this.shareService.isValidNumber(
 						totalWeldLength / (subProcessInfo.formHeight || 12) +
-							cycleTimeForIntermediateStops +
-							cycleTimeForTackWeld
+						cycleTimeForIntermediateStops +
+						cycleTimeForTackWeld
 					)
 
 					totalWeldCycleTime += subProcessInfo.recommendTonnage
@@ -978,7 +977,7 @@ export class WeldingCalculator {
 				const weldingPartHandlingValues = this._costingConfig
 					.weldingValuesForPartHandling('stickWelding')
 					.find(
-						x => x.toPartWeight >= Number(manufactureInfo.netPartWeight) / 1000
+						(x: any) => x.toPartWeight >= Number(manufactureInfo.netPartWeight) / 1000
 					)
 
 				if (
@@ -1006,7 +1005,7 @@ export class WeldingCalculator {
 
 			const weldingCycleTime = this.shareService.isValidNumber(
 				(len / Number(manufactureInfo.travelSpeed)) *
-					Number(manufactureInfo.noOfWeldPasses)
+				Number(manufactureInfo.noOfWeldPasses)
 			)
 			const totalWeldCycleTime =
 				Number(weldingCycleTime) +
@@ -1092,7 +1091,7 @@ export class WeldingCalculator {
 			if (materialInfo?.netWeight) {
 				netWeight =
 					this.shareService.checkDirtyProperty('netWeight', fieldColorsList) &&
-					selectedMaterialInfo
+						selectedMaterialInfo
 						? selectedMaterialInfo?.netWeight
 						: netWeight
 			}
@@ -1118,14 +1117,14 @@ export class WeldingCalculator {
 				wireDiameter =
 					this._costingConfig
 						.weldingValuesForStickWelding()
-						.find(x => x.ToPartThickness >= Number(materialInfo.partTickness))
+						.find((x: any) => x.ToPartThickness >= Number(materialInfo.partTickness))
 						?.WireDiameter || 0
 			} else if (Number(materialInfo.processId) === ProcessType.TigWelding) {
 				wireDiameter =
 					this._costingConfig
 						.tigWeldingValuesForMachineType()
 						.find(
-							x =>
+							(x: any) =>
 								x.id == 3 &&
 								x.ToPartThickness >= Number(materialInfo.partTickness)
 						)?.WireDiameter || 0 // 3 is manual
@@ -1134,7 +1133,7 @@ export class WeldingCalculator {
 					this._costingConfig
 						.weldingValuesForMachineType()
 						.find(
-							x =>
+							(x: any) =>
 								x.id == 3 &&
 								x.ToPartThickness >= Number(materialInfo.partTickness)
 						)?.WireDiameter || 0
@@ -1340,12 +1339,12 @@ export class WeldingCalculator {
 			let travelSpeed =
 				manufactureInfo.semiAutoOrAuto === 1
 					? this.shareService.isValidNumber(
-							((weldingData?.TravelSpeed_mm_per_sec || 0) / 0.8) * efficiency ||
-								0
-						)
+						((weldingData?.TravelSpeed_mm_per_sec || 0) / 0.8) * efficiency ||
+						0
+					)
 					: this.shareService.isValidNumber(
-							(weldingData?.TravelSpeed_mm_per_sec || 0) * efficiency || 0
-						)
+						(weldingData?.TravelSpeed_mm_per_sec || 0) * efficiency || 0
+					)
 
 			if (subProcessInfo.formHeight) {
 				travelSpeed = this.checkFormArrayDirtyField(
@@ -1374,8 +1373,8 @@ export class WeldingCalculator {
 		// totalWeldLength = Length * Places * SideFactor
 		const totalWeldLength = this.shareService.isValidNumber(
 			(subProcessInfo.blankArea || 0) *
-				(subProcessInfo.noOfHoles || 1) *
-				(subProcessInfo.formingForce || 1)
+			(subProcessInfo.noOfHoles || 1) *
+			(subProcessInfo.formingForce || 1)
 		)
 
 		// HL Factor
@@ -1383,7 +1382,7 @@ export class WeldingCalculator {
 			if ((subProcessInfo.noOfBends || 0) > 100) {
 				subProcessInfo.hlFactor = this.shareService.isValidNumber(
 					Math.round((subProcessInfo.noOfBends || 0) / 100) *
-						(subProcessInfo.noOfHoles || 0)
+					(subProcessInfo.noOfHoles || 0)
 				)
 			} else {
 				subProcessInfo.hlFactor = subProcessInfo.noOfHoles
@@ -1396,8 +1395,8 @@ export class WeldingCalculator {
 		// weld cycle time
 		subProcessInfo.recommendTonnage = this.shareService.isValidNumber(
 			totalWeldLength / (subProcessInfo.formHeight || 12) +
-				cycleTimeForIntermediateStops +
-				cycleTimeForTackWeld
+			cycleTimeForIntermediateStops +
+			cycleTimeForTackWeld
 		)
 
 		if (lengthOfCut === 4) {
@@ -1478,8 +1477,8 @@ export class WeldingCalculator {
 
 			manufactureInfo.totalPowerCost = this.shareService.isValidNumber(
 				(curCycleTime / 3600) *
-					Number(manufactureInfo.powerConsumptionKW) *
-					Number(manufactureInfo.electricityUnitCost)
+				Number(manufactureInfo.powerConsumptionKW) *
+				Number(manufactureInfo.electricityUnitCost)
 			)
 			manufactureInfo.totalGasCost = 0
 			logger.info(
@@ -1622,7 +1621,7 @@ export class WeldingCalculator {
 				((Number(manufactureInfo.skilledLaborRatePerHour) +
 					Number(manufactureInfo.machineHourRate)) *
 					(Number(manufactureInfo.setUpTime) / 60)) /
-					manufactureInfo.lotSize
+				manufactureInfo.lotSize
 			)
 			logger.info(
 				`Direct Set Up Cost: skilledLaborRatePerHour: ${manufactureInfo.skilledLaborRatePerHour} machineHourRate: ${manufactureInfo.machineHourRate} setUpTime: ${manufactureInfo.setUpTime} lotSize: ${manufactureInfo.lotSize}`
@@ -1647,7 +1646,7 @@ export class WeldingCalculator {
 		} else {
 			let directLaborCost = this.shareService.isValidNumber(
 				(Number(manufactureInfo.lowSkilledLaborRatePerHour) / 3600) *
-					(curCycleTime * Number(manufactureInfo.noOfLowSkilledLabours))
+				(curCycleTime * Number(manufactureInfo.noOfLowSkilledLabours))
 			)
 			logger.info(
 				`Direct Labor Cost: lowSkilledLaborRatePerHour: ${manufactureInfo.lowSkilledLaborRatePerHour} curCycleTime: ${curCycleTime} noOfLowSkilledLabours: ${manufactureInfo.noOfLowSkilledLabours}`
@@ -1667,24 +1666,24 @@ export class WeldingCalculator {
 		const calculatedInspectionCost =
 			this.weldingMode === 'seamWelding'
 				? this.shareService.isValidNumber(
-						(Number(manufactureInfo.inspectionTime) *
-							Number(manufactureInfo.qaOfInspectorRate)) /
-							(Number(manufactureInfo.lotSize) *
-								(Number(manufactureInfo.samplingRate) / 100))
-					)
+					(Number(manufactureInfo.inspectionTime) *
+						Number(manufactureInfo.qaOfInspectorRate)) /
+					(Number(manufactureInfo.lotSize) *
+						(Number(manufactureInfo.samplingRate) / 100))
+				)
 				: this.shareService.isValidNumber(
-						(((manufactureInfo?.qaOfInspectorRate ?? 0) / 60) *
-							Math.ceil(
-								((manufactureInfo?.samplingRate ?? 0) / 100) *
-									(manufactureInfo?.lotSize ?? 0)
-							) *
-							(manufactureInfo?.inspectionTime ?? 0)) /
-							(manufactureInfo?.lotSize ?? 1)
-					)
+					(((manufactureInfo?.qaOfInspectorRate ?? 0) / 60) *
+						Math.ceil(
+							((manufactureInfo?.samplingRate ?? 0) / 100) *
+							(manufactureInfo?.lotSize ?? 0)
+						) *
+						(manufactureInfo?.inspectionTime ?? 0)) /
+					(manufactureInfo?.lotSize ?? 1)
+				)
 		logger.info(
 			`Inspection Cost: qaOfInspectorRate: ${manufactureInfo.qaOfInspectorRate / 60} ` +
-				`samplingRate: ${manufactureInfo.samplingRate / 100} lotSize: ${manufactureInfo.lotSize} ` +
-				`inspectionTime: ${manufactureInfo.inspectionTime} -> Calculated: ${calculatedInspectionCost}`
+			`samplingRate: ${manufactureInfo.samplingRate / 100} lotSize: ${manufactureInfo.lotSize} ` +
+			`inspectionTime: ${manufactureInfo.inspectionTime} -> Calculated: ${calculatedInspectionCost}`
 		)
 
 		manufactureInfo.inspectionCost = this.resolveField<number>(
@@ -1698,10 +1697,10 @@ export class WeldingCalculator {
 
 		const sum = this.shareService.isValidNumber(
 			Number(manufactureInfo.directMachineCost) +
-				Number(manufactureInfo.directSetUpCost) +
-				Number(manufactureInfo.directLaborCost) +
-				Number(manufactureInfo.inspectionCost) +
-				Number(manufactureInfo.totalPowerCost)
+			Number(manufactureInfo.directSetUpCost) +
+			Number(manufactureInfo.directLaborCost) +
+			Number(manufactureInfo.inspectionCost) +
+			Number(manufactureInfo.totalPowerCost)
 		)
 		logger.info(
 			`Sum: directMachineCost: ${manufactureInfo.directMachineCost} directSetUpCost: ${manufactureInfo.directSetUpCost} directLaborCost: ${manufactureInfo.directLaborCost} inspectionCost: ${manufactureInfo.inspectionCost} totalPowerCost: ${manufactureInfo.totalPowerCost}`
@@ -1716,12 +1715,12 @@ export class WeldingCalculator {
 			let yieldCost =
 				this.weldingMode === 'seamWelding'
 					? this.shareService.isValidNumber(
-							(1 - Number(manufactureInfo.yieldPer) / 100) * sum
-						)
+						(1 - Number(manufactureInfo.yieldPer) / 100) * sum
+					)
 					: this.shareService.isValidNumber(
-							(1 - Number(manufactureInfo.yieldPer) / 100) *
-								(Number(manufactureInfo.netMaterialCost) + sum)
-						)
+						(1 - Number(manufactureInfo.yieldPer) / 100) *
+						(Number(manufactureInfo.netMaterialCost) + sum)
+					)
 			logger.info(
 				`Yield Cost: yieldPer: ${manufactureInfo.yieldPer / 100} sum: ${sum} netMaterialCost: ${manufactureInfo.netMaterialCost}`
 			)
@@ -1753,8 +1752,8 @@ export class WeldingCalculator {
 		manufactureInfo.esgImpactElectricityConsumption =
 			this.shareService.isValidNumber(
 				Number(manufactureInfo?.machineMaster?.totalPowerKW || 0) *
-					Number(manufactureInfo?.machineMaster?.powerUtilization || 0) *
-					Number(manufactureInfo?.laborRates?.[0]?.powerESG || 0)
+				Number(manufactureInfo?.machineMaster?.powerUtilization || 0) *
+				Number(manufactureInfo?.laborRates?.[0]?.powerESG || 0)
 			)
 		logger.info(
 			`ESG Impact Electricity Consumption: machineMaster: ${manufactureInfo?.machineMaster?.totalPowerKW} powerUtilization: ${manufactureInfo?.machineMaster?.powerUtilization} powerESG: ${manufactureInfo?.laborRates?.[0]?.powerESG}`
@@ -1815,7 +1814,7 @@ export class WeldingCalculator {
 			discBrushDia = lookupListDia.discBrush
 			deburringRPM =
 				Number(manufactureInfo?.processTypeID) ===
-				ProcessType.WeldingPreparation
+					ProcessType.WeldingPreparation
 					? lookupListDia.prepRPM
 					: lookupListDia.cleaningRPM
 		}
@@ -1843,9 +1842,9 @@ export class WeldingCalculator {
 
 		let cycleTime = this.shareService.isValidNumber(
 			handlingTime +
-				(2 * (weldingLength + 5) * noOfPasses * 60) /
-					(feedPerREvRough || 1) /
-					(deburringRPM || 1)
+			(2 * (weldingLength + 5) * noOfPasses * 60) /
+			(feedPerREvRough || 1) /
+			(deburringRPM || 1)
 		)
 
 		if (
@@ -1853,8 +1852,8 @@ export class WeldingCalculator {
 		) {
 			cycleTime += this.shareService.isValidNumber(
 				(2 * (weldingLength + 5) * noOfPasses * 60) /
-					(feedPerREvFinal || 1) /
-					(deburringRPM || 1)
+				(feedPerREvFinal || 1) /
+				(deburringRPM || 1)
 			)
 		}
 
@@ -1881,15 +1880,15 @@ export class WeldingCalculator {
 			let directMachineCost = this.shareService.isValidNumber(
 				(Number(manufactureInfo.machineHourRate) *
 					Number(manufactureInfo.cycleTime)) /
-					3600 /
-					efficiency
+				3600 /
+				efficiency
 			)
 			logger.info(
 				`   Direct Machine Cost: ${this.shareService.isValidNumber(
 					(Number(manufactureInfo.machineHourRate) *
 						Number(manufactureInfo.cycleTime)) /
-						3600 /
-						efficiency
+					3600 /
+					efficiency
 				)}`
 			)
 			manufactureInfo.directMachineCost = this.resolveField<number>(
@@ -1913,14 +1912,14 @@ export class WeldingCalculator {
 					Number(manufactureInfo.setUpTime)) /
 					60) *
 					Number(manufactureInfo.lowSkilledLaborRatePerHour)) /
-					efficiency /
-					Number(manufactureInfo.lotSize) +
-					(((Number(manufactureInfo.noOfSkilledLabours) *
-						Number(manufactureInfo.skilledLaborRatePerHour)) /
-						60) *
-						Number(manufactureInfo.setUpTime)) /
-						efficiency /
-						Number(manufactureInfo.lotSize)
+				efficiency /
+				Number(manufactureInfo.lotSize) +
+				(((Number(manufactureInfo.noOfSkilledLabours) *
+					Number(manufactureInfo.skilledLaborRatePerHour)) /
+					60) *
+					Number(manufactureInfo.setUpTime)) /
+				efficiency /
+				Number(manufactureInfo.lotSize)
 			)
 			manufactureInfo.directSetUpCost = this.resolveField<number>(
 				'directSetUpCost',
@@ -1942,13 +1941,13 @@ export class WeldingCalculator {
 				(Number(manufactureInfo.noOfLowSkilledLabours) *
 					Number(manufactureInfo.lowSkilledLaborRatePerHour) *
 					Number(manufactureInfo.cycleTime)) /
-					3600 /
-					efficiency +
-					(Number(manufactureInfo.noOfSkilledLabours) *
-						Number(manufactureInfo.skilledLaborRatePerHour) *
-						Number(manufactureInfo.cycleTime)) /
-						3600 /
-						efficiency
+				3600 /
+				efficiency +
+				(Number(manufactureInfo.noOfSkilledLabours) *
+					Number(manufactureInfo.skilledLaborRatePerHour) *
+					Number(manufactureInfo.cycleTime)) /
+				3600 /
+				efficiency
 			)
 			manufactureInfo.directLaborCost = this.resolveField<number>(
 				'directLaborCost',
@@ -1970,8 +1969,8 @@ export class WeldingCalculator {
 				((manufactureInfo.inspectionTime / 60) *
 					(Number(manufactureInfo.qaOfInspector) || 1) *
 					Number(manufactureInfo.qaOfInspectorRate)) /
-					efficiency /
-					Number(manufactureInfo.lotSize)
+				efficiency /
+				Number(manufactureInfo.lotSize)
 			)
 			logger.info(
 				`Inspection Cost: inspectionTime: ${manufactureInfo.inspectionTime} qaOfInspector: ${manufactureInfo.qaOfInspector} qaOfInspectorRate: ${manufactureInfo.qaOfInspectorRate} efficiency: ${efficiency} lotSize: ${manufactureInfo.lotSize}`
@@ -2081,16 +2080,16 @@ export class WeldingCalculator {
 		const maxWeldElementSize =
 			weldingMaterialDetails.length > 0
 				? Math.max(
-						...weldingMaterialDetails.map((item: any) =>
-							Number(
-								item.coreWeight ??
-									item.weldElementSize ??
-									item.coreHeight ??
-									item.coreWidth ??
-									0
-							)
+					...weldingMaterialDetails.map((item: any) =>
+						Number(
+							item.coreWeight ??
+							item.weldElementSize ??
+							item.coreHeight ??
+							item.coreWidth ??
+							0
 						)
 					)
+				)
 				: 0
 		logger.info(`Max Weld Element Size: ${maxWeldElementSize}`)
 		const weldCrossSectionalArea =
@@ -2106,14 +2105,14 @@ export class WeldingCalculator {
 		let lookupListDia = this._weldingConfig
 			.getDiscBrushDia()
 			?.filter(
-				x =>
+				(x: any) =>
 					x.materialType === materialType &&
 					x.partArea >= weldCrossSectionalArea
 			)?.[0]
 		if (weldCrossSectionalArea > 100001) {
 			lookupListDia = this._weldingConfig
 				.getDiscBrushDia()
-				?.filter(x => x.materialType === materialType)
+				?.filter((x: any) => x.materialType === materialType)
 				?.reverse()?.[0]
 			logger.info(`Lookup List Dia: ${lookupListDia}`)
 		}
@@ -2239,7 +2238,7 @@ export class WeldingCalculator {
 			let directMachineCost = this.shareService.isValidNumber(
 				(Number(manufactureInfo.machineHourRate) *
 					Number(manufactureInfo.cycleTime)) /
-					3600
+				3600
 			)
 			logger.info(
 				`Direct Machine Cost: machineHourRate ${manufactureInfo.machineHourRate}, cycleTime ${manufactureInfo.cycleTime}, directMachineCost ${directMachineCost}`
@@ -2266,7 +2265,7 @@ export class WeldingCalculator {
 				((Number(manufactureInfo.machineHourRate) +
 					Number(manufactureInfo.skilledLaborRatePerHour)) *
 					(Number(manufactureInfo.setUpTime) / 60)) /
-					Number(manufactureInfo.lotSize)
+				Number(manufactureInfo.lotSize)
 			)
 			logger.info(
 				`Direct Set Up Cost: machineHourRate ${manufactureInfo.machineHourRate}, skilledLaborRatePerHour ${manufactureInfo.skilledLaborRatePerHour}, setUpTime ${manufactureInfo.setUpTime}, lotSize ${manufactureInfo.lotSize}, directSetUpCost ${directSetUpCost}`
@@ -2294,7 +2293,7 @@ export class WeldingCalculator {
 				(Number(manufactureInfo.noOfLowSkilledLabours) *
 					Number(manufactureInfo.lowSkilledLaborRatePerHour) *
 					Number(manufactureInfo.cycleTime)) /
-					3600
+				3600
 			)
 			logger.info(
 				`Direct Labor Cost: noOfLowSkilledLabours ${manufactureInfo.noOfLowSkilledLabours}, lowSkilledLaborRatePerHour ${manufactureInfo.lowSkilledLaborRatePerHour}, cycleTime ${manufactureInfo.cycleTime}, directLaborCost ${directLaborCost}`
@@ -2351,10 +2350,10 @@ export class WeldingCalculator {
 				(((manufactureInfo?.qaOfInspectorRate ?? 0) / 60) *
 					Math.ceil(
 						((manufactureInfo?.samplingRate ?? 0) / 100) *
-							(manufactureInfo?.lotSize ?? 0)
+						(manufactureInfo?.lotSize ?? 0)
 					) *
 					(manufactureInfo?.inspectionTime ?? 0)) /
-					(manufactureInfo?.lotSize ?? 1)
+				(manufactureInfo?.lotSize ?? 1)
 			)
 			logger.info(
 				`Inspection Cost: qaOfInspectorRate ${manufactureInfo.qaOfInspectorRate}, samplingRate ${manufactureInfo.samplingRate}, lotSize ${manufactureInfo.lotSize}, inspectionTime ${manufactureInfo.inspectionTime}, inspectionCost ${inspectionCost}`
@@ -2399,13 +2398,13 @@ export class WeldingCalculator {
 		} else {
 			let sum = this.shareService.isValidNumber(
 				Number(manufactureInfo.directMachineCost) +
-					Number(manufactureInfo.directSetUpCost) +
-					Number(manufactureInfo.directLaborCost) +
-					Number(manufactureInfo.inspectionCost)
+				Number(manufactureInfo.directSetUpCost) +
+				Number(manufactureInfo.directLaborCost) +
+				Number(manufactureInfo.inspectionCost)
 			)
 			let yieldCost = this.shareService.isValidNumber(
 				(1 - Number(manufactureInfo.yieldPer) / 100) *
-					(Number(manufactureInfo.netMaterialCost) + sum)
+				(Number(manufactureInfo.netMaterialCost) + sum)
 			)
 			logger.info(
 				`Yield Cost: directMachineCost ${manufactureInfo.directMachineCost}, directSetUpCost ${manufactureInfo.directSetUpCost}, directLaborCost ${manufactureInfo.directLaborCost}, inspectionCost ${manufactureInfo.inspectionCost}, yieldCost ${yieldCost}`
@@ -2423,10 +2422,10 @@ export class WeldingCalculator {
 
 		manufactureInfo.directProcessCost = this.shareService.isValidNumber(
 			Number(manufactureInfo.directLaborCost) +
-				Number(manufactureInfo.directMachineCost) +
-				Number(manufactureInfo.directSetUpCost) +
-				Number(manufactureInfo.inspectionCost) +
-				Number(manufactureInfo.yieldCost)
+			Number(manufactureInfo.directMachineCost) +
+			Number(manufactureInfo.directSetUpCost) +
+			Number(manufactureInfo.inspectionCost) +
+			Number(manufactureInfo.yieldCost)
 		)
 		logger.info(`Direct Process Cost: ${manufactureInfo.directProcessCost}`)
 		return manufactureInfo
@@ -2743,7 +2742,7 @@ export class WeldingCalculator {
 		if (!efficiencyKey) {
 			logger.warn(
 				`⚠️ [Efficiency] Unable to resolve machine type from "${rawMachineType}". ` +
-					`Defaulting to EffeciencyManual.`
+				`Defaulting to EffeciencyManual.`
 			)
 			efficiencyKey = 'EffeciencyManual'
 		}
@@ -2762,17 +2761,17 @@ export class WeldingCalculator {
 		if (!positionRow) {
 			logger.warn(
 				`⚠️ [Efficiency] Weld position "${weldPosition}" not found in config. ` +
-					`Defaulting efficiency to 75%.`
+				`Defaulting efficiency to 75%.`
 			)
 			return 75
 		}
 
 		logger.info(
 			`🧪 [Efficiency] Matched config row → ` +
-				`Position="${positionRow.name}", ` +
-				`Auto=${positionRow.EffeciencyAuto}, ` +
-				`Manual=${positionRow.EffeciencyManual}, ` +
-				`SemiAuto=${positionRow.EffeciencySemiAuto}`
+			`Position="${positionRow.name}", ` +
+			`Auto=${positionRow.EffeciencyAuto}, ` +
+			`Manual=${positionRow.EffeciencyManual}, ` +
+			`SemiAuto=${positionRow.EffeciencySemiAuto}`
 		)
 
 		// -------------------------------
@@ -2791,7 +2790,7 @@ export class WeldingCalculator {
 
 		logger.info(
 			`✅ [Efficiency] Final resolved efficiency = ${efficiency}% ` +
-				`(Key="${String(efficiencyKey)}", Position="${positionRow.name}")`
+			`(Key="${String(efficiencyKey)}", Position="${positionRow.name}")`
 		)
 
 		return efficiency
@@ -2924,9 +2923,9 @@ export function calculateSubProcessCycleTime(
 		const travelSpeed = sp.formHeight
 			? Number(sp.formHeight)
 			: (getWeldingData('Default', sp.shoulderWidth)?.TravelSpeed_mm_per_sec ??
-					1) *
-				efficiency *
-				(semiAutoOrAuto ? 1 / 0.8 : 1)
+				1) *
+			efficiency *
+			(semiAutoOrAuto ? 1 / 0.8 : 1)
 		logger.info(`Travel Speed : ${travelSpeed.toFixed(4)} mm/sec`)
 		const stops = (sp.formPerimeter || 0) * 5
 		logger.info(`Stops : ${stops.toFixed(4)} sec`)
@@ -3295,8 +3294,8 @@ export async function getTotalCostByType(
 ): Promise<number> {
 	const cells = page.locator(
 		"//table[@aria-describedby='packagingTable']" +
-			`//tr[.//td[normalize-space()='${type}']]` +
-			"//td[contains(@class,'cdk-column-cost')]"
+		`//tr[.//td[normalize-space()='${type}']]` +
+		"//td[contains(@class,'cdk-column-cost')]"
 	)
 
 	const count = await cells.count()

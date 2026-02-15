@@ -1,0 +1,25 @@
+.product-info-container {
+  display: flex;
+  flex-flow: row;
+  background: #f3f7ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.product-info {
+  flex: 2;
+  padding: 10px;
+}
+
+.product-info-header {
+  font-weight: 600;
+}
+
+.product-info-seperator {
+  border-left: 1px solid #e2e2e2;
+  flex: 1;
+}
+
+.product-info-content {
+  padding-top: 15px;
+}

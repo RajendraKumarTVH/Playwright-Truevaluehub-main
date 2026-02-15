@@ -1,0 +1,17 @@
+<div class="pageContainer">
+  <!-- <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" id="sidenav" opened [class.menu-open]="isMenuOpen"
+      [class.menu-close]="!isMenuOpen">
+      <mat-list>
+        <mat-list-item *ngFor="let link of navLinks;" [routerLink]="link.link" routerLinkActive="is-active"
+          [ngClass]="'nav-bar-home'">
+          <mat-icon mat-list-icon [svgIcon]="link.icon"></mat-icon>
+          <div mat-line *ngIf="isMenuOpen">{{link.label}}</div>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content [ngStyle]="{'margin-left.px': contentMargin}"> -->
+  <router-outlet></router-outlet>
+  <!-- </mat-sidenav-content>
+  </mat-sidenav-container> -->
+</div>

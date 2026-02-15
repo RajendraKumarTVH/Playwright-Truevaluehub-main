@@ -1,0 +1,312 @@
+<ng-container [formGroup]="formGroup">
+  <div class="card mt-3">
+    <div class="card-header">Part Details</div>
+    <div class="card-body">
+      <div class="row mt-2">
+        <div class="col-4">
+          <label class="form-label no-wrap">Type of Cable:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'typeOfCable'"></app-field-comment>
+          <select class="form-control" formControlName="typeOfCable" (change)="onTypeOfCableChange($event)">
+            <option value="" selected>----Select Type of Cable -----</option>
+            <option value="1">Solid Core</option>
+            <option value="2">Multiconductor</option>
+            <option value="3">Shielded twisted pair</option>
+            <option value="4">Unshelded Twisted Pair</option>
+            <option value="5">CoAxial</option>
+            <option value="6">Thermal/Braided Shelded</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Type of Conductor:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'typeOfConductor'"></app-field-comment>
+          <select class="form-control" formControlName="typeOfConductor" [appDisableControl]="!compVals.isTypeOfConductorsEnabled">
+            <option value="" selected>---Type of Conductor----</option>
+            <option *ngFor="let material of compVals.nonFerrousMaterialList" value="{{ material.materialMasterId }}">
+              {{ material.materialDescription }}
+            </option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Total length of the cable (mm):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'totalCableLength'"></app-field-comment>
+          <input type="number" formControlName="totalCableLength" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4" *ngIf="compVals.cableTypes.isSolidCore">
+          <label class="form-label no-wrap">Number of Strands in Conductor:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfCables'"></app-field-comment>
+          <input type="number" formControlName="noOfCables" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4" *ngIf="compVals.cableTypes.isSolidCore">
+          <label class="form-label no-wrap">Dia of Strands :</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'flashVolume'"></app-field-comment>
+          <input type="number" formControlName="flashVolume" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4" *ngIf="compVals.cableTypes.isMulticonductor">
+          <label class="form-label no-wrap">Number of Cables :</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfCables'"></app-field-comment>
+          <input
+            type="number"
+            formControlName="noOfCables"
+            [OnlyNumber]="true"
+            class="form-control"
+            (blur)="showAdditionalInsulatorFields()"
+            min="0"
+            [appDisableControl]="compVals.custom.noOfCableValid ? true : null" />
+        </div>
+
+        <div class="col-4" *ngIf="compVals.cableTypes.isMulticonductor">
+          <label class="form-label no-wrap">No of Cables With Same Dia:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfCablesWithSameDia'"></app-field-comment>
+          <input
+            type="number"
+            formControlName="noOfCablesWithSameDia"
+            [OnlyNumber]="true"
+            class="form-control"
+            (blur)="showAdditionalInsulatorFields()"
+            min="0"
+            [appDisableControl]="compVals.custom.noOfCableSimilarDia" />
+        </div>
+      </div>
+      <ng-container formArrayName="materialPkgs">
+        <ng-container *ngFor="let subarrray of sandForCoreFormArray.controls; let index = index">
+          <div [formGroupName]="index">
+            <div class="row p-t-1">
+              <div class="col-4">
+                <label class="form-label no-wrap">Insulator Similar ID {{ index + 1 }}:</label>
+                <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'coreLength'"></app-field-comment>
+                <input type="number" formControlName="coreLength" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+              </div>
+              <div class="col-4">
+                <label class="form-label no-wrap">Insulator Similar OD {{ index + 1 }}:</label>
+                <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'coreWidth'"></app-field-comment>
+                <input type="number" formControlName="coreWidth" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+              </div>
+              <div class="col-4">
+                <label class="form-label no-wrap">Cable Sheathing Material {{ index + 1 }} :</label>
+                <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'coreHeight'"></app-field-comment>
+                <select class="form-control" formControlName="coreHeight" (change)="setCableSheathingMaterial($event, index)" [attr.disabled]="subarrray.get('coreHeight').value > 0 ? true : null">
+                  <option value="" selected>---Cable Sheathing Material----</option>
+                  <option *ngFor="let group of compVals.plasticMaterialList" value="{{ group.materialMasterId }}">
+                    {{ group.materialDescription }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label class="form-label no-wrap">Main Insulator ID</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'mainInsulatorID'"></app-field-comment>
+          <input type="number" formControlName="mainInsulatorID" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Main Insulator OD:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'mainInsulatorOD'"></app-field-comment>
+          <input type="number" formControlName="mainInsulatorOD" [OnlyNumber]="true" class="form-control" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap">Main Cable Sheathing Material :</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'mainCableSheathingMaterial'"></app-field-comment>
+          <select class="form-control" formControlName="mainCableSheathingMaterial" (change)="setCableSheathingMaterial($event, 0, true)" [appDisableControl]="f.mainCableSheathingMaterial.value > 0">
+            <option value="">---Sheathing Material ----</option>
+            <option *ngFor="let group of compVals.plasticMaterialList" value="{{ group.materialMasterId }}">
+              {{ group.materialDescription }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Material Cost Details</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 mt-2">
+          <label class="form-label no-wrap">
+            Part Projected/Surface Area
+            {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^2)' : '(mm^2)' }}
+            :
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partProjectArea'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.partProjectArea.errors,
+              'input-valid': f.partProjectArea.valid,
+            }"
+            class="form-control"
+            placeholder="Enter Area"
+            [OnlyNumber]="true"
+            formControlName="partProjectArea"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 mt-2 position-relative">
+          <label class="form-label no-wrap">
+            Part Volume
+            {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^3)' : '(mm^3)' }}
+            :
+          </label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+          <input type="number" class="form-control" [OnlyNumber]="true" placeholder="Enter Volume" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-2">
+          <label class="form-label no-wrap">Material Price($/Kg):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'matPrice'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.matPrice.errors,
+              'input-valid': f.matPrice.valid,
+            }"
+            class="form-control"
+            [OnlyNumber]="true"
+            formControlName="matPrice"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 mt-2">
+          <label class="form-label no-wrap">Scrap Price($/Kg):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapPrice'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.scrapPrice.errors,
+              'input-valid': f.scrapPrice.valid,
+            }"
+            formControlName="scrapPrice"
+            [OnlyNumber]="true"
+            class="form-control"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="col-4 mt-2">
+          <label class="form-label no-wrap">Density (g/cc):</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'density'"></app-field-comment>
+          <input type="number" formControlName="density" class="form-control" (blur)="calculateCost('density')" [OnlyNumber]="true" min="0" />
+        </div>
+        <div class="col-4 mt-2" *ngIf="compVals.IsMaterialTypeNonFerrous">
+          <label class="form-label no-wrap">Percentage of Reduction %:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'percentageOfReduction'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="percentageOfReduction" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-2" *ngIf="compVals.IsMaterialTypeNonFerrous">
+          <label class="form-label no-wrap">No Of Draw Steps:</label>
+          <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sandRecovery'"></app-field-comment>
+          <input type="number" class="form-control" formControlName="noOfDrawSteps" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+        </div>
+        <div class="col-4 mt-2">
+          <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous && compVals.cableTypes.isMulticonductor">Number Of Wire:</label>
+          <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous && compVals.cableTypes.isSolidCore">Number of Strands in Conductor:</label>
+          <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Total No.Of Cables:</label>
+          <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfCavities'"></app-field-comment>
+          <input
+            type="number"
+            [ngClass]="{
+              'input-mandatory': f.noOfCavities.errors,
+              'input-valid': f.noOfCavities.valid,
+            }"
+            class="form-control"
+            formControlName="noOfCavities"
+            [OnlyNumber]="true"
+            (blur)="calculateCost()"
+            min="0" />
+        </div>
+        <div class="row" *ngIf="compVals.cableTypes.isMulticonductor">
+          <div class="col-4 mt-2 form-group">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Final Length of Wire (mm):</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop Length/Part(mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sheetLength'"></app-field-comment>
+            <input type="number" formControlName="sheetLength" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4" *ngIf="!compVals.IsMaterialTypeNonFerrous"></div>
+          <div class="col-4 mt-2" *ngIf="compVals.IsMaterialTypeNonFerrous">
+            <label class="form-label no-wrap">Envelope Dia (mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partInnerDiameter'"></app-field-comment>
+            <input type="number" formControlName="partInnerDiameter" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Initial Diameter:</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop ID(mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partOuterDiameter'"></app-field-comment>
+            <input type="number" formControlName="partOuterDiameter" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Initial Draw Length:</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop OD(mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockLength'"></app-field-comment>
+            <input type="number" formControlName="stockLength" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+        </div>
+        <div class="row" *ngIf="compVals.cableTypes.isSolidCore">
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Final Length of Wire (mm):</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop OD:</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sheetLength'"></app-field-comment>
+            <input type="number" formControlName="sheetLength" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Initial Diameter:</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop ID(mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partOuterDiameter'"></app-field-comment>
+            <input type="number" formControlName="partOuterDiameter" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Envelope Dia(mm):</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Part Projected area(mm^2)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partInnerDiameter'"></app-field-comment>
+            <input type="number" formControlName="partInnerDiameter" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2" *ngIf="compVals.IsMaterialTypeNonFerrous">
+            <label class="form-label no-wrap">Max. plating thick/Part(mm)</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'pouringWeight'"></app-field-comment>
+            <input type="number" formControlName="pouringWeight" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+          <div class="col-4 mt-2">
+            <div class="form-group">
+              <label class="form-label no-wrap">Net Weight(g):</label>
+              <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+              <input type="number" class="form-control" formControlName="netWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+            </div>
+          </div>
+          <div class="col-4 mt-2">
+            <label class="form-label no-wrap" *ngIf="compVals.IsMaterialTypeNonFerrous">Initial Draw Length:</label>
+            <label class="form-label no-wrap" *ngIf="!compVals.IsMaterialTypeNonFerrous">Envelop Length/Part(mm):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockLength'"></app-field-comment>
+            <input type="number" formControlName="stockLength" class="form-control" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+          </div>
+        </div>
+        <div class="col-4 mt-2">
+          <div class="form-group">
+            <label class="form-label no-wrap">Total Weight(g):</label>
+            <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sandRecovery'"></app-field-comment>
+            <input type="number" class="form-control" formControlName="totalPouringWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+          </div>
+        </div>
+        <div class="col-4 mt-2">
+          <div class="form-group">
+            <label class="form-label no-wrap">Gross weight/Part(g):</label>
+            <input type="number" class="form-control" readonly="readonly" formControlName="grossWeight" />
+          </div>
+        </div>
+        <div class="col-4 mt-2">
+          <div class="form-group">
+            <label class="form-label no-wrap">Gross Material Cost/Part($):</label>
+            <input type="number" class="form-control" readonly="readonly" formControlName="grossMaterialCost" />
+          </div>
+        </div>
+        <div class="col-4 mt-2 offset-8">
+          <div class="form-group">
+            <label class="form-label no-wrap">Net Material Cost ($):</label>
+            <input type="number" class="form-control" formControlName="netMaterialCost" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

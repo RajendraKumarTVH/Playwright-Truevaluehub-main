@@ -1,0 +1,353 @@
+// New Header style START
+.app-l-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f0f5ff;
+  padding: 8px 24px;
+
+  .app-l-logo {
+    flex-shrink: 0;
+    margin-right: 16px;
+
+    .logo-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.5;
+      font-family: var(--body-font);
+    }
+
+    .logo {
+      max-height: 40px;
+      max-width: 250px;
+      object-fit: contain;
+      object-position: left;
+    }
+  }
+
+  .header-search-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    position: relative;
+    color: #6c6c6d;
+    margin-right: 20px;
+
+    .search-icon {
+      position: absolute;
+      width: 0.875rem;
+      height: 100%;
+      left: 16px;
+    }
+
+    .form-control {
+      padding: 7px 16px 7px 42px;
+      height: 34px;
+      border: 1px solid #e2e2e2;
+      border-radius: 6px;
+      line-height: 1.5;
+      font-size: 0.875rem;
+      background: #fafafa;
+      font-family: var(--body-font);
+      min-width: 336px;
+
+      @media (max-width: 1200px) {
+        min-width: auto;
+      }
+    }
+  }
+
+  .app-l-header-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-notification {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-right: 16px;
+
+    .info-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+
+      mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .header-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .profile-image {
+      width: 32px;
+      height: 32px;
+      position: relative;
+
+      .userprofile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    button {
+      height: 40px;
+      display: flex;
+      color: #000000;
+      align-items: center;
+    }
+
+    .app-l-profile-name {
+      display: flex;
+      align-items: center;
+
+      .user-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        font-family: var(--body-font);
+
+        &.text-truncate {
+          max-width: 100px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .mat-mdc-menu-panel.profile-dropdown {
+  border-radius: 6px;
+  box-shadow:
+    0 2px 4px -1px #0003,
+    0 4px 5px #00000024,
+    0 1px 10px #0000001f;
+
+  .mat-mdc-menu-content {
+    padding: 12px 0;
+
+    .mat-mdc-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      height: auto;
+      line-height: 1.5;
+      min-height: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-family: var(--body-font);
+      transition: background-color ease 0.2s;
+
+      &:hover {
+        background-color: #ecf2fe;
+      }
+
+      i {
+        width: 16px;
+      }
+    }
+  }
+
+  /* Other custom styles */
+}
+
+// .mat-icon {
+//   height: 33px;
+// }
+
+.logo-side-nav-icon {
+  display: flex;
+  align-items: center;
+  width: 10%;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: transparent;
+  border: 1px solid #6b7083;
+}
+
+:host ::ng-deep .mat-slide-toggle-bar {
+  height: 17px;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: 85px;
+  padding: 10px 16px;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background: #3f83f9;
+}
+
+.menu {
+  a {
+    line-height: 20px;
+  }
+
+  a.active {
+    // color: var(--bs-link-hover-color);
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.profileName {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+img.userprofile {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+button.input-group-append {
+  border: none;
+}
+
+.tool-bar-section {
+  justify-content: space-between;
+}
+
+.formSearchWrapper {
+  vertical-align: text-bottom;
+  display: inline-block;
+
+  .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+  }
+
+  .has-search .form-control {
+    padding-left: 2.375rem;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .searhWrapper {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .searhWrapper i.fa-search {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    color: #888888;
+  }
+
+  button#settingButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    border-left: 1px solid #ccc;
+    border-radius: 0;
+    color: #888;
+    height: 40px;
+    font-size: 18px;
+    outline: none;
+  }
+
+  .description {
+    height: 40px;
+    border-radius: 10px;
+  }
+}
+
+.search-icon {
+  cursor: pointer;
+}
+
+.user-group {
+  display: flex;
+
+  .info-icon {
+    padding-right: 1em;
+    padding-top: 8px;
+    margin-top: 30px;
+    display: flex;
+    cursor: pointer;
+    float: right;
+  }
+}
+
+.logo {
+  width: 100%;
+}
+
+.profile {
+  padding-top: 2em;
+
+  .profile-image {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.mat-menu-item {
+  line-height: 30px;
+
+  button {
+    height: 30px;
+  }
+}
+
+.text-truncate {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon-gap {
+  margin-right: 8px;
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+.notification-btn {
+  &:hover {
+    border: 1px solid var(--badge-border);
+    background: var(--icon-btn-hover);
+  }
+  &:focus-visible,
+  &:active,
+  &:focus {
+    background: var(--icon-btn-hover);
+    border: 1px solid var(--badge-border);
+  }
+  .notif-status-dot {
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    z-index: 1;
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--stock-red-text);
+  }
+}

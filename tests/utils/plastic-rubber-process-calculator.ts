@@ -3,6 +3,9 @@ import { ProcessInfoDto } from './interfaces';
 import { isValidNumber } from './helpers';
 import { PartComplexity } from './constants';
 import { PlasticRubberConfig } from './plastic-rubber-config';
+import Logger from '../lib/LoggerUtil';
+
+const logger = Logger;
 
 export class PlasticRubberProcessCalculator {
 
@@ -20,32 +23,36 @@ export class PlasticRubberProcessCalculator {
         manufactureInfo.rawmaterialCost = materialInfo?.netMatCost || 0;
         manufactureInfo.projArea = materialInfo?.runnerProjectedArea || 0;
         manufactureInfo.partProjArea = materialInfo?.partProjectedArea || 0;
-
         manufactureInfo.shotSize = manufactureInfo.machineMaster?.shotSize || 0;
+        logger.info("Shot Size: " + manufactureInfo.density + " " + manufactureInfo.noOfInsert + " " + manufactureInfo.grossWeight + " " + manufactureInfo.wallAverageThickness + " " + manufactureInfo.noOfCavities + " " + manufactureInfo.netMaterialCost + " " + manufactureInfo.netPartWeight + " " + manufactureInfo.rawmaterialCost + " " + manufactureInfo.projArea + " " + manufactureInfo.partProjArea + " " + manufactureInfo.shotSize);
 
         // Bed Size
         manufactureInfo.recBedSize =
             manufactureInfo.platenSizeLength && manufactureInfo.platenSizeWidth
                 ? Math.round(manufactureInfo.platenSizeLength) + ' x ' + Math.round(manufactureInfo.platenSizeWidth)
                 : '';
+        logger.info("Bed Size: " + manufactureInfo.recBedSize);
         manufactureInfo.selectedBedSize =
             manufactureInfo.machineMaster?.platenLengthmm && manufactureInfo.machineMaster?.platenWidthmm
                 ? manufactureInfo.machineMaster?.platenLengthmm + ' x ' + manufactureInfo.machineMaster?.platenWidthmm
                 : '';
-
+        logger.info("Selected Bed Size: " + manufactureInfo.selectedBedSize);
         // Injection Fill Time
         const injecRate = isValidNumber((Number(manufactureInfo?.machineMaster?.injectionRate) * Number(manufactureInfo.density)) / 1000);
+        logger.info("Injection Rate: " + injecRate);
         const shotweight = isValidNumber(manufactureInfo.grossWeight * manufactureInfo.noOfCavities);
+        logger.info("Shot Weight: " + shotweight);
         const materialInjectionFillTime = isValidNumber(shotweight / Number(injecRate));
+        logger.info("Material Injection Fill Time: " + materialInjectionFillTime);
         manufactureInfo.materialInjectionFillTime = materialInjectionFillTime;
-
+        logger.info("Material Injection Fill Time: " + manufactureInfo.materialInjectionFillTime);
         // Cooling Time
         if (!manufactureInfo.iscoolingTimeDirty) {
             let coolingTime = isValidNumber(
                 (Math.pow(Number(manufactureInfo.wallAverageThickness), 2) / (2 * 3.141592654) / Number(manufactureInfo.thermalDiffusivity)) *
                 Math.log((4 / 3.141592654) * ((Number(manufactureInfo.meltTemp) - Number(manufactureInfo.mouldTemp)) / (Number(manufactureInfo.ejecTemp) - Number(manufactureInfo.mouldTemp))))
             );
-
+            logger.info("Cooling Time: " + manufactureInfo.wallAverageThickness + " " + manufactureInfo.thermalDiffusivity + " " + manufactureInfo.meltTemp + " " + manufactureInfo.mouldTemp + " " + manufactureInfo.ejecTemp + " " + coolingTime);
             if (manufactureInfo?.wallAverageThickness < 5) {
                 coolingTime = isValidNumber(1 * Number(coolingTime));
             } else if (manufactureInfo?.wallAverageThickness >= 5 && manufactureInfo?.wallAverageThickness <= 10) {
@@ -56,13 +63,14 @@ export class PlasticRubberProcessCalculator {
                 coolingTime = isValidNumber(0.42 * Number(coolingTime));
             }
             manufactureInfo.coolingTime = coolingTime;
+            logger.info("Cooling Time: " + manufactureInfo.coolingTime);
         }
 
         // Insert Placement
         if (!manufactureInfo.isInsertsPlacementDirty) {
             manufactureInfo.insertsPlacement = isValidNumber(2.5 * manufactureInfo.noOfInsert);
         }
-
+        logger.info("Inserts Placement: " + manufactureInfo.insertsPlacement);
         // Part Ejection
         if (!manufactureInfo.isPartEjectionDirty) {
             let partEjection =
@@ -71,7 +79,7 @@ export class PlasticRubberProcessCalculator {
                         manufactureInfo?.partComplexity == PartComplexity.High ? 8 : 0;
             manufactureInfo.partEjection = isValidNumber(partEjection);
         }
-
+        logger.info("Part Ejection: " + manufactureInfo.partEjection);
         // Side Core Mechanisms
         if (!manufactureInfo.isSideCoreMechanismsDirty) {
             let sideCoreMechanisms =
@@ -80,11 +88,12 @@ export class PlasticRubberProcessCalculator {
                         manufactureInfo?.partComplexity == PartComplexity.High ? 8 : 0;
             manufactureInfo.sideCoreMechanisms = sideCoreMechanisms;
         }
-
+        logger.info("Side Core Mechanisms: " + manufactureInfo.sideCoreMechanisms);
         // Others
         if (!manufactureInfo.isOthersDirty) {
             manufactureInfo.others = isValidNumber(manufactureInfo.others);
         }
+        logger.info("Others: " + manufactureInfo.others);
 
         // Pack & Hold Time
         const packAndHoldTime =
@@ -97,11 +106,12 @@ export class PlasticRubberProcessCalculator {
         if (!manufactureInfo.isinjectionTimeDirty) {
             manufactureInfo.injectionTime = isValidNumber(Number(manufactureInfo.packAndHoldTime) + Number(manufactureInfo.materialInjectionFillTime));
         }
-
+        logger.info("Injection Time: " + manufactureInfo.injectionTime);
         // Dry Cycle Time
         if (!manufactureInfo.isDryCycleTimeDirty) {
             manufactureInfo.dryCycleTime = isValidNumber(manufactureInfo.dryCycleTime);
         }
+        logger.info("Dry Cycle Time: " + manufactureInfo.dryCycleTime);
 
         // Total Time
         if (!manufactureInfo.isTotalTimeDirty) {
@@ -115,26 +125,28 @@ export class PlasticRubberProcessCalculator {
                 Number(manufactureInfo.dryCycleTime)
             );
         }
-
+        logger.info("Total Time: " + manufactureInfo.totalTime);
         // Cycle Time
         if (!manufactureInfo.iscycleTimeDirty) {
+            const totalPerShot =
+                Number(manufactureInfo.insertsPlacement) +
+                Number(manufactureInfo.sideCoreMechanisms) +
+                Number(manufactureInfo.injectionTime) +
+                Number(manufactureInfo.partEjection) +
+                Number(manufactureInfo.others) +
+                Number(manufactureInfo.coolingTime) +
+                Number(manufactureInfo.dryCycleTime);
+
             manufactureInfo.cycleTime = isValidNumber(
-                (Number(manufactureInfo.insertsPlacement) +
-                    Number(manufactureInfo.sideCoreMechanisms) +
-                    Number(manufactureInfo.injectionTime) +
-                    Number(manufactureInfo.partEjection) +
-                    Number(manufactureInfo.others) +
-                    Number(manufactureInfo.coolingTime) +
-                    Number(manufactureInfo.dryCycleTime)) /
-                (manufactureInfo.noOfCavities || 1)
+                totalPerShot / (manufactureInfo.noOfCavities || 1)
             );
         }
-
+        logger.info("Cycle Time: " + manufactureInfo.insertsPlacement + " + " + manufactureInfo.cycleTime);
         // Direct Machine Cost
         if (!manufactureInfo.isdirectMachineCostDirty) {
-            manufactureInfo.directMachineCost = isValidNumber((Number(manufactureInfo.machineHourRate) / 3600) * manufactureInfo.cycleTime * manufactureInfo.efficiency);
+            manufactureInfo.directMachineCost = isValidNumber(((Number(manufactureInfo.machineHourRate) / 3600) * manufactureInfo.cycleTime) / manufactureInfo.efficiency);
         }
-
+        logger.info("Direct Machine Cost: " + manufactureInfo.machineHourRate + " / 3600 * " + manufactureInfo.cycleTime + " / " + manufactureInfo.efficiency);
         // Setup Time
         if (!manufactureInfo.issetUpTimeDirty && !manufactureInfo.setUpTime) {
             manufactureInfo.setUpTime = 60;
@@ -142,7 +154,6 @@ export class PlasticRubberProcessCalculator {
 
         // Low Skilled Labors
         if (!manufactureInfo.isNoOfLowSkilledLaboursDirty && manufactureInfo.noOfLowSkilledLabours == null) {
-            // Logic not fully clear in source, usually defaults or comes from object. Using input or 0.
             manufactureInfo.noOfLowSkilledLabours = isValidNumber(manufactureInfo.noOfLowSkilledLabours);
         }
         manufactureInfo.lowSkilledLaborRatePerHour = isValidNumber(manufactureInfo.lowSkilledLaborRatePerHour);
@@ -154,19 +165,23 @@ export class PlasticRubberProcessCalculator {
                 (Number(manufactureInfo.noOfSkilledLabours) * manufactureInfo.cycleTime * (Number(manufactureInfo.skilledLaborRatePerHour) / 3600)) / manufactureInfo?.efficiency
             );
         }
-
+        logger.info("Direct Labor Cost: " + manufactureInfo.noOfLowSkilledLabours + " * " + manufactureInfo.cycleTime + " * " + manufactureInfo.lowSkilledLaborRatePerHour + " / 3600 / " + manufactureInfo.efficiency + " + " + manufactureInfo.noOfSkilledLabours + " * " + manufactureInfo.cycleTime + " * " + manufactureInfo.skilledLaborRatePerHour + " / 3600 / " + manufactureInfo.efficiency);
         // Inspection Cost
         if (!manufactureInfo.isinspectionCostDirty) {
-            manufactureInfo.inspectionCost = isValidNumber(Number(manufactureInfo.samplingRate / 100) * ((Number(manufactureInfo.inspectionTime) * Number(manufactureInfo.qaOfInspectorRate)) / 3600));
+            manufactureInfo.inspectionCost = isValidNumber(
+                (Number(manufactureInfo.qaOfInspectorRate) * 1 * Number(manufactureInfo.inspectionTime) * (Number(manufactureInfo.samplingRate) / 100)) / 100 / 60 / Number(manufactureInfo.efficiency)
+            );
         }
-
+        logger.info("Inspection Cost: " + manufactureInfo.qaOfInspectorRate + " * " + manufactureInfo.inspectionTime + " * " + manufactureInfo.samplingRate + " / 100 / 60 / " + manufactureInfo.efficiency);
         // Direct Setup Cost
         if (!manufactureInfo.isdirectSetUpCostDirty) {
             manufactureInfo.directSetUpCost = isValidNumber(
-                ((Number(manufactureInfo.lowSkilledLaborRatePerHour) + Number(manufactureInfo.machineHourRate)) * (Number(manufactureInfo.setUpTime) / 60)) / manufactureInfo.lotSize
+                (Number(manufactureInfo.setUpTime) / 60 / Number(manufactureInfo.efficiency) / Number(manufactureInfo.lotSize)) *
+                (Number(manufactureInfo.lowSkilledLaborRatePerHour) * Number(manufactureInfo.noOfLowSkilledLabours) +
+                    Number(manufactureInfo.skilledLaborRatePerHour) * Number(manufactureInfo.noOfSkilledLabours))
             );
         }
-
+        logger.info("Direct Setup Cost: " + manufactureInfo.setUpTime + " / 60 / " + manufactureInfo.efficiency + " / " + manufactureInfo.lotSize + " * " + manufactureInfo.lowSkilledLaborRatePerHour + " * " + manufactureInfo.noOfLowSkilledLabours + " + " + manufactureInfo.skilledLaborRatePerHour + " * " + manufactureInfo.noOfSkilledLabours);
         // Yield Cost
         if (!manufactureInfo.isyieldCostDirty) {
             const sum = isValidNumber(
@@ -175,10 +190,10 @@ export class PlasticRubberProcessCalculator {
             manufactureInfo.netMaterialCost = materialInfo?.netMatCost || 0;
             manufactureInfo.yieldCost = isValidNumber(
                 (1 - Number(manufactureInfo.yieldPer) / 100) *
-                (Number(manufactureInfo.netMaterialCost) - (Number(manufactureInfo.netPartWeight) * Number(manufactureInfo.materialInfo?.scrapPrice || 0)) / 1000 + sum)
+                (Number(manufactureInfo.netMaterialCost) - (Number(manufactureInfo.netPartWeight) * Number(materialInfo?.scrapPrice || 0)) / 1000 + sum)
             );
         }
-
+        logger.info("Yield Cost: " + manufactureInfo.yieldCost + " * " + manufactureInfo.yieldPer + " / 100 * " + manufactureInfo.netMaterialCost + " - " + manufactureInfo.netPartWeight + " * " + materialInfo?.scrapPrice + " / 1000 + ");
         // Power ESG / Total Power Cost calculation
         const powerESG = manufactureInfo.laborRates?.length > 0 ? manufactureInfo.laborRates[0].powerESG : (manufactureInfo.laborRates?.powerESG || 0);
         manufactureInfo.esgImpactElectricityConsumption = isValidNumber(
@@ -186,7 +201,7 @@ export class PlasticRubberProcessCalculator {
             Number(manufactureInfo?.machineMaster?.powerUtilization || 0) *
             Number(powerESG || 0)
         );
-
+        logger.info("Power ESG: " + manufactureInfo.esgImpactElectricityConsumption + " * " + manufactureInfo?.machineMaster?.totalPowerKW + " * " + manufactureInfo?.machineMaster?.powerUtilization + " * " + powerESG);
         // Process Cost
         const processCost = isValidNumber(
             Number(manufactureInfo.directLaborCost) +
@@ -195,14 +210,15 @@ export class PlasticRubberProcessCalculator {
             Number(manufactureInfo.inspectionCost) +
             Number(manufactureInfo.yieldCost)
         );
-
+        logger.info("Process Cost: " + processCost + " * " + manufactureInfo.directLaborCost + " + " + manufactureInfo.directMachineCost + " + " + manufactureInfo.directSetUpCost + " + " + manufactureInfo.inspectionCost + " + " + manufactureInfo.yieldCost);
         manufactureInfo.directTooling = isValidNumber(
             (Number(manufactureInfo.directLaborCost) + Number(manufactureInfo.directMachineCost) + Number(manufactureInfo.directSetUpCost)) * 0.01
         );
+        logger.info("Direct Tooling: " + manufactureInfo.directTooling + " * " + manufactureInfo.directLaborCost + " + " + manufactureInfo.directMachineCost + " + " + manufactureInfo.directSetUpCost);
         manufactureInfo.directProcessCost = processCost;
         manufactureInfo.conversionCost = processCost;
         manufactureInfo.partCost = manufactureInfo.rawmaterialCost + manufactureInfo.conversionCost;
-
+        logger.info("Part Cost: " + manufactureInfo.partCost + " * " + manufactureInfo.rawmaterialCost + " + " + manufactureInfo.conversionCost);
         return manufactureInfo;
     }
 

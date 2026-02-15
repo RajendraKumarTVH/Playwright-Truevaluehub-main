@@ -1,0 +1,24 @@
+ng-container {
+  background: #5e5c5c;
+
+  .container {
+    width: 80%;
+    overflow: auto;
+    padding: 1em;
+    margin: auto;
+    padding-bottom: 0px !important;
+  }
+}
+
+mat-card {
+  margin-top: 20px;
+  margin-left: 12px;
+  float: left;
+  width: 28%;
+  height: 150px;
+}
+
+h4 {
+  margin-left: 12px;
+  margin-bottom: 0px;
+}

@@ -1,0 +1,63 @@
+<div class="container-fluid flex flex-col h-full competitive-analysis bg-white">
+  <div class="page-header flex p-1 pt-3 w-full">
+    <h2 class="mb-0 text-base font-semibold">Competitive Analysis</h2>
+
+    <!-- Uncomment below code for breadcrumb -->
+    <!-- <div class="flex items-center gap-0 breadcrumb-wrap">
+      <a href="/analytics/simulation" class="text-xs text-black underline link">Best Region to Source</a>
+      <mat-icon class="play-icon !size-2 mx-[6px] shrink-0" svgIcon="play-filled-icon"></mat-icon>
+      <p class="mb-0 text-xs text-black">New Analysis</p>
+    </div> -->
+  </div>
+  <div class="tab-container flex form-group flex-col flex-1 px-1 pt-10">
+    <mat-tab-group class="flex-1">
+      <mat-tab label="New">
+        <div class="flex flex-col content-wrap mt-3">
+          <div class="content-section container-fluid form-container flex flex-col p-3 gap-3">
+            <div class="flex form-header items-center gap-1">
+              <h3 class="form-title font-semibold text-sm mb-0">New Analysis</h3>
+              <!-- Uncomment for edit action -->
+              <button class="text-xs border-none bg-transparent edit-btn p-0 m-0 shadow-none h-6 w-5">
+                <mat-icon class="text-sm shrink-0" svgIcon="editpen_icon"></mat-icon>
+              </button>
+            </div>
+            <app-competitive-analysis-form></app-competitive-analysis-form>
+            <!-- Best Region Graph section -->
+            <div class="best-region-graph-section">
+              <div>
+                <h4 class="font-semibold text-sm mb-2">Best Region Graph</h4>
+                <div class="graph-container m-0">
+                  <img src="assets/images/Competetive-Analysis-Graph.png" alt="Best Region Graph" class="w-full h-auto" />
+                </div>
+              </div>
+              <div class="graph-footer flex gap-4 !mt-4">
+                <div class="flex flex-col stock-value stock-up !p-4 w-full items-center">
+                  <div class="text-xs label">Current Opportunity/Unit ($)</div>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-base font-semibold value">$45.23</span>
+                    <span class="text-xs value">+15.3%</span>
+                  </div>
+                </div>
+                <div class="flex flex-col stock-value stock-up !p-4 w-full items-center">
+                  <div class="text-xs label">Annual Opportunity ($)</div>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-base font-semibold value">$4,500.50</span>
+                  </div>
+                </div>
+                <div class="flex flex-col stock-value stock-down !p-4 w-full items-center">
+                  <div class="text-xs label">Annual Opportunity ($)</div>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-base font-semibold value">$4,500.50</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Saved">
+        <app-saved-analysis></app-saved-analysis>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

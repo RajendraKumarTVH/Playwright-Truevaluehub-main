@@ -1,14 +1,5 @@
-/**
- * Costing Configuration Data for Playwright Tests
- * Static data extracted from Angular CostingConfig service
- */
-
 import { ProcessType } from './constants';
 
-/**
- * CostingConfig class - provides static configuration data
- * for welding, machining, and other manufacturing processes
- */
 export class CostingConfig {
 
     // ==================== WELD TYPES ====================
@@ -50,7 +41,7 @@ export class CostingConfig {
             { processTypeId: ProcessType.SeamWelding, yieldPercentage: { 1: 97, 2: 95, 3: 93 }, samplingRate: { 1: 4, 2: 6, 3: 8 } },
             { processTypeId: ProcessType.MigWelding, yieldPercentage: { 1: 97, 2: 95, 3: 93 }, samplingRate: { 1: 5, 2: 8, 3: 10 } },
             { processTypeId: ProcessType.StickWelding, yieldPercentage: { 1: 97, 2: 95, 3: 93 }, samplingRate: { 1: 5, 2: 8, 3: 10 } },
-            { processTypeId: ProcessType.FrictionWelding, yieldPercentage: { 1: 97, 2: 95, 3: 93 }, samplingRate: { 1: 4, 2: 6, 3: 8 } }
+            // { processTypeId: ProcessType.FrictionWelding, yieldPercentage: { 1: 97, 2: 95, 3: 93 }, samplingRate: { 1: 4, 2: 6, 3: 8 } }
         ];
         return vals.find((x) => x.processTypeId === processTypeId)?.[percentageType]?.[partComplexity] || vals[4]?.[percentageType]?.[partComplexity];
     }
@@ -319,7 +310,68 @@ export class CostingConfig {
             { materialType: 'Steel', partArea: 0, discBrush: 6, prepRPM: 3500, cleaningRPM: 3500 }
         ];
     }
+
+    // ==================== MANUFACTURING DATA ====================
+    machineTypeManufacturingData() {
+        return [
+            { id: 1, Handlingtime: 5, DirectLabour: 0.33, BourdanRate: 125 },
+            { id: 2, Handlingtime: 7, DirectLabour: 0.5, BourdanRate: 115 },
+            { id: 3, Handlingtime: 10, DirectLabour: 1, BourdanRate: 100 }
+        ];
+    }
+
+    partComplexityValues() {
+        return [
+            { id: 1, ShapeFactor: 6 },
+            { id: 2, ShapeFactor: 8 },
+            { id: 3, ShapeFactor: 10 }
+        ];
+    }
+
+    coreMakingMachingType() {
+        return [
+            { id: 1, fromWeight: 0, toWeight: 20, fromVolume: 0, toVolume: 100, type: 2 },
+            { id: 2, fromWeight: 0, toWeight: 20, fromVolume: 100.01, toVolume: 10000000, type: 1 },
+            { id: 3, fromWeight: 20.01, toWeight: 200000000, fromVolume: 0, toVolume: 100, type: 1 },
+            { id: 4, fromWeight: 20.01, toWeight: 200000000, fromVolume: 100.01, toVolume: 10000000, type: 1 }
+        ];
+    }
+
+    manipulatorType() {
+        return [
+            { id: 1, fromWeight: 0, toWeight: 4000, type: 1 },
+            { id: 2, fromWeight: 4000.01, toWeight: 15000, type: 2 },
+            { id: 3, fromWeight: 15000.01, toWeight: 10000000000, type: 3 }
+        ];
+    }
+
+    loadingUnloadingTime(weight: number): number {
+        const data = [
+            { id: 1, fromWeight: 0, toWeight: 5, time: 5 },
+            { id: 2, fromWeight: 5.01, toWeight: 10, time: 7 },
+            { id: 3, fromWeight: 10.01, toWeight: 50, time: 10 },
+            { id: 4, fromWeight: 50.01, toWeight: 100, time: 15 },
+            { id: 5, fromWeight: 100.01, toWeight: 500, time: 20 },
+            { id: 6, fromWeight: 500.01, toWeight: 1000, time: 30 },
+            { id: 7, fromWeight: 1000.01, toWeight: 10000000, time: 60 }
+        ];
+        return data.find((x) => x.fromWeight <= weight && x.toWeight >= weight)?.time || 5;
+    }
+
+    moldLoadingTime(moldLength: number): number {
+        const data = [
+            { moldLength: 800, loadingTime: 120 },
+            { moldLength: 1200, loadingTime: 150 },
+            { moldLength: 2000, loadingTime: 180 },
+            { moldLength: 2500, loadingTime: 210 },
+            { moldLength: 3000, loadingTime: 240 },
+            { moldLength: 4000, loadingTime: 300 },
+            { moldLength: 10000000, loadingTime: 360 }
+        ];
+        return data.find((x) => x.moldLength >= moldLength)?.loadingTime || 360;
+    }
 }
+
 
 // Export singleton instance
 export const costingConfig = new CostingConfig();

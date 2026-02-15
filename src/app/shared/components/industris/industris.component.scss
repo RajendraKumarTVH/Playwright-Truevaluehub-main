@@ -1,0 +1,13 @@
+.move-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: inherit;
+  justify-content: center;
+
+  button {
+    width: 8em;
+    height: 2.5em;
+    text-align: center;
+    color: gray;
+  }
+}

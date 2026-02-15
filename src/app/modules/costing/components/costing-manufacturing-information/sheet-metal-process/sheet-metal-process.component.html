@@ -1,0 +1,423 @@
+<div [formGroup]="formGroup">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header">Cycle Time Details</div>
+      <div class="card-body" *ngIf="parameters.processFlag.IsProcessTubeLaser">
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">
+                {{ parameters.isEnableUnitConversion ? 'Length Of Cut (' + parameters.conversionValue + ')' : ' Length Of Cut (mm)' }}
+              </span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_Length_Of_Cut_External')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'lengthOfCut'"></app-field-comment>
+            <input type="number" formControlName="lengthOfCut" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No of Starts (Piercings)</span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfStartsPierce'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfStartsPierce.errors,
+                'input-valid': f.noOfStartsPierce.valid,
+                'input-overridden': f.noOfStartsPierce.dirty && f.noOfStartsPierce.touched,
+              }"
+              formControlName="noOfStartsPierce"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span>
+                {{ parameters.isEnableUnitConversion ? 'Cutting speed(' + parameters.conversionValue + '/min)' : 'Cutting speed(mm/min)' }}
+              </span>
+              <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span>
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.cuttingSpeed.errors,
+                'input-valid': f.cuttingSpeed.valid,
+                'input-overridden': f.cuttingSpeed.dirty && f.cuttingSpeed.touched,
+              }"
+              formControlName="cuttingSpeed"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Rapid Traverse Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_Length_Of_Cut_External')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'coolingTime'"></app-field-comment>
+            <input type="number" formControlName="coolingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Piercing Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'soakingTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.soakingTime.errors,
+                'input-valid': f.soakingTime.valid,
+                'input-overridden': f.soakingTime.dirty && f.soakingTime.touched,
+              }"
+              formControlName="soakingTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span>Cutting Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'cuttingTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.cuttingTime.errors,
+                'input-valid': f.cuttingTime.valid,
+                'input-overridden': f.cuttingTime.dirty && f.cuttingTime.touched,
+              }"
+              formControlName="cuttingTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" *ngIf="parameters.processFlag.IsProcessTubeBendingMetal">
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No's of Bend Angle &lt;45°</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfStartsPierce'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfStartsPierce.errors,
+                'input-valid': f.noOfStartsPierce.valid,
+                'input-overridden': f.noOfStartsPierce.dirty && f.noOfStartsPierce.touched,
+              }"
+              formControlName="noOfStartsPierce"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No's of Bend Angle 45&lt;90°</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfHitsRequired'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfHitsRequired.errors,
+                'input-valid': f.noOfHitsRequired.valid,
+                'input-overridden': f.noOfHitsRequired.dirty && f.noOfHitsRequired.touched,
+              }"
+              formControlName="noOfHitsRequired"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No's of Bend Angle 90&lt;135°</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfHoles'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfHoles.errors,
+                'input-valid': f.noOfHoles.valid,
+                'input-overridden': f.noOfHoles.dirty && f.noOfHoles.touched,
+              }"
+              formControlName="noOfHoles"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">No's of Bend Angle 135&lt;180°</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noofStroke'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noofStroke.errors,
+                'input-valid': f.noofStroke.valid,
+                'input-overridden': f.noofStroke.dirty && f.noofStroke.touched,
+              }"
+              formControlName="noofStroke"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Number of Profile bend</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfCore'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfCore.errors,
+                'input-valid': f.noOfCore.valid,
+                'input-overridden': f.noOfCore.dirty && f.noOfCore.touched,
+              }"
+              formControlName="noOfCore"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Total No. of Bends</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'noOfbends'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.noOfbends.errors,
+                'input-valid': f.noOfbends.valid,
+                'input-overridden': f.noOfbends.dirty && f.noOfbends.touched,
+              }"
+              formControlName="noOfbends"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">
+                {{ parameters.isEnableUnitConversion ? 'Clamp Stroke (' + parameters.conversionValue + ')' : ' Clamp Stroke (mm)' }}
+              </span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_Length_Of_Cut_External')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'lengthOfCut'"></app-field-comment>
+            <input type="number" formControlName="lengthOfCut" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span>
+                {{ parameters.isEnableUnitConversion ? 'Clamp Speed(' + parameters.conversionValue + '/sec)' : 'Clamp Speed(mm/sec)' }}
+              </span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <!-- <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'cuttingSpeed'"></app-field-comment> -->
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.cuttingSpeed.errors,
+                'input-valid': f.cuttingSpeed.valid,
+                'input-overridden': f.cuttingSpeed.dirty && f.cuttingSpeed.touched,
+              }"
+              formControlName="cuttingSpeed"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Clamping & Declamping Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'cuttingTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.cuttingTime.errors,
+                'input-valid': f.cuttingTime.valid,
+                'input-overridden': f.cuttingTime.dirty && f.cuttingTime.touched,
+              }"
+              formControlName="cuttingTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Tube Positioning Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'pouringTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.pouringTime.errors,
+                'input-valid': f.pouringTime.valid,
+                'input-overridden': f.pouringTime.dirty && f.pouringTime.touched,
+              }"
+              formControlName="pouringTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Tube Rotation Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'rotationTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.rotationTime.errors,
+                'input-valid': f.rotationTime.valid,
+                'input-overridden': f.rotationTime.dirty && f.rotationTime.touched,
+              }"
+              formControlName="rotationTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Profile bend Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'injectionTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.injectionTime.errors,
+                'input-valid': f.injectionTime.valid,
+                'input-overridden': f.injectionTime.dirty && f.injectionTime.touched,
+              }"
+              formControlName="injectionTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Tube Bending Time (Sec)</span>
+              <!-- <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Sheetmetal_No_Of_Starts')">
+                <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+              </span> -->
+            </label>
+            <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="parameters.formIdentifier" [fieldIdentifier]="'processTime'"></app-field-comment>
+            <input
+              type="number"
+              [ngClass]="{
+                'input-mandatory': f.processTime.errors,
+                'input-valid': f.processTime.valid,
+                'input-overridden': f.processTime.dirty && f.processTime.touched,
+              }"
+              formControlName="processTime"
+              (blur)="calculateCost()"
+              class="form-control"
+              [OnlyNumber]="true"
+              min="0" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #popContent>
+      <div [innerHTML]="popupName"></div>
+      <div class="div-img" *ngIf="popupUrl">
+        <img alt="" class="img-class" [src]="popupUrl" />
+      </div>
+    </ng-template>
+  </div>
+</div>

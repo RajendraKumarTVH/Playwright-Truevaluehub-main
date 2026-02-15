@@ -1,0 +1,350 @@
+<div class="container-fluid pt-12">
+  <div class="row">
+    <div class="col-md-6 mt-1">
+      <div class="card mb-2">
+        <div class="page-header text-center">Playbook</div>
+        <div class="card-body search-card">
+          <form autocomplete="off" [formGroup]="playBookForm" class="max-w-screen-md mx-auto">
+            <div class="form-group row mb-3 app-c-form--mandatory">
+              <label for="playbookName" class="col-sm-2 col-form-label">
+                Playbook
+                <span class="clsred">*</span>
+              </label>
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Playbook Title"
+                  formControlName="playBookTitle"
+                  [ngClass]="{
+                    'input-failure': !form.playBookTitle.errors,
+                    'input-success': form.playBookTitle.errors,
+                  }"
+                  [matAutocomplete]="playbookNameAuto"
+                  (change)="setTitleWithoutSelection($event)" />
+                <mat-autocomplete autoActiveFirstOption #playbookNameAuto="matAutocomplete" [displayWith]="displayPlaybookName" (optionSelected)="playbookNameOnChange($event)">
+                  <mat-option *ngFor="let playbook of filteredPlaybook$ | async" [value]="playbook">
+                    {{ playbook?.playbookName }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row mb-3">
+              <label for="projectId" class="col-sm-2 col-form-label">
+                Project
+                <span class="clsred">*</span>
+              </label>
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=" Select Project"
+                  formControlName="projectId"
+                  [matAutocomplete]="projectAuto"
+                  [ngClass]="{
+                    'input-failure': !form.projectId.errors,
+                    'input-success': form.projectId.errors,
+                  }" />
+                <mat-autocomplete autoActiveFirstOption #projectAuto="matAutocomplete" [displayWith]="displayProject" (optionSelected)="projectOptionSelected($event)">
+                  <mat-option *ngFor="let project of filteredProjects$ | async" [value]="project">
+                    {{ project?.projectName }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <label for="partId" class="col-sm-2 col-form-label">
+                Part
+                <span class="clsred">*</span>
+              </label>
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Select Part"
+                  formControlName="partId"
+                  [matAutocomplete]="partAuto"
+                  [ngClass]="{
+                    'input-failure': !form.partId.errors,
+                    'input-success': form.partId.errors,
+                  }" />
+                <mat-autocomplete autoActiveFirstOption #partAuto="matAutocomplete" [displayWith]="displayPartName">
+                  <mat-option *ngFor="let part of filteredParts$ | async" [value]="part">
+                    {{ part?.intPartNumber }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row mb-3">
+              <label for="supplier" class="col-sm-2 col-form-label">Revision Level</label>
+              <div class="col-sm-6">
+                <input type="number" class="form-control no-spin" placeholder="Revision Level" formControlName="revisionLevel" />
+              </div>
+            </div>
+            <div class="form-group row mb-3">
+              <label for="supplier" class="col-sm-2 col-form-label">Supplier</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Select Supplier" [matAutocomplete]="supplierauto" formControlName="supplier" />
+                <mat-autocomplete autoActiveFirstOption #supplierauto="matAutocomplete" [displayWith]="displaySupplier">
+                  <mat-option *ngFor="let supplier of filteredSupplierList$ | async" [value]="supplier">{{ supplier?.vendorName }}</mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+            <div class="form-group flex">
+              <div class="ml-auto text-center flex gap-2">
+                <button type="button" (click)="onSearchClick()" class="btn btn-outline-primary search-btn">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  Search
+                </button>
+                <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!isSaveEnabled">
+                  <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mb-2">
+        <div class="graph-section">
+          <canvas height="700" width="700" baseChart [datasets]="radarChartDatasets" [options]="radarChartOptions" [labels]="radarChartLabels" [type]="'radar'"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="table-card-body data-table rounded-md">
+          <form autocomplete="off" [formGroup]="playBookCostForm" class="table-wrap">
+            <table class="table table-striped" aria-describedby="">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 20%">KEY COST DRIVERS</th>
+                  <th scope="col" style="width: 1%">UNIT OF MEASURE</th>
+                  <th scope="col" style="width: 7%">CURRENT COST VALUE</th>
+                  <th scope="col" style="width: 7%">SHOULD COST VALUE</th>
+                  <th scope="col" style="width: 5%">PERCENTAGE CHANGE (%)</th>
+                  <th scope="col" style="width: 7%">NEW COST VALUE</th>
+                  <th scope="col" style="width: 55%">COMMENTS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="heading-left">Gross Raw Material Weight</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="GrossRawMaterialUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="GrossRawMaterialCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="GrossRawMaterialShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="GrossRawMaterialPercentage" (change)="calculateGrossRawMaterialNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="GrossRawMaterialNewCost" (keyup)="calculateGrossRawMaterialPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="GrossRawMaterialComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Raw Material Price</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="RawMaterialUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="RawMaterialCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="RawMaterialShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="RawMaterialPercentage" (change)="calculateRawMaterialNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="RawMaterialNewCost" (keyup)="calculateRawMaterialPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="RawMaterialComments" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="heading-left">Scrap Recovery Weight</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="ScrapRecoveryWtUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ScrapRecoveryWtCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="ScrapRecoveryWtShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="ScrapRecoveryWtPercentage" (change)="calculateScrapRecoveryWtNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ScrapRecoveryWtNewCost" (keyup)="calculateScrapRecoveryWtPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="ScrapRecoveryWtComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Scrap Recovery Price</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="ScrapRecoveryPriceUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ScrapRecoveryPriceCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="ScrapRecoveryPriceShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="ScrapRecoveryPricePercentage" (change)="calculateScrapRecoveryPriceNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ScrapRecoveryPriceNewCost" (keyup)="calculateScrapRecoveryPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="ScrapRecoveryPriceComments" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="heading-left">Cycle Time</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="CycleTimeUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="CycleTimeCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="CycleTimeShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="CycleTimePercentage" (change)="calculateCycleTimeNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="CycleTimeNewCost" (keyup)="calculateCycleTimePercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="CycleTimeComments" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="heading-left">Machine Hourly Rate</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="MachineRateUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="MachineRateCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="MachineRateShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="MachineRatePercentage" (change)="calculateMachineHourlyRateNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="MachineRateNewCost" (keyup)="calculateMachineRatePercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="MachineRateComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Labor Cost</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="LaborRateUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="LaborRateCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="LaborRateShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="LaborRatePercentage" (change)="calculateLaborCostNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="LaborRateNewCost" (keyup)="calculateLaborRatePercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="LaborRateComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Over Head</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="OverHeadUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="OverHeadCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="OverHeadShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="OverHeadPercentage" (change)="calculateOverHeadNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="OverHeadNewCost" (keyup)="calculateOverHeadPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="OverHeadComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Profit</td>
+                  <td>
+                    <input type="text" class="form-control readonly-textbox text-center" formControlName="ProfitUnitOfMeasure" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ProfitCurrentCost" (keyup)="totalCurrentCostCalculation()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="ProfitShouldCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="ProfitPercentage" (change)="calculateProfitNewCost()" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin" formControlName="ProfitNewCost" (keyup)="calculateProfitPercentage()" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" placeholder="Enter Your Comments" formControlName="ProfitComments" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="heading-left">Total Part Cost</td>
+                  <td></td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" id="currentCost" formControlName="TotalCurrentCost" />
+                  </td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="TotalShouldCost" />
+                  </td>
+                  <td></td>
+                  <td>
+                    <input type="number" class="form-control no-spin readonly-textbox" formControlName="TotalNewCost" />
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

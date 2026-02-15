@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Drawing Viewer</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismissAll()"></button>
+</div>
+<div class="modal-body" oncontextmenu="return false;">
+  <div class="row">
+    <div class="viewer-container col">
+      <div class="example-container" id="example-container" *ngIf="fileName">
+        <div id="structure-panel"></div>
+        <div id="model-viewer" class="model-viewer">
+          <div id="viewer-panel">
+            <div id="side-panel">
+              <div id="model-selector"></div>
+            </div>
+          </div>
+        </div>
+        <div id="properties-panel"></div>
+        <div id="section-panel"></div>
+        <div id="pmi-panel"></div>
+        <!-- <div id="selection-handling-panel"></div> -->
+        <div id="note-panel"></div>
+        <div id="context-menu"></div>
+        <div id="measurements-panel"></div>
+        <!-- <div id="dfm"> -->
+
+        <!-- </div> -->
+        <div class="viewer-container-1" id="viewer-container-1">
+          <div class="example-container-1" id="example-container-1">
+            <div class="tree-view-panel-1" id="tree-view-panel-1">
+              <div class="tree-type-selector-1">
+                <input type="radio" name="treeTypeSelector-1" id="inputRadioFeatures" [checked]="partData?.caller !== 'dfm'" />
+                <label for="inputRadioFeatures">Features</label>
+                <input type="radio" name="treeTypeSelector-1" id="inputRadioDFM" [checked]="partData?.caller === 'dfm'" />
+                <label for="inputRadioDFM">DFM Analysis</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="error-notification"></div>
+        <div id="help-viewer">
+          <div id="help-section">
+            Note: Click
+            <span>"Add Plane" Button in Right Panel</span>
+            to View
+          </div>
+          <div id="help-pmi">
+            Note: Click on
+            <span>Part in Left Panel</span>
+            to View PMI Details
+          </div>
+          <div id="help-dfm">
+            Note: Click on
+            <span>Area/Corner</span>
+            to View Details
+          </div>
+          <div id="help-notes">
+            Note: Right Click on
+            <span>Area/Vertex</span>
+            to Add Note
+          </div>
+          <div id="help-properties">
+            Note: Click on
+            <span>Part/Area/Corner</span>
+            to View Details
+          </div>
+          <div id="help-measurement" class="help-text">Note: Click 1st on a Green dot, then Ctrl + Click on another Green dot to create Measurement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

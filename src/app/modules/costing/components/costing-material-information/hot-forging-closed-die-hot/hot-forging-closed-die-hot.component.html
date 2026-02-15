@@ -1,0 +1,351 @@
+<ng-container [formGroup]="formGroup">
+  <!-- <div class="card mt-3"> -->
+  <!-- <div class="card-header">Material Cost Details</div> -->
+  <!-- <div class="card-header">Part Details</div> -->
+  <!-- <div class="card-body"> -->
+  <div class="row">
+    <!-- <div class="col-4 mt-3 position-relative">
+                    <label class="form-label no-wrap">Volume Purchased (Ton/Contract):</label>
+                    <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'volumePurchased'"></app-field-comment>
+                    <input type="number" class="form-control" [OnlyNumber]="true"
+                        formControlName="volumePurchased" (blur)="calculateCost()" min="0" />
+                </div> -->
+    <!-- <div class="col-4 mt-3">
+                    <label class="form-label no-wrap">
+                        Material Price ($/Kg):</label>
+                    <app-field-comment 
+                        [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'matPrice'"></app-field-comment>
+                    <input type="number"  [ngClass]="{
+                        'input-mandatory': f.matPrice.errors,
+                        'input-valid': f.matPrice.valid
+                      }" class="form-control" [OnlyNumber]="true"
+                        formControlName="matPrice" (blur)="calculateCost()" min="0" />
+                </div> -->
+    <!-- <div class="col-4 mt-3">
+                    <label class="form-label no-wrap">Scrap Price ($/Kg):</label>
+                    <app-field-comment [formIdentifier]="compVals.formIdentifier"
+                        [fieldIdentifier]="'scrapPrice'"></app-field-comment>
+                    <input type="number" [ngClass]="{
+                        'input-mandatory': f.scrapPrice.errors,
+                        'input-valid': f.scrapPrice.valid
+                      }" class="form-control"
+                        placeholder="Enter weight" formControlName="scrapPrice" [OnlyNumber]="true"
+                        (blur)="calculateCost()" min="0" />
+                </div> -->
+    <div class="col-4 position-relative">
+      <label class="form-label has-icon no-wrap">
+        <span class="label-text">Forged Weight (Net) per part (g)</span>
+        <app-info-tooltip [infoId]="'Forging_weight_per_part'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'netWeight'"></app-field-comment>
+      <input
+        type="number"
+        class="form-control"
+        [ngClass]="{
+          'input-mandatory': f.netWeight.errors,
+          'input-valid': f.netWeight.valid,
+        }"
+        placeholder="Enter weight"
+        [OnlyNumber]="true"
+        formControlName="netWeight"
+        (blur)="calculateCost()"
+        min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label has-icon no-wrap">
+        <span class="label-text">
+          Part Projected Area
+          {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^2)' : '(mm^2)' }}
+        </span>
+        <app-info-tooltip [infoId]="'part_projected_area'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'projectedArea'"></app-field-comment>
+      <input
+        type="number"
+        [ngClass]="{
+          'input-mandatory': f.projectedArea.errors,
+          'input-valid': f.projectedArea.valid,
+        }"
+        class="form-control"
+        placeholder="Enter Area"
+        [OnlyNumber]="true"
+        formControlName="projectedArea"
+        (blur)="calculateCost()"
+        min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label has-icon no-wrap">
+        <span class="label-text">
+          Part Volume
+          {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^3)' : '(mm^3)' }}
+          :
+        </span>
+        <app-info-tooltip [infoId]="'Forging_part_volume'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partVolume'"></app-field-comment>
+      <input type="number" class="form-control" placeholder="Enter Volume" [OnlyNumber]="true" formControlName="partVolume" (blur)="calculateCost()" min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Part Length (' + compVals.conversionValue + ')' : 'Part Length (mm)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Forging_part_length'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'length'"></app-field-comment>
+      <input
+        type="number"
+        [ngClass]="{
+          'input-mandatory': f.length.errors,
+          'input-valid': f.length.valid,
+        }"
+        class="form-control"
+        formControlName="length"
+        [OnlyNumber]="true"
+        placeholder="Length"
+        (blur)="calculateCost()"
+        min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Part Width (' + compVals.conversionValue + ')' : 'Part Width (mm)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Part_Width'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'width'"></app-field-comment>
+      <input
+        type="number"
+        [ngClass]="{
+          'input-mandatory': f.width.errors,
+          'input-valid': f.width.valid,
+        }"
+        class="form-control"
+        formControlName="width"
+        placeholder="Width"
+        [OnlyNumber]="true"
+        (blur)="calculateCost()"
+        min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Part Height (' + compVals.conversionValue + ')' : 'Part Height (mm)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Forging_part_height'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'height'"></app-field-comment>
+      <input
+        type="number"
+        [ngClass]="{
+          'input-mandatory': f.height.errors,
+          'input-valid': f.height.valid,
+        }"
+        class="form-control"
+        placeholder="Height"
+        [OnlyNumber]="true"
+        formControlName="height"
+        (blur)="calculateCost()"
+        min="0" />
+    </div>
+    <!-- <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Density of Raw Material(g/cm^3):</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'density'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="density" [OnlyNumber]="true" min="0" (blur)="calculateCost('density')" />
+    </div> -->
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">{{ compVals.isEnableUnitConversion ? 'Stock Length (' + compVals.conversionValue + ')' : 'Stock Length (mm)' }}</span>
+        <app-info-tooltip [infoId]="'Forging_stock_length'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'blockLength'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="blockLength" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+    </div>
+
+    <div class="col-4 position-relative" *ngIf="!compVals.processFlag.IsProcessStockFormRound">
+      <label class="form-label no-wrap">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Stock Width (' + compVals.conversionValue + ')' : 'Stock Width(mm)' }}
+        </span>
+        <!-- <app-info-tooltip [infoId]="''"></app-info-tooltip> -->
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'blockWidth'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="blockWidth" (blur)="calculateCost()" [OnlyNumber]="true" min="0" />
+    </div>
+    <div class="col-4 position-relative" *ngIf="!compVals.processFlag.IsProcessStockFormRound">
+      <label class="form-label no-wrap">{{ compVals.isEnableUnitConversion ? 'Stock Height/ Thickness (' + compVals.conversionValue + ')' : 'Stock Height/ Thickness(mm)' }} :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'blockHeight'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="blockHeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+    </div>
+    <div class="col-4 position-relative" *ngIf="!compVals.processFlag.IsProcessStockFormRound && !compVals.processFlag.IsProcessStockFormRectangleBar">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Stock diameter (' + compVals.conversionValue + ')' : 'Stock diameter (mm)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Forging_Stock_Diameter'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockDiameter'"></app-field-comment>
+      <input type="number" class="form-control" [OnlyNumber]="true" formControlName="stockDiameter" (blur)="calculateCost()" min="0" />
+    </div>
+
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Gross weight/Part(g)</span>
+        <app-info-tooltip [infoId]="'Forging_gross_weight'"></app-info-tooltip>
+      </label>
+      <input type="number" class="form-control" formControlName="grossWeight" readonly="readonly" id="grossWeight" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Material scrap /Part(g)</span>
+        <app-info-tooltip [infoId]="'Forging_material_sscrap_per_part'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scrapWeight'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="scrapWeight" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+    </div>
+    <!-- </div> -->
+    <!-- </div>
+    </div>
+    <div class="col-12 text-left mt-3">
+        <div>
+            <a class=" link-info" href="javascript:void(0)"
+                (click)="compVals.isMaterialDetailsDisplay = !compVals.isMaterialDetailsDisplay" id="_btnMatShow">
+                <i class="bx bx-plus"></i>{{compVals.isMaterialDetailsDisplay ? "Show Less" : "Show More" }}
+            </a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">Material Cost Details</div>
+        <div class="card-body"> -->
+    <!-- <div class="row" *ngIf="compVals.isMaterialDetailsDisplay"> -->
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Scrap Recovery Cost/Part($)</span>
+        <app-info-tooltip [infoId]="'Part_Scrap_Recovery_Cost'"></app-info-tooltip>
+      </label>
+      <input type="number" class="form-control" formControlName="scrapRecCost" readonly="readonly" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Material Utilization Ratio</span>
+        <app-info-tooltip [infoId]="'Forging_material_utilization_ratio'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'utilisation'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="utilisation" [OnlyNumber]="true" (blur)="calculateCost()" min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Perimeter (mm)</span>
+        <app-info-tooltip [infoId]="'Forging_perimeter'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'perimeter'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="perimeter" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Flash Volume {{ compVals.isEnableUnitConversion ? ' (' + compVals.conversionValue + '^3)' : ' (mm^3)' }}</span>
+        <app-info-tooltip [infoId]="'Forging_flash_volume'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'flashVolume'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="flashVolume" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Scale loss mm^3</span>
+        <app-info-tooltip [infoId]="'Forging_scale_loss'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'scaleLoss'"></app-field-comment>
+      <input type="number" class="form-control" readonly="readonly" formControlName="scaleLoss" (blur)="calculateCost()" />
+    </div>
+    <!-- </div> -->
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Material Yield (Utilization)%</span>
+        <app-info-tooltip [infoId]="'Material_Utilisation'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'yeildUtilization'"></app-field-comment>
+      <input type="number" class="form-control" readonly="readonly" formControlName="yeildUtilization" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Cost of Raw Material for Deployed Weight ($ / part)</span>
+        <app-info-tooltip [infoId]="'Forging_cost_of_raw_material_for_deployed_weight'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" class="position-absolute right-top-comment" [fieldIdentifier]="'totalCostOfRawMaterials'"></app-field-comment>
+      <input type="number" class="form-control" readonly="readonly" formControlName="totalCostOfRawMaterials" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          Part Surface Area
+          {{ compVals.isEnableUnitConversion ? '(' + compVals.conversionValue + '^2)' : '(mm^3)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Forging_part_surface_area'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'partSurfaceArea'"></app-field-comment>
+      <input type="number" class="form-control" formControlName="partSurfaceArea" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative" *ngIf="compVals.processFlag.IsProcessStockFormRound || compVals.processFlag.IsProcessStockFormRectangleBar">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">
+          {{ compVals.isEnableUnitConversion ? 'Stock Outer Diameter(' + compVals.conversionValue + ')' : 'Stock Outer Diameter(mm)' }}
+        </span>
+        <app-info-tooltip [infoId]="'Forging_stock_outer_diameter'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockOuterDiameter'"></app-field-comment>
+      <input type="number" class="form-control" [OnlyNumber]="true" formControlName="stockOuterDiameter" (blur)="calculateCost()" min="0" />
+    </div>
+    <div class="col-4 position-relative" *ngIf="!compVals.processFlag.IsProcessStockFormRound && !compVals.processFlag.IsProcessStockFormRectangleBar">
+      <label class="form-label no-wrap has-icon">
+        {{ compVals.isEnableUnitConversion ? 'Stock Inner Diameter(' + compVals.conversionValue + ')' : 'Stock Inner Diameter(mm)' }}
+        :
+      </label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'stockInnerDiameter'"></app-field-comment>
+      <input type="number" class="form-control" [OnlyNumber]="true" formControlName="stockInnerDiameter" (blur)="calculateCost()" min="0" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Cutting Loss Per Part {{ compVals.isEnableUnitConversion ? ' (' + compVals.conversionValue + '^3)' : ' (mm^3)' }}</span>
+        <app-info-tooltip [infoId]="'Forging_cutting_loss_per_part'"></app-info-tooltip>
+      </label>
+      <input type="number" class="form-control" readonly="readonly" formControlName="cuttingLoss" id="cuttingLoss" />
+    </div>
+    <!-- TODO: Commented for COS:1520 - Need to remove Gross Volume from UI for Hot forging closed die Matwerial section, Remove it later-->
+    <!-- <div class="col-4 mt-3">
+                    <label class="form-label no-wrap">Gross Volume
+                        {{
+                        compVals.isEnableUnitConversion
+                        ? " (" + compVals.conversionValue + "^3)"
+                        : " (mm^3)"
+                        }}
+                        :</label>
+                    <input type="number" class="form-control" readonly="readonly" formControlName="grossVolumne" 
+                        id="grossVolumne" />
+                </div> -->
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Material Cost Details</div>
+    <div class="card-body">
+      <div class="col-12">
+        <div class="row p-2">
+          <div class="col-4 mx-auto relative">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text font-medium">Net Material Cost ($)</span>
+              <app-info-tooltip [infoId]="'Forging_net_material_cost'"></app-info-tooltip>
+            </label>
+            <input type="number" class="form-control text-base font-semibold" formControlName="netMaterialCost" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+  <!-- </div> -->
+  <ng-template #popContent>
+    <div [innerHTML]="popupName"></div>
+    <div class="div-img" *ngIf="popupUrl">
+      <img class="img-class" [src]="popupUrl" alt="" />
+    </div>
+  </ng-template>
+</ng-container>

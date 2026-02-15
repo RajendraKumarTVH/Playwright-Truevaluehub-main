@@ -1,0 +1,135 @@
+.toggle-controls {
+  border: solid 1px var(--component-border);
+  max-width: 64px;
+  border-radius: 6px;
+
+  .toggle-control {
+    --toggle-border: transparent;
+
+    width: 50%;
+    height: 26px;
+    border: solid 1px var(--toggle-border);
+    border-radius: 6px;
+    transition: border-color 200ms ease-in-out;
+    color: var(--label-shade);
+
+    &.numeric {
+      padding: 2px;
+    }
+
+    &.graphic {
+      padding: 4px 8px;
+    }
+
+    &.active {
+      --toggle-border: var(--bs-primary);
+      color: var(--bs-primary);
+    }
+
+    .mat-icon {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+
+.waterfall-row {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+
+  &.connect-start {
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 270%;
+      top: 0px;
+      left: var(--connect-left, 0px);
+      background-color: var(--bs-border-color);
+      // background-color: red;
+    }
+  }
+  &.connect-end {
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 270%;
+      bottom: 0px;
+      right: -1px;
+      background-color: var(--bs-border-color);
+      // background-color: blue;
+    }
+  }
+
+  .waterfall-label {
+    width: clamp(130px, 20%, 200px);
+    white-space: nowrap;
+    font-family: var(--bs-font-sans-serif);
+
+    > label {
+      font-size: 0.75rem;
+    }
+
+    .graph-icon,
+    .mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .waterfall-bar-wrapper {
+    flex-grow: 1;
+    min-width: 0px;
+    max-width: 100%;
+    height: 20px;
+
+    .waterfall-bar {
+      height: 1.5rem;
+
+      &.connected {
+        &:after {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 1px;
+          height: 270%;
+          top: 0px;
+          right: 0;
+          background-color: var(--bs-border-color);
+        }
+      }
+
+      &.intermediate {
+        &:last-of-type {
+          .bar-connect {
+            width: 100%;
+
+            &:after {
+              content: '';
+              position: absolute;
+              display: block;
+              width: 1px;
+              height: 270%;
+              top: 0px;
+              right: 0;
+              background-color: var(--bs-border-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.graphical-col {
+  .waterfall-row {
+    .waterfall-bar-wrapper {
+      height: 1rem;
+    }
+  }
+}

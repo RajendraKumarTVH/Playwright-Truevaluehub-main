@@ -1,0 +1,65 @@
+<div class="search-bar-container">
+  <div class="search-bar-fields">
+    <div class="search-field search-field-key">
+      <mat-select placeholder="Select an option" [(ngModel)]="selectedSearchKey" (selectionChange)="onSearchKeyChange()" class="search-bar-overlay">
+        <mat-option *ngFor="let option of searchKeys" [value]="option" class="df-overlay-option">
+          {{ option.label || option.key }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="search-field search-field-type">
+      <mat-select placeholder="Select an option" [(ngModel)]="selectedSearchType">
+        <mat-option *ngFor="let option of searchTypes" [value]="option" class="df-overlay-option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="search-field search-field-value">
+      <!-- Text Input -->
+      <input
+        *ngIf="!selectedSearchKey?.isDropDown && !selectedSearchKey?.isDate"
+        [disabled]="!(selectedSearchKey && selectedSearchType)"
+        type="text"
+        class="supplier-name"
+        name="searchValue"
+        placeholder="Enter search value"
+        (keydown.enter)="onSearchFilterApply()"
+        [(ngModel)]="searchedValue" />
+
+      <!-- Dropdown Input -->
+      <div *ngIf="selectedSearchKey?.isDropDown" class="search-value-dropdown">
+        <div class="col category-dropdown">
+          <input type="text" class="category-input-dropdown" placeholder="--Select--" [matAutocomplete]="dropDownAuto" [(ngModel)]="searchedValue" (input)="filterOptions()" />
+          <mat-icon matSuffix [matAutocomplete]="dropDownAuto">arrow_drop_down</mat-icon>
+          <mat-autocomplete autoActiveFirstOption #dropDownAuto="matAutocomplete" (optionSelected)="ondropDownChange($event)">
+            <mat-option class="category-option" *ngFor="let val of filteredDropDownValues" [value]="val.id" class="df-overlay-option">
+              {{ val.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+      <!-- Date Input with Calendar Icon -->
+      <div *ngIf="selectedSearchKey?.isDate" class="date-input-container" (click)="openDatePicker($event)">
+        <input #dateInput [disabled]="!(selectedSearchKey && selectedSearchType)" type="date" class="supplier-name date-input" name="searchValue" [(ngModel)]="searchedValue" />
+        <mat-icon class="calendar-icon" (click)="openDatePicker($event)">date_range</mat-icon>
+      </div>
+    </div>
+  </div>
+  <button [disabled]="!searchedValue" pButton type="submit" class="btn btn-sm btn-primary ml-2 digital-factory-btn p-button-rounded p-button-text" (click)="onSearchFilterApply()">Apply</button>
+</div>
+<div class="applied-filter-container">
+  <mat-icon class="filter-icon" svgIcon="filter"></mat-icon>
+  <span class="filter-separator"></span>
+  <div *ngIf="appliedFilters?.length === 0" class="filter-placeholder">
+    <span>Apply multiple filters to find results that match your specific criteria.</span>
+  </div>
+  <div *ngIf="appliedFilters?.length > 0" class="filter-values">
+    <span class="filter-list-item" *ngFor="let filter of appliedFilters">
+      {{ filter.searchLabel || filter.searchKey }} {{ filter.searchType }}
+      <strong>{{ filter.searchValue }}</strong>
+      <mat-icon class="remove-filter-icon" (click)="removeFilter(filter)" svgIcon="close_icon"></mat-icon>
+    </span>
+    <span class="clear-all-filters" (click)="onSearchClear()">Clear All</span>
+  </div>
+</div>

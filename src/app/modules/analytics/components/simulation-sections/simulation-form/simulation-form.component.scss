@@ -1,0 +1,146 @@
+:host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.mat-option-container {
+  padding: 0;
+
+  div {
+    padding: 0 16px;
+  }
+}
+
+.bt-spinners {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5%;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #222;
+  border-top-color: grey;
+  animation: 1s spin linear infinite;
+  z-index: 2;
+}
+
+.overlay {
+  position: absolute;
+  left: -16px;
+  top: -16px;
+  right: -16px;
+  bottom: -20px;
+  z-index: 2;
+  width: calc(100% + 32px);
+  height: calc(100% + 36px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+// @keyframes spin {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// @keyframes translateY {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(-60px);
+//   }
+
+//   80% {
+//     transform: translateY(5px);
+//   }
+
+//   100% {
+//     opacity: 1;
+//     transform: translateY(0px);
+//   }
+// }
+
+.button-group {
+  .btn {
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-font-size: 12px;
+    --bs-btn-font-weight: 500;
+
+    min-width: 120px;
+  }
+}
+
+.control-label {
+  margin-bottom: 4px;
+}
+.simulation-form {
+  .form-label {
+    margin-bottom: 4px;
+  }
+
+  .dropdown-wrap {
+    position: relative;
+
+    .dropdown-arrow {
+      top: 50%;
+      z-index: 1;
+      right: 8px;
+      width: 24px;
+      left: auto;
+      position: absolute;
+      padding-left: 8px;
+      color: var(--black);
+      pointer-events: none;
+      height: calc(100% - 3px);
+      transform: translateY(-50%);
+      background-color: var(--bs-white);
+    }
+  }
+  .dirty-button {
+    background-color: var(--bs-white) !important;
+    border-color: var(--primary-shade) !important;
+  }
+}
+::ng-deep .new-analysis-action-menu.mat-mdc-menu-panel {
+  .mat-mdc-menu-content {
+    padding: 4px;
+  }
+  --mat-menu-item-spacing: 8px;
+  --mat-menu-item-hover-state-layer-color: var(--material-table-header-bg);
+  .mat-mdc-menu-item {
+    min-height: 30px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    mat-icon {
+      display: flex;
+      align-items: center;
+      color: var(--bs-black);
+      justify-content: center;
+      svg {
+        width: 12px;
+        height: 12px;
+        color: var(--bs-black);
+      }
+    }
+  }
+  .edit {
+    svg {
+      path {
+        stroke: var(--bs-black);
+      }
+    }
+  }
+  .mat-mdc-menu-item-text {
+    font-size: 0.75rem;
+  }
+}

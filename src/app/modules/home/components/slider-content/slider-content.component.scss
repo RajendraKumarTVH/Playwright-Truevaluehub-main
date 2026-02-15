@@ -1,0 +1,49 @@
+.parts-slider-header {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.parts-slider-label-key {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.parts-slider-label-value {
+  font-weight: 500;
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+}
+
+.parts-slider-grid-section-title {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.parts-slider-scrollable-table {
+  // max-height: 800px;
+  // overflow-y: auto;
+}
+
+.part-data-extraction-status {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 16px;
+  border: 1px solid;
+}
+
+.active-projects-grid-col-header-background {
+  background-color: #f5f6f9 !important;
+  border: 1px solid #f2f2f2 !important;
+}
+
+.active-projects-grid-col-data-border {
+  border: 1px solid #f2f2f2 !important;
+}
+
+::ng-deep .filelabel {
+  color: transparent;
+  width: 0;
+}

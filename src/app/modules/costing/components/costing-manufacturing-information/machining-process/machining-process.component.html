@@ -1,0 +1,953 @@
+<ng-container [formGroup]="formGroup">
+  <div class="row">
+    <div class="col-4">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Tooling Cost/Part (Consumable)($)></span>
+        <app-info-tooltip [infoId]="'Machining_Tooling_Cost_Per_Part'"></app-info-tooltip>
+      </label>
+      <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'directTooling'"></app-field-comment>
+      <input type="number" formControlName="directTooling" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 position-relative">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text">Loading & Unloading Time(sec)</span>
+        <app-info-tooltip [infoId]="'Machining_Loading_Unloading_Time'"></app-info-tooltip>
+      </label>
+      <app-field-comment class="position-absolute right-top-comment" [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'unloadingTime'"></app-field-comment>
+      <input type="number" formControlName="unloadingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 offset-4">
+      <label class="form-label no-wrap has-icon">
+        <span class="label-text font-semibold">Net Process Cost($)</span>
+        <app-info-tooltip [infoId]="'Net_Process_Cost'"></app-info-tooltip>
+      </label>
+      <input type="number" formControlName="directProcessCost" class="form-control text-base font-bold" readonly="readonly" />
+    </div>
+  </div>
+  <div class="col-12 text-end">
+    <a class="link-info" href="javascript:void(0)" (click)="showMachiningOperations = !showMachiningOperations">
+      <i class="bx bx-plus"></i>
+      {{ showMachiningOperations ? 'Hide Operations' : 'Show Operations' }}
+    </a>
+    <a
+      class="link-info ms-3"
+      href="javascript:void(0)"
+      (click)="triggerFunction('deleteMachiningOperation', [-1])"
+      *ngIf="showMachiningOperations && machiningOperationTypeFormArray?.controls.length > 1">
+      <i class="bx bx-plus"></i>
+      Delete All Operations
+    </a>
+  </div>
+  <ng-container formArrayName="machiningOperationType" *ngIf="showMachiningOperations">
+    <hr class="devider" />
+    <ng-container *ngFor="let frm of machiningOperationTypeFormArray.controls; let index = index">
+      <div id="machiningOperationType" [formGroupName]="index">
+        <div class="row mt-3 mb-1">
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">Operation Type</span>
+              <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Operation_Type' : 'Machining_Operation_Type'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'operationTypeId'"></app-field-comment>
+            <select formControlName="operationTypeId" class="form-control" (change)="triggerFunction('operationTypeChange', [$event, index])">
+              <option value="0">-Select Operation Type-</option>
+              <option *ngFor="let option of machiningVals?.operationNameList" [value]="option.id">
+                {{ option.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label class="form-label no-wrap has-icon">
+              <span class="label-text">
+                Operation Name
+                @if (frm.get('featureId')?.value) {
+                  (Set {{ this.featureMap.get(frm.get('featureId')?.value) }})
+                }
+              </span>
+              <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Operation_Name' : 'Machining_Operation_Name'"></app-info-tooltip>
+            </label>
+            <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'operationName'"></app-field-comment>
+            <input type="text" formControlName="operationName" class="form-control" />
+          </div>
+          <div class="col-4 delete-icon flex items-center gap-2 justify-end">
+            <label class="form-label no-wrap">
+              <span class="label-text">Cycle Time: {{ frm.get('cycleTime')?.value }}</span>
+            </label>
+            <a href="javascript:void(0)" class="me-2" (click)="operationVisible[index] = !operationVisible?.[index]" class="w-6 h-6 flex items-center justify-center icon-btn">
+              <mat-icon class="text-black">{{ operationVisible?.[index] ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </a>
+            <a
+              href="javascript:void(0)"
+              *ngIf="machiningOperationTypeFormArray.controls.length > 1"
+              (click)="triggerFunction('deleteMachiningOperation', [index])"
+              class="w-6 h-6 flex items-center justify-center icon-btn"
+              title="Delete Operation">
+              <mat-icon svgIcon="delete_icon" class="text-black !w-4 !h-4"></mat-icon>
+            </a>
+          </div>
+        </div>
+        @if (frm.get('operationTypeId')?.value > 0 && operationVisible?.[index]) {
+          <div class="row">
+            <div
+              class="col-4"
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isDrilling')?.value ||
+                  frm.get('isPeckDrilling')?.value ||
+                  frm.get('isReaming')?.value ||
+                  frm.get('isTapping')?.value ||
+                  frm.get('isKnurling')?.value ||
+                  frm.get('isCircularPocketRoughing')?.value ||
+                  frm.get('isCircularPocketFinishing')?.value ||
+                  frm.get('isThreadMilling')?.value)
+              ">
+              <label class="form-label no-wrap has-icon">
+                @if (frm.get('isDrilling')?.value || frm.get('isPeckDrilling')?.value) {
+                  <span class="label-text">Drill Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Drill_Diameter"></app-info-tooltip>
+                } @else if (frm.get('isThreadMilling')?.value) {
+                  <span class="label-text">Thread Major Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Thread_Major_Diameter"></app-info-tooltip>
+                } @else if (frm.get('isReaming')?.value) {
+                  <span class="label-text">Reamer Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Reamer_Diameter"></app-info-tooltip>
+                } @else if (frm.get('isTapping')?.value) {
+                  <span class="label-text">Tap Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Tap_Diameter"></app-info-tooltip>
+                } @else if (frm.get('isKnurling')?.value) {
+                  <span class="label-text">Knurl Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Knurl_Diameter"></app-info-tooltip>
+                } @else if (frm.get('isCircularPocketRoughing')?.value || frm.get('isCircularPocketFinishing')?.value) {
+                  <span class="label-text">Hole Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                  <app-info-tooltip infoId="Machining_Hole_Diameter"></app-info-tooltip>
+                } @else {
+                  <span class="label-text">Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                }
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'diameterOfDrill'"></app-field-comment>
+              <input type="number" formControlName="diameterOfDrill" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('diameterOfDrill')" />
+            </div>
+
+            <ng-container
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isFacingRoughing')?.value ||
+                  frm.get('isFacingFinishing')?.value ||
+                  frm.get('isTurningODRoughing')?.value ||
+                  frm.get('isTurningODFinishing')?.value ||
+                  frm.get('isTurningIDRoughing')?.value ||
+                  frm.get('isTurningIDFinishing')?.value ||
+                  frm.get('isTaperTurningRoughing')?.value ||
+                  frm.get('isTaperTurningFinishing')?.value ||
+                  frm.get('isCircularBossRoughing')?.value ||
+                  frm.get('isCircularBossFinishing')?.value ||
+                  frm.get('isParting')?.value ||
+                  frm.get('isODGrooving')?.value ||
+                  frm.get('isIdGrooving')?.value ||
+                  frm.get('isFaceGrooving')?.value ||
+                  frm.get('isKnurling')?.value ||
+                  frm.get('isThreadCutting')?.value)
+              ">
+              <div class="col-4">
+                <label class="form-label no-wrap has-icon">
+                  <span class="label-text">
+                    {{ frm.get('isCircularBossRoughing')?.value || frm.get('isCircularBossFinishing')?.value ? 'Initial Boss' : 'Workpiece Initial' }}
+                    Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+                  </span>
+                  <app-info-tooltip
+                    [infoId]="
+                      frm.get('isCircularBossRoughing')?.value || frm.get('isCircularBossFinishing')?.value ? 'Machining_Initial_Boss_Diameter' : 'Machining_Workpiece_Initial_Diameter'
+                    "></app-info-tooltip>
+                </label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'workpieceInitialDia'"></app-field-comment>
+                <input type="number" formControlName="workpieceInitialDia" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('workpieceInitialDia')" />
+              </div>
+
+              <div class="col-4" *ngIf="!frm.get('isKnurling')?.value">
+                <label class="form-label no-wrap has-icon">
+                  @if (frm.get('isCircularBossRoughing')?.value || frm.get('isCircularBossFinishing')?.value) {
+                    <span class="label-text">Final Boss Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                    <app-info-tooltip infoId="Machining_Final_Boss_Diameter"></app-info-tooltip>
+                  } @else {
+                    <span class="label-text">Workpiece Final Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                    <app-info-tooltip infoId="Machining_Workpiece_Final_Diameter"></app-info-tooltip>
+                  }
+                </label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'workpieceFinalDia'"></app-field-comment>
+                <input type="number" formControlName="workpieceFinalDia" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('workpieceFinalDia')" />
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="machiningVals?.MachiningFlags?.isGear">
+              <div class="col-4">
+                <label class="form-label no-wrap">No of Teeth (Nos)</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfTeeth'"></app-field-comment>
+                <input type="number" formControlName="noOfTeeth" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('noOfTeeth')" />
+              </div>
+
+              <div class="col-4" *ngIf="!machiningVals?.MachiningFlags?.isGearBroaching">
+                <label class="form-label no-wrap">Outer Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'outerDiameter'"></app-field-comment>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="outerDiameter" class="form-control" (blur)="calculateCost('outerDiameter')" />
+              </div>
+              <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGearBroaching">
+                <label class="form-label no-wrap">Inner Tip Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'workpieceInnerDia'"></app-field-comment>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="workpieceInnerDia" class="form-control" (blur)="calculateCost('workpieceInnerDia')" />
+              </div>
+
+              <div class="col-4">
+                <label class="form-label no-wrap">Root Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'rootDiameter'"></app-field-comment>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="rootDiameter" (blur)="calculateCost('rootDiameter')" class="form-control" />
+              </div>
+            </ng-container>
+
+            <div
+              class="col-4"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  !(
+                    frm.get('isCircularPocketRoughing')?.value ||
+                    frm.get('isCircularPocketFinishing')?.value ||
+                    frm.get('isCircularBossRoughing')?.value ||
+                    frm.get('isCircularBossFinishing')?.value ||
+                    frm.get('isTrepanning')?.value ||
+                    frm.get('isBoringRoughing')?.value ||
+                    frm.get('isBoringFinishing')?.value ||
+                    frm.get('isVolumetricMillingRoughing')?.value ||
+                    frm.get('isVolumetricMillingFinishing')?.value
+                  )) ||
+                machiningVals?.MachiningFlags?.isBoring ||
+                machiningVals?.MachiningFlags?.isSurfaceGrinding ||
+                machiningVals?.MachiningFlags?.isCylindricalGrinding ||
+                machiningVals?.MachiningFlags?.isCenterlessGrinding ||
+                machiningVals?.MachiningFlags?.isGear
+              ">
+              <label class="form-label no-wrap has-icon">
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+                  @if (frm.get('isLinearPocketRoughing')?.value || frm.get('isLinearPocketFinishing')?.value) {
+                    <span class="label-text">Pocket Length</span>
+                    <app-info-tooltip [infoId]="'Machining_Pocket_Length'"></app-info-tooltip>
+                  } @else if (frm.get('isSlotMillingRoughing')?.value || frm.get('isSlotMillingFinishing')?.value) {
+                    <span class="label-text">Slot Length</span>
+                    <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Slot_Length' : 'Machining_Slot_Length'"></app-info-tooltip>
+                  } @else if (frm.get('isKnurling')?.value) {
+                    <span class="label-text">Length of Knurl</span>
+                    <app-info-tooltip [infoId]="'Machining_Length_of_Knurl'"></app-info-tooltip>
+                  } @else if (frm.get('isThreadMilling')?.value) {
+                    <span class="label-text">Thread Length</span>
+                    <app-info-tooltip [infoId]="'Machining_Thread_Length'"></app-info-tooltip>
+                  } @else {
+                    <span class="label-text">Length of Cut</span>
+                    <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Length_Of_Cut' : 'Machining_Length_of_Cut'"></app-info-tooltip>
+                  }
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isBoring">Length of Bore</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isSurfaceGrinding || machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding">
+                  Length of Grinding
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGear">Module/Teeth Thickness</ng-container>
+                ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'lengthOfCut'"></app-field-comment>
+              <input type="number" formControlName="lengthOfCut" class="form-control" (blur)="calculateCost('lengthOfCut')" />
+            </div>
+
+            <div
+              class="col-4"
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isCircularPocketRoughing')?.value ||
+                  frm.get('isCircularPocketFinishing')?.value ||
+                  frm.get('isTrepanning')?.value ||
+                  frm.get('isBoringRoughing')?.value ||
+                  frm.get('isBoringFinishing')?.value ||
+                  frm.get('isTslot')?.value ||
+                  frm.get('isTslotTnut')?.value)
+              ">
+              <label class="form-label no-wrap has-icon">
+                @if (frm.get('isBoringRoughing')?.value || frm.get('isBoringFinishing')?.value) {
+                  <span class="label-text">Depth of Hole/Bore {{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}</span>
+                  <app-info-tooltip [infoId]="'Machining_Depth_of_Hole_Bore'"></app-info-tooltip>
+                } @else if (frm.get('isTrepanning')?.value) {
+                  <span class="label-text">Dept of Hole {{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}</span>
+                  <app-info-tooltip [infoId]="'Machining_Depth_of_Hole_Bore'"></app-info-tooltip>
+                } @else if (frm.get('isTslotTnut')?.value) {
+                  <span class="label-text">Slot Height {{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}</span>
+                  <app-info-tooltip [infoId]="'Machining_Slot_Height'"></app-info-tooltip>
+                } @else if (frm.get('isTslot')?.value) {
+                  <span class="label-text">Slot Depth {{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}</span>
+                  <app-info-tooltip [infoId]="'Machining_Slot_Depth'"></app-info-tooltip>
+                } @else {
+                  <span class="label-text">Pre Drill Size {{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}</span>
+                  <app-info-tooltip [infoId]="'Machining_Pre_Drill_Size'"></app-info-tooltip>
+                }
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'depthOfDrill'"></app-field-comment>
+              <input type="number" formControlName="depthOfDrill" [OnlyNumber]="true" min="0" (blur)="calculateCost('depthOfDrill')" class="form-control" />
+            </div>
+
+            <div
+              class="col-4"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isFaceMillingRoughing')?.value ||
+                    frm.get('isEndMillingRoughing')?.value ||
+                    frm.get('isSlotMillingRoughing')?.value ||
+                    frm.get('isSideMillingRoughing')?.value ||
+                    frm.get('isFaceMillingFinishing')?.value ||
+                    frm.get('isEndMillingFinishing')?.value ||
+                    frm.get('isSlotMillingFinishing')?.value ||
+                    frm.get('isSideMillingFinishing')?.value ||
+                    frm.get('isLinearPocketRoughing')?.value ||
+                    frm.get('isLinearPocketFinishing')?.value ||
+                    frm.get('isTslot')?.value ||
+                    frm.get('isTslotTnut')?.value)) ||
+                machiningVals?.MachiningFlags?.isSurfaceGrinding ||
+                machiningVals?.MachiningFlags?.isGear
+              ">
+              <label class="form-label no-wrap has-icon">
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+                  @if (frm.get('isLinearPocketRoughing')?.value || frm.get('isLinearPocketFinishing')?.value) {
+                    <span class="label-text">Pocket Width</span>
+                    <app-info-tooltip [infoId]="'Machining_Pocket_Width'"></app-info-tooltip>
+                  } @else if (frm.get('isSlotMillingRoughing')?.value || frm.get('isSlotMillingFinishing')?.value || frm.get('isTslot')?.value || frm.get('isTslotTnut')?.value) {
+                    <span class="label-text">Slot Width</span>
+                    <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Slot_Width' : 'Machining_Slot_Width'"></app-info-tooltip>
+                  } @else {
+                    <span class="label-text">Width of Cut</span>
+                    <app-info-tooltip [infoId]="'Machining_Width_Of_Cut'"></app-info-tooltip>
+                  }
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isSurfaceGrinding">Width of Grinding</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGear">Face Width (Teeth Length)</ng-container>
+                ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'widthOfCut'"></app-field-comment>
+              <input type="number" formControlName="widthOfCut" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('widthOfCut')" />
+            </div>
+
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isDrilling || machiningVals?.MachiningFlags?.isBoring">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  @if (machiningVals?.MachiningFlags?.isBoring) {
+                    No of Bores
+                  } @else {
+                    No of Holes
+                  }
+                </span>
+                <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isBoring ? 'Machining_No_of_Bores' : 'Machining_No_of_Holes'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfHoles'"></app-field-comment>
+              <input type="number" formControlName="noOfHoles" (blur)="calculateCost('noOfHoles')" class="form-control" [OnlyNumber]="true" min="0" />
+            </div>
+
+            <div
+              class="col-4"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isCounterSinking')?.value ||
+                    frm.get('isTrepanning')?.value ||
+                    frm.get('isBoringRoughing')?.value ||
+                    frm.get('isBoringFinishing')?.value ||
+                    frm.get('isSpotFaceMilling')?.value ||
+                    frm.get('isReaming')?.value ||
+                    frm.get('isTapping')?.value ||
+                    frm.get('isDrilling')?.value ||
+                    frm.get('isPeckDrilling')?.value)) ||
+                machiningVals?.MachiningFlags?.isDrilling ||
+                machiningVals?.MachiningFlags?.isBoring ||
+                machiningVals?.MachiningFlags?.isCylindricalGrinding ||
+                machiningVals?.MachiningFlags?.isCenterlessGrinding
+              ">
+              <label class="form-label no-wrap has-icon">
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+                  <span class="label-text">Diameter (Spot/Drill/Bore)</span>
+                  <app-info-tooltip
+                    [infoId]="
+                      frm.get('isSpotFaceMilling')?.value
+                        ? 'Spot_Face_Milling_Diameter_Spot_Drill_Bore'
+                        : machiningVals?.MachiningFlags?.isMilling
+                          ? 'Milling_Diameter_Spot_Drill_Bore'
+                          : 'Machining_Diameter_Spot_Drill_Bore'
+                    "></app-info-tooltip>
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isDrilling && frm.get('isDrilling')?.value">
+                  <span class="label-text">Diameter of Drill</span>
+                  <app-info-tooltip [infoId]="'Machining_Drill_Diameter'"></app-info-tooltip>
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isDrilling && frm.get('isTapping')?.value">Hole Diameter</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isBoring">Bore Diameter</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding">Grinding Diameter</ng-container>
+                ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'diameterOfDrill'"></app-field-comment>
+              <input type="number" formControlName="diameterOfDrill" [OnlyNumber]="true" min="0" (blur)="calculateCost('diameterOfDrill')" class="form-control" />
+            </div>
+            <!-- </div>
+          <div class="row"> -->
+            <div
+              class="col-4"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isThreadCutting')?.value || frm.get('isTapping')?.value || frm.get('isTapping')?.value || frm.get('isThreadMilling')?.value)) ||
+                (machiningVals?.MachiningFlags?.isDrilling && frm.get('isTapping')?.value)
+              "
+              [ngClass]="{
+                'offset-4': frm.get('isThreadCutting')?.value || frm.get('isTapping')?.value,
+              }">
+              <!-- 'offset-8': machiningVals?.MachiningFlags?.isTurning && frm.get('isTapping')?.value, -->
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Pitch ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="'Machining_Pitch'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'pitchDiameter'"></app-field-comment>
+              <input type="number" formControlName="pitchDiameter" (blur)="calculateCost('pitchDiameter')" [OnlyNumber]="true" min="0" class="form-control" />
+            </div>
+            <div class="col-4" *ngIf="frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Surface Area ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}^2)</span>
+                <app-info-tooltip [infoId]="'Machining_Surface_Area'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'surfaceArea'"></app-field-comment>
+              <input type="number" formControlName="surfaceArea" (blur)="calculateCost('surfaceArea')" [OnlyNumber]="true" min="0" class="form-control" />
+            </div>
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-8': !(
+                  frm.get('isFaceMillingRoughing')?.value ||
+                  frm.get('isEndMillingRoughing')?.value ||
+                  frm.get('isSlotMillingRoughing')?.value ||
+                  frm.get('isSideMillingRoughing')?.value ||
+                  frm.get('isFaceMillingFinishing')?.value ||
+                  frm.get('isEndMillingFinishing')?.value ||
+                  frm.get('isSlotMillingFinishing')?.value ||
+                  frm.get('isSideMillingFinishing')?.value ||
+                  frm.get('isCircularPocketRoughing')?.value ||
+                  frm.get('isCircularPocketFinishing')?.value ||
+                  frm.get('isLinearPocketRoughing')?.value ||
+                  frm.get('isLinearPocketFinishing')?.value ||
+                  frm.get('isCircularBossRoughing')?.value ||
+                  frm.get('isCircularBossFinishing')?.value ||
+                  frm.get('isSpotFaceMilling')?.value ||
+                  frm.get('isThreadMilling')?.value ||
+                  frm.get('isThreadCutting')?.value ||
+                  frm.get('isVolumetricMillingRoughing')?.value ||
+                  frm.get('isVolumetricMillingFinishing')?.value ||
+                  frm.get('isEdgeBreakingChamferFillet')?.value
+                ),
+              }"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  !(
+                    frm.get('isTapping')?.value ||
+                    frm.get('isCounterSinking')?.value ||
+                    frm.get('isTrepanning')?.value ||
+                    frm.get('isBoringRoughing')?.value ||
+                    frm.get('isBoringFinishing')?.value ||
+                    frm.get('isSpotFaceMilling')?.value ||
+                    frm.get('isReaming')?.value ||
+                    frm.get('isThreadMilling')?.value ||
+                    frm.get('isDrilling')?.value ||
+                    frm.get('isPeckDrilling')?.value ||
+                    frm.get('isParting')?.value ||
+                    frm.get('isODGrooving')?.value ||
+                    frm.get('isIdGrooving')?.value ||
+                    frm.get('isFaceGrooving')?.value ||
+                    frm.get('isTslot')?.value ||
+                    frm.get('isTslotTnut')?.value
+                  )) ||
+                machiningVals?.MachiningFlags?.isSurfaceGrinding ||
+                machiningVals?.MachiningFlags?.isCylindricalGrinding ||
+                machiningVals?.MachiningFlags?.isCenterlessGrinding ||
+                machiningVals?.MachiningFlags?.isGear
+              ">
+              <label class="form-label no-wrap has-icon">
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+                  @if (frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value) {
+                    <span class="label-text">Total Depth</span>
+                    <app-info-tooltip infoId="Machining_Total_Depth"></app-info-tooltip>
+                  } @else {
+                    <span class="label-text">Total Depth of Cut</span>
+                    <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Total_Depth_Of_Cut' : 'Machining_Total_Depth_of_Cut'"></app-info-tooltip>
+                  }
+                </ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGear">Whole Depth</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isSurfaceGrinding || machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding">
+                  Total Depth of Grinding
+                </ng-container>
+                ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'totalDepOfCut'"></app-field-comment>
+              <input
+                type="number"
+                [OnlyNumber]="true"
+                min="0"
+                formControlName="totalDepOfCut"
+                class="form-control"
+                (blur)="calculateCost('totalDepOfCut')"
+                [readonly]="machiningVals?.MachiningFlags?.isGear" />
+            </div>
+
+            <div class="col-4" *ngIf="frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Volume ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}^3)</span>
+                <app-info-tooltip [infoId]="'Machining_Volume'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'volume'"></app-field-comment>
+              <input type="number" formControlName="volume" (blur)="calculateCost('volume')" [OnlyNumber]="true" min="0" class="form-control" />
+            </div>
+
+            <div class="col-4 offset-8" *ngIf="frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Min Corner Radius ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="'Machining_Min_Corner_Radius'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'minLength'"></app-field-comment>
+              <input type="number" formControlName="minLength" (blur)="calculateCost('minLength')" [OnlyNumber]="true" min="0" class="form-control" />
+            </div>
+
+            <div *ngIf="frm.get('isTslot')?.value || frm.get('isTslotTnut')?.value"></div>
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-4': !(
+                  (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isSideMillingRoughing')?.value ||
+                    frm.get('isSideMillingFinishing')?.value ||
+                    frm.get('isTslot')?.value ||
+                    frm.get('isTslotTnut')?.value ||
+                    frm.get('isVolumetricMillingRoughing')?.value ||
+                    frm.get('isVolumetricMillingFinishing')?.value)
+                ),
+              }"
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isFaceMillingRoughing')?.value ||
+                  frm.get('isFaceMillingFinishing')?.value ||
+                  frm.get('isSideMillingRoughing')?.value ||
+                  frm.get('isSideMillingFinishing')?.value ||
+                  frm.get('isEndMillingRoughing')?.value ||
+                  frm.get('isEndMillingFinishing')?.value ||
+                  frm.get('isCircularPocketRoughing')?.value ||
+                  frm.get('isCircularPocketFinishing')?.value ||
+                  frm.get('isLinearPocketRoughing')?.value ||
+                  frm.get('isLinearPocketFinishing')?.value ||
+                  frm.get('isSlotMillingRoughing')?.value ||
+                  frm.get('isSlotMillingFinishing')?.value ||
+                  frm.get('isCircularBossRoughing')?.value ||
+                  frm.get('isCircularBossFinishing')?.value ||
+                  frm.get('isCounterSinking')?.value ||
+                  frm.get('isTrepanning')?.value ||
+                  frm.get('isSpotFaceMilling')?.value ||
+                  frm.get('isThreadMilling')?.value ||
+                  frm.get('isBoringRoughing')?.value ||
+                  frm.get('isBoringFinishing')?.value ||
+                  frm.get('isTslot')?.value ||
+                  frm.get('isTslotTnut')?.value ||
+                  frm.get('isVolumetricMillingRoughing')?.value ||
+                  frm.get('isVolumetricMillingFinishing')?.value ||
+                  frm.get('isEdgeBreakingChamferFillet')?.value)
+              ">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Cutter Diameter({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="'Machining_Cutter_Diameter'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'cutterDia'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="cutterDia" class="form-control" (blur)="calculateCost('cutterDia')" />
+              <!-- {{ 'Inserts: ' + frm.get('noOfToolInserts')?.value }} -->
+            </div>
+
+            <div class="col-4 offset-8" *ngIf="machiningVals?.MachiningFlags?.isTurning && (frm.get('isODGrooving')?.value || frm.get('isIdGrooving')?.value || frm.get('isFaceGrooving')?.value)">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Width of Cut ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="'Machining_Width_Of_Cut'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'widthOfCut'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="widthOfCut" class="form-control" (blur)="calculateCost('widthOfCut')" />
+            </div>
+
+            <div class="col-4" *ngIf="(machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) && (frm.get('isTslot')?.value || frm.get('isTslotTnut')?.value)">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Tool Width ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="'Machining_Tool_Width'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'wheelWidth'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="wheelWidth" class="form-control" (blur)="calculateCost('wheelWidth')" />
+            </div>
+
+            <div
+              class="col-4"
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isSideMillingRoughing')?.value || frm.get('isSideMillingFinishing')?.value || frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value)
+              ">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Radial depth of cut (% of cutter in mm)</span>
+                <app-info-tooltip [infoId]="frm.get('isVolumetricMillingFinishing')?.value ? 'Volumetric_Radial_Depthg_Of_Cut' : 'Machining_Radial_Depth_Of_Cut'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'toothDepth'"></app-field-comment>
+              <input type="number" formControlName="toothDepth" (blur)="calculateCost('toothDepth')" class="form-control" [OnlyNumber]="true" min="0" />
+            </div>
+
+            <div
+              class="col-4"
+              *ngIf="
+                ((machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isFaceMillingRoughing')?.value ||
+                    frm.get('isFaceMillingFinishing')?.value ||
+                    frm.get('isSideMillingRoughing')?.value ||
+                    frm.get('isSideMillingFinishing')?.value ||
+                    frm.get('isEndMillingRoughing')?.value ||
+                    frm.get('isEndMillingFinishing')?.value ||
+                    frm.get('isCircularPocketRoughing')?.value ||
+                    frm.get('isCircularPocketFinishing')?.value ||
+                    frm.get('isLinearPocketRoughing')?.value ||
+                    frm.get('isLinearPocketFinishing')?.value ||
+                    frm.get('isSlotMillingRoughing')?.value ||
+                    frm.get('isSlotMillingFinishing')?.value ||
+                    frm.get('isCircularBossRoughing')?.value ||
+                    frm.get('isCircularBossFinishing')?.value ||
+                    frm.get('isThreadMilling')?.value)) ||
+                frm.get('isVolumetricMillingRoughing')?.value ||
+                frm.get('isVolumetricMillingFinishing')?.value ||
+                frm.get('isEdgeBreakingChamferFillet')?.value
+              ">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">No of Places</span>
+                <app-info-tooltip [infoId]="'Machining_No_Of_Places'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfHoles'"></app-field-comment>
+              <input type="number" formControlName="noOfHoles" (blur)="calculateCost('noOfHoles')" class="form-control" [OnlyNumber]="true" min="0" />
+            </div>
+
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-8': frm.get('isDrilling')?.value || frm.get('isPeckDrilling')?.value || frm.get('isReaming')?.value,
+              }"
+              *ngIf="
+                (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                (frm.get('isCounterSinking')?.value ||
+                  frm.get('isTrepanning')?.value ||
+                  frm.get('isBoringRoughing')?.value ||
+                  frm.get('isBoringFinishing')?.value ||
+                  frm.get('isSpotFaceMilling')?.value ||
+                  frm.get('isReaming')?.value ||
+                  frm.get('isTapping')?.value ||
+                  frm.get('isDrilling')?.value ||
+                  frm.get('isPeckDrilling')?.value ||
+                  frm.get('isTslot')?.value ||
+                  frm.get('isTslotTnut')?.value)
+              ">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  {{ frm.get('isTslot')?.value || frm.get('isTslotTnut')?.value ? 'No of Slots' : 'No of Holes' }}
+                </span>
+                <app-info-tooltip [infoId]="frm.get('isTslot')?.value || frm.get('isTslotTnut')?.value ? 'Machining_No_of_Slots' : 'Machining_No_of_Holes'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfHoles'"></app-field-comment>
+              <input type="number" formControlName="noOfHoles" (blur)="calculateCost('noOfHoles')" class="form-control" [OnlyNumber]="true" min="0" />
+            </div>
+
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-8': frm.get('isReaming')?.value,
+              }"
+              *ngIf="machiningVals?.MachiningFlags?.isDrilling">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">
+                  @if (frm.get('isDrilling')?.value) {
+                    Depth of Drill
+                  } @else if (frm.get('isTapping')?.value) {
+                    Depth of Hole
+                  }
+                  ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+                </span>
+                <app-info-tooltip [infoId]="frm.get('isDrilling')?.value ? 'Drilling_Depth_Of_Drill' : 'Drilling_Depth_Of_Hole'"></app-info-tooltip>
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'depthOfDrill'"></app-field-comment>
+              <input type="number" formControlName="depthOfDrill" [OnlyNumber]="true" min="0" (blur)="calculateCost('depthOfDrill')" class="form-control" />
+            </div>
+
+            <ng-container *ngIf="machiningVals?.MachiningFlags?.isSurfaceGrinding || machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding">
+              <div class="col-4">
+                <label class="form-label no-wrap">Grinding Wheel Diameter ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'wheelDiameter'"></app-field-comment>
+                <input type="number" formControlName="wheelDiameter" [OnlyNumber]="true" min="0" (blur)="calculateCost('wheelDiameter')" class="form-control" />
+              </div>
+              <div class="col-4">
+                <label class="form-label no-wrap">Grinding Wheel Width ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'wheelWidth'"></app-field-comment>
+                <input type="number" formControlName="wheelWidth" [OnlyNumber]="true" min="0" (blur)="calculateCost('wheelWidth')" class="form-control" />
+              </div>
+            </ng-container>
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isSurfaceGrinding">
+              <label class="form-label no-wrap">Total No. of Passes(Nos)</label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'totalNoOfPasses'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="totalNoOfPasses" class="form-control" (blur)="calculateCost('totalNoOfPasses')" />
+            </div>
+            <!--  
+            <div class="col-4 " *ngIf="machiningVals?.MachiningFlags?.isMilling">
+              <label class="form-label no-wrap">Number of Tool Inserts(Nos)</label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier"
+                [fieldIdentifier]="'noOfToolInserts'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="noOfToolInserts"
+                class="form-control" (blur)="calculateCost('noOfToolInserts')">
+            </div> -->
+
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGearShaving || machiningVals?.MachiningFlags?.isGearGrinding">
+              <label class="form-label no-wrap">
+                {{ machiningVals?.MachiningFlags?.isGearShaving ? 'Shaving' : 'Grinding' }} Stock ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'workpieceOuterDia'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="workpieceOuterDia" class="form-control" (blur)="calculateCost('workpieceOuterDia')" />
+            </div>
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGear && !machiningVals?.MachiningFlags?.isGearBroaching">
+              <label class="form-label no-wrap">
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGearCutting">Hob Diameter</ng-container>
+                <!-- <ng-container *ngIf="machiningVals?.MachiningFlags?.isGearBroaching">Broach Diameter</ng-container> -->
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGearSplineRolling">Spline Roll Diameter</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGearShaving">Shaving Wheel Diameter</ng-container>
+                <ng-container *ngIf="machiningVals?.MachiningFlags?.isGearGrinding">Grinding Wheel Diameter</ng-container>
+                ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})
+              </label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'hobDiameter'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="hobDiameter" class="form-control" (blur)="calculateCost('hobDiameter')" />
+            </div>
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGearCutting">
+              <label class="form-label no-wrap">No. of Starts (Nos)</label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfStarts'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="noOfStarts" class="form-control" (blur)="calculateCost('noOfStarts')" />
+            </div>
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGear">
+              <label class="form-label no-wrap">Approach ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+              <input
+                type="number"
+                [OnlyNumber]="true"
+                min="0"
+                formControlName="hobApproachRoughing"
+                class="form-control"
+                (blur)="calculateCost('noOfStarts')"
+                [readonly]="!machiningVals?.MachiningFlags?.isGearBroaching" />
+            </div>
+
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding || machiningVals?.MachiningFlags?.isGear">
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isCylindricalGrinding || machiningVals?.MachiningFlags?.isCenterlessGrinding">
+                No. of Passes Along Depth(Nos)
+              </label>
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isGear">No. of Passes(Nos)</label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfPasses'"></app-field-comment>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="noOfPasses" class="form-control" (blur)="calculateCost('noOfPasses')" />
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Cutting Speed (Vc) (m/min)</span>
+                <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Cutting_Speed_Vc' : 'Machining_Cutting_Speed_Vc'"></app-info-tooltip>
+              </label>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="cuttingSpeed" class="form-control" (blur)="calculateCost('cuttingSpeed')" />
+            </div>
+            <div class="col-4">
+              <label class="form-label no-wrap has-icon">
+                @if (
+                  frm.get('isFaceMillingRoughing')?.value ||
+                  frm.get('isFaceMillingFinishing')?.value ||
+                  frm.get('isSideMillingRoughing')?.value ||
+                  frm.get('isSideMillingFinishing')?.value ||
+                  frm.get('isEndMillingRoughing')?.value ||
+                  frm.get('isEndMillingFinishing')?.value ||
+                  frm.get('isCircularPocketRoughing')?.value ||
+                  frm.get('isCircularPocketFinishing')?.value ||
+                  frm.get('isLinearPocketRoughing')?.value ||
+                  frm.get('isLinearPocketFinishing')?.value ||
+                  frm.get('isSlotMillingRoughing')?.value ||
+                  frm.get('isSlotMillingFinishing')?.value ||
+                  frm.get('isCircularBossRoughing')?.value ||
+                  frm.get('isCircularBossFinishing')?.value ||
+                  frm.get('isVolumetricMillingRoughing')?.value ||
+                  frm.get('isVolumetricMillingFinishing')?.value
+                ) {
+                  <span class="label-text">Feed Per Tooth ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}/t)</span>
+                  <app-info-tooltip infoId="Machining_Feed_Per_Tooth"></app-info-tooltip>
+                } @else {
+                  <span class="label-text">Feed ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}/rev)</span>
+                  <app-info-tooltip infoId="Machining_Feed"></app-info-tooltip>
+                }
+              </label>
+              <input
+                type="number"
+                [OnlyNumber]="true"
+                min="0"
+                formControlName="feed"
+                class="form-control"
+                (blur)="calculateCost('feed')"
+                [readonly]="frm.get('isThreadCutting')?.value || frm.get('isTapping')?.value" />
+            </div>
+            <div
+              class="col-4"
+              *ngIf="
+                !(
+                  (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  (frm.get('isReaming')?.value ||
+                    frm.get('isCounterSinking')?.value ||
+                    frm.get('isTrepanning')?.value ||
+                    frm.get('isSpotFaceMilling')?.value ||
+                    frm.get('isBoringRoughing')?.value ||
+                    frm.get('isBoringFinishing')?.value ||
+                    frm.get('isTslotTnut')?.value ||
+                    frm.get('isTapping')?.value ||
+                    frm.get('isDrilling')?.value ||
+                    frm.get('isPeckDrilling')?.value)
+                )
+              ">
+              <label
+                class="form-label no-wrap has-icon"
+                *ngIf="
+                  machiningVals?.MachiningFlags?.isTurning && (frm.get('isParting')?.value || frm.get('isODGrooving')?.value || frm.get('isIdGrooving')?.value || frm.get('isFaceGrooving')?.value)
+                ">
+                <span class="label-text">Insert Width ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip infoId="Machining_Insert_Width"></app-info-tooltip>
+              </label>
+              <label
+                class="form-label no-wrap has-icon"
+                *ngIf="
+                  (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  !(frm.get('isParting')?.value || frm.get('isODGrooving')?.value || frm.get('isIdGrooving')?.value || frm.get('isFaceGrooving')?.value)
+                ">
+                <span class="label-text">Depth of Cut Per Pass ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</span>
+                <app-info-tooltip [infoId]="machiningVals?.MachiningFlags?.isMilling ? 'Milling_Depth_of_Cut_Per_Pass' : 'Machining_Depth_of_Cut_Per_Pass'"></app-info-tooltip>
+              </label>
+              <input
+                type="number"
+                [OnlyNumber]="true"
+                min="0"
+                formControlName="depthOfCut"
+                class="form-control"
+                (blur)="calculateCost('depthOfCut')"
+                [readonly]="
+                  (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) && (frm.get('isSideMillingRoughing')?.value || frm.get('isSideMillingFinishing')?.value)
+                " />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4" *ngIf="frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">MRR ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}^3/mins)</span>
+                <app-info-tooltip [infoId]="'Machining_MRR'"></app-info-tooltip>
+              </label>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="totalHobRoughing" class="form-control" [readonly]="true" />
+            </div>
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-4':
+                  (machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling) &&
+                  !(frm.get('isVolumetricMillingRoughing')?.value || frm.get('isVolumetricMillingFinishing')?.value),
+              }"
+              *ngIf="
+                machiningVals?.MachiningFlags?.isTurning ||
+                machiningVals?.MachiningFlags?.isMilling ||
+                (machiningVals?.MachiningFlags?.isGear && !machiningVals?.MachiningFlags?.isGearBroaching) ||
+                (machiningVals?.MachiningFlags?.isDrilling && frm.get('isTapping')?.value)
+              ">
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isGearCutting || machiningVals?.MachiningFlags?.isGearSplineRolling">Cutting Speed (m/min)</label>
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isGearShaving">Shaving Speed (m/min)</label>
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isGearGrinding">Grinding Speed (m/min)</label>
+              <label class="form-label no-wrap has-icon" *ngIf="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling">
+                <span class="label-text">Cut Time (Sec)</span>
+                <app-info-tooltip infoId="Machining_Cut_Time"></app-info-tooltip>
+              </label>
+              <label class="form-label no-wrap" *ngIf="machiningVals?.MachiningFlags?.isDrilling && frm.get('isTapping')?.value">Cut Time/Part (Sec)</label>
+              <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'cuttingTime'"></app-field-comment>
+              <input
+                type="number"
+                [OnlyNumber]="true"
+                min="0"
+                formControlName="cuttingTime"
+                class="form-control"
+                (blur)="calculateCost('cuttingTime')"
+                [readonly]="machiningVals?.MachiningFlags?.isTurning || machiningVals?.MachiningFlags?.isMilling" />
+            </div>
+
+            <ng-container *ngIf="machiningVals?.MachiningFlags?.isGear">
+              <div class="col-4" *ngIf="!machiningVals?.MachiningFlags?.isGearBroaching">
+                <label class="form-label no-wrap">RPM (mins)</label>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="hobspeedRoughing" class="form-control" [readonly]="true" />
+              </div>
+              <div class="col-4">
+                <label class="form-label no-wrap">Feed ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }})</label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'finishCutMatAllowance'"></app-field-comment>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="finishCutMatAllowance" (blur)="calculateCost('finishCutMatAllowance')" class="form-control" />
+              </div>
+              <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGearCutting || machiningVals?.MachiningFlags?.isGearShaving || machiningVals?.MachiningFlags?.isGearGrinding">
+                <label class="form-label no-wrap">No. of Components (Nos)</label>
+                <!-- <label class="form-label no-wrap">No. of multiples(Nos)</label> -->
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'noOfMultiples'"></app-field-comment>
+                <input type="number" formControlName="noOfMultiples" [OnlyNumber]="true" min="0" class="form-control" (blur)="calculateCost('noOfMultiples')" />
+              </div>
+              <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isGearShaving || machiningVals?.MachiningFlags?.isGearGrinding">
+                <label class="form-label no-wrap">
+                  {{ machiningVals?.MachiningFlags?.isGearShaving ? 'Shaving' : 'Grinding' }} Depth of Cut ({{ machiningVals?.isEnableUnitConversion ? machiningVals?.conversionValue : 'mm' }}) :
+                </label>
+                <app-field-comment [formIdentifier]="machiningVals?.formIdentifier" [fieldIdentifier]="'depthOfCutRoughing'"></app-field-comment>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="depthOfCutRoughing" (blur)="calculateCost('depthOfCutRoughing')" class="form-control" />
+              </div>
+
+              <div class="col-4">
+                <label class="form-label no-wrap">Machining Time (mins)</label>
+                <input type="number" [OnlyNumber]="true" min="0" formControlName="totalHobRoughing" class="form-control" [readonly]="true" />
+              </div>
+            </ng-container>
+
+            <div class="col-4" *ngIf="machiningVals?.MachiningFlags?.isDrilling && frm.get('isTapping')?.value">
+              <label class="form-label no-wrap">Position Cycle Time (Sec)</label>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="totalHobRoughing" class="form-control" (blur)="calculateCost()" />
+            </div>
+
+            <div
+              class="col-4"
+              [ngClass]="{
+                'offset-8':
+                  machiningVals?.MachiningFlags?.isCylindricalGrinding ||
+                  machiningVals?.MachiningFlags?.isCenterlessGrinding ||
+                  machiningVals?.MachiningFlags?.isDrilling ||
+                  machiningVals?.MachiningFlags?.isBoring ||
+                  machiningVals?.MachiningFlags?.isSurfaceGrinding ||
+                  machiningVals?.MachiningFlags?.isGearCutting,
+                'offset-4':
+                  machiningVals?.MachiningFlags?.isGearBroaching ||
+                  machiningVals?.MachiningFlags?.isGearSplineRolling ||
+                  machiningVals?.MachiningFlags?.isGearShaving ||
+                  machiningVals?.MachiningFlags?.isGearGrinding,
+              }">
+              <label class="form-label no-wrap has-icon">
+                <span class="label-text">Cycle Time(sec)</span>
+                <app-info-tooltip infoId="Machining_Cycle_Time"></app-info-tooltip>
+              </label>
+              <input type="number" [OnlyNumber]="true" min="0" formControlName="cycleTime" class="form-control" readonly />
+            </div>
+          </div>
+        }
+        <hr class="devider" />
+      </div>
+    </ng-container>
+    <div class="links-block-right">
+      <a class="link-info" (click)="triggerFunction('addMachiningOperation', [])" *ngIf="!machiningOperationTypeFormArray?.controls.length || machiningVals?.showAddProcessBtn">Add Operation</a>
+      <a
+        class="link-info ms-3"
+        style="display: none"
+        (click)="triggerFunction('addAllOperationTypes', [])"
+        *ngIf="
+          (machiningVals?.MachiningFlags?.isTurning && turningOperations.length > machiningOperationTypeFormArray?.controls.length) ||
+          (machiningVals?.MachiningFlags?.isMilling && millingOperations.length > machiningOperationTypeFormArray?.controls.length)
+        ">
+        Add All Operations
+      </a>
+    </div>
+  </ng-container>
+</ng-container>

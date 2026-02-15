@@ -1,0 +1,102 @@
+<div class="modal-header">
+  <h4 class="modal-title text-xs" id="modal-basic-title">Add Scenario</h4>
+</div>
+<form [formGroup]="addScenarioform" (ngSubmit)="addScenarioClicked()" autocomplete="off">
+  <div class="modal-body" oncontextmenu="return false;">
+    <div class="row">
+      <div class="col">
+        <label class="form-label" for="inputDefault">Project Name</label>
+        <input
+          [ngClass]="{
+            'input-mandatory': f.projectName.errors,
+            'input-valid': f.projectName.valid,
+          }"
+          type="text"
+          class="form-control"
+          placeholder="Project Name"
+          formControlName="projectName"
+          name="projectName"
+          readonly="readonly" />
+      </div>
+      <div class="col">
+        <label class="form-label" for="inputDefault">Scenario Name</label>
+        <input
+          [ngClass]="{
+            'input-mandatory': f.scenarioName.errors,
+            'input-valid': f.scenarioName.valid,
+          }"
+          type="text"
+          class="form-control"
+          placeholder="Scenario Name"
+          formControlName="scenarioName"
+          name="scenarioName"
+          maxlength="200" />
+      </div>
+    </div>
+    <div class="row margintop">
+      <div class="col">
+        <label for="basicScenarioId" class="form-label">Copy From Scenario</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder=" Select Scenario"
+          formControlName="basicScenarioId"
+          [ngClass]="{
+            'input-mandatory': f.basicScenarioId.errors,
+            'input-valid': f.basicScenarioId.valid,
+          }"
+          [matAutocomplete]="scenarioAuto"
+          (keydown)="preventDefault($event)" />
+        <mat-autocomplete #scenarioAuto="matAutocomplete" [displayWith]="displayScenario" (optionSelected)="scenarioOptionSelected($event)">
+          <!-- <mat-option *ngFor="let Scenario of basicScenarioList$ | async" [value]="Scenario"> -->
+          <mat-option *ngFor="let Scenario of scenarioList" [value]="Scenario">
+            <div>{{ Scenario?.scenarioName }}</div>
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+
+      <div class="col">
+        <label class="form-label" for="inputDefault">Scenario Description</label>
+        <textarea
+          [ngClass]="{
+            'input-mandatory': f.scenarioDescription.errors,
+            'input-valid': f.scenarioDescription.valid,
+          }"
+          class="form-control"
+          formControlName="scenarioDescription"
+          id="scenarioDescription"
+          maxlength="300"></textarea>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <div class="col-sm-6">
+        <label class="checkbox-inline form-label">
+          <input type="checkbox" formControlName="selectAll" (click)="setAllPartsSelected()" />
+          Select All BOM (Bill of Materials)
+        </label>
+      </div>
+    </div>
+    <div class="row margintop">
+      <div class="col bom-autocomplete">
+        <label for="partInfoList" class="control-label form-label">Select BOM:</label>
+        <mat-form-field appearance="outline">
+          <input class="" placeholder="Choose Bill of Materials" matInput [matAutocomplete]="auto" formControlName="partInfoList" (blur)="updatePartInfoListValue()" />
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let part of filteredPartInfoList$ | async" [value]="part">
+            <div (click)="optionClicked($event, part)">
+              <mat-checkbox [checked]="part.selected" (change)="toggleSelection(part)" (click)="$event.stopPropagation()">
+                {{ part.intPartNumber }}
+              </mat-checkbox>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+  <div class="modal-footer modalfooter justify-end gap-2">
+    <button type="button" class="btn btn-outline-primary" (click)="dismissAll()">Cancel</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!addScenarioform.valid || this.selectedParts.length === 0">Add Scenario</button>
+  </div>
+</form>

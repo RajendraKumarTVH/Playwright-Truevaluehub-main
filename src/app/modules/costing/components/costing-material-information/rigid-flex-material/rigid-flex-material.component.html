@@ -1,0 +1,27 @@
+<div [formGroup]="formGroup">
+  <div class="card mt-2">
+    <div class="card-body">
+      <div id="_matmoredetailsCore">
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label no-wrap">No.of copper layers</label>
+            <app-field-comment [formIdentifier]="inputVals.formIdentifier" [fieldIdentifier]="'typeOfCable'"></app-field-comment>
+            <select formControlName="typeOfCable" class="form-control" (change)="calculateCost()">
+              <option value="" selected>-------Select--------</option>
+              <option *ngFor="let tech of technologiesList" [value]="tech.id">
+                {{ tech.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #popContent>
+      <div [innerHTML]="popupName"></div>
+      <div class="div-img" *ngIf="popupUrl">
+        <img alt="" class="img-class" [src]="popupUrl" />
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<span *ngIf="isEnable" matTooltip="Notes" matTooltipPosition="above" (click)="openCommentsPopup()" class="float-end flex items-center gap-[2px] justify-end" color="primary">
+  <span *ngIf="commentFieldCount > 0" class="comment-count">{{ commentFieldCount }}</span>
+  <mat-icon class="no-notes-icon" *ngIf="commentFieldCount <= 0" svgIcon="message"></mat-icon>
+  <mat-icon *ngIf="commentFieldCount > 0" svgIcon="message-with-blue-dot"></mat-icon>
+</span>

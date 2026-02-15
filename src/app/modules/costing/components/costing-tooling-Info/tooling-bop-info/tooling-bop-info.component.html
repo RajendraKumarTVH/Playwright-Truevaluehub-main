@@ -1,0 +1,55 @@
+<ng-container [formGroup]="formGroup">
+  <ng-template #popContent>
+    <div [innerHTML]="name"></div>
+    <div class="div-img" *ngIf="url">
+      <img alt="" class="img-class" [src]="url" />
+    </div>
+  </ng-template>
+  <app-tooling-bop-table
+    [compVals]="compVals"
+    [bopInfoDefaultValues]="bopInfoDefaultValues"
+    [canUpdate]="canUpdate"
+    (addBopInfo)="addBOPSection()"
+    (editBopInfo)="onEditBOPInfo($event)"
+    (deleteBopInfo)="onDeleteBOPClick($event)"></app-tooling-bop-table>
+
+  <div class="card">
+    <div class="card-header">BOP Cost</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Item Description</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_BOP_Item_Description')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <select formControlName="descriptionId" class="form-control" (change)="calculateBOPCost()">
+            <option value="0" selected>-------Description---------</option>
+            <option *ngFor="let option of bopDescriptionList" [value]="option.id">
+              {{ option.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-4" *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isInjMoulding && !compVals.commodityFlags.isCasting">
+          <label class="form-label">Quantity(No.)</label>
+          <input type="number" class="form-control" formControlName="bopQuantity" [OnlyNumber]="true" (blur)="calculateBOPCost()" min="0" />
+        </div>
+        <div class="col-4" *ngIf="!compVals.commodityFlags.isSheetMetal && !compVals.commodityFlags.isInjMoulding && !compVals.commodityFlags.isCasting">
+          <label class="form-label">Total Cost($)</label>
+          <input type="number" class="form-control" formControlName="bopTotalCost" [OnlyNumber]="true" (blur)="calculateBOPCost()" min="0" />
+        </div>
+        <div class="col-4">
+          <label class="form-label no-wrap has-icon">
+            <span class="label-text">Total BOP Cost($)</span>
+            <span class="notification" [ngbPopover]="popContent" placement="auto" (click)="showinfo('Tooling_Total_BOP_Cost')">
+              <mat-icon class="info-icon" svgIcon="information"></mat-icon>
+            </span>
+          </label>
+          <input type="number" class="form-control" formControlName="bopTotalProcessCost" [OnlyNumber]="true" (blur)="calculateBOPCost()" min="0" />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

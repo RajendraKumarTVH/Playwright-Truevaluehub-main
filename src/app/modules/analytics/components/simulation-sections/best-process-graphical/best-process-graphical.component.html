@@ -1,0 +1,5 @@
+<!-- <button mat-icon-button class="refresh-button" matTooltip="Refresh Graph" matTooltipPosition="above" (click)="chartUpdateSubscribe$.next(data)"><mat-icon>refresh</mat-icon></button> -->
+<button mat-icon-button class="refresh-button" matTooltip="Refresh Graph" matTooltipPosition="above" (click)="prepareGraph(data)"><mat-icon>refresh</mat-icon></button>
+<div class="graph-container bg-white rounded w-full p-3 m-0">
+  <canvas baseChart id="canvas">{{ chart }}</canvas>
+</div>

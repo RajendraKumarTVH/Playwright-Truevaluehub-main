@@ -1,0 +1,258 @@
+.iframe {
+  min-height: 300px;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ai-search-modal-footer-label {
+  font-weight: 400;
+  font-size: 12px;
+  color: #6c6c6d;
+}
+
+.ai-search-modal-footer-value {
+  font-weight: 500;
+  font-size: 12px;
+  /* padding-left: 2px; */
+}
+
+.ai-search-modal-attribute-header {
+  font-weight: 500;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.ai-search-modal-attribute-label {
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.modal-body {
+  height: 80vh;
+}
+
+.btn-outline-primary {
+  padding: 8px;
+
+  &:hover {
+    background-color: #3a7df2;
+  }
+}
+
+.part-not-found {
+  display: flex;
+  margin: 30px;
+  justify-content: center;
+}
+
+.img-fluid {
+  height: 50vh;
+}
+
+.search-results-block {
+  padding: 4px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.isometric-icon {
+  color: #e6eeff !important;
+  background-color: black !important;
+}
+
+.search-result {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: solid 1px #cadcff;
+  min-height: 0;
+  height: 100%;
+  gap: 12px;
+  transition:
+    box-shadow 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+  will-change: box-shadow, border-color;
+  margin: 0 8px 8px 0px;
+
+  &.fixed-width {
+    min-width: 248px;
+    max-width: 248px;
+  }
+
+  .result-image {
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    min-width: 12rem;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: solid 1px transparent;
+    overflow: hidden;
+    position: relative;
+    padding-top: 100%;
+
+    &.limited {
+      max-width: 216px;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .search-result-content {
+    flex-grow: 1;
+
+    .card-heading {
+      font-size: 0.875rem;
+      line-height: 1.3;
+      font-family: var(--body-font);
+      font-style: normal;
+      font-weight: 600;
+      width: 100%;
+      overflow-wrap: break-word;
+      max-width: 20vh;
+    }
+
+    .card-description {
+      font-size: 0.75rem;
+      line-height: 1.3;
+      font-family: var(--body-font);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .card-text,
+    .card-time {
+      font-size: 0.75rem;
+      line-height: 1.3;
+      font-family: var(--body-font);
+      font-style: normal;
+      font-weight: 400;
+      color: #6c6c6d;
+    }
+
+    > hr {
+      background-color: #dedede;
+      color: #dedede;
+      width: 100%;
+    }
+
+    .search-result-card-actions {
+      gap: 4px;
+
+      button {
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        background-color: #e6eeff;
+        color: #000000;
+        border-radius: 6px;
+        border-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 10px;
+          height: 16px;
+        }
+      }
+    }
+
+    .result-check {
+      margin-left: auto;
+
+      .form-check-input {
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.selected {
+    position: sticky;
+    z-index: 10;
+    left: 0;
+    border-color: #3f83f9;
+    box-shadow: 10px 6px 37px 0px #3166c226;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: #3f83f9;
+    box-shadow: 10px 2px 37px 0px #3166c226;
+  }
+}
+
+.modal-header {
+  padding: 16px 30px;
+
+  .modal-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+}
+
+.modal-body {
+  padding: 16px 30px;
+}
+
+.seperator {
+  background-color: #e2e2e2;
+  margin-bottom: 20px;
+}
+
+.part-information {
+  --bs-gutter-y: 16px;
+}
+
+.part-controls {
+  margin-top: 30px;
+}
+
+.tab-content {
+  padding-top: 16px;
+}
+
+.section-shade {
+  background-color: #edf3ff;
+}
+
+.tab-section-height {
+  min-height: 500px;
+}
+
+.ai-search-tabs {
+  height: 100%;
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+    min-height: 0;
+
+    .mat-tab-body {
+      height: 100%;
+      min-height: 0;
+
+      .mat-tab-body-content {
+        height: 100%;
+        min-height: 0;
+
+        .tab-section-height {
+          height: 100%;
+          min-height: 0;
+        }
+      }
+    }
+  }
+}

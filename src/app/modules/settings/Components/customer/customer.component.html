@@ -1,0 +1,222 @@
+<div class="container">
+  <div class="m-t-1" style="margin-top: 20px">
+    <button class="btn btn-outline-secondary btn-space" mat-button (click)="accordion.openAll()">Expand All</button>
+    <button class="btn btn-outline-secondary" mat-button (click)="accordion.closeAll()">Collapse All</button>
+  </div>
+  <div class="mt-2 col-md-12"></div>
+  <form [formGroup]="customerForm">
+    <div class="row" style="margin-top: 20px">
+      <mat-accordion [multi]="true">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="mb-0">COMPANY LOCATION</h6>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="name">
+                Company Name
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                [ngClass]="{ 'input-failure': !f.name.errors, 'input-success': f.name.errors }"
+                type="text"
+                class="form-control"
+                placeholder="Enter Name"
+                id="name"
+                formControlName="name"
+                name="name" />
+              <!-- (change)="nameOnChange($event)"
+                                [matAutocomplete]="vendorAuto" -->
+              <!-- <mat-autocomplete autoActiveFirstOption #vendorAuto="matAutocomplete">
+                                <mat-option *ngFor="let vendor of filteredVendorList$ | async"
+                                    [value]="vendor?.name">
+                                    {{vendor?.name}}
+                                </mat-option>
+                            </mat-autocomplete> -->
+            </div>
+            <div class="col">
+              <label class="form-label" for="mfrAddress">
+                Address
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                type="text"
+                placeholder="Select Manufacturing Address"
+                formControlName="mfrAddress"
+                class="form-control"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="off"
+                ngx-google-places-autocomplete
+                (onAddressChange)="handleAddressChange($event)" />
+              <!-- [options]="options" -->
+            </div>
+
+            <div class="col">
+              <label class="form-label" for="mfrCity">
+                City
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input type="text" placeholder="Select Manufacturing City" formControlName="mfrCity" class="form-control" />
+            </div>
+          </div>
+          <div class="row p-t-1">
+            <div class="col">
+              <label class="form-label" for="mfrState">
+                State
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input type="text" placeholder="Select State" formControlName="mfrState" class="form-control" />
+            </div>
+            <div class="col">
+              <label class="form-label" for="mfrCountry">
+                Country
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input type="text" placeholder="Select Manufacturing Country" formControlName="mfrCountry" class="form-control" [matAutocomplete]="countryAuto" />
+              <mat-autocomplete autoActiveFirstOption #countryAuto="matAutocomplete">
+                <mat-option [ngStyle]="{ 'border-bottom': country?.countryName === 'India' ? '1px solid' : '' }" *ngFor="let country of filteredCountryList$ | async" [value]="country.countryName">
+                  {{ country?.countryName }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+            <div class="col">
+              <label class="form-label" for="mfrZipCode">
+                Zip Code
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input type="text" placeholder="Select Manufacturing City" formControlName="mfrZipCode" class="form-control" />
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="mb-0">COMPANY INFORMATION</h6>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-container>
+            <div class="row">
+              <div class="col form-group">
+                <label class="form-label">
+                  Annual Revenue
+                  <span class="clsred">*</span>
+                  :
+                </label>
+                <select
+                  formControlName="annualRevenueType"
+                  class="form-control"
+                  [ngClass]="{ 'input-failure': !f.annualRevenueType.errors, 'input-success': f.annualRevenueType.errors }"
+                  placeholder="Select Annual revenue">
+                  <option value="0">--Select Annual revenue--</option>
+                  <option *ngFor="let option of anualRevenueList" [value]="option.key">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="dunsId">DUNS ID:</label>
+                <input type="number" placeholder="Enter DUNS ID" formControlName="dunsId" class="form-control" [ngClass]="{ 'input-failure': !f.dunsId.errors, 'input-success': f.dunsId.errors }" />
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="taxId">Vendor Tax ID (EIN):</label>
+                <input type="number" placeholder="Enter Vendor Tax ID" formControlName="taxId" class="form-control" [ngClass]="{ 'input-failure': !f.taxId.errors, 'input-success': f.taxId.errors }" />
+              </div>
+            </div>
+            <div class="row p-t-1">
+              <div class="col form-group">
+                <label class="form-label" for="unitType">Preferred Units:</label>
+                <select formControlName="unitType" class="form-control" placeholder="Select Preferred Units">
+                  <option value="0">--Select Preferred Units--</option>
+                  <option *ngFor="let option of preferedUnitTypes" [value]="option.key">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="currencyType">Preferred Currency:</label>
+                <select formControlName="currencyType" class="form-control" placeholder="Select Preferred Currency">
+                  <option value="0">--Select Preferred Currency--</option>
+                  <option *ngFor="let option of currencyList" [value]="option.key">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="avgCostOfCapital">Weighted Average Cost of Capital:</label>
+                <input type="number" placeholder="Enter Average Cost of Capital" formControlName="avgCostOfCapital" class="form-control" />
+              </div>
+            </div>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="mb-0">INDUSTRIES</h6>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-container>
+            <app-industris [selectedIndustris]="selectedIndustrisType"></app-industris>
+          </ng-container>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="mb-0">CLIENT ADMINISTRATOR</h6>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-container>
+            <div class="row">
+              <div class="col form-group">
+                <label class="form-label" for="adminEmail">
+                  Primary Administrator Email
+                  <span class="clsred">*</span>
+                  :
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter Administrator Email"
+                  formControlName="adminEmail"
+                  class="form-control"
+                  [ngClass]="{ 'input-failure': !f.adminEmail.errors, 'input-success': f.adminEmail.errors }" />
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="adminName">Primary Administrator Name:</label>
+                <input
+                  type="text"
+                  placeholder="Enter Administrator Name"
+                  formControlName="adminName"
+                  class="form-control"
+                  [ngClass]="{ 'input-failure': !f.adminName.errors, 'input-success': f.adminName.errors }" />
+              </div>
+              <div class="col form-group">
+                <label class="form-label" for="adminPhoneNumber">Primary Administrator Phone:</label>
+                <input
+                  type="tel"
+                  placeholder="Enter Administrator Phone number"
+                  formControlName="adminPhoneNumber"
+                  class="form-control"
+                  [ngClass]="{ 'input-failure': !f.adminPhoneNumber.errors, 'input-success': f.adminPhoneNumber.errors }" />
+              </div>
+            </div>
+          </ng-container>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="row footer" *ngIf="canResetCustomer">
+      <button class="btn btn-outline-secondary btn-space" type="button" (click)="reset()">Reset</button>
+      <button class="btn btn-primary" style="margin-left: 1em" type="submit" (click)="save()">Save</button>
+    </div>
+  </form>
+  <!-- {{customerForm.getRawValue() | json}} -->
+
+  <!-- [disabled]="(customerForm.invalid || customerForm.pristine)" -->
+</div>

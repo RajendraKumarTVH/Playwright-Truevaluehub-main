@@ -1,0 +1,20 @@
+.accordion-panels {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+
+.cls-item-head {
+  display: inline-block !important;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cls-item-icon {
+  display: inline-block !important;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}

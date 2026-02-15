@@ -1,0 +1,13 @@
+.comparison-modal {
+  padding: 0;
+  max-width: 90vw;
+  display: flex;
+  border-radius: 6px;
+  flex-direction: column;
+  color: var(--bs-black);
+  background: var(--bs-white);
+}
+
+.cmp-table-wrap {
+  max-height: 80vh;
+}

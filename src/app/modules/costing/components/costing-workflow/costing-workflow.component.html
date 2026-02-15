@@ -1,0 +1,117 @@
+<h2 class="text-xs font-semibold p-0">
+  Workflow
+  <button mat-icon-button (click)="onCloseClick()" class="close-button flex items-center justify-center">
+    <mat-icon svgIcon="close_icon" class="text-black"></mat-icon>
+  </button>
+</h2>
+<mat-vertical-stepper [linear]="true" #stepper [disableRipple]="true">
+  <ng-template matStepperIcon="edit">
+    <span class="custom-edit-icon"></span>
+  </ng-template>
+  <ng-template matStepperIcon="number">
+    <mat-icon svgIcon="close_icon"></mat-icon>
+  </ng-template>
+  <mat-step [completed]="true" [editable]="false">
+    <ng-template matStepLabel>
+      <div class="flex flex-col">
+        <span class="text-xs font-normal text-black leading-normal">Project Created</span>
+        <span class="sub-label">{{ projCreatedBy }}</span>
+      </div>
+    </ng-template>
+  </mat-step>
+  <mat-step [completed]="true" [editable]="false">
+    <ng-template matStepLabel>
+      <div class="flex flex-col">
+        <span class="text-xs font-normal text-black">Extraction Completed</span>
+        <span class="sub-label">{{ extractionCompletedDate }}</span>
+      </div>
+    </ng-template>
+  </mat-step>
+  @for (step of workFlowSteps; track step.step.stepName; let index = $index) {
+    <mat-step class="select-step" [completed]="step.step.isCompleted" [editable]="step.step.isEditable">
+      <ng-template matStepLabel>
+        @if (index + 2 === currentStepIndex && !step.step.isCompleted && step.step.isEditable) {
+          <ng-container
+            *ngTemplateOutlet="
+              workFlowStep;
+              context: {
+                headerName: step.step.stepName,
+                headerIcon: step.step.displayIcon,
+                bkColorId: step.step.bkColorId,
+                colorId: step.step.colorId,
+                borderColorId: step.step.borderColorId,
+                startDate: step.step.startDate,
+                options: step.step.content,
+              }
+            "></ng-container>
+        } @else if ((!step.step.isCompleted && !step.step.isEditable) || (step.step.isCompleted && !step.step.isEditable)) {
+          <ng-container
+            *ngTemplateOutlet="
+              workFlowStepNonActive;
+              context: {
+                headerName: step.step.stepName,
+                headerIcon: step.step.displayIcon,
+                bkColorId: step.step.bkColorId,
+                colorId: step.step.colorId,
+                borderColorId: step.step.borderColorId,
+                startDate: step.step.startDate,
+              }
+            "></ng-container>
+        }
+      </ng-template>
+    </mat-step>
+  }
+</mat-vertical-stepper>
+
+<ng-template
+  #workFlowStep
+  let-headerName="headerName"
+  let-headerIcon="headerIcon"
+  let-bkColorId="bkColorId"
+  let-colorId="colorId"
+  let-borderColorId="borderColorId"
+  let-startDate="startDate"
+  let-options="options">
+  <div class="workflow-step-edit flex items-start justify-between">
+    <div class="flex flex-col">
+      <div class="workflow-status-label flex items-center justify-start" [ngStyle]="{ color: colorId, 'background-color': bkColorId, 'border-color': borderColorId }">
+        <mat-icon class="info-icon" svgIcon="{{ headerIcon }}"></mat-icon>
+        <span class="label-text text-xs setp-header">{{ headerName }}</span>
+      </div>
+      <span class="sub-label">{{ startDate }}</span>
+    </div>
+    <mat-form-field appearance="outline" class="">
+      <mat-select placeholder="Change Status" [(ngModel)]="matselectedValue" (selectionChange)="onCostingStatusChange({ headerName })" panelClass="workflow-panel">
+        <mat-select-trigger>
+          <ng-container *ngFor="let option of options">
+            <ng-container *ngIf="option.statusName === matselectedValue">
+              <div class="workflow-status-label flex items-center justify-start" [class]="option.statusName">
+                <mat-icon class="info-icon shrink-0" [svgIcon]="option.displayIcon"></mat-icon>
+                <span class="label-text setp-header">{{ option.statusName }}</span>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-select-trigger>
+        <mat-option class="select-header" disabled>Change to</mat-option>
+        <mat-option *ngFor="let option of options" [value]="option.statusName" class="workflow-option">
+          <div class="workflow-status-label flex items-center justify-start" [class]="option.statusName">
+            <mat-icon class="info-icon" [svgIcon]="option.displayIcon"></mat-icon>
+            <span class="label-text setp-header">{{ option.statusName }}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</ng-template>
+
+<ng-template #workFlowStepNonActive let-headerName="headerName" let-headerIcon="headerIcon" let-bkColorId="bkColorId" let-colorId="colorId" let-borderColorId="borderColorId" let-startDate="startDate">
+  <div class="workfow-step flex items-center justify-between">
+    <div class="flex flex-col">
+      <div class="workflow-status-label flex items-center justify-start" [ngStyle]="{ color: colorId, 'background-color': bkColorId, 'border-color': borderColorId }">
+        <mat-icon class="info-icon" svgIcon="{{ headerIcon }}"></mat-icon>
+        <span class="text-xs setp-header">{{ headerName }}</span>
+      </div>
+      <span class="sub-label">{{ startDate }}</span>
+    </div>
+  </div>
+</ng-template>

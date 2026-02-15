@@ -1,0 +1,11 @@
+{
+  "apiBaseUrl": "ApiBaseUrl",
+  "masterApiBaseUrl": "MasterApiBaseUrl",
+  "azureBlobUrl": "AzureBlobUrl",
+  "authClientId": "AuthClientId",
+  "scopes": "Scopes",
+  "baseAuthority": "BaseAuthority",
+  "authorityDomain": "AuthorityDomain",
+  "mapApiKey": "MapApiKey",
+  "isProduction": "isProduction"
+}

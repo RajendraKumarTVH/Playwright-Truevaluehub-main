@@ -1,0 +1,81 @@
+.dialog-content {
+  border-radius: 6px;
+}
+
+.upload-placeholder {
+  border-radius: 6px;
+  border: 1px dashed var(--bs-border-color);
+}
+
+.choose-files-link {
+  color: var(--primary-shade);
+}
+.upload-hint {
+  color: var(--label-shade);
+}
+
+.supported-formats {
+  color: var(--label-shade);
+}
+.image-preview-container,
+.upload-progress,
+.drag-over-state {
+  min-height: 214px;
+  border-radius: 6px;
+  background: var(--readonly-surface);
+}
+.drag-over-state {
+  border: 1px dashed var(--primary-shade);
+}
+.image-preview {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.remove-image-btn {
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  position: absolute;
+  background-color: var(--bs-white);
+  &:hover {
+    background-color: var(--icon-btn-hover);
+  }
+  mat-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--bs-black);
+  }
+}
+
+.file-size {
+  color: var(--label-shade);
+}
+
+.error {
+  color: var(--text-dark-red);
+  background: var(--banner-red-bg);
+  mat-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+::ng-deep .spinner-icon {
+  width: 74px;
+  height: 74px;
+  color: var(--primary-shade);
+  .p-progressspinner {
+    width: 74px;
+    height: 74px;
+    svg {
+      circle {
+        stroke: var(--primary-shade) !important;
+      }
+    }
+  }
+}

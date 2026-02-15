@@ -1,0 +1,58 @@
+<div class="folder-list-container">
+  <p-table *ngIf="folders && folders.length > 0" [value]="folders" [responsiveLayout]="'scroll'" [showCurrentPageReport]="false" [paginator]="false" class="p-datatable-sm folder-list-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" scope="col">
+          <div class="flex items-center">
+            Name
+            <p-sortIcon field="name"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="dateModified" scope="col">
+          <div class="flex items-center">
+            Date Modified
+            <p-sortIcon field="dateModified"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="modifiedBy" scope="col">
+          <div class="flex items-center">
+            Modified by
+            <p-sortIcon field="modifiedBy"></p-sortIcon>
+          </div>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-folder>
+      <tr (click)="onRowClick(folder)" style="cursor: pointer">
+        <td>
+          <div class="flex items-center">
+            <mat-icon svgIcon="folder-filled-color" class="folder-icon mr-1"></mat-icon>
+            {{ folder.name }}
+          </div>
+        </td>
+        <td>{{ folder.dateModified | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ folder.modifiedBy }}</td>
+        <td class="py-0 text-right !pr-6">
+          <button type="button" pButton pRipple icon="pi pi-ellipsis-h" aria-label="Open menu" [matMenuTriggerFor]="mainMenuButton" (click)="openMenu($event)"></button>
+          <mat-menu #mainMenuButton="matMenu" class="folder-action-menu">
+            <button mat-menu-item (click)="renameFolder($event)">
+              <mat-icon svgIcon="editpen_icon"></mat-icon>
+              <span class="font-medium">Rename</span>
+            </button>
+            <button mat-menu-item (click)="confirmDelete(folder)">
+              <mat-icon svgIcon="delete_icon"></mat-icon>
+              <span class="font-medium">Delete</span>
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div *ngIf="!folders || folders.length === 0" class="empty-state">
+    <div class="empty-icon flex flex-col items-center justify-center gap-4">
+      <mat-icon svgIcon="folder-empty-icon" class="empty-folder"></mat-icon>
+      <div class="font-medium text-base">No folders added yet</div>
+    </div>
+  </div>
+</div>

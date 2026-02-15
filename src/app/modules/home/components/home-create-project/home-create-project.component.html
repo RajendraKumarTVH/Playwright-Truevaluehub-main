@@ -1,0 +1,22 @@
+<div class="create-project-outer-container flex flex-col">
+  <div class="flex items-center w-full justify-between bg-white">
+    <div class="home-create-project-container">
+      <nav mat-tab-nav-bar class="nav-tab" [tabPanel]="tabPanel">
+        <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive="active" #rla="routerLinkActive" [active]="rla.isActive">
+          {{ link.label }}
+        </a>
+      </nav>
+    </div>
+    <div class="flex ml-auto pr-4 pb-2">
+      <button type="button" class="btn btn-outline-primary download-btn d-flex align-items-center gap-2 ml-auto" (click)="downloadMyFile()">
+        <mat-icon svgIcon="download-icon" class="!size-4"></mat-icon>
+        <span>Download Template</span>
+      </button>
+    </div>
+  </div>
+  <div [ngClass]="{ 'create-project-tab flex-1 p-3 h-full': isFirstTab }">
+    <mat-tab-nav-panel #tabPanel class="h-full block">
+      <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
+  </div>
+</div>

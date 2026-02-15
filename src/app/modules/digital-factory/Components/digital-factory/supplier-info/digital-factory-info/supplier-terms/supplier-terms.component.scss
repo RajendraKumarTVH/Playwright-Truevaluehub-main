@@ -1,0 +1,128 @@
+.supplier-profile-container {
+  // height: 60vh;
+}
+
+.supplier-profile-header {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1d1d1d;
+}
+
+.details-field-name {
+  font-size: 12px;
+  color: #333333;
+}
+
+.supplier-profile-row {
+  display: flex;
+  flex-flow: row;
+  gap: 16px;
+}
+
+.details-field {
+  width: 33%;
+}
+
+.supplier-profile-details {
+  display: flex;
+  flex-flow: column;
+  gap: 1vh;
+  font-size: 12px;
+  width: 70%;
+}
+
+.supplier-profile-value {
+  height: 38px;
+  width: 30vh;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.digital-factory-btn {
+  height: 34px;
+  font-size: 12px;
+  flex-flow: row;
+  align-items: center;
+  width: 15vh;
+  display: flex;
+  justify-content: center;
+}
+
+.supplier-profile-buttons {
+  display: flex;
+  position: fixed;
+  z-index: 300;
+  transform: translate(-50%);
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--bs-white);
+  inset: auto auto 38px 50%;
+  box-shadow: 0px 4px 24px 0px #0000001a;
+}
+
+.digital-factory-btn {
+  height: 36px;
+  font-size: 12px;
+  font-weight: 500;
+  flex-flow: row;
+  align-items: center;
+  min-width: 135px;
+  display: flex;
+  justify-content: center;
+}
+
+.unsaved-changes-text {
+  font-size: 14px;
+  font-weight: 500;
+  align-self: center;
+}
+
+::ng-deep {
+  .mat-form-field {
+    width: 50%;
+  }
+  .mat-form-field-underline {
+    display: none;
+  }
+}
+
+.card {
+  background: var(--table-head-row-bg);
+}
+
+.df-input-field {
+  height: 20px;
+  width: 100%;
+  padding: 15px;
+  font-size: 12px;
+  border-radius: 5px;
+  background: var(--bs-white);
+  border: 1px solid var(--bs-border-color);
+
+  &[disabled] {
+    background: var(--readonly-surface);
+  }
+}
+
+.add-fields {
+  --bs-gutter-x: 1rem;
+}
+
+.category-input-dropdown {
+  min-height: 34px;
+}
+.category-dropdown {
+  display: flex;
+  max-height: 50px;
+  border-radius: 6px;
+  align-items: center;
+  background: var(--bs-white);
+
+  mat-icon[matSuffix] {
+    cursor: pointer;
+    margin-left: -24px;
+    pointer-events: none;
+    color: var(--bs-black);
+  }
+}

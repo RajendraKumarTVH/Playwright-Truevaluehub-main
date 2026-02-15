@@ -1,0 +1,82 @@
+<ng-container [formGroup]="formGroup">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Tube Sawing :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfHitsRequired'"></app-field-comment>
+      <div class="row row-cols-3 pt-1">
+        <div class="col">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" formControlName="noOfHitsRequired" type="radio" [value]="1" name="noOfHitsRequired" id="noOfHitsRequired" checked (change)="calculateCost()" />
+            <label class="form-check-label" for="Yes">Yes</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" formControlName="noOfHitsRequired" type="radio" [value]="2" name="noOfHitsRequired" id="noOfHitsRequired" (change)="calculateCost()" />
+            <label class="form-check-label" for="No">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Bend Angle &lt;45° (Nos) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfBendsPerXAxis'"></app-field-comment>
+      <input type="number" formControlName="noOfBendsPerXAxis" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Bend Angle 45&lt;90° (Nos) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfBendsPerYAxis'"></app-field-comment>
+      <input type="number" formControlName="noOfBendsPerYAxis" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Bend Angle 90&lt;135° (Nos) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfBendsPerZAxis'"></app-field-comment>
+      <input type="number" formControlName="noOfBendsPerZAxis" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Bend Angle 135&lt;180° (Nos) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'noOfbends'"></app-field-comment>
+      <input type="number" formControlName="noOfbends" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Part Loading(s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'loadingTime'"></app-field-comment>
+      <input type="number" formControlName="loadingTime" (blur)="calculateCost()" class="form-control" [OnlyNumber]="true" min="0" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Part Unloading(s) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'unloadingTime'"></app-field-comment>
+      <input type="number" formControlName="unloadingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Clamping/Declamping (Sec) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'sheetLoadUloadTime'"></app-field-comment>
+      <input type="number" formControlName="sheetLoadUloadTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Tube Positioning (Sec) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'weldingPosition'"></app-field-comment>
+      <input type="number" formControlName="weldingPosition" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Tube Rotation :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'rotationTime'"></app-field-comment>
+      <input type="number" formControlName="rotationTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Tube Bending (Sec) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'wireTwistingSpeed'"></app-field-comment>
+      <input type="number" formControlName="wireTwistingSpeed" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Tube Cutting (Sec) :</label>
+      <app-field-comment [formIdentifier]="compVals.formIdentifier" [fieldIdentifier]="'cuttingTime'"></app-field-comment>
+      <input type="number" formControlName="cuttingTime" class="form-control" [OnlyNumber]="true" min="0" (blur)="calculateCost()" />
+    </div>
+
+    <div class="col-4 mt-3">
+      <label class="form-label no-wrap">Net Process Cost($):</label>
+      <input type="number" formControlName="directProcessCost" class="form-control" readonly="readonly" />
+    </div>
+  </div>
+</ng-container>

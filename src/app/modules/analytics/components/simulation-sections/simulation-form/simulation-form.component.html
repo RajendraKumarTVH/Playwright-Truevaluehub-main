@@ -1,0 +1,152 @@
+<form autocomplete="off" [formGroup]="simulationform" class="simulation-form">
+  <div class="form-group pt-1 mb-3 row">
+    <div class="col-sm-4">
+      <label for="projectId" class="control-label">Project</label>
+      <div class="dropdown-wrap">
+        <input type="text" class="form-control" placeholder=" Select Project" formControlName="projectId" [matAutocomplete]="projectAuto" (blur)="updateProjectIdValue()" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete autoActiveFirstOption #projectAuto="matAutocomplete" [displayWith]="displayProject" (optionSelected)="projectOptionSelected($event)">
+          <mat-option *ngFor="let project of filteredProjects$ | async" [value]="project">{{ project?.projectName }} - {{ project?.projectInfoId }}</mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <label for="partId" class="control-label">Scenario</label>
+      <div class="dropdown-wrap">
+        <input type="text" class="form-control" placeholder="Select Scenario" [matAutocomplete]="scenarioAuto" formControlName="scenarioId" (keydown)="preventDefault($event)" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <mat-autocomplete #scenarioAuto="matAutocomplete" [displayWith]="displayScenarioName" (optionSelected)="onScenarioChange($event)">
+        <mat-option *ngFor="let scenario of scenarioList" [value]="scenario">
+          {{ scenario?.scenarioName }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="col-sm-4">
+      <label for="partId" class="control-label">Part Name</label>
+      <div class="dropdown-wrap">
+        <input type="text" class="form-control" placeholder="Select Part" formControlName="partId" [matAutocomplete]="partAuto" (blur)="updatePartIdValue()" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete #partAuto="matAutocomplete" [displayWith]="displayPartName" (optionSelected)="onPartChange($event)">
+          <mat-option *ngFor="let part of filteredParts$ | async" [value]="part">
+            {{ part?.intPartNumber }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="form-group col-8 mb-3" *ngIf="page === pageEnum.BestProcess">
+      <label for="processTypeID" class="control-label">Processes</label>
+      <div class="dropdown-wrap">
+        <input type="text" class="form-control" placeholder="Select Processes" [matAutocomplete]="processAuto" formControlName="processList" (keydown)="preventDefault($event)" />
+        <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+      </div>
+      <div class="category-input-dropdown mat-selectbox">
+        <mat-autocomplete #processAuto="matAutocomplete" [displayWith]="displayProcessFn">
+          <mat-option class="mat-option-container" *ngFor="let pType of processTypes" [value]="pType">
+            <div (click)="optionProcessClicked($event, pType)">
+              <mat-checkbox
+                [checked]="pType.selected"
+                (change)="toggleProcessSelection(pType)"
+                (click)="$event.stopPropagation()"
+                [disabled]="!pType.selected && selectedProcesses.length >= maxProcessSelection">
+                {{ pType?.processType }}
+              </mat-checkbox>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
+
+    <!-- <ng-container *ngIf="page === pageEnum.BestProcess">
+            <div class="col-sm-3">
+                <label for="matPrimaryProcessName" class="control-label">Choose Primary Process</label>
+                <select formControlName="matPrimaryProcessName" class="form-control"
+                    (change)="onPrimaryProcessChange($event)">
+                    <option value="" selected>-------Select Process ---------</option>
+                    <optgroup *ngFor="let processType of processList" label="{{ processType.group }}">
+                        <option *ngFor="let type of processType.data" [value]="type.processId">
+                            {{type.primaryProcess}}
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label for="processTypeID" class="control-label">Choose Process Group</label>
+                <select formControlName="processTypeID" class="form-control">
+                    <option value="" selected>-------Select Process Group ---------</option>
+                    <optgroup *ngFor="let processType of processTypeList" label="{{ processType.group }}">
+                        <option *ngFor="let type of processType.data" [value]="type.processTypeId">
+                            {{type.primaryProcess}}
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+        </ng-container> -->
+  </div>
+
+  <div class="form-group mb-3 row">
+    <div class="col-8">
+      <label for="partId" class="control-label">Countries</label>
+      <div class="flex flex-col relative">
+        <div class="dropdown-wrap">
+          <input type="text" class="form-control" placeholder="Select Countries" [matAutocomplete]="auto" formControlName="countryList" (blur)="updateCountriesValue()" #countryInput />
+          <mat-icon class="dropdown-arrow" svgIcon="downArrow_icon"></mat-icon>
+        </div>
+        <div class="category-input-dropdown mat-selectbox pr-5">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="reopenCountryPanel($event)">
+            <mat-option class="mat-option-container" *ngFor="let country of filteredMfrCountryList$ | async" [value]="country" (click)="countryOptionClicked($event, country)">
+              <mat-checkbox
+                [checked]="country.selected"
+                (change)="toggleSelection(country)"
+                (click)="$event.stopPropagation()"
+                [disabled]="!country.selected && selectedCountries.length >= maxCountrySelection">
+                {{ country?.countryName }}
+              </mat-checkbox>
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-10 button-group flex gap-3">
+      <button type="button" class="btn btn-primary" (click)="runSimulation()" [disabled]="!simulationform.valid || !this.selectedProject || !this.selectedPart || !this.selectedCountries">
+        Run Analysis
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="saveSimulationResult()"
+        [ngClass]="saveNeeded ? 'dirty-button' : ''"
+        *ngIf="page === pageEnum.BestRegion"
+        [disabled]="!simulationform.valid || !this.selectedProject || !this.selectedPart || !this.selectedCountries || !saveNeeded">
+        Save Result
+      </button>
+      <div class="flex shrink-0" *ngIf="hasResults">
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="text-black">
+          <mat-icon class="text-black text-base font-normal">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="new-analysis-action-menu">
+          <button mat-menu-item (click)="makeACopy()">
+            <mat-icon svgIcon="copy-icon" class="edit"></mat-icon>
+            <span class="text-xs">Make a Copy</span>
+          </button>
+          <button mat-menu-item (click)="deleteAnalysis()" [disabled]="!currentAnalysisId">
+            <mat-icon svgIcon="delete_icon"></mat-icon>
+            <span class="text-xs">Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</form>

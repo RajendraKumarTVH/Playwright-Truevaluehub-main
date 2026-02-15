@@ -1,0 +1,20 @@
+.risk-info-container {
+  display: flex;
+  flex-flow: column;
+  background: #f3f7ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.risk-info {
+  flex: 2;
+  padding: 10px;
+}
+
+.risk-info-header {
+  font-weight: 600;
+}
+
+.risk-info-content {
+  padding-top: 15px;
+}

@@ -1,0 +1,30 @@
+<table id="resultTable" class="table thead-light" aria-describedby="">
+  <thead>
+    <tr>
+      <th scope="col">SNo</th>
+      <th scope="col">Process</th>
+      <th scope="col">Time(Mins)</th>
+      <th scope="col">MHR</th>
+      <th scope="col">LHR</th>
+      <th scope="col">Number of Operator</th>
+      <!--<th scope="col">Skill Level</th>-->
+      <th scope="col">Conversion Cost(USD)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of resultTableData">
+      <td>{{ result.no }}</td>
+      <td>{{ result.description }}</td>
+      <td>{{ result.time ? result.time.toFixed(6) : 0 }}</td>
+      <!--<td>{{result.Time}}</td>-->
+      <td>{{ result.mhr ? result.mhr?.toFixed(6) : 0 }}</td>
+      <td>{{ result.lhr ? result.lhr?.toFixed(6) : 0 }}</td>
+      <td>{{ result.numberofOperator }}</td>
+      <td>{{ result.conversionCost ? result.conversionCost.toFixed(6) : 0 }}</td>
+    </tr>
+    <tr>
+      <td colspan="6">Grand Total</td>
+      <td>{{ grandTotal.toFixed(6) }}</td>
+    </tr>
+  </tbody>
+</table>

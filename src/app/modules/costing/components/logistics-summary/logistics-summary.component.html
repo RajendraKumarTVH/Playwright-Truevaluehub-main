@@ -1,0 +1,419 @@
+<mat-tab-group dynamicHeight (selectedTabChange)="onTabChange($event)" class="material-tab-bordered-container">
+  <mat-tab aria-labelledby="Cost">
+    <span *matTabLabel id="Cost">Cost</span>
+    <div *ngIf="costLoader" style="width: 100%; height: 100%; position: absolute">
+      <div class="bt-spinner"></div>
+    </div>
+    <form [formGroup]="logisticsInformationForm" (ngSubmit)="onFormSubmit()" autocomplete="off" (change)="onFormValueChange()">
+      <div class="container-fluid pb-3">
+        <div class="row gx-5">
+          <div class="row row-cols-3 mt-1">
+            <div class="col">
+              <div class="form-group mt-2">
+                <label class="form-label has-icon no-wrap">
+                  <span class="label-text">Mode of Transport</span>
+                  <app-info-tooltip [infoId]="'Logistics_Mode_of_Transport'"></app-info-tooltip>
+                </label>
+                <select
+                  formControlName="ModeOfTransport"
+                  class="form-control"
+                  [ngClass]="{
+                    'input-failure': !f.ModeOfTransport.errors,
+                    'input-success': f.ModeOfTransport.errors,
+                  }"
+                  placeholder="Select Mode of Transport"
+                  (change)="setValuesBasedOnModeOfTransport(f.ModeOfTransport.value)">
+                  <option value="">Select Mode of Transport</option>
+                  <option *ngFor="let option of modeOfTransports" [value]="option.value">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group mt-2">
+                <label class="form-label has-icon no-wrap">
+                  <span class="label-text">Shipment Type</span>
+                  <app-info-tooltip [infoId]="'Logistics_Shipment_Type'"></app-info-tooltip>
+                </label>
+                <select formControlName="ShipmentType" class="form-control" placeholder="Select Shipment Type" (change)="setValuesBasedOnShipmentType(f.ShipmentType.value)">
+                  <option value="">Select Shipment Type</option>
+                  <option *ngFor="let option of shipmentType" [ngValue]="option.value">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group mt-2">
+                <label class="form-label has-icon no-wrap">
+                  <span class="label-text">Container Type</span>
+                  <app-info-tooltip [infoId]="'Logistics_Container_Type'"></app-info-tooltip>
+                </label>
+                <select formControlName="ContainerType" class="form-control" placeholder="Select Container Type" (change)="onContainerTypeChange()">
+                  <option value="">Select Container Type</option>
+                  <option *ngFor="let option of containerType" [ngValue]="option.value">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-3 mt-3 d-none">
+            <div class="col">
+              <label class="form-label">Origin Surface KM's:</label>
+              <input
+                type="number"
+                formControlName="OriginSurfaceKm"
+                class="form-control"
+                [ngClass]="{
+                  'input-failure': !f.OriginSurfaceKm.errors,
+                  'input-success': f.OriginSurfaceKm.errors,
+                }"
+                placeholder="Enter Origin Surface KM's" />
+            </div>
+            <div class="col">
+              <label class="form-label">Destination Surface KM's:</label>
+              <input
+                type="number"
+                formControlName="DestinationSurfaceKm"
+                class="form-control"
+                [ngClass]="{
+                  'input-failure': !f.DestinationSurfaceKm.errors,
+                  'input-success': f.DestinationSurfaceKm.errors,
+                }"
+                placeholder="Enter Destination Surface KM's" />
+            </div>
+          </div>
+          <div class="row row-cols-3 mt-3">
+            <div class="col">
+              <label class="form-label has-icon no-wrap">
+                <span class="label-text">Full Container Cost ($)</span>
+                <app-info-tooltip [infoId]="'Logistics_Full_Container_Cost'"></app-info-tooltip>
+              </label>
+              <input type="number" formControlName="ContainerCost" class="form-control" (blur)="calculateLogisticsCost()" [OnlyNumber]="true" min="0" />
+            </div>
+            <div class="col">
+              <label class="form-label has-icon no-wrap">
+                <span class="label-text">% Of Container Needed</span>
+                <app-info-tooltip [infoId]="'Logistics_Percentage_Of_Container_Needed'"></app-info-tooltip>
+              </label>
+              <input type="number" formControlName="ContainerPercent" class="form-control" (blur)="calculateLogisticsCost()" [OnlyNumber]="true" min="0" />
+            </div>
+            <div class="col">
+              <label class="form-label has-icon no-wrap">
+                <span class="label-text">Freight Cost per Shipment ($)</span>
+                <app-info-tooltip [infoId]="'Logistics_Freight_Cost_per_Shipment'"></app-info-tooltip>
+              </label>
+              <input type="number" formControlName="FreightCostPerShipment" class="form-control" (blur)="calculateLogisticsCost()" [OnlyNumber]="true" min="0" />
+            </div>
+          </div>
+          <div class="row row-cols-3 mt-3">
+            <div class="col">
+              <label class="form-label has-icon no-wrap">
+                <span class="label-text">Freight Cost per Unit ($)</span>
+                <app-info-tooltip [infoId]="'Logistics_Freight_Cost_per_Unit'"></app-info-tooltip>
+              </label>
+              <input type="number" (blur)="calculateLogisticsCost()" formControlName="FreightCost" class="form-control" [OnlyNumber]="true" min="0" />
+            </div>
+            <!-- <div class="col">
+                            <label class="form-label">Full Container ESG (kg CO2):</label>
+                            <input type="number" formControlName="TotalCarbonFootPrint" class="form-control"
+                                (blur)="calculateLogisticsCost()" [OnlyNumber]="true" min="0">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Total ESG per Shipment (kg CO2):</label>
+                            <input type="number" formControlName="CarbonFootPrint" class="form-control"
+                                (blur)="calculateLogisticsCost()" [OnlyNumber]="true" min="0">
+                        </div> -->
+          </div>
+          <!-- <div class="row row-cols-3 mt-3">
+
+                        <div class="col">
+                            <label class="form-label">Total ESG per Unit (kg CO2):</label>
+                            <input type="number" formControlName="CarbonFootPrintPerUnit" class="form-control"
+                                [OnlyNumber]="true" min="0" (blur)="calculateLogisticsCost()">
+                        </div>
+                    </div> -->
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab aria-labelledby="Map">
+    <span *matTabLabel id="Map">Map</span>
+    <div class="row" *ngIf="!btnLoader">
+      <div class="w-full hh-grayBox">
+        <div class="route-visualization-container bg-white flex justify-start items-start w-full !p-3 relative flex-wrap">
+          <div *ngFor="let route of routeInfo; let i = index; let isLast = last; first as isFirst" class="route-item-wrapper flex items-start">
+            <!-- Route Point -->
+            <div class="route-point flex flex-col items-center relative">
+              <div class="route-icon-wrapper">
+                <img *ngIf="route.image" [src]="route.image" [alt]="route.name" class="route-icon" />
+              </div>
+              <p class="route-point-label text-center m-0">
+                <span [matTooltip]="route.name" matTooltipPosition="above" class="route-name-multiline">
+                  {{ route.name || (isFirst ? 'Origin' : isLast ? 'Destination' : 'Port') }}
+                </span>
+              </p>
+            </div>
+            <!-- Route Segment (between points) -->
+            <div *ngIf="!isLast && route.segmentIcon" class="route-segment mt-2 flex relative items-center flex-col">
+              <div class="route-segment-icon flex justify-center items-center">
+                <img [src]="route.segmentIcon" alt="Transport" class="segment-icon" />
+              </div>
+              <div
+                class="route-segment-line"
+                [ngClass]="{
+                  'land-segment': [2, '2'].includes(route.modeOfTrans),
+                  'sea-segment': [3, '3'].includes(route.modeOfTrans),
+                  'air-segment': [1, '1'].includes(route.modeOfTrans),
+                }"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Metrics Cards Section -->
+        <div class="metrics-container flex flex-col gap-2">
+          <!-- Top Row: Two Cards -->
+          <div class="metrics-top-row flex flex-wrap">
+            <!-- Total Distance Card -->
+            <div class="metric-card flex flex-col justify-center items-center p-3 flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">Total Distance</div>
+              <div class="metric-value text-base font-semibold leading-normal tetx-black">--</div>
+            </div>
+            <!-- CO2 Footprint Card -->
+            <div class="metric-card co2-card flex flex-col justify-center items-center p-3 flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">CO2 Footprint</div>
+              <div class="metric-value co2-value text-base font-semibold leading-normal">{{ totalCO2 ?? 0 | number: '1.2-2' : 'en-US' }} kg CO₂</div>
+            </div>
+          </div>
+          <!-- Bottom Row: Cost Breakdown Card -->
+          <div class="metric-card cost-breakdown-card flex justify-center items-center p-3 flex-1">
+            <div class="cost-breakdown-left flex flex-col justify-center items-center flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">Total Logistics Cost</div>
+              <div class="metric-value cost-value text-base font-semibold leading-normal text-black">${{ totalCost ?? 0 | number: '1.2-2' : 'en-US' }}</div>
+            </div>
+            <div class="cost-breakdown-divider"></div>
+            <div class="cost-breakdown-right flex-1">
+              <div class="payment-breakdown flex flex-col gap-1">
+                <div class="payment-item">
+                  <span class="payment-label">Supplier paid :</span>
+                  <span class="payment-amount text-xs font-medium leading-normal">--</span>
+                </div>
+                <div class="payment-item">
+                  <span class="payment-label">Buyer paid :</span>
+                  <span class="payment-amount text-xs font-medium leading-normal">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-container overflow-hidden w-full" *ngIf="!btnLoader">
+      <google-map [center]="{ lat: lat, lng: lng }" [zoom]="0.7" [options]="mapOptions">
+        <map-marker *ngFor="let marker of mapMarkerPoints" [position]="{ lat: marker.path[0], lng: marker.path[1] }" [icon]="marker.img"></map-marker>
+        <map-polyline *ngFor="let polyLine of directions" [options]="{ strokeColor: polyLine.color, strokeWeight: 4, strokeOpacity: 1 }" [path]="polyLine.path"></map-polyline>
+      </google-map>
+    </div>
+
+    <div class="card-body mt-3" *ngIf="!btnLoader">
+      <div *ngFor="let route of routeInfo; let i = index; let isFirst = first; let isLast = last" [attr.data-index]="i">
+        <mat-expansion-panel *ngIf="i < routeInfo.length - 1">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span *ngIf="isFirst" class="label label-default" style="width: 150px">
+                <img alt="" *ngIf="isFirst" class="icon1" src="{{ route.image }}" />
+                Pick Up
+              </span>
+              <span *ngIf="i === 1 && routeInfo.length > 2" class="label label-default" style="width: 150px">
+                <img alt="" *ngIf="!isFirst && !isLast" class="icon1" src="{{ route.image }}" />
+                <label *ngIf="route.modeOfTrans === '1'">Air Freight</label>
+                <label *ngIf="route.modeOfTrans === '3'">Ocean Freight</label>
+              </span>
+              <span *ngIf="i === 2" class="label label-default" style="width: 150px">
+                <img alt="" *ngIf="isLast" class="icon1" src="{{ route.image }}" />
+                Delivery
+              </span>
+              <div class="row cost-b" *ngIf="!isLast">
+                <!-- <div class="col-md-6">{{ route.co2 }} kg CO2</div>
+                <div class="col-md-6">$ {{ route.cost }}</div> -->
+                <div class="col-md-6">{{ route.co2 ?? 0 | number: '1.2-2' : 'en-US' }} kg CO₂</div>
+                <div class="col-md-6">$ {{ route.cost ?? 0 | number: '1.2-2' : 'en-US' }}</div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </div>
+    </div>
+    <div *ngIf="btnLoader" class="flex justify-center items-center h-full">
+      <div class="bt-spinner"></div>
+    </div>
+    <div *ngIf="!btnLoader">
+      <div style="margin: 10px" [ngClass]="timeLineClass">
+        <ul *ngFor="let route of routeInfo" class="list_route_info">
+          <li class="route_info_item">
+            <div [ngClass]="timeLineClassDot"></div>
+            <p>
+              <b>{{ route.name }}</b>
+            </p>
+            <p *ngIf="route.distance">Distance: {{ route.distance }}</p>
+            <p *ngIf="route.time !== -1">Transit Time: {{ route.time }}</p>
+            <!-- <p *ngIf="route.cost > 0">Cost: $ {{ route.cost }}</p>
+            <p *ngIf="route.co2 > 0">CO2: {{ route.co2 }} KG</p> -->
+            <p *ngIf="(route.cost ?? 0) > 0">Cost: $ {{ route.cost ?? 0 | number: '1.2-2' : 'en-US' }}</p>
+            <p *ngIf="(route.co2 ?? 0) > 0">CO₂: {{ route.co2 ?? 0 | number: '1.2-2' : 'en-US' }} kg</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- Uncomment this when we have the map tab -->
+  <!-- <mat-tab aria-labelledby="Map">
+    <span *matTabLabel id="Map">Map</span>
+    <div class="row" *ngIf="!btnLoader">
+      <div class="w-full hh-grayBox">
+        <div class="route-visualization-container bg-white flex justify-start items-start w-full !p-3 relative flex-wrap">
+          <div *ngFor="let route of routeInfo; let i = index; let isLast = last; first as isFirst" class="route-item-wrapper flex items-start">
+            <div class="route-point flex flex-col items-center relative">
+              <div class="route-icon-wrapper">
+                <img *ngIf="route.image" [src]="route.image" [alt]="route.name" class="route-icon" />
+              </div>
+              <p class="route-point-label text-center m-0">
+                <span [matTooltip]="route.name" matTooltipPosition="above" class="route-name-multiline">
+                  {{ route.name || (isFirst ? 'Origin' : isLast ? 'Destination' : 'Port') }}
+                </span>
+              </p>
+            </div>
+            <div *ngIf="!isLast && route.segmentIcon" class="route-segment mt-2 flex relative items-center flex-col">
+              <div class="route-segment-icon flex justify-center items-center">
+                <img [src]="route.segmentIcon" alt="Transport" class="segment-icon" />
+              </div>
+              <div
+                class="route-segment-line"
+                [ngClass]="{
+                  'land-segment': route.modeOfTrans === 2 || route.modeOfTrans === '2',
+                  'sea-segment': route.modeOfTrans === 3 || route.modeOfTrans === '3',
+                  'air-segment': route.modeOfTrans === 1 || route.modeOfTrans === '1',
+                }"></div>
+            </div>
+          </div>
+        </div>
+        <div class="metrics-container flex flex-col gap-2">
+          <div class="metrics-top-row flex flex-wrap">
+            <div class="metric-card flex flex-col justify-center items-center p-3 flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">Total Distance</div>
+              <div class="metric-value text-base font-semibold leading-normal tetx-black">--</div>
+            </div>
+            <div class="metric-card co2-card flex flex-col justify-center items-center p-3 flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">CO2 Footprint</div>
+              <div class="metric-value co2-value text-base font-semibold leading-normal">{{ totalCO2 ?? 0 | number: '1.2-2' : 'en-US' }} kg CO₂</div>
+            </div>
+          </div>
+          <div class="metric-card cost-breakdown-card flex justify-center items-center p-3 flex-1">
+            <div class="cost-breakdown-left flex flex-col justify-center items-center flex-1">
+              <div class="metric-title text-xs leading-normal font-medium text-black">Total Logistics Cost</div>
+              <div class="metric-value cost-value text-base font-semibold leading-normal text-black">${{ totalCost ?? 0 | number: '1.2-2' : 'en-US' }}</div>
+            </div>
+            <div class="cost-breakdown-divider"></div>
+            <div class="cost-breakdown-right flex-1">
+              <div class="payment-breakdown flex flex-col gap-1">
+                <div class="payment-item">
+                  <span class="payment-label">Supplier paid :</span>
+                  <span class="payment-amount text-xs font-medium leading-normal">--</span>
+                </div>
+                <div class="payment-item">
+                  <span class="payment-label">Buyer paid :</span>
+                  <span class="payment-amount text-xs font-medium leading-normal">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-container overflow-hidden w-full" *ngIf="!btnLoader">
+      <google-map [center]="{ lat: lat, lng: lng }" [zoom]="0.7" [options]="mapOptions">
+        <map-marker *ngFor="let marker of mapMarkerPoints" [position]="{ lat: marker.path[0], lng: marker.path[1] }" [icon]="marker.img"></map-marker>
+        <map-polyline *ngFor="let polyLine of directions" [options]="{ strokeColor: polyLine.color, strokeWeight: 4, strokeOpacity: 1 }" [path]="polyLine.path"></map-polyline>
+      </google-map>
+    </div>
+    <div *ngIf="btnLoader" class="flex justify-center items-center h-full">
+      <div class="bt-spinner"></div>
+    </div>
+    <div *ngIf="!btnLoader">
+      <div class="ledger-container">
+        <h4 class="ledger-title text-xs font-semibold text-black mb-2 leading-snug">Logistics Breakdown Ledger</h4>
+        <div *ngFor="let route of routeInfo; let i = index; let isFirst = first; let isLast = last" class="ledger-card-wrapper">
+          <div class="ledger-card" *ngIf="i < routeInfo.length - 1">
+            <div class="ledger-card__header flex flex-col items-start !mb-3">
+              <div class="flex w-full flex-1 justify-between items-end">
+                <div class="flex">
+                  <div class="route-segment-icon m-0">
+                    <img *ngIf="route.segmentIcon" [src]="route.segmentIcon" alt="Transport" class="segment-icon" />
+                  </div>
+                  <div class="ledger-leg-title text-xs font-semibold text-black ml-4">
+                    <span *ngIf="isFirst">Pickup</span>
+                    <span *ngIf="i === 1 && routeInfo.length > 2">
+                    <span *ngIf="[1, '1'].includes(route.modeOfTrans)">Air Freight</span>
+<span *ngIf="[3, '3'].includes(route.modeOfTrans)">Sea Transit</span>
+                    </span>
+                    <span *ngIf="i === 2">Delivery</span>
+                  </div>
+                </div>
+                <div class="ledger-badges flex flex-wrap gap-2 justify-end">
+                  <span class="badge badge-co2 inline-flex items-center gap-1 text-xs bg-white">
+                    <mat-icon class="badge-icon !w-4 !h-4" svgIcon="leaf_icon"></mat-icon>
+                    <span class="text-black font-normal">CO₂:</span>
+                    <span class="font-semibold text-co2 uppercase">{{ route.co2 ?? 0 | number: '1.2-2' : 'en-US' }} KG</span>
+                  </span>
+                  <span class="badge badge-distance inline-flex items-center gap-1 text-black bg-white">
+                    <mat-icon class="badge-icon !w-4 !h-4" svgIcon="direction-icon"></mat-icon>
+                    <span class="font-normal">Distance:</span>
+                    <span class="font-semibold uppercase">{{ route.distance || '--' }}</span>
+                  </span>
+                </div>
+              </div>
+              <div class="ledger-leg-subtitle flex items-center gap-1 text-xs">
+                {{ route.name || 'Mumbai, IN' }}
+                <span *ngIf="!isLast">→</span>
+                <span *ngIf="!isLast">{{ routeInfo?.[i + 1]?.name || 'Port A' }}</span>
+              </div>
+            </div>
+            <div class="ledger-items-outer-wrapper">
+              <div class="ledger-items-inner-wrapper bg-white px-3 py-3 pt-1">
+                <div class="ledger-items-list pl-4">
+                  <div class="ledger-item relative grid grid-cols-3 items-center justify-between">
+                    <div class="label font-medium">Loading Cost</div>
+                    <div class="meta flex justify-center">
+                      <div class="text-left w-full">Paid By Supplier</div>
+                    </div>
+                    <div class="amount font-medium text-right text-gray-900">--</div>
+                  </div>
+                  <div class="ledger-item relative grid grid-cols-3 items-center justify-between">
+                    <div class="label font-medium">Inland Freight Cost</div>
+                    <div class="meta flex justify-center">
+                      <div class="text-left w-full">Paid By Supplier</div>
+                    </div>
+                    <div class="amount font-medium text-right text-gray-900">--</div>
+                  </div>
+                  <div class="ledger-item relative grid grid-cols-3 items-center justify-between">
+                    <div class="label font-medium">Unloading Cost</div>
+                    <div class="meta flex justify-center">
+                      <div class="text-left w-full">Paid By Buyer</div>
+                    </div>
+                    <div class="amount font-medium text-right text-gray-900">--</div>
+                  </div>
+                </div>
+                <div class="ledger-subtotal grid grid-cols-2 items-center justify-between text-sm px-3 py-2 font-semibold mt-2">
+                  <div>Leg Subtotal</div>
+                  <div class="text-right">$ {{ route.cost ?? 0 | number: '1.2-2' : 'en-US' }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab> -->
+</mat-tab-group>

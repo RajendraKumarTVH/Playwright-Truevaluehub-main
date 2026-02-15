@@ -1,0 +1,9 @@
+<div>
+  <div *ngIf="searchViewList && searchViewList.length > 0; else noRecords">
+    <app-search-text [searchViewList]="searchViewList" (selecLink)="onSelecLink($event)"></app-search-text>
+  </div>
+</div>
+
+<ng-template #noRecords>
+  <h3>No Records</h3>
+</ng-template>

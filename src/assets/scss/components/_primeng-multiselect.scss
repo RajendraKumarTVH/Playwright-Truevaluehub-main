@@ -1,0 +1,263 @@
+/* Multi select updated styles */
+.p-multiselect,
+.nesting-part-multiselect-panel {
+  --p-checkbox-width: 20px;
+  --p-checkbox-height: 20px;
+  --p-multiselect-dropdown-color: var(--bs-black);
+  --p-multiselect-dropdown-width: 16px;
+  --p-multiselect-dropdown-height: 16px;
+
+  border-radius: 6px;
+  background: var(--bs-white);
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-shadow: none;
+  align-items: center;
+  &:not(.p-disabled):hover {
+    border-color: var(--check-box-blue);
+  }
+
+  .p-inputtext {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: #495057;
+    appearance: none;
+    border-radius: 6px;
+    background: var(--bs-white);
+    border: 1px solid var(--bs-gray-400);
+    box-shadow: none;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      box-shadow 0.2s;
+
+    &:enabled:focus {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2rem #bfdbfe;
+      border-color: var(--check-box-blue);
+    }
+  }
+
+  .p-multiselect-label-container {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: var(--bs-gray-dark);
+  }
+
+  .p-multiselect-list-container {
+    ul {
+      gap: 0;
+      margin-bottom: 0;
+      padding: 4px 12px 12px 12px;
+    }
+  }
+
+  .p-checkbox-box {
+    background: var(--bs-white);
+    border: 2px solid var(--bs-gray-400);
+
+    &.p-checkbox-checked {
+      background: var(--check-box-blue);
+      border-color: var(--check-box-blue);
+    }
+  }
+  .p-multiselect-header {
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+    color: var(--bs-gray-800);
+    border-top-left-radius: 6px;
+    background: var(--bs-white);
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid var(--bs-gray-300);
+    .p-checkbox-checked {
+      .p-checkbox-box {
+        background: var(--check-box-blue);
+        border-color: var(--check-box-blue);
+      }
+    }
+    .p-iconwrapper {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .p-multiselect-option {
+    border: 0 none;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    font-size: 0.75rem;
+    color: var(--bs-black);
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    background: var(--bs-white);
+    .p-checkbox-box {
+      background: var(--bs-white);
+      border: 1px solid var(--component-border);
+    }
+
+    &.p-multiselect-option-selected {
+      background: var(--blue-light-border);
+
+      .p-checkbox-box {
+        background: var(--check-box-blue);
+        border-color: var(--check-box-blue);
+      }
+    }
+
+    &:focus {
+      color: #1d4ed8;
+      background: var(--p-multiselect-background);
+      box-shadow: inset 0 0 0 0.15rem #bfdbfe;
+    }
+
+    &:not(.p-disabled, .p-multiselect-option-selected):hover {
+      color: var(--bs-gray-700);
+      background: var(--bs-gray-200);
+    }
+    .p-iconwrapper {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  .p-multiselect-dropdown {
+    width: 10px;
+    margin: auto 9px auto 4px;
+    justify-content: flex-end;
+    .p-multiselect-dropdown-icon {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  .p-multiselect-label {
+    color: var(--bs-black);
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    gap: 4px;
+    &.p-placeholder {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+    }
+    .p-multiselect-chip {
+      padding: 4px;
+    }
+    .p-chip-label {
+      font-size: 0.75rem;
+      color: var(--bs-black);
+    }
+  }
+  .p-inputicon {
+    left: 8px;
+    right: auto;
+    width: 16px;
+    height: 16px;
+  }
+  .p-multiselect-filter-container {
+    .p-multiselect-filter {
+      font-size: 0.75rem;
+      border-radius: 6px;
+      padding: 7px 8px 7px 28px;
+      border: 1px solid var(--input-border-color);
+      --p-inputtext-border-color: var(--input-border-color);
+    }
+  }
+  .p-multiselect-clear-icon {
+    width: 1rem;
+    height: 1rem;
+    padding: 0 0.25rem;
+    color: var(--bs-black);
+    SVG {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .p-chip-remove-icon {
+    width: 10px;
+    height: 10px;
+    color: var(--bs-black);
+    SVG {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .thumbnail-img {
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid var(--bs-black);
+    img {
+      width: 26px;
+      height: 26px;
+      object-fit: cover;
+    }
+  }
+  .p-multiselect-filter-icon {
+    color: var(--bs-black);
+  }
+}
+// AI Filter Menu Styles
+.ai-filter-menu {
+  .p-listbox-header {
+    padding-top: 0;
+    margin-bottom: 16px;
+    .p-checkbox {
+      display: none;
+    }
+  }
+  .p-listbox-filter-container {
+    .p-listbox-filter {
+      font-size: 12px;
+      border-radius: 6px;
+      padding: 8px 8px 8px 28px;
+      border: 1px solid var(--input-border-color);
+      --p-inputtext-border-color: var(--input-border-color);
+    }
+  }
+  .p-listbox-list {
+    .p-listbox-option {
+      font-size: 12px;
+      line-height: 22px;
+      padding: 6px 16px;
+      color: var(--bs-black);
+      .p-checkbox-box {
+        border: 1px solid var(--input-border-color);
+      }
+    }
+    .p-listbox-option-check-icon {
+      margin-left: 0;
+    }
+  }
+  .p-inputicon {
+    left: 8px;
+    right: auto;
+    width: 16px;
+  }
+}
+
+.df-gases-utilized-table {
+  .p-autocomplete.p-component {
+    width: 100%;
+  }
+  .p-autocomplete-dropdown {
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    width: 40px;
+    height: 34px;
+    position: absolute;
+    color: var(--bs-black);
+    transform: translateY(-50%);
+  }
+}
+.df-custom-autocomplete {
+  .p-autocomplete-list-container {
+    .p-autocomplete-option {
+      justify-content: space-between;
+    }
+  }
+}

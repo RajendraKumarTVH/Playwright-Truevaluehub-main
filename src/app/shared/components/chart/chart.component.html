@@ -1,0 +1,26 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="chart-base-container">
+        <div class="chart-container relative">
+          <button mat-icon-button (click)="toggleFullscreen()" aria-label="Expand chart" class="expand-button absolute top-2 right-2 z-10 bg-white">
+            <mat-icon svgIcon="expand"></mat-icon>
+          </button>
+          @if (loader.ready()) {
+            @defer {
+              <highcharts-chart [constructorType]="chartConstructor" [options]="chartOptions" [(update)]="updateFlag" (chartInstance)="getChartInstance($event)" class="chart"></highcharts-chart>
+            } @placeholder {
+              <div class="flex justify-center items-center h-full">
+                <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+              </div>
+            }
+          } @else {
+            <div class="flex justify-center items-center h-full">
+              <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

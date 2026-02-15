@@ -1,0 +1,90 @@
+$spaces: 20;
+
+@mixin margin($size) {
+  margin: $size + rem;
+}
+
+@mixin margin-top($size) {
+  margin-top: $size + rem;
+}
+
+@mixin margin-left($size) {
+  margin-left: $size + rem;
+}
+
+@mixin margin-right($size) {
+  margin-right: $size + rem;
+}
+
+@mixin margin-bottom($size) {
+  margin-bottom: $size + rem;
+}
+
+@mixin padding($size) {
+  padding: $size + rem;
+}
+
+@mixin padding-top($size) {
+  padding-top: $size + rem;
+}
+
+@mixin padding-left($size) {
+  padding-left: $size + rem;
+}
+
+@mixin padding-right($size) {
+  padding-right: $size + rem;
+}
+
+@mixin padding-bottom($size) {
+  padding-bottom: $size + rem;
+}
+
+@for $i from 1 through $spaces {
+  .m-#{$i} {
+    @include margin($i);
+  }
+
+  .m-t-#{$i} {
+    @include margin-top($i);
+  }
+
+  .m-l-#{$i} {
+    @include margin-left($i);
+  }
+
+  .m-r-#{$i} {
+    @include margin-right($i);
+  }
+
+  .m-b-#{$i} {
+    @include margin-bottom($i);
+  }
+
+  .p-#{$i} {
+    @include padding($i);
+  }
+
+  .p-t-#{$i} {
+    @include padding-top($i);
+  }
+
+  .p-l-#{$i} {
+    @include padding-left($i);
+  }
+
+  .p-r-#{$i} {
+    @include padding-right($i);
+  }
+
+  .p-b-#{$i} {
+    @include padding-bottom($i);
+  }
+}
+
+// width in percentage
+@for $i from 0 through 100 {
+  .wd-#{$i} {
+    width: #{$i}#{'%'} !important;
+  }
+}

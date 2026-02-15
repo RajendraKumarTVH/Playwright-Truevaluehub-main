@@ -1,0 +1,86 @@
+export class MedbFgiccMasterDto {
+  fgiccId: number;
+  countryId: number;
+  volumeCategory: string;
+  supplyDescription: string;
+  domestic: number;
+  export: number;
+}
+
+export class MedbIccMasterDto {
+  iccId: number;
+  countryId: number;
+  volumeCategory: string;
+  iccPercentage: number;
+}
+
+export class MedbOverHeadProfitDto {
+  overHeadProfitId: number;
+  countryId: number;
+  overHeadProfitType: string;
+  categoryA: number;
+  categoryB: number;
+  volumeCategory: string;
+}
+
+export class MedbPaymentMasterDto {
+  paymentMasterId: number;
+  countryId: number;
+  paymentTermId: number;
+  value: number;
+}
+
+export class CostOverHeadProfitDto {
+  costOverHeadProfitId: number = 0;
+  partInfoId: number;
+  toolingId: number | null;
+  iccPer: number = 0;
+  iccCost: number = 0;
+  mohPer: number = 0;
+  mohCost: number = 0;
+  fohPer: number = 0;
+  fohCost: number = 0;
+  sgaPer: number = 0;
+  sgaCost: number = 0;
+  materialProfitPer: number = 0;
+  processProfitPer: number = 0;
+  profitCost: number = 0;
+  paymentTermsPer: number = 0;
+  paymentTermsCost: number = 0;
+  fgiccPer: number = 0;
+  fgiccCost: number = 0;
+  warrentyPer?: number = 0;
+  warrentyCost?: number = 0;
+  dataCompletionPercentage?: number = 0;
+
+  InventoryCarryingAmount: number = 0;
+  CostOfCapitalAmount: number = 0;
+  OverheadandProfitAmount: number = 0;
+
+  isIccPerDirty: boolean = false;
+  isMohPerDirty: boolean = false;
+  isPaymentTermsPerDirty: boolean = false;
+  isFohPerDirty: boolean = false;
+  isSgaPerDirty: boolean = false;
+  isFgiccPerDirty: boolean = false;
+  isMaterialProfitPerDirty: boolean = false;
+  isProcessProfitPerDirty: boolean = false;
+  isWarrentyPercentageDirty: boolean = false;
+}
+
+export interface ISupplierInfoOverHeadValues {
+  iccPer: string | number;
+  mohPer: string | number;
+  fohPer: string | number;
+  sgaPer: string | number;
+  paymentTermsPer: string | number;
+  fgiccPer: string | number;
+  materialProfitPer: string | number;
+  processProfitPer: string | number;
+  profitCost: string | number;
+}
+
+export interface SupplierOverHeadResult {
+  supplierInfoOverHeadValues: ISupplierInfoOverHeadValues;
+  costOverHeadProfit: CostOverHeadProfitDto;
+}

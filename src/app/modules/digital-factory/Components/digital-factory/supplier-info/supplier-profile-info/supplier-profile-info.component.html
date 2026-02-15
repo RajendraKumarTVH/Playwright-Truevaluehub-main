@@ -1,0 +1,91 @@
+<div *ngIf="isLoaded" class="supplier-info-main-container">
+  <div class="supplier-profile-container">
+    <div class="supplier-info-inside">
+      <div class="supplier-profile-details">
+        <div class="about-header">Company Profile</div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Founded</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.yearFounded }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Country</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.countryName }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Owner/CEO</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.owner }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Parent Company</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.parentCompany }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Company Size (Employees)</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.companySizeByEmployees }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Company Size (Sales)</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.companySizeBySales }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Diverse / Small Bus Status</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.diverse }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Alternate Facility Location(s)</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.diverse }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">DUNS</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.dunsId }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">EID</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.eid }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="mission-statement">
+            <div class="details-field-name">Mission Statement</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.missionStatement }}</div>
+          </div>
+        </div>
+        <div class="about-header">Contact</div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Address</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.address }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Website</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.website }}</div>
+          </div>
+          <div class="details-field">
+            <div class="details-field-name">Phone</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.phone }}</div>
+          </div>
+        </div>
+        <div class="supplier-profile-row">
+          <div class="details-field">
+            <div class="details-field-name">Email</div>
+            <div class="supplier-profile-value">{{ supplierInfo?.contactEmail }}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="marker" class="supplier-contact-info">
+        <google-map [center]="{ lat: marker?.lat, lng: marker?.lng }" [zoom]="zoom">
+          <map-marker [position]="{ lat: marker?.lat, lng: marker?.lng }" [icon]="marker?.icon"></map-marker>
+        </google-map>
+      </div>
+    </div>
+  </div>
+</div>

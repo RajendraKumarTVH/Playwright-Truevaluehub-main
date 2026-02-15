@@ -1,0 +1,13 @@
+{
+  "apiBaseUrl2": "https://localhost:7256",
+  "apiBaseUrl": "https://qa.truevaluehub.com",
+  "masterApiBaseUrl2": "https://localhost:7027",
+  "masterApiBaseUrl": "https://qa.truevaluehub.com",
+  "azureBlobUrl": "https://truevaluehubdev.blob.core.windows.net",
+  "authClientId": "bc0b5743-62d1-4579-94f5-bb975c2fc262",
+  "scopes": "https://truevaluehubapp.onmicrosoft.com/9ce2bc1c-e0bf-4275-9f88-dcce28502d59/FullAccess",
+  "baseAuthority": "https://truevaluehubapp.b2clogin.com/truevaluehubapp.onmicrosoft.com/",
+  "authorityDomain": "truevaluehubapp.b2clogin.com",
+  "mapApiKey": "QUl6YVN5QmFpeElFMks0eFl3ckJ3NU9GajJfSlFWUFJKVEZ5dDRZ",
+  "isProduction": "false"
+}

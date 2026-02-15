@@ -1,7 +1,4 @@
-export { MaterialInformationPage } from '../db/material-information.page'
-export { ManufacturingPage } from '../db/manufacturing.page'
 export { WeldingPage } from './welding-calculator.page'
-// export { ToolingPage } from './tooling.page'
 export { MigWeldingPage } from './mig-welding.page'
 
 export { ToolingPage } from './tooling.page'

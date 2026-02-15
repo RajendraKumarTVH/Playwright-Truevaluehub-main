@@ -1,0 +1,65 @@
+<div class="digital-factory-container">
+  <p-tabView (onChange)="onTabChange($event)">
+    <p-tabPanel header="Supplier Directory" [lazy]="true">
+      <ng-template pTemplate="content">
+        <div class="supplier-directory-header-container">
+          <app-search-bar [previousSearch]="digitalfactoryCommonHelper?.appliedSearchModel" [searchKeys]="searchKeys" (searchApply)="onSearchApply($event)"></app-search-bar>
+          <div class="supplier-directory-header-left">
+            <div class="supplier-map-view">
+              <mat-slide-toggle class="custom-slide-toggle" [(ngModel)]="mapViewEnabled" color="primary" (change)="onMapViewChange($event)" class="df-map-view-toggle">Map View</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="mapViewEnabled">
+          <app-digital-factory-map [searchModel]="searchModel"></app-digital-factory-map>
+        </div>
+        <div #supplierTable>
+          <app-supplier-directory-table [searchModel]="searchModel" (supplierDataEmit)="onSuppliersDataReceived($event)"></app-supplier-directory-table>
+        </div>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Digital Factory" [lazy]="true">
+      <ng-template pTemplate="content">
+        <div class="supplier-directory-header-container">
+          <app-search-bar [searchKeys]="searchKeys" (searchApply)="onSearchApply($event)"></app-search-bar>
+          <div class="supplier-directory-header-left">
+            <div class="supplier-map-view">
+              <mat-slide-toggle class="custom-slide-toggle" [(ngModel)]="mapViewEnabled" color="primary" (change)="onMapViewChange($event)">Map View</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="mapViewEnabledForDf">
+          <app-digital-factory-map [searchModel]="searchModelForDF" [tab]="'DigitalFactory'"></app-digital-factory-map>
+        </div>
+        <div #digitalFactoryTable>
+          <app-digital-factory-table [searchModel]="searchModelForDF" (supplierDataEmit)="onSuppliersDataReceived($event)"></app-digital-factory-table>
+        </div>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+  <div class="supplier-directory-header-right">
+    <div class="suppliers-count-container">
+      <mat-icon class="supplier-icon" svgIcon="total_count"></mat-icon>
+      <div>
+        <div class="supplier-directory-header">{{ currentTabSupplierCountDetails?.totalSuppliers | number: '1.0-2' }}</div>
+        <div class="total-suppliers suppliers-count">Total Suppliers</div>
+      </div>
+    </div>
+    <span class="df-field-separator"></span>
+    <div class="suppliers-count-container">
+      <mat-icon class="supplier-icon" svgIcon="active_count"></mat-icon>
+      <div>
+        <div class="supplier-directory-header">{{ currentTabSupplierCountDetails?.activeSuppliers | number: '1.0-2' }}</div>
+        <div class="active-suppliers suppliers-count">Active Suppliers</div>
+      </div>
+    </div>
+    <span class="df-field-separator"></span>
+    <div class="suppliers-count-container">
+      <mat-icon class="supplier-icon" svgIcon="category"></mat-icon>
+      <div>
+        <div class="supplier-directory-header">{{ currentTabSupplierCountDetails?.categories | number: '1.0-2' }}</div>
+        <div class="active-suppliers suppliers-count">Manufacturing Categories</div>
+      </div>
+    </div>
+  </div>
+</div>

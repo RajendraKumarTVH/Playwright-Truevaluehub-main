@@ -1,0 +1,155 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <h4 class="p-t-1 text-center" style="color: gray; text-transform: capitalize">User Information</h4>
+      <hr />
+
+      <button *ngIf="canAddUser" mat-raised-button type="button" class="btn btn-primary p-t-1 btn-add-user" (click)="addUser()">
+        <mat-icon>add</mat-icon>
+        <span>Add User</span>
+      </button>
+      <form [formGroup]="userForm" autocomplete="off" class="row p-t-2" *ngIf="userForm">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="firstName">
+                First Name
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                [ngClass]="{ 'input-failure': f?.firstName.errors, 'input-success': !f?.firstName.errors }"
+                type="text"
+                class="form-control"
+                placeholder="Enter First Name"
+                id="firstName"
+                formControlName="firstName"
+                name="firstName" />
+            </div>
+            <div class="col">
+              <label class="form-label" for="middleName">Middle Name :</label>
+              <input type="text" class="form-control" placeholder="Enter Middle Name" formControlName="middleName" name="middleName" />
+            </div>
+            <div class="col">
+              <label class="form-label" for="inputDefault">
+                Last Name
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                [ngClass]="{ 'input-failure': !f?.lastName.errors, 'input-success': f?.lastName.errors }"
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                placeholder="Enter Last Name"
+                id="lastName" />
+              <em class="clsred errorMessage" *ngIf="userForm?.errors?.['validateFullName']">User ({{ userForm?.errors?.['validateFullName'] }}) already exists!</em>
+            </div>
+          </div>
+          <div class="row p-t-1">
+            <div class="col">
+              <label class="form-label" for="email">
+                Email
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                [ngClass]="{ 'input-failure': !f?.email.errors, 'input-success': f?.email.errors }"
+                type="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="Enter Email"
+                id="email" />
+              <em class="clsred errorMessage" *ngIf="f?.email.errors?.['validateEmails']">Email ({{ f?.email.errors?.['validateEmails'] }}) already exists!</em>
+            </div>
+
+            <div class="col">
+              <label class="form-label" for="phone">Phone # :</label>
+              <input type="number" formControlName="phone" class="form-control" placeholder="Enter phone" id="phone" />
+            </div>
+
+            <div class="col">
+              <label class="form-label" for="title">Title :</label>
+              <select class="form-control" formControlName="title">
+                <!-- <option value="">Select Title</option> -->
+                <option *ngFor="let title of titles" [value]="title.value">
+                  {{ title.title }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row p-t-1">
+            <div class="col">
+              <label class="form-label" for="userName">
+                User Name
+                <span class="clsred">*</span>
+                :
+              </label>
+              <input
+                type="text"
+                formControlName="userName"
+                class="form-control"
+                placeholder="Enter Title"
+                [ngClass]="{ 'input-failure': !f?.userName.errors, 'input-success': f?.userName.errors }"
+                id="userName" />
+              <em class="clsred errorMessage" *ngIf="f?.userName.errors?.['validateUserNames']">UserName ({{ f?.userName.errors?.['validateUserNames'] }}) already exists!</em>
+            </div>
+
+            <div class="col">
+              <label class="form-label" for="role">
+                Role
+                <span class="clsred">*</span>
+                :
+              </label>
+              <select
+                class="form-control"
+                formControlName="role"
+                [ngClass]="{
+                  'input-failure': this.userForm.controls['role']?.errors,
+                  'input-success': !this.userForm.controls['role']?.errors,
+                }">
+                <option value="" disabled selected>Select Role</option>
+                <option *ngFor="let role of roles" [value]="role.value">
+                  {{ role.title }}
+                </option>
+              </select>
+            </div>
+            <div class="col">
+              <label class="form-label" for="clientGroup">Client group :</label>
+              <select class="form-control" formControlName="clientGroup">
+                <!-- <option value="">Select Role</option> -->
+                <option *ngFor="let clientGroup of clientGroups" [value]="clientGroup.groupId">
+                  {{ clientGroup.groupName }}
+                </option>
+              </select>
+            </div>
+            <div class="col user-checkbox-label" *ngIf="false">
+              <input class="form-check-input" formControlName="isInternalUser" name="isInternalUser" id="isInternalUser" type="checkbox" />
+              <label class="form-label" for="isInternalUser">Internal User</label>
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="p-t-1">
+            <button *ngIf="canAddUser" class="btn btn-primary wd-15" type="submit" (click)="onFormSubmit()" [disabled]="isInvalid">Save</button>
+            <button *ngIf="canAddUser" class="btn wd-15" type="submit" (click)="onRevert()" [disabled]="isInvalid"><i class="pi pi-undo edit-icon" style="color: slateblue"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row justify-content-center">
+            <label class="hoverable" for="fileInput">
+              <img [src]="imageContent ? imageContent : 'assets/images/img_avatar.png'" alt="" />
+              <div class="hover-text" style="color: #fff">Change Profile</div>
+              <div class="background"></div>
+            </label>
+            <br />
+            <input id="fileInput" type="file" (change)="onUpload($event)" accept="image/png, image/jpeg" />
+          </div>
+          <div *ngIf="url" class="row justify-content-center m-t-1">
+            <button class="wd-10 btn btn-secondary" (click)="url = null">Reset</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <app-user-management *ngIf="canAddUser" (userEdit)="userEditClick($event)"></app-user-management>
+</div>

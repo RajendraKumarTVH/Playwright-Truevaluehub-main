@@ -1,0 +1,129 @@
+.highcharts-range-selector-buttons {
+  .highcharts-label {
+    display: none !important;
+  }
+}
+.highcharts-button {
+  .highcharts-button-box {
+    stroke-width: 1;
+    font-weight: 500;
+    border-radius: 0;
+    fill: var(--bs-white);
+    color: var(--bs-black);
+    stroke: var(--tab-border);
+  }
+  &.highcharts-button-pressed {
+    text {
+      font-weight: 500 !important;
+      fill: var(--bs-primary) !important;
+    }
+    .highcharts-button-box {
+      stroke-width: 1;
+      font-weight: 500;
+      fill: var(--bs-white);
+      color: var(--bs-primary);
+      stroke: var(--bs-primary);
+    }
+  }
+}
+.highcharts-range-selector-group {
+  transform: translateY(-16px);
+}
+.highcharts-range-selector {
+  transform: translateY(-16px);
+}
+.highcharts-range-selector {
+  position: relative;
+  color: var(--bs-black) !important;
+  &::after {
+    content: '';
+    top: 50%;
+    right: 1px;
+    width: 20px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    height: calc(100% - 2px);
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--bs-white);
+    background-image: url('/assets/icons/calendar-icon-black.svg');
+  }
+}
+.highcharts-range-selector-buttons {
+  transform: translate(-60px, 30px);
+}
+
+.pricing-chart-container {
+  .chart-base-container {
+    margin-top: 4px;
+  }
+  .chart-container {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+}
+.highcharts-range-selector-group {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+.highcharts-range-input {
+  text {
+    fill: var(--bs-black) !important;
+  }
+}
+.highcharts-scrollbar-track {
+  .highcharts-scrollbar-thumb {
+    fill: var(--bs-black);
+  }
+}
+.highcharts-label-box {
+  rx: 4px;
+  ry: 4px;
+}
+
+.highcharts-navigator-mask-inside {
+  fill: rgba(240, 245, 255, 0.7) !important;
+}
+.highcharts-range-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between */
+}
+.highcharts-range-input {
+  position: relative;
+  display: inline-block;
+}
+
+.highcharts-range-input::after {
+  content: '\1F4C5'; /* 📅 Unicode calendar emoji or replace with custom icon */
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+}
+.competitive-analysis-view {
+  .highcharts-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    .highcharts-credits {
+      display: none !important;
+    }
+  }
+}
+.best-region-chart {
+  .chart-base-container {
+    .expand-button {
+      top: 0;
+    }
+  }
+  highcharts-chart {
+    width: 100%;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+}

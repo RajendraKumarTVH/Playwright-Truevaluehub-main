@@ -1,0 +1,33 @@
+.user-management-container {
+  margin-top: 2%;
+  max-height: 40vh;
+  overflow: auto;
+}
+
+.edit-icon {
+  color: slateblue;
+  margin-right: 10px;
+  border-right: 1px solid lightgray;
+  padding-right: 10px;
+
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.action-icon {
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.inactive-text {
+  color: slateblue;
+  font-weight: bold;
+  font-style: italic;
+  margin-left: 10px;
+}

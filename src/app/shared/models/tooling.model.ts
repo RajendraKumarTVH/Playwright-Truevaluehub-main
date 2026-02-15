@@ -1,0 +1,248 @@
+import { CostOverHeadProfitDto } from './overhead-Profit.model';
+import { ToolingCountryData } from './tooling-master-data';
+
+export class CostToolingDto {
+  toolingId: number;
+  toolingName: string;
+  partInfoId: number;
+  projectInfoId: number;
+  toolingCost?: number;
+  subsequentToolCost?: number;
+  toolLifeInParts?: number;
+  qtyRemains?: number;
+  toolCostPerPart?: number;
+  amortizationPerPart?: number;
+  processInfoId?: number;
+  toolingNameId?: number;
+  region?: string;
+  sourceCountryId?: number;
+  annualVolume: number;
+  envelopLength?: number;
+  envelopWidth?: number;
+  envelopHeight?: number;
+  runnerGapLength?: number;
+  runnerGapWidth?: number;
+  sideGapLength?: number;
+  sideGapWidth?: number;
+  moldBaseLength?: number;
+  moldBaseWidth?: number;
+  moldBaseHeight?: number;
+  cavityMaxLength?: number;
+  cavityMaxWidth?: number;
+  noOfTool?: number;
+  noOfNewTool?: number;
+  noOfSubsequentTool?: number;
+  noOfCopperElectrodes?: number;
+  noOfGraphiteElectrodes?: number;
+  surfaceFinish?: number;
+  textureGrade?: string;
+  mouldTypeId?: number;
+  mouldSubTypeId?: number;
+  noOfDrop?: number;
+  hotRunnerCost?: number;
+  electrodeMaterialCostGr?: number;
+  electrodeMaterialCostCu?: number;
+  toolingMasterData?: ToolingCountryData[];
+  totalSheetCost?: number;
+  undercutsUnscrewing?: number;
+  mouldCriticality?: number;
+  undercutsSideCores?: number;
+  undercutsAngularSlides?: number;
+  SideCoreCost: number = 0;
+  AngularSliderCost: number = 0;
+  UnScrewingCost: number = 0;
+  totalCoreCavityWeight: number;
+  totalMouldBaseWeight?: number;
+  totalMouldBaseMaterialCost?: number;
+  totalCoreCavityMaterialCost?: number;
+  costOverHeadProfit?: CostOverHeadProfitDto[];
+  toolingMaterialInfos?: ToolingMaterialInfoDto[];
+  toolingProcessInfos?: ToolingProcessInfoDto[];
+  bopCostTooling?: BopCostToolingDto[];
+  countryChanged?: boolean = false;
+  IsToollifeChanged?: boolean = false;
+  complexityChanged?: boolean = false;
+  mouldTypeChanged?: boolean = false;
+  mouldSubtypeChanged?: boolean = false;
+  surfaceFinishChanged?: boolean = false;
+  //simulation
+  partLength?: number;
+  partWidth?: number;
+  partHeight?: number;
+  partThickness?: number;
+  dimUnfoldedX: number;
+  dimUnfoldedY: number;
+  noOfCavity?: number;
+  toolLifeNoOfShots?: number;
+  noOfSubProcessTypeInfos?: number;
+  istoolLifeNoOfShotsDirty?: boolean = false;
+  isnoOfNewToolDirty?: boolean = false;
+  isnoOfSubsequentToolDirty?: boolean = false;
+  isnoOfToolDirty?: boolean = false;
+  isnoOfCopperElectrodesDirty?: boolean = false;
+  isnoOfGraphiteElectrodesDirty?: boolean = false;
+  issurfaceFinishDirty?: boolean = false;
+  istextureGradeDirty?: boolean = false;
+  isEnvelopLengthDirty?: boolean = false;
+  isEnvelopWidthDirty?: boolean = false;
+  isEnvelopHeightDirty?: boolean = false;
+  isMoldBaseLengthDirty?: boolean = false;
+  isMoldBaseWidthDirty?: boolean = false;
+  isMoldBaseHeightDirty?: boolean = false;
+  isnoOfCavityDirty?: boolean = false;
+  iscavityMaxLengthDirty?: boolean = false;
+  iscavityMaxWidthDirty?: boolean = false;
+  ismouldTypeIdDirty?: boolean = false;
+  ismouldSubTypeIdDirty?: boolean = false;
+  isnoOfDropDirty?: boolean = false;
+  ishotRunnerCostDirty?: boolean = false;
+  iselectrodeMaterialCostGrDirty?: boolean = false;
+  iselectrodeMaterialCostCuDirty?: boolean = false;
+
+  isangularSliderCostDirty?: boolean = false;
+  isunScrewingCostDirty?: boolean = false;
+  istotalSheetCostDirty?: boolean = false;
+  isundercutsUnscrewingDirty?: boolean = false;
+  ismouldCriticalityDirty?: boolean = false;
+
+  isundercutsAngularSlidesDirty?: boolean = false;
+  noOfDieStages?: number;
+  noOfStagesAlong?: number;
+  noOfStagesAcross?: number;
+  dieSizeLength?: number;
+  dieSizeWidth?: number;
+  dieSetSizeLength?: number;
+  dieSetSizeWidth?: number;
+  dieSetSizeHeight?: number;
+
+  isNoOfDieStagesDirty?: boolean = false;
+  isNoOfStagesAlongDirty?: boolean = false;
+  isNoOfStagesAcrossDirty: boolean = false;
+  isDieSizeLengthDirty: boolean = false;
+  isDieSizeWidthDirty: boolean = false;
+  isDieSetSizeLengthDirty: boolean = false;
+  isDieSetSizeWidthDirty: boolean = false;
+  isDieSetSizeHeightDirty: boolean = false;
+}
+
+export class ToolingMaterialInfoDto {
+  toolingMaterialId: number;
+  toolingMaterialName: string;
+  toolingId?: number;
+  moldDescriptionId?: number;
+  catergoryId?: number;
+  familyId?: number;
+  gradeId?: number;
+  volumePurchased?: number;
+  quantity?: number;
+  materialPrice?: number;
+  scrapPrice?: number;
+  density?: number;
+  length?: number;
+  width?: number;
+  height?: number;
+  totalPlateWeight?: number;
+  totalRawMaterialCost?: number;
+  materialCuttingAllowance?: number;
+  //simulation
+
+  netWeight?: number;
+  moldDescription?: number;
+  tensileStrength?: number;
+  moldBaseLength?: number;
+  moldBaseWidth?: number;
+  moldBaseHeight?: number;
+  isCommodityIM?: boolean = false;
+  isCommoditySheetMetal?: boolean = false;
+  isCommodityCasting?: boolean = false;
+  isTotalPlateWeightDirty?: boolean = false;
+  isLengthDirty?: boolean = false;
+  isWidthDirty?: boolean = false;
+  isHeightDirty?: boolean = false;
+  istotalRawMaterialCostDirty?: boolean = false;
+  ismaterialCuttingAllowanceDirty?: boolean = false;
+  isnetWeightDirty?: boolean = false;
+  isquantityDirty?: boolean = false;
+  ismaterialPriceDirty?: boolean = false;
+  isscrapPriceDirty?: boolean = false;
+  isdensityDirty?: boolean = false;
+}
+
+export class ToolingProcessInfoDto {
+  toolingProcessId: number;
+  processGroupName?: string;
+  toolingId: number;
+  processGroupId: number;
+  skilledLaborRate: number;
+  noOfSkilledLabors: number;
+  totalMaterialWeight: number;
+  perKgCostMachining: number;
+  hardeningWeight: number;
+  perKgCostHardening: number;
+  equipmentRate: number;
+  cycleTime: number;
+  totalProcessCost: number;
+  semiSkilledLaborRate: number;
+  noOfSemiSkilledLabors: number;
+  semiSkilledCycleTime: number;
+  semiSkilledTotalCost: number;
+  skilledTotalCost: number;
+  hourRate: number;
+  totalNoOfHours: number;
+  min: number;
+  max: number;
+  commodityTypeId: number;
+
+  //simulation
+  complexity?: number;
+  isSkilledLaborRateDirty?: boolean = false;
+  isCycleTimeDirty?: boolean = false;
+  isSemiSkilledCycleTimeDirty?: boolean = false;
+  isSemiSkilledLaborRateDirty?: boolean = false;
+  totmaterialWeight?: number;
+  skilledRate?: number;
+  lowSkilledRate?: number;
+  toolingNameId?: number;
+  isCommodityIM?: boolean = false;
+  isCommoditySheetMetal?: boolean = false;
+  isCommodityCasting: boolean = false;
+  isMoldDesign?: boolean = false;
+  isProgramming?: boolean = false;
+  isMachinePolishing?: boolean = false;
+  isMachineOperations?: boolean = false;
+  isAssembly?: boolean = false;
+  isMachinePlishing?: boolean = false;
+  isToolHardening?: boolean = false;
+  isToolTrialCost?: boolean = false;
+  isValidation?: boolean = false;
+  isTextureCost?: boolean = false;
+  istotalProcessCostDirty?: boolean = false;
+  toolingIMLookupList?: ToolingRefLookup[];
+  toolingFormingLookupList?: ToolingRefLookup[];
+  toolingBendingLookupList?: ToolingRefLookup[];
+  toolingCuttingLookupList?: ToolingRefLookup[];
+}
+
+export class BopCostToolingDto {
+  bopCostId: number;
+  descriptionName?: string;
+  toolingId: number;
+  descriptionId: number;
+  quantity: number;
+  totalCost: number;
+  totalProcessCost: number;
+  istotalProcessCostDirty?: boolean = false;
+  isCommodityIM?: boolean = false;
+  isCommoditySheetMetal?: boolean = false;
+  isCommodityCasting?: boolean = false;
+}
+
+export class ToolingRefLookup {
+  toolingRefId: number;
+  toolingRefType: number;
+  toolingRefName: string;
+  uOM: string;
+  simple: number;
+  inter: number;
+  complex: number;
+}

@@ -1,0 +1,4 @@
+<app-slider-shell [isVisible]="isVisible" (closeSlider)="closeSlider()">
+  <app-slider-content *ngIf="rowData?.projectStatusId !== 8" [isAdmin]="isAdmin" [currentUserId]="currentUserId" [rowData]="rowData"></app-slider-content>
+  <app-part-copy-slider-content *ngIf="rowData?.projectStatusId === 8" [rowData]="rowData" [isAdmin]="isAdmin" [currentUserId]="currentUserId" [userData]="userData"></app-part-copy-slider-content>
+</app-slider-shell>

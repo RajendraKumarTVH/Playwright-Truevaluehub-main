@@ -1,0 +1,35 @@
+.ai-table-view {
+  height: 100%;
+  padding: 16px;
+}
+
+.selection-dock {
+  position: fixed;
+  z-index: 300;
+  top: auto;
+  left: 50%;
+  right: auto;
+  bottom: 38px;
+  border-radius: 6px;
+  transform: translate(-60%, -90%);
+  box-shadow: 0px 0px 30px 0px #3166c21a;
+
+  button {
+    white-space: nowrap;
+    font-family: var(--body-font);
+    margin: 0 6px;
+  }
+  .btn-outline-primary {
+    --bs-btn-active-color: var(--primary-shade);
+    &:active {
+      color: var(--primary-shade);
+    }
+  }
+}
+
+.selection-dock-text {
+  font-family: var(--body-font);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+}

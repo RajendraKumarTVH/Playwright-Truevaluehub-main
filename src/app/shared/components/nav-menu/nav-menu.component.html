@@ -1,0 +1,153 @@
+<!-- New Header START -->
+<header class="app-l-header">
+  <div class="app-l-logo">
+    <span class="logo-title" *ngIf="!logoUrl">True ValueHub</span>
+    <img *ngIf="logoUrl" class="logo" alt="" [src]="logoUrl" />
+  </div>
+  <div class="header-search-wrapper">
+    <mat-icon class="search-icon" svgIcon="search_icon" color="y-icon" (click)="onSearch(search.value)"></mat-icon>
+    <input #search type="text" (keydown.enter)="onKeydown($event, search.value)" class="form-control" placeholder="Search..." aria-label="Search" />
+  </div>
+  <div class="app-l-header-right">
+    <div class="header-notification">
+      <span class="info-icons" matTooltip="Help">
+        <mat-icon svgIcon="help_icon" color="y-icon" (click)="sendMail()"></mat-icon>
+      </span>
+      <!-- Uncomment below code for notification sidebar -->
+      <!-- <button class="btn notification-btn icon-btn p-0" (click)="notificationSidebar.open()">
+        <span class="info-icons notification relative">
+          <span class="notif-status-dot"></span>
+          <mat-icon svgIcon="bell_icon" color="y-icon"></mat-icon>
+        </span>
+      </button> -->
+      <span class="info-icons notification relative">
+        <span class="notif-status-dot"></span>
+        <mat-icon svgIcon="bell_icon" color="y-icon"></mat-icon>
+      </span>
+    </div>
+    <div class="header-user-profile">
+      <div class="profile-image">
+        <img [src]="imageContent ? imageContent : 'assets/images/img_avatar.png'" class="userprofile rounded-circle" alt="" />
+      </div>
+      <div class="app-l-profile-name gap-2">
+        <span class="user-name text-truncate" matTooltip="{{ firstName + ' ' + lastName }}">
+          {{ firstName }}
+        </span>
+        <button mat-icon-button class="px-0" [matMenuTriggerFor]="dropdownMenu">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Uncomment below code after integrating notification sidebar -->
+<!-- <app-notification-sidebar #notificationSidebar></app-notification-sidebar> -->
+<!-- New Header END -->
+
+<!-- This code is old header, can remove after integrating new one -->
+<div class="bootstrapHeader d-none">
+  <div class="pageContainer">
+    <mat-toolbar id="mainToolBar" role="heading">
+      <mat-toolbar-row class="tool-bar-section">
+        <div class="logo-side-nav-icon">
+          <!-- <mat-slide-toggle (change)="clickMenu()" [(ngModel)]="isMenuOpen">
+          </mat-slide-toggle> -->
+          <button mat-button>
+            <span class="title" *ngIf="!logoUrl">True ValueHub</span>
+            <img *ngIf="logoUrl" class="logo" alt="" [src]="logoUrl" />
+          </button>
+        </div>
+        <div class="menu d-flex" *ngIf="isUserIsLoaded">
+          <a class="d-flex" mat-button [routerLink]="'/home'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="icon_home"></mat-icon>
+            <p>Home</p>
+          </a>
+          <a mat-button [routerLink]="'/costing'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="costing_icon" color="y-icon"></mat-icon>
+            <p>Costing</p>
+          </a>
+          <a mat-button [routerLink]="'/analytics'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="analytics_icon"></mat-icon>
+            <p>Analytics</p>
+          </a>
+          <a mat-button [routerLink]="'/ai-search'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="aisearch_icon"></mat-icon>
+            <p>AI Search</p>
+          </a>
+          <a mat-button [routerLink]="'/create-account'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="collabrate_icon"></mat-icon>
+            <p>Collaborate</p>
+          </a>
+          <a mat-button [routerLink]="'/reports'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon enable-background="new 0 0 512 512" svgIcon="report_icon"></mat-icon>
+            <p>Reports</p>
+          </a>
+          <a mat-button [routerLink]="'/data'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="database_icon"></mat-icon>
+            <p>Database</p>
+          </a>
+          <a mat-button [routerLink]="'/digitalFactory'" routerLinkActive="active">
+            <!-- <mat-icon>perm_data_setting</mat-icon> -->
+            <mat-icon svgIcon="digital_factory_icon"></mat-icon>
+            <p>DigitalFactory</p>
+          </a>
+          <a mat-button [routerLink]="'/create-account'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="archive_icon"></mat-icon>
+            <p>Archive</p>
+          </a>
+          <a mat-button [routerLink]="'/settings'" routerLinkActive="active" *ngIf="!isSupplierRole">
+            <mat-icon svgIcon="setting_icon"></mat-icon>
+            <p>Settings</p>
+          </a>
+        </div>
+        <div class="formSearchWrapper col-lg-2">
+          <div class="form-group has-search">
+            <div class="searhWrapper">
+              <i class="fa fa-search search-icon" (click)="onSearch(search.value)" aria-hidden="true"></i>
+              <!-- <input #search type="text" (keyup)="onStart(search.value)"  class="form-control" placeholder="Search..." aria-label="Search"> -->
+              <input #search type="text" (keydown.enter)="onKeydown($event, search.value)" class="form-control" placeholder="Search..." aria-label="Search" />
+            </div>
+          </div>
+        </div>
+
+        <div class="user-group">
+          <div class="info-icon">
+            <div matTooltip="Help">
+              <span><mat-icon (click)="sendMail()">help_outline</mat-icon></span>
+            </div>
+            <div>
+              <span class="notification">
+                <mat-icon>notifications</mat-icon>
+              </span>
+            </div>
+          </div>
+          <div class="profile">
+            <div class="profile-image">
+              <img [src]="imageContent ? imageContent : 'assets/images/img_avatar.png'" class="userprofile rounded-circle ml-1" alt="" />
+            </div>
+            <div class="d-flex">
+              <span class="text-truncate" matTooltip="{{ firstName + ' ' + lastName }}">
+                {{ firstName }}
+              </span>
+              <button mat-icon-button [matMenuTriggerFor]="dropdownMenu" style="height: 20px; width: 20px">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>
+<!-- This code is old header, can remove after integrating new one END-->
+
+<mat-menu class="profile-dropdown" #dropdownMenu x-position="before">
+  <button mat-menu-item [routerLink]="'/settings/add-user'">
+    <i class="fa fa-user icon-gap"></i>
+    Profile
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <i class="fa fa-sign-out icon-gap"></i>
+    Logout
+  </button>
+</mat-menu>

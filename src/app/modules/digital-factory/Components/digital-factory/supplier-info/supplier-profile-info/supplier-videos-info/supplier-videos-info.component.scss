@@ -1,0 +1,26 @@
+.videos-info-container {
+  display: flex;
+  flex-flow: column;
+  background: #f3f7ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.videos-info {
+  flex: 2;
+  padding: 10px;
+}
+
+.videos-info-header {
+  font-weight: 600;
+}
+
+.videos-info-content {
+  padding-top: 15px;
+}
+
+.video-tile {
+  border-radius: 10px;
+  width: 300px;
+  height: 200px;
+}

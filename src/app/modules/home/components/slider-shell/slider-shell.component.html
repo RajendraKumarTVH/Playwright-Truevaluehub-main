@@ -1,0 +1,11 @@
+<div class="overlay" *ngIf="isVisible" (click)="onClose()"></div>
+
+<div *ngIf="isVisible" class="slider open">
+  <div class="slider-content">
+    <button class="close-btn" (click)="onClose()">
+      <mat-icon class="close-icon">close</mat-icon>
+    </button>
+
+    <ng-content></ng-content>
+  </div>
+</div>

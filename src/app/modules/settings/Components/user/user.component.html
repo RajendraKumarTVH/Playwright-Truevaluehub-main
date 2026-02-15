@@ -1,0 +1,36 @@
+<div class="container">
+  <h5 class="p-t-1">Profile Details</h5>
+  <hr />
+  <table aria-describedby="Profile Details">
+    <tr>
+      <th>Name:</th>
+      <td>
+        {{ user?.title + ' ' + user?.firstName + ' ' + user?.lastName }}
+      </td>
+    </tr>
+    <tr>
+      <th>Email:</th>
+      <td>
+        {{ user?.email }}
+      </td>
+    </tr>
+    <tr>
+      <th>Phone:</th>
+      <td>
+        {{ user?.phoneNumber }}
+      </td>
+    </tr>
+    <tr>
+      <th>Role:</th>
+      <td>
+        {{ getUserRoleByid(user?.roleId) }}
+      </td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td>
+        {{ user?.status ? 'Active' : 'InActive' }}
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,132 @@
+.region-content-heading {
+  span {
+    color: var(--bs-link-color);
+    font-size: 1rem;
+  }
+}
+
+.content-wrap {
+  border-radius: 6px;
+  border: solid 1px var(--readonly-surface);
+  background-color: var(--readonly-surface);
+}
+
+.content-section {
+  + .content-section {
+    padding-top: 1rem;
+    border-top: solid 1px var(--material-table-border);
+  }
+}
+
+.part-model-col-head {
+  min-height: 54px;
+}
+
+.editable-header-controls {
+  button {
+    padding: 4px;
+    height: 28px;
+    width: 28px;
+    &.btn-primary {
+      background: var(--primary-shade);
+      border: 1px solid var(--primary-shade);
+    }
+    &.btn-outline-secondary {
+      background: var(--bs-white);
+      border: 1px solid var(--bs-white);
+      .mat-icon {
+        color: var(--bs-black);
+      }
+    }
+
+    .mat-icon {
+      font-size: 12px;
+      width: 12px;
+      height: 12px;
+    }
+
+    &.save {
+      .mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+.edit-btn {
+  color: var(--bs-black);
+  mat-icon {
+    width: 12px;
+    height: 12px;
+    color: currentColor;
+  }
+}
+
+.d-none {
+  display: none !important;
+}
+
+.page-header {
+  top: 56px;
+  z-index: 20;
+  position: fixed;
+  background: var(--bs-white);
+}
+::ng-deep .analytics-container .mat-mdc-tab-header {
+  top: 92px;
+  z-index: 19;
+  width: 100%;
+  position: fixed !important;
+  background: var(--bs-white);
+}
+.edit-btn {
+  color: var(--bs-black);
+  mat-icon {
+    width: 12px;
+    height: 12px;
+    color: currentColor;
+  }
+}
+.breadcrumb-wrap {
+  a {
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+  }
+}
+.analytics-container {
+  min-height: calc(100dvh - 56px);
+}
+::ng-deep .analytics-container .mat-mdc-tab-body-wrapper {
+  flex: 1;
+  padding-top: 80px;
+}
+
+.app-l-header-edit-btn {
+  border-radius: 4px;
+  background-color: var(--bs-white);
+  .mat-icon {
+    height: 10px;
+    width: 10px;
+    font-size: 10px;
+  }
+}
+.seperator-solid-top {
+  padding-top: 14px;
+  border-top: 1px solid var(--material-table-border);
+}
+.overlay {
+  background: transparent !important;
+}
+
+.card {
+  border: solid 1px #e1e1e1;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  max-width: 1184px;
+  padding: 2rem;
+  width: 100%;
+  background: white;
+}

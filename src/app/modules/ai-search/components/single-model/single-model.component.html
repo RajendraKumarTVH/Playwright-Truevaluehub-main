@@ -1,0 +1,202 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ partData.partId }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismissAll()"></button>
+</div>
+<div class="modal-body" oncontextmenu="return false;">
+  <div class="row h-full">
+    <div class="col-md-5">
+      <div class="row">
+        <img src="data:image/png;base64,{{ partData.imageUrl }}" class="img-fluid" title="{{ partData.manufacturingCategory }}" alt="{{ partData.partId }}" />
+      </div>
+      <hr class="seperator" />
+      <div class="row part-information">
+        <div class="col-md-6">
+          <div>
+            <label class="ai-search-modal-footer-label">Type</label>
+          </div>
+          <div>
+            <label class="ai-search-modal-footer-value">3D Model</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <label class="ai-search-modal-footer-label">Added</label>
+          </div>
+          <div>
+            <label class="ai-search-modal-footer-value">{{ partData.createDate | date: 'mediumDate' }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row part-information">
+        <div class="col-md-6">
+          <div>
+            <label class="ai-search-modal-footer-label">Directory</label>
+          </div>
+          <div>
+            <label class="ai-search-modal-footer-value">Online</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <label class="ai-search-modal-footer-label">By</label>
+          </div>
+          <div>
+            <label class="ai-search-modal-footer-value">{{ partData.createdBy }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="part-controls max-w-96 d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-outline-primary text-center align-items-center justify-content-center d-flex w-100 gap-2">
+          <mat-icon svgIcon="search_icon"></mat-icon>
+          Find Similar
+        </button>
+        <button type="button" class="btn btn-outline-primary text-center align-items-center justify-content-center d-flex w-100 gap-2">
+          <mat-icon svgIcon="fileDollar_icon"></mat-icon>
+          Go to Costing
+        </button>
+      </div>
+    </div>
+    <div class="col-md-7 h-full">
+      <mat-tab-group class="ai-search-tabs" (selectedTabChange)="onTabChange($event)">
+        <mat-tab aria-labelledby="Properties" class="tab-content">
+          <span *matTabLabel id="Properties">Properties</span>
+          <div class="section-shade mt-3">
+            <div class="row">
+              <label class="ai-search-modal-attribute-header">Extracted Attributes</label>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Bounding box Volume</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">1,004,722.86 mm3</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Part ID</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.partId }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Part Number</label>
+              </div>
+              <div class="col-md-8">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.partNumber }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Part Description</label>
+              </div>
+              <div class="col-md-8">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.partDescription }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Vendor</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">ACME Inc</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Manufacturing Category</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.manufacturingCategory }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Revision Number</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.partRevision }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Drawing Number</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.drawingNumber }}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="ai-search-modal-attribute-label">Annual Volume</label>
+              </div>
+              <div class="col-md-4">
+                <label class="ai-search-modal-footer-label">:</label>
+                <label class="ai-search-modal-attribute-label">{{ partData.annualVolume }}</label>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab aria-labelledby="Parts" class="tab-content">
+          <span *matTabLabel id="Parts">Parts</span>
+          <div class="tab-section-height mt-3">
+            <div class="search-results-block h-100 overflow-y-auto">
+              <div class="search-result d-flex flex-column" *ngFor="let mat of existingUploadedData?.aiSearchListTileDtos" id="{{ mat.partId }}">
+                <div *ngIf="partData.imageShowing === 'cad'" class="carousel-container">
+                  <div class="result-image" title="{{ mat.manufacturingCategory }}">
+                    <img src="data:image/png;base64,{{ mat.imgThumbnailData }}" alt="{{ mat.partId }}" class="img-fluid" />
+                  </div>
+                </div>
+
+                <div *ngIf="partData.imageShowing === 'pdf'" title="{{ mat.manufacturingCategory }}">
+                  <div class="result-image" title="{{ mat.manufacturingCategory }}">
+                    <img src="data:image/png;base64,{{ mat.pdfThumbnailData }}" alt="{{ mat.partId }}" class="img-fluid" />
+                  </div>
+                </div>
+                <div class="search-result-content d-flex flex-column gap-1 h-full min-h-0">
+                  <label class="card-heading">{{ mat.partId }}</label>
+                  <div>
+                    <label class="card-heading">{{ mat.intPartNumber }}</label>
+                  </div>
+                  <label class="card-description">{{ mat.intPartDescription }}</label>
+                  <hr class="my-2" />
+                  <div class="d-flex align-items-center justify-content-between mt-auto pt-2">
+                    <div class="search-result-card-actions d-flex align-items-center">
+                      <button
+                        type="button"
+                        title="Find Similar"
+                        (click)="findSimilar(mat)"
+                        class="btn btn-light btn-sm p-2 btn-outline-secondary"
+                        [ngClass]="{ 'isometric-icon': mat.pdfPartName?.startsWith('IsometricView') }">
+                        <mat-icon svgIcon="search_icon"></mat-icon>
+                      </button>
+                      <button type="button" title="Go to Costing page" (click)="goToCosting(mat)" class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                        <mat-icon svgIcon="fileDollar_icon"></mat-icon>
+                      </button>
+                      <button type="button" title="View Properties" (click)="viewProperties(mat)" class="btn btn-light btn-sm p-2 btn-outline-secondary">
+                        <mat-icon svgIcon="cube_icon" aria-hidden="false"></mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="!existingUploadedData || !existingUploadedData.aiSearchListTileDtos || existingUploadedData?.aiSearchListTileDtos?.length === 0">
+                <div class="part-not-found">Parts Not Available...</div>
+              </ng-container>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="ai-table-view">
+  <div class="mb-3 text-sm">Showing {{ pageFirst + 1 }}-{{ pageFirst + pageSize }} of {{ recordCount }} items</div>
+  <div class="common-table-container ai-search-table-view">
+    <p-table [value]="dataSource" [(selection)]="checkedParts" [totalRecords]="recordCount" dataKey="partId" class="custom-p-table" [scrollable]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="" class="sticky-col sticky-left text-center"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+          <th id="" class="sticky-col sticky-part-image text-center">Part Img</th>
+          <th id="" class="sticky-col min-w-32 sticky-part-number">Part Number</th>
+          <th id="" class="min-w-28 part-description">Part Description</th>
+          <th id="">Drawing number</th>
+          <th id="">Date Created</th>
+          <th id="">Project Number</th>
+          <th id="">Supplier Country</th>
+          <th id="">Supplier City</th>
+          <th id="">Part Size(L*W*H)mm</th>
+          <th id="">Surface Area(mm2)</th>
+          <th id="">Part volume(mm3)</th>
+          <th id="">Annual Volume(qty)</th>
+          <th id="">Competitiveness Score</th>
+          <th id="">Complexity Score</th>
+          <th id="">Annual Spend</th>
+          <th id="">Purchase Price</th>
+          <th id="">Should Cost</th>
+          <th id="" class="sticky-col sticky-right text-center">Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row let-columns="columns">
+        <tr [pSelectableRow]="row">
+          <td class="sticky-col sticky-left text-center"><p-tableCheckbox class="form-check-input" [value]="row" (change)="onCheckboxChange($event, row)"></p-tableCheckbox></td>
+          <td class="sticky-col sticky-part-image text-center">
+            <div class="img-div w-9 h-9 mx-auto">
+              <img *ngIf="row.imgThumbnailData" src="data:image/png;base64,{{ row.imgThumbnailData }}" alt="part" class="img-fluid" />
+              <img *ngIf="row.pdfThumbnailData" src="data:image/png;base64,{{ row.pdfThumbnailData }}" alt="part" class="img-fluid" />
+            </div>
+          </td>
+          <td class="sticky-col min-w-32 sticky-part-number">
+            <div class="truncate">{{ row.intPartNumber }}</div>
+          </td>
+          <td class="min-w-28 part-description">
+            <div class="truncate">{{ row.intPartDescription }}</div>
+          </td>
+          <td>{{ row.drawingNumber }}</td>
+          <td>{{ row.createdDate | date: 'mediumDate' }}</td>
+          <td>{{ row.projectInfoId }}</td>
+          <td>{{ countryDataList[row.mfrCountryId]?.countryName }}</td>
+          <td>{{ supplierInfo[row.vendorId]?.city }}</td>
+          <td>{{ row.dimArea }}</td>
+          <td>{{ row.surfaceArea }}</td>
+          <td>{{ row.volume }}</td>
+          <td>{{ row.annualVolume }}</td>
+          <td>{{ row.competitivenessScore }}</td>
+          <td>{{ row.complexityScore }}</td>
+          <td>{{ row.annualSpend }}</td>
+          <td>{{ row.purchasePrice }}</td>
+          <td>{{ row.shouldCost }}</td>
+          <td class="sticky-col sticky-right right-0 text-center col-action w-10 min-w-10">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="saved-analysis-action-menu">
+              <button mat-menu-item (click)="aiSimilaritySearchClicked(row)">
+                <mat-icon svgIcon="search_icon" class="w-5 h-5 text-base"></mat-icon>
+                <span>Find Similar</span>
+              </button>
+              <button mat-menu-item (click)="openProperties(row)">
+                <mat-icon svgIcon="cube-light-icon" class="w-5 h-5 text-base"></mat-icon>
+                <span>View Properties</span>
+              </button>
+              <button mat-menu-item (click)="goToCosting(row)">
+                <mat-icon svgIcon="currency-light-icon" class="w-5 h-5 text-base"></mat-icon>
+                <span>Go to Costing Page</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon svgIcon="info-icon-black" class="w-5 h-5 text-base"></mat-icon>
+                <span>View Details</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="selection-dock flex items-center p-2 bg-white" *ngIf="checkedCount > 1 || currentAiSearchState === 4">
+    <button class="btn icon-btn leading-none p-0 w-5 h-5 opacity-100 transition-opacity focus:opacity-100 hover:opacity-100 close-cta icon-12" title="Reset Comparison" (click)="resetCompare()">
+      <mat-icon svgIcon="close_icon" color="y-icon"></mat-icon>
+    </button>
+    <p class="mb-0 px-2 mx-2 selection-dock-text whitespace-nowrap">{{ checkedCount }} Selected</p>
+    <button
+      *ngIf="checkedCount === 2"
+      type="button"
+      class="btn btn-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2"
+      title="Compare"
+      (click)="compareWithSearched()">
+      <span>Compare Models</span>
+    </button>
+    <button type="button" class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Compare" (click)="compareParts()">
+      <span>Compare</span>
+    </button>
+
+    <button type="button" class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center icon-16 min-w-32 gap-2" title="Clear" (click)="resetCompare()">
+      <mat-icon class="d-flex align-items-center justify-content-center" svgIcon="delete_icon"></mat-icon>
+      <span>Clear</span>
+    </button>
+  </div>
+  <p-paginator [rows]="pageSize" [totalRecords]="recordCount" [rowsPerPageOptions]="rowsPerPageOptions" (onPageChange)="paginatorPageChanged($event)"></p-paginator>
+</div>

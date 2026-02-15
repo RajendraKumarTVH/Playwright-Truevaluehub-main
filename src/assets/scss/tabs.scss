@@ -1,0 +1,56 @@
+.cost-summary-tabs {
+  .mat-mdc-tab-header {
+    max-width: 50%;
+
+    .mat-mdc-tab {
+      --mdc-secondary-navigation-tab-container-height: 32px;
+      font-size: 0.75rem;
+      padding: 0px 16px;
+      min-width: 50px;
+
+      .mdc-tab__text-label {
+        font-family: var(--body-font);
+        font-size: 0.75rem;
+        line-height: 1.2;
+        font-weight: 600;
+      }
+
+      &.mdc-tab--active {
+        .esg-tab {
+          color: var(--esg-tab-green);
+        }
+      }
+
+      &:last-of-type {
+        &.mdc-tab--active {
+          .mdc-tab-indicator {
+            .mdc-tab-indicator__content {
+              &.mdc-tab-indicator__content--underline {
+                border-color: var(--esg-tab-green);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tab-container {
+  .mat-mdc-tab-group {
+    .mat-mdc-tab-label-container {
+      .mdc-tab {
+        --mdc-secondary-navigation-tab-container-height: 54px;
+        --mat-tab-header-label-text-size: 14px;
+        --mat-tab-header-label-text-weight: 600;
+
+        max-width: 90px;
+      }
+    }
+  }
+}
+.df-tab.mat-mdc-tab-group {
+  .mat-mdc-tab-body-wrapper {
+    padding: 0;
+  }
+}

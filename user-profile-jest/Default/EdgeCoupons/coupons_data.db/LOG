@@ -1,6 +1,0 @@
-2026/01/18-08:18:14.908 5178 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/01/18-08:18:14.910 5178 Recovering log #71
-2026/01/18-08:18:14.911 5178 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-jest\Default\EdgeCoupons/coupons_data.db/000071.log 
-2026/01/18-08:18:15.090 4a9c Level-0 table #76: started
-2026/01/18-08:18:15.095 4a9c Level-0 table #76: 681372 bytes OK
-2026/01/18-08:18:15.097 4a9c Delete type=0 #71

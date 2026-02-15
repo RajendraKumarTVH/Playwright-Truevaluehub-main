@@ -1,0 +1,87 @@
+<div *ngIf="isLoaded" class="supplier-info-container">
+  <div class="supplier-info-header mb-2">
+    <div class="supplier-info-header-left">
+      <div class="back-to-supplier">
+        <a (click)="backToSuppliers()" class="text-black">Digital Factory</a>
+        <!-- <span class="supplier-name-left">{{ supplierName }}</span> -->
+        <mat-icon class="play-icon !size-2 mx-[6px] shrink-0" svgIcon="play-filled-icon"></mat-icon>
+
+        <p-dropdown
+          [options]="pagedOptions"
+          [virtualScroll]="true"
+          [(ngModel)]="selectedSupplierInfo"
+          (onChange)="onSupplierChange($event)"
+          [lazy]="true"
+          (onLazyLoad)="loadDropdownData($event)"
+          [itemSize]="30"
+          [filter]="true"
+          optionLabel="vendorName"
+          placeholder="{{ supplierName }}"></p-dropdown>
+      </div>
+      <div class="supplier-info-header-left-content">
+        <div class="supplier-logo"></div>
+        <div>
+          <div class="supplier-name-heading">
+            {{ selectedSupplierInfo?.vendorName }}
+          </div>
+          <div class="supplier-name-sub-heading">{{ selectedSupplierInfo?.address }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="supplier-info-header-right">
+      <button *ngIf="!isSupplierAlreadyAdded" type="submit" class="btn btn-primary btn-save ml-2 digital-factory-btn" (click)="saveToDigitalFactory()">
+        <i class="material-icons" style="font-size: 1rem; margin-right: 5px">add</i>
+        Add to Digital Factory
+      </button>
+      <button
+        pButton
+        *ngIf="isSupplierAlreadyAdded && !selectedDigitalFactoryInfo?.isDefault"
+        type="submit"
+        class="fa fa-trash btn btn-outline-primary ml-2 digital-factory-btn p-button-rounded p-button-text"
+        (click)="removeFromDigitalFactory()">
+        Remove From Digital Factory
+      </button>
+      <button *ngIf="!isSupplierAlreadyAdded" type="submit" class="btn btn-outline-primary ml-2 digital-factory-btn">
+        <i class="pi pi-pencil" style="font-size: 0.7rem; margin-right: 5px"></i>
+        Suggest Changes
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSupplierAlreadyAdded" class="supplier-info-sidenav">
+    <mat-tab-group>
+      <mat-tab label="Material Cost">
+        <app-material-cost-info [digitalFactoryInfo]="selectedDigitalFactoryInfo"></app-material-cost-info>
+      </mat-tab>
+      <mat-tab label="Machine Cost">
+        <app-machine-cost-info [digitalFactoryInfo]="selectedDigitalFactoryInfo"></app-machine-cost-info>
+      </mat-tab>
+      <mat-tab label="Factory Details">
+        <app-supplier-factory-assumption [supplierInfo]="selectedSupplierInfo"></app-supplier-factory-assumption>
+      </mat-tab>
+      <mat-tab label="Overhead Assumptions">
+        <app-supplier-cost-structure [supplierInfo]="selectedSupplierInfo"></app-supplier-cost-structure>
+      </mat-tab>
+      <mat-tab label="Labor Assumptions">
+        <app-supplier-labour-assumption [supplierInfo]="selectedSupplierInfo"></app-supplier-labour-assumption>
+      </mat-tab>
+      <mat-tab label="Power Assumptions">
+        <app-supplier-power-assumption [supplierInfo]="selectedSupplierInfo"></app-supplier-power-assumption>
+      </mat-tab>
+      <mat-tab label="Supplier Terms">
+        <app-supplier-terms [digitalFactoryInfo]="selectedDigitalFactoryInfo"></app-supplier-terms>
+      </mat-tab>
+      <mat-tab label="Sustainability">
+        <app-supplier-sustainability></app-supplier-sustainability>
+      </mat-tab>
+
+      <mat-tab label="Profile">
+        <div class="accordion-container">
+          <app-supplier-profile-expand-panel [supplierInfo]="selectedSupplierInfo"></app-supplier-profile-expand-panel>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div *ngIf="!isSupplierAlreadyAdded && selectedSupplierInfo" class="accordion-container">
+    <app-supplier-profile-expand-panel [supplierInfo]="selectedSupplierInfo"></app-supplier-profile-expand-panel>
+  </div>
+</div>

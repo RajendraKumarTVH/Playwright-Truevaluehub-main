@@ -1,0 +1,73 @@
+<div class="df-sustainability-layout flex gap-4 pb-9">
+  <div class="df-sustainability-left flex-1">
+    <mat-accordion class="accordion-panels" multi>
+      <!-- Annual Usage -->
+      <mat-expansion-panel [expanded]="true" #annualUsage>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="item-icon" svgIcon="annual-usage"></mat-icon>
+            <span class="item-head">Annual Usage</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="!annualUsage.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon"></mat-icon></mat-icon>
+            <mat-icon *ngIf="annualUsage.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-up-icon"></mat-icon></mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-sustainability-annual-usage></app-sustainability-annual-usage>
+      </mat-expansion-panel>
+
+      <!-- Fuels Combusted -->
+      <mat-expansion-panel #fuelsCombusted>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="item-icon" svgIcon="fuels-icon"></mat-icon>
+            <span class="item-head">Fuels Combusted</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="!fuelsCombusted.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon"></mat-icon></mat-icon>
+            <mat-icon *ngIf="fuelsCombusted.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-up-icon"></mat-icon></mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-sustainability-fuels></app-sustainability-fuels>
+      </mat-expansion-panel>
+
+      <!-- Gases Utilized -->
+      <mat-expansion-panel #gasesUtilized>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="item-icon" svgIcon="gas-utilized"></mat-icon>
+            <span class="item-head">Gases Utilized</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="!gasesUtilized.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon"></mat-icon></mat-icon>
+            <mat-icon *ngIf="gasesUtilized.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-up-icon"></mat-icon></mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-sustainability-gases-utilized></app-sustainability-gases-utilized>
+      </mat-expansion-panel>
+
+      <!-- Wastes Generated -->
+      <mat-expansion-panel #wastesGenerated>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="item-icon" svgIcon="recyclebin"></mat-icon>
+            <span class="item-head">Wastes Generated</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="!wastesGenerated.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-down-icon"></mat-icon></mat-icon>
+            <mat-icon *ngIf="wastesGenerated.expanded"><mat-icon class="dropdown-arrow" svgIcon="dropdown-up-icon"></mat-icon></mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-sustainability-waste-generated></app-sustainability-waste-generated>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="sustainability-right shrink-0 max-w-72">
+    <app-sustainability-market-competitiveness></app-sustainability-market-competitiveness>
+  </div>
+</div>

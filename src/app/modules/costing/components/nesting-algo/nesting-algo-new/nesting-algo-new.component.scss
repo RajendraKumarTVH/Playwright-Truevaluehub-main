@@ -1,0 +1,19 @@
+.viewer-container {
+  height: calc(90vh - 50px);
+  padding: 2% 3%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+}
+
+.viewer-container-data {
+  width: max-content;
+  display: flex;
+  overflow: auto;
+  height: min-content;
+  // align-items: center;
+}
+
+.viewer-container-image {
+  width: max-content;
+}

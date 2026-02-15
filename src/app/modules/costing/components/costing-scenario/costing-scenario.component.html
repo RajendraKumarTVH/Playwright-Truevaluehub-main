@@ -1,0 +1,44 @@
+<div class="mt-3" *ngIf="scenarioList">
+  <div class="col scenarioContainer position-relative flex flex-col gap-2 min-h-0">
+    <div class="section-head flex items-center">
+      <h2 class="section-header mb-0 mr-auto">Scenarios</h2>
+      <div *ngIf="canUpdate" class="flex items-center gap-2 justify-end head-controls">
+        <button mat-button class="flex items-center justify-center" (click)="addScenario($event)" matTooltip="Add Scenario" matTooltipPosition="above">
+          <mat-icon svgIcon="circle_plus"></mat-icon>
+        </button>
+        <button matTooltip="Compare Scenarios" matTooltipPosition="above" class="btn btn-small compare-icon scenerio-icon" (click)="compareScenarios()">
+          <mat-icon svgIcon="scenario_icon"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <ul class="scenarioLists flex flex-col" cdkDropList (cdkDropListDropped)="dropScenario($event)">
+      @for (node of scenarioList; track node) {
+        <li class="justify-between w-full gap-2 p-2 scenario-list-item" [class.active]="node.scenarioId === selectedScenario?.scenarioId" cdkDrag>
+          <div *cdkDragPlaceholder></div>
+          <!--  Drag preview element used to  style when drag the element -->
+          <div *cdkDragPreview class="justify-between w-full gap-2 p-2 scenario-list-item">
+            <label class="flex items-center gap-2 w-full">
+              <input type="radio" name="scenarioRadioGroup" [value]="node.scenarioId" [checked]="node.scenarioId === selectedScenario?.scenarioId" disabled />
+              <span class="">{{ node.scenarioName }}</span>
+            </label>
+          </div>
+          <!-- Replaced <button> with label + radio input-->
+          <label class="scenarionameButton flex items-center gap-2 w-full !cursor-move" [class.selected]="node.scenarioId === selectedScenario?.scenarioId">
+            <input type="radio" name="scenarioRadioGroup" [value]="node.scenarioId" [checked]="node.scenarioId === selectedScenario?.scenarioId" (click)="onSelectScenarioClick($event, node)" />
+            <span class="scenarioname !cursor-pointer">{{ node.scenarioName }}</span>
+          </label>
+          @if (canUpdate) {
+            <div class="flex items-center gap-2 scenario-icons">
+              <button class="btn btn-small p-2" (click)="editScenarioCall(node)" matTooltip="Edit Scenario" matTooltipPosition="above">
+                <mat-icon color="black" svgIcon="editpen_icon"></mat-icon>
+              </button>
+              <button class="btn btn-small p-2" (click)="onSelectDeleteScenarioClick($event, node)" *ngIf="!node.isDefault" matTooltip="Delete Scenario" matTooltipPosition="above">
+                <mat-icon color="warn" svgIcon="delete_icon"></mat-icon>
+              </button>
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+</div>
