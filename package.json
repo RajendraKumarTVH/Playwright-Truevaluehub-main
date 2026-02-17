@@ -49,6 +49,7 @@
     "@angular/forms": "^21.1.4",
     "@azure/identity": "^4.13.0",
     "@types/pg": "^8.15.5",
+    "csv-parse": "^6.1.0",
     "csv-writer": "^1.6.0",
     "dotenv": "^17.2.3",
     "exceljs": "^4.4.0",

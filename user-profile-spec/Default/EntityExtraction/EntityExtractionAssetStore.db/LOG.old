@@ -1,2 +1,3 @@
-2026/02/13-00:57:35.508 4710 Creating DB C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EntityExtractionAssetStore.db since it was missing.
-2026/02/13-00:57:35.687 4710 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EntityExtractionAssetStore.db/MANIFEST-000001
+2026/02/17-23:04:15.007 801c Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EntityExtractionAssetStore.db/MANIFEST-000001
+2026/02/17-23:04:15.027 801c Recovering log #3
+2026/02/17-23:04:15.043 801c Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EntityExtractionAssetStore.db/000003.log 

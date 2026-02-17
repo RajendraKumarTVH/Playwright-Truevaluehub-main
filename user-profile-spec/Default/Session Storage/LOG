@@ -1,15 +1,3 @@
-2026/02/14-22:40:32.187 4b50 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Session Storage/MANIFEST-000001
-2026/02/14-22:40:32.189 4b50 Recovering log #112
-2026/02/14-22:40:32.194 4b50 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Session Storage/000112.log 
-2026/02/14-22:41:37.755 17f0 Level-0 table #116: started
-2026/02/14-22:41:37.762 17f0 Level-0 table #116: 35842 bytes OK
-2026/02/14-22:41:37.765 17f0 Delete type=0 #112
-2026/02/14-22:41:37.765 17f0 Compacting 4@0 + 1@1 files
-2026/02/14-22:41:37.778 17f0 Generated table #117@0: 1477 keys, 52801 bytes
-2026/02/14-22:41:37.778 17f0 Compacted 4@0 + 1@1 files => 52801 bytes
-2026/02/14-22:41:37.779 17f0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/02/14-22:41:37.781 17f0 Delete type=2 #104
-2026/02/14-22:41:37.781 17f0 Delete type=2 #107
-2026/02/14-22:41:37.781 17f0 Delete type=2 #110
-2026/02/14-22:41:37.781 17f0 Delete type=2 #113
-2026/02/14-22:41:37.781 17f0 Delete type=2 #116
+2026/02/17-23:07:53.789 1180 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Session Storage/MANIFEST-000001
+2026/02/17-23:07:53.792 1180 Recovering log #180
+2026/02/17-23:07:53.798 1180 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Session Storage/000180.log 

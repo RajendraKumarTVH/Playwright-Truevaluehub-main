@@ -1,5 +1,5 @@
 
-import { PartComplexity } from 'src/app/shared/enums';
+import { PartComplexity } from '../utils/constants';
 
 export class BlowMoldingConfigService {
   getCavityNumbers(annualVolume: number, complexity: number) {

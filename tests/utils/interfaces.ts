@@ -613,6 +613,8 @@ export interface ManufacturingInfo {
 }
 
 export interface IMouldingInputs {
+	paymentTermId: number
+	commodityId: number
 	machineName?: string;
 	machineDescription?: string;
 	machineId?: number;

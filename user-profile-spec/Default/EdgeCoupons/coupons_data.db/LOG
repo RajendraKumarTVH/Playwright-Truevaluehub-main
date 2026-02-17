@@ -1,6 +1,6 @@
-2026/02/14-22:40:37.004 1cc4 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/02/14-22:40:37.006 1cc4 Recovering log #299
-2026/02/14-22:40:37.006 1cc4 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EdgeCoupons/coupons_data.db/000299.log 
-2026/02/14-22:40:38.194 33dc Level-0 table #303: started
-2026/02/14-22:40:38.200 33dc Level-0 table #303: 681596 bytes OK
-2026/02/14-22:40:38.203 33dc Delete type=0 #299
+2026/02/17-23:07:58.140 1250 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/02/17-23:07:58.150 1250 Recovering log #481
+2026/02/17-23:07:58.151 1250 Reusing old log C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\EdgeCoupons/coupons_data.db/000481.log 
+2026/02/17-23:07:58.253 5a30 Level-0 table #485: started
+2026/02/17-23:07:58.261 5a30 Level-0 table #485: 681616 bytes OK
+2026/02/17-23:07:58.266 5a30 Delete type=0 #481

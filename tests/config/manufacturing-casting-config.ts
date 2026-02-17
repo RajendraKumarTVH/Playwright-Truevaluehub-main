@@ -1,7 +1,7 @@
 import { ProcessInfoDto, MaterialInfoDto } from '../models';
 import { SharedService } from '../../modules/costing/services/shared.service';
 import { PrimaryProcessType, ProcessType } from 'src/app/modules/costing/costing.config';
-import { PartComplexity } from 'src/app/shared/enums';
+import { PartComplexity } from '../utils/constants';
 import { MachineType } from 'src/app/modules/costing/costing.config';
 
 export class ManufacturingCastingConfigService {

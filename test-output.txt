@@ -1,0 +1,17 @@
+﻿≡ƒôû Reading OverheadProfitMaster.ods...
+≡ƒôª File size: 27.67 MB
+Testing OverheadProfitMasterReader...
+
+Checking loaded data:
+- FGICC records: 0
+- ICC records: 0
+- Payment records: 0
+- MOH records: 0
+- FOH records: 0
+- SGA records: 0
+- Profit records: 0
+- Packing Material records: 0
+- Container Size records: 0
+- Logistics Rate Card records: 0
+
+Test complete!

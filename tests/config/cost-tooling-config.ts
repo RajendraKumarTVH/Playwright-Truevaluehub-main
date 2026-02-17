@@ -1,4 +1,4 @@
-import { HPDCCastingTool, SheetMetalTool, DefaultMaterialDesc, ToolingCountry, ToolingMaterialIM, ToolingMaterialSheetMetal } from 'src/app/shared/enums';
+import { HPDCCastingTool, SheetMetalTool, DefaultMaterialDesc, ToolingCountry, ToolingMaterialIM, ToolingMaterialSheetMetal } from '../utils/constants';
 import { CommodityType } from '../enums';
 import { CostingToolingBopConfigService } from './costing-tooling-bop-config';
 import { CostingToolingProcessConfigService } from './costing-tooling-process-config';

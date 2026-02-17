@@ -1,7 +1,7 @@
-import { ViewCostSummaryDto } from 'src/app/shared/models';
-import { CostOverHeadProfitDto, MedbFgiccMasterDto, MedbIccMasterDto, MedbOverHeadProfitDto, MedbPaymentMasterDto } from 'src/app/shared/models/overhead-Profit.model';
-import { FormDataModel } from 'src/app/shared/models/simulation/costingOverHeadProfit-Simulation.model';
-import { FieldColorsDto } from 'src/app/shared/models/field-colors.model';
+import { ViewCostSummaryDto } from '../models/cost-summary.model';
+import { CostOverHeadProfitDto, MedbFgiccMasterDto, MedbIccMasterDto, MedbOverHeadProfitDto, MedbPaymentMasterDto } from '../models/overhead-Profit.model';
+import { FormDataModel } from '../models/simulation/costingOverHeadProfit-Simulation.model';
+import { FieldColorsDto } from '../models/field-colors.model';
 import { SharedService } from './shared';
 import { CommodityType } from '../utils/constants';
 

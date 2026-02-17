@@ -1,13 +1,19 @@
-2026/02/14-22:40:31.926 4b50 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Local Storage\leveldb/MANIFEST-000001
-2026/02/14-22:40:31.939 4b50 Recovering log #446
-2026/02/14-22:40:31.955 4b50 Level-0 table #449: started
-2026/02/14-22:40:31.972 4b50 Level-0 table #449: 330021 bytes OK
-2026/02/14-22:40:31.980 4b50 Delete type=0 #446
-2026/02/14-22:41:32.018 4044 Level-0 table #452: started
-2026/02/14-22:41:32.033 4044 Level-0 table #452: 338440 bytes OK
-2026/02/14-22:41:32.036 4044 Delete type=0 #450
-2026/02/14-22:42:27.161 4044 Level-0 table #454: started
-2026/02/14-22:42:27.181 4044 Level-0 table #454: 329546 bytes OK
-2026/02/14-22:42:27.184 4044 Delete type=0 #451
-2026/02/14-22:42:27.186 4044 Compacting 4@0 + 1@1 files
-2026/02/14-22:42:27.233 4044 compacted to: files[ 4 1 1 0 0 0 0 ]
+2026/02/17-23:07:53.503 1180 Reusing MANIFEST C:\Playwright Projects\Playwright-Truevaluehub-main\user-profile-spec\Default\Local Storage\leveldb/MANIFEST-000001
+2026/02/17-23:07:53.517 1180 Recovering log #802
+2026/02/17-23:07:53.531 1180 Level-0 table #805: started
+2026/02/17-23:07:53.551 1180 Level-0 table #805: 331802 bytes OK
+2026/02/17-23:07:53.561 1180 Delete type=0 #802
+2026/02/17-23:07:53.564 7190 Compacting 4@0 + 1@1 files
+2026/02/17-23:07:53.625 7190 Generated table #807@0: 127 keys, 430619 bytes
+2026/02/17-23:07:53.625 7190 Compacted 4@0 + 1@1 files => 430619 bytes
+2026/02/17-23:07:53.626 7190 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/17-23:07:53.629 7190 Delete type=2 #796
+2026/02/17-23:07:53.629 7190 Delete type=2 #798
+2026/02/17-23:07:53.630 7190 Delete type=2 #800
+2026/02/17-23:07:53.630 7190 Delete type=2 #803
+2026/02/17-23:07:53.630 7190 Delete type=2 #805
+2026/02/17-23:09:58.049 7190 Level-0 table #809: started
+2026/02/17-23:09:58.074 7190 Level-0 table #809: 340491 bytes OK
+2026/02/17-23:09:58.083 7190 Delete type=0 #806
+2026/02/17-23:09:58.113 1180 Level-0 table #811: started
+2026/02/17-23:09:58.149 1180 Level-0 table #811: 331964 bytes OK

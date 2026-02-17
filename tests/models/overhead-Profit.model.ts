@@ -1,39 +1,39 @@
 export class MedbFgiccMasterDto {
-  fgiccId: number;
-  countryId: number;
-  volumeCategory: string;
-  supplyDescription: string;
-  domestic: number;
-  export: number;
+  fgiccId: number = 0;
+  countryId: number = 0;
+  volumeCategory: string = '';
+  supplyDescription: string = '';
+  domestic: number = 0;
+  export: number = 0;
 }
 
 export class MedbIccMasterDto {
-  iccId: number;
-  countryId: number;
-  volumeCategory: string;
-  iccPercentage: number;
+  iccId: number = 0;
+  countryId: number = 0;
+  volumeCategory: string = '';
+  iccPercentage: number = 0;
 }
 
 export class MedbOverHeadProfitDto {
-  overHeadProfitId: number;
-  countryId: number;
-  overHeadProfitType: string;
-  categoryA: number;
-  categoryB: number;
-  volumeCategory: string;
+  overHeadProfitId: number = 0;
+  countryId: number = 0;
+  overHeadProfitType: string = '';
+  categoryA: number = 0;
+  categoryB: number = 0;
+  volumeCategory: string = '';
 }
 
 export class MedbPaymentMasterDto {
-  paymentMasterId: number;
-  countryId: number;
-  paymentTermId: number;
-  value: number;
+  paymentMasterId: number = 0;
+  countryId: number = 0;
+  paymentTermId: number = 0;
+  value: number = 0;
 }
 
 export class CostOverHeadProfitDto {
   costOverHeadProfitId: number = 0;
-  partInfoId: number;
-  toolingId: number | null;
+  partInfoId: number = 0;
+  toolingId: number | null = null;
   iccPer: number = 0;
   iccCost: number = 0;
   mohPer: number = 0;
@@ -49,9 +49,9 @@ export class CostOverHeadProfitDto {
   paymentTermsCost: number = 0;
   fgiccPer: number = 0;
   fgiccCost: number = 0;
-  warrentyPer?: number = 0;
-  warrentyCost?: number = 0;
-  dataCompletionPercentage?: number = 0;
+  warrentyPer: number = 0;
+  warrentyCost: number = 0;
+  dataCompletionPercentage: number = 0;
 
   InventoryCarryingAmount: number = 0;
   CostOfCapitalAmount: number = 0;

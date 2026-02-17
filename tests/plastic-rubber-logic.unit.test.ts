@@ -162,16 +162,14 @@ const readers: any = {
   }
 }
 
-// Monkey-patch module variables used in logic
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const logicModule = require('./pages/plastic-rubber-logic')
-logicModule.materialMasterReader = readers.materialMasterReader
-logicModule.machineMasterReader = readers.machineMasterReader
-logicModule.packagingMasterReader = readers.packagingMasterReader
-
 // Stub calculator services on the prototype after class load
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PRLProto: any = logicModule.PlasticRubberLogic.prototype
+const PRLProto: any = PlasticRubberLogic.prototype
+
+// Store readers globally for the logic to access
+(globalThis as any).materialMasterReader = readers.materialMasterReader
+(globalThis as any).machineMasterReader = readers.machineMasterReader
+(globalThis as any).packagingMasterReader = readers.packagingMasterReader
 
 // Provide deterministic results for sustainability calculators
 PRLProto.calculateManufacturingSustainability = function(processInfo: any, laborRate: any[]) {
